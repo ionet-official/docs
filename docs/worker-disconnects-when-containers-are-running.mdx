@@ -1,0 +1,18 @@
+---
+title: "Worker Disconnects When Containers Are Running"
+description: "If your Worker disconnects even when the containers are up, try the following checks:"
+---
+
+1. Ensure resources aren't limited. Make sure Docker's "**Resource Saver**" feature is **disabled** in the **Resources tab** of **Docker Settings**.
+
+   <Frame>
+   ![](/images/docs/35af69f9e3afdc90b7f92bcc0da564ccc352b4a33230d164095d391fc283f084-DockerIssue5.5.jpg)
+   </Frame>
+
+2. Check Docker Resource Allocation. Ensure Docker is allocated the minimum required **CPU**, **RAM**, and **disk space**. System requirements are as follows:
+
+   * **Memory**: At least 512MB of free RAM (2GB is recommended)
+   * **Disk**: Adequate storage to run the Docker containers you intend to use
+   * **CPU/GPU**: You can check the currently supported [CPUs/GPUs](/docs/supported-devices).
+
+3. Verify Power Supply to GPU(s). Ensure the GPU(s) are receiving adequate power for stable operation.

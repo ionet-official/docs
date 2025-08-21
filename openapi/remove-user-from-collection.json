@@ -1,0 +1,134 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO Intelligence",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.intelligence.io.solutions"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/api/r2r/v3/collections/{id}/users/{user_id}": {
+      "delete": {
+        "summary": "Remove user from collection",
+        "description": "This endpoint revokes a user's access to a specific collection.",
+        "operationId": "remove-user-from-collection",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique identifier of the collection",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "required": true
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "The unique identifier of the user to remove",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "results": {
+                        "success": true
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "results": {
+                      "type": "object",
+                      "properties": {
+                        "success": {
+                          "type": "boolean",
+                          "example": true,
+                          "default": true
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {}
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "Result": {
+                    "value": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl -X DELETE https://api.intelligence.io.solutions/api/r2r/v3/collections/{id}/users/{user_id} \\\n  -H \"Authorization: Bearer $IOINTELLIGENCE_API_KEY\""
+            },
+            {
+              "language": "python",
+              "code": "from r2r import R2RClient\n\nclient = R2RClient()\n# when using auth, do client.login(...)\n\nresult = client.collections.remove_user(\n    \"123e4567-e89b-12d3-a456-426614174000\",\n    \"789a012b-c34d-5e6f-g789-012345678901\"\n)"
+            }
+          ],
+          "samples-languages": [
+            "curl",
+            "python"
+          ]
+        }
+      }
+    }
+  }
+}

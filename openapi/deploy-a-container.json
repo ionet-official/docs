@@ -1,0 +1,250 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO API",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.io.solutions/"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/enterprise/v1/io-cloud/caas/deploy": {
+      "post": {
+        "summary": "Deploy a Container",
+        "description": "This endpoint is used to deploy a CaaS cluster on IO.NET infrastructure. The container must expose an HTTP server on a single port, and it must run within a single node.",
+        "operationId": "deploy-a-container",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "resource_private_name",
+                  "duration_hours",
+                  "gpus_per_container",
+                  "hardware_id",
+                  "location_ids",
+                  "container_config",
+                  "registry_config",
+                  "replica_count",
+                  "entrypoint",
+                  "traffic_port"
+                ],
+                "properties": {
+                  "resource_private_name": {
+                    "type": "string",
+                    "description": "Must be a unique string identifying the deployment."
+                  },
+                  "duration_hours": {
+                    "type": "integer",
+                    "description": "Duration of the deployment in hours.",
+                    "format": "int32"
+                  },
+                  "gpus_per_container": {
+                    "type": "integer",
+                    "description": "Must be set to 8.",
+                    "format": "int32"
+                  },
+                  "hardware_id": {
+                    "type": "integer",
+                    "description": "Use values from the Inventory Browsing API.",
+                    "format": "int32"
+                  },
+                  "location_ids": {
+                    "type": "array",
+                    "description": "Array of region/location IDs. Use values from the Inventory Browsing API.",
+                    "items": {
+                      "type": "integer",
+                      "format": "int32"
+                    }
+                  },
+                  "container_config": {
+                    "type": "object",
+                    "description": "Configuration of the container to deploy. See below.",
+                    "properties": {}
+                  },
+                  "registry_config": {
+                    "type": "object",
+                    "description": "Docker image registry credentials and image details. See below.",
+                    "properties": {}
+                  },
+                  "replica_count": {
+                    "type": "integer",
+                    "description": "Number of container replicas to run.",
+                    "format": "int32"
+                  },
+                  "env_variables": {
+                    "type": "object",
+                    "description": "Key-value pairs of environment variables.",
+                    "properties": {}
+                  },
+                  "secret_env_variables": {
+                    "type": "object",
+                    "description": "Same as env_variables, but securely stored. Only visible in actual deployments.",
+                    "properties": {}
+                  },
+                  "entrypoint": {
+                    "type": "array",
+                    "description": "Array of strings in exec form that overrides the container’s default entrypoint. Example: [\"python3\", \"-m\", \"my.app\"].",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "args": {
+                    "type": "array",
+                    "description": "Array of strings to append to the entrypoint. Must contain at least one item.",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "traffic_port": {
+                    "type": "integer",
+                    "description": "Port on which the container exposes its HTTP service. Used for internal health checks.",
+                    "format": "int32"
+                  },
+                  "image_url": {
+                    "type": "string",
+                    "description": "Full Docker image path (e.g., ghcr.io/org/image:tag)."
+                  },
+                  "registry_username": {
+                    "type": "string",
+                    "description": "Username for container registry."
+                  },
+                  "registry_secret": {
+                    "type": "string",
+                    "description": "Access token or password for container registry."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "status": "string",
+                      "deployment_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "deployment_id": {
+                      "type": "string",
+                      "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "string"
+                  }
+                },
+                "schema": {
+                  "type": "string",
+                  "example": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "detail": [
+                        {
+                          "loc": [
+                            "string",
+                            0
+                          ],
+                          "msg": "string",
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "loc": {
+                            "type": "array"
+                          },
+                          "msg": {
+                            "type": "string",
+                            "example": "string"
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl -X POST https://api.io.solutions/enterprise/v1/io-cloud/caas/deploy \\\n-H \"X-API-KEY: $IOCLOUD_API_KEY\" \\\n-H \"Content-Type: application/json\" \\\n  -d '{\n  \"resource_private_name\": \"string\",\n  \"duration_hours\": 0,\n  \"gpus_per_container\": 8,\n  \"hardware_id\": 0,\n  \"location_ids\": [\n    0\n  ],\n  \"container_config\": {\n    \"replica_count\": 0,\n    \"env_variables\": {\n      \"additionalProp1\": \"string\",\n      \"additionalProp2\": \"string\",\n      \"additionalProp3\": \"string\"\n    },\n    \"secret_env_variables\": {\n      \"additionalProp1\": \"string\",\n      \"additionalProp2\": \"string\",\n      \"additionalProp3\": \"string\"\n    },\n    \"entrypoint\": [\n      \"string\"\n    ],\n    \"traffic_port\": 0,\n    \"args\": [\n      \"string\"\n    ]\n  },\n  \"registry_config\": {\n    \"image_url\": \"string\",\n    \"registry_username\": \"string\",\n    \"registry_secret\": \"string\"\n  }\n}'\n"
+            },
+            {
+              "language": "python",
+              "code": "import requests\n\nurl = \"https://api.io.solutions/enterprise/v1/io-cloud/caas/deploy\"\n\nheaders = {\n    \"X-API-KEY\": \"$IOCLOUD_API_KEY\",\n    \"Content-Type\": \"application/json\"\n\n}\n\npayload = {\n    \"resource_private_name\": \"string\",\n    \"duration_hours\": 0,\n    \"gpus_per_container\": 8,\n    \"hardware_id\": 0,\n    \"location_ids\": [0],\n    \"container_config\": {\n        \"replica_count\": 0,\n        \"env_variables\": {\n            \"additionalProp1\": \"string\",\n            \"additionalProp2\": \"string\",\n            \"additionalProp3\": \"string\"\n        },\n        \"secret_env_variables\": {\n            \"additionalProp1\": \"string\",\n            \"additionalProp2\": \"string\",\n            \"additionalProp3\": \"string\"\n        },\n        \"entrypoint\": [\"string\"],\n        \"traffic_port\": 0,\n        \"args\": [\"string\"]\n    },\n    \"registry_config\": {\n        \"image_url\": \"string\",\n        \"registry_username\": \"string\",\n        \"registry_secret\": \"string\"\n    }\n}\n\nresponse = requests.post(url, headers=headers, json=payload)\n\nprint(\"Status Code:\", response.status_code)\nprint(\"Response Body:\", response.json())"
+            }
+          ],
+          "samples-languages": [
+            "curl",
+            "python"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,53 @@
+---
+title: "Get Started With IO Explorer API"
+sidebarTitle: Overview
+description: "IO's API is built around  principles. You can use IO's APIs to gain insights into different elements of our network."
+---
+
+<iframe width="724" height="480" src="https://www.youtube.com/embed/XB54fut02cI" title="Get Started with the IO Explorer API" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+### Authentication
+
+To use IO's APIs, you must supply a JWT token in the header of your request. Follow the instructions below to generate a token:
+
+1. Go to IO.net > **Get Started** > **IO Explore** > and the **Workers** tab.
+2. In the UI, right-click and select **Inspect**.
+3. In the Inspect tool, click **Network**.
+4. Refresh the **Workers** page.
+5. In the list of elements, click **Devices**.
+6. Scroll down to the **Request Headers** section.
+7. Copy and store the token.
+
+<Info>
+The token is valid for 21 days.
+</Info>
+
+<Frame>
+![](/images/reference/45b951bf59c4a475d763f3679454767ef7ee1890203e9add65bf58bfde5e73ae-api1.jpg)
+</Frame>
+
+### Make an API Call
+
+You can use cURL to make API requests. Don't forget to replace
+
+* `{device_id}` with your actual Device ID, which you can copy from your Device View page.
+
+  <Frame>
+  ![](/images/reference/c62bb3b13e52950ecbbb8aead1c6da59d28c3092acdad7a791eec95fa46228d5-deviceID.png)
+  </Frame>
+
+* `{your_token}` with the Token you previously copied from the Inspect Tool.
+
+```bash
+curl X GET "https://api.io.solutions/v1/io-explorer/devices/{device_id}/details"
+    -H "Token: {your_token}"
+```
+
+### Rate Limit
+
+The base IO API rate limit is as follows:
+
+* 150 reqs / 10 second (umbrella Rate Limit on Explorer)
+* Summary - 100 / 5 minutes
+* Details - 100 / 5 minutes
+* Search - 80 / 1 minute

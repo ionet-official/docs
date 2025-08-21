@@ -1,0 +1,225 @@
+---
+title: "Overview"
+description: "A step-by-step guide for setting up the environment for io.net on Mac OS-based machines"
+---
+
+<iframe width="100%" height="480" src="https://www.youtube.com/embed/7jc3dYbiiUs" title="IO Worker Guide for MacOS" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+### Before Starting, Check Your Mac Processor
+
+We currently only support **Apple chip** processors (M3, M4). All currently supported processor and video card models can be [found here](/docs/supported-devices).
+
+To check your Mac processor:
+
+1. On your Mac, click the Apple icon in the top-left corner of the menu bar.
+2. Select the **About This Mac** option.
+3. If you see **Apple M3** (or higher) in the **Chip** line, it means you’re using a Mac with an Apple Silicon CPU.
+
+<Frame>
+![](/images/docs/1c29ed6d34b2f9bbc8ab80f43279d2872964c560f867a81530e82ee76c6519f3-Step0.jpg)
+</Frame>
+
+### Go to [cloud.io.net](https://cloud.io.net)
+
+If you have not yet created an account, Creating an account on io.net is currently available only through X (Twitter), Apple ID or Google. Simply click on the "Sign Up" button and select either X, Apple ID, Worldcoin or Google to proceed with account creation.
+
+<Frame>
+![](/images/docs/de29df40f9a632af89c7cafd95f4acb332657550aca5bc1b3630225034a6453b-Step1.jpg)
+</Frame>
+
+### 1. From IO Elements Navigate to Worker Section
+
+IO Elements serves as your new control panel for navigating the service efficiently. Click on **IO Worker** to delve deeper into its functionalities and features.
+
+<Frame>
+![](/images/docs/4ab2791afa1784c65f0b291076f9e8c0f91ca5e8f4fffe7fb922c26c352d19e2-Step2.jpg)
+</Frame>
+
+### 2. Use "Connect New Worker" Button to Open the Wizard
+
+If Workers have not yet been added, you can use the central button. If the screen is full of information, find the same button in the upper right corner
+
+<Frame>
+![](/images/docs/5274db0357e3ae99cfc95b57f3f1aa9c2af8cc906d358b53eaf857dac33a7ce1-Step3.jpg)
+</Frame>
+
+### 3. Name Your Device
+
+Click the "**Pencil**" icon to open the popup for editing the device name. 
+
+Please add a unique name for your device. An ideal format would be something like this:&#x20;**&#x2028;My-Test-Device**
+
+<Frame>
+![](/images/docs/560a01163ca32f581e247537775cc0996388c39442b09a3ff49f97c836b263db-Step4.jpg)
+</Frame>
+
+### 4. Select MacOS Operating System “OS”
+
+Choose the Operating System “OS” of your device from **MacOS**, Windows or Ubuntu.
+
+<Frame>
+![](/images/docs/a757734d9ac6926db17891cada2e623939bb28c16ed646f75837aeeb4ba7cc08-Step5.jpg)
+</Frame>
+
+### 5. Prerequisites for Mac
+
+Download and install Docker Desktop for MacOS by [following the link](/docs/install-docker-on-macos).
+
+<Info>
+It has been confirmed that some users limit the amount of system resources that IO Worker can access when performing compute verifications. Many users do not set the proper amount of device level resources available for the Docker engine. Many have used default settings or restricted the Worker’s RAM access to 8GB or lower. This would significantly impact the device capability in passing PoW. This is mostly common among Mac devices.
+</Info>
+
+<Check>
+To install Docker on MacOS computers, refer to the "[Installing Docker on MacOS](/docs/install-docker-on-macos)" instructions.
+</Check>
+
+### 6. Download and Launch IO Binary
+
+**IO Binary** is a compiled executable file used to perform computational tasks and manage system operations. It is crucial for the smooth operation of the platform as it handles essential functions directly related to the performance and reliability of the computational resources.
+
+<Warning>
+Do not modify or run code directly in io.net’s docker containers. This may disqualify your device from earning block rewards or being hired. If you have suggestions or ideas for custom code in our Docker containers, contact customer support to suggest them.
+</Warning>
+
+Follow the steps below to download and launch the IO binary:
+
+1. Open the Terminal through **Launchpad**
+
+   **Terminal** is a tool on your computer that lets you type in commands to tell the computer what to do. Instead of clicking on things with a mouse, you write instructions, and the computer follows them. It's like talking directly to your computer using text.
+
+   Click the **Launchpad** icon in the Dock, start typing "**Terminal**" in the search field, then click the **Terminal** icon:
+
+   <Frame>
+   ![](/images/docs/3291b8cd2dda2294bc83c86b27ace24b4f14975f3736e73f954885e03ea562c4-Step7.jpg)
+   </Frame>
+
+2. Download the IO Binary for MacOS using the following link in the Terminal:
+
+   ```
+   curl -L https://github.com/ionet-official/io_launch_binaries/raw/main/io_net_launch_binary_mac -o io_net_launch_binary_mac
+   ```
+
+3. Grant permissions to the new IO Binary with this command:
+
+   ```
+   chmod +x io_net_launch_binary_mac
+   ```
+
+   <Frame>
+   ![](/images/docs/62adb19e9554964bb2165220b1765c75fd4fd00f4d9969f2183bb93a38d0e40a-Step8.jpg)
+   </Frame>
+
+4. Copy generated the IO Binary address provided in the wizard and past it into Terminal to run further:
+
+   ```
+   ./io_net_launch_binary_mac
+   ```
+
+   <Info>
+   To disable sleep mode for a device, pass the --disable_sleep_mode=true argument at the end of the command line.
+   
+     ```
+     ./io_net_launch_binary_mac --disable_sleep_mode=true
+     ```
+
+     You can find more additional arguments to use with the IO Binary command [here](https://github.com/ionet-official/io_launch_binaries?tab=readme-ov-file#usage).
+   </Info>
+
+   <Frame>
+   ![](/images/docs/683fbce68de7b3917192602974b1798b2ec72ef9bce09131884c709ea3923ffe-Step9.jpg)
+   </Frame>
+
+### 7. Authorize Your New Device
+
+The IO Binary may prompt you to authorize your new device.
+
+<Info>
+Remember, you have 3+ minutes to complete the authorization of the device. If you miss it, rerun the code again.
+</Info>
+
+You can do this in two ways:
+
+1. **Copy the Link from the Terminal**:
+
+   <Frame>
+   ![](/images/docs/1fe091affcc9ecea5a6c7ae920614ad99d92f7e0e8880e63b71d279e30f5e88e-Step10.jpg)
+   </Frame>
+
+   Paste it into your browser and confirm the action. After confirmation, the system will prompt you to log in.
+
+   <Frame>
+   ![](/images/docs/75a85cc630a26880d26fccca2842d9348507fca6dfb709e57f9d5f650c43d4ff-Step11.jpg)
+   </Frame>
+
+2. **Copy the Code from the Terminal**:
+
+   <Frame>
+   ![](/images/docs/4c7cc651857433572f524da527258c5a4642945c8dc0e016df457fada8f26477-Step12.jpg)
+   </Frame>
+
+   Enter this code on the page [https://auth0.io.solutions/activate](https://auth0.io.solutions/activate) to authorize the device. You will be prompted to log in.
+
+   <Frame>
+   ![](/images/docs/ec4ce726825eb4890de728b4c776d51a86f5a0439db945f3415ef5dda7a76c16-Step13.jpg)
+   </Frame>
+
+<Info>
+   **Onboard Multiple Devices by Bypassing Interactive Authentication**
+
+  To onboard a new device, use the following command with the **--token** flag:
+
+  <Frame>
+  ![](/images/docs/6d8bb6bdbf6dd9d4579553b2acb5b66abc0b4de472f894ec26628363fe363738-Step14.png)
+  </Frame>
+
+  ```
+  ./io_net_launch_binary_mac --token your-token-value
+  ```
+
+  This will allow you to bypass the interactive authentication process.
+</Info>
+
+### 8. Remove previously installed Docker containers
+
+<Tooltip tip="IO Binary – It's a file that contains executable instructions in a format that a computer can directly execute. It represents a software application in a form that the computer's processor can understand and run.">IO Binary</Tooltip> will ask you questions related to previously installed Docker Containers. To continue the installation of <Tooltip tip="IO Worker – IO Worker is a component of the IO.NET ecosystem that enables users to rent out their computing devices like GPUs and CPUs to those needing computational power. By leasing their device's processing capabilities, users earn rewards for tasks like artificial intelligence computations or rendering. This setup fosters decentralized computing and resource sharing, fostering collaboration and mutual benefit among users on the IO.NET platform.">IO Worker</Tooltip>, you must agree to remove all old containers and proceed by typing: **Yes**
+
+<Frame>
+![](/images/docs/c84db64596d5b5e755d2a1071dd28e317cdf17d3369203ef48934a38e7dbc95e-Step15.jpg)
+</Frame>
+
+### 9. Wait for Worker Connection to Complete
+
+IO Binary will install all additional containers and images for your Docker. The process may take some time to complete as it installs additional packages for Docker. Please allow the installation process to finish.
+
+<Frame>
+![](/images/docs/06971281dcd23dd8542851d0730f39e35c59f05d3d5ba7024fbee9b718c3a270-Step16.jpg)
+</Frame>
+
+Afterward, return to the browser to complete the installation.
+
+You may need to wait for up to 10 minutes while the device checks and connects to the IO Ecosystem. If it doesn't connect, contact customer support by logging into your [IO.Net account](https://worker.io.net).
+
+<Frame>
+![](https://files.readme.io/7059edf-Step13.gif)
+</Frame>
+
+<Warning>
+Please disable power-saving mode when running your devices on IO Net. Power-saving mode can impair device performance, potentially leading to failure in PoW or being classified as not providing adequate computing power.
+</Warning>
+
+### Congratulations on Successfully Setting up Your First Worker.
+
+Now that your Worker has been successfully created and is running, you can track its status on the Workers page.
+
+<Frame>
+![](/images/docs/39d09fdd09c068a8aa8ab32d14562b94b1da1fbb7221dc4a01ad8ae3c8058104-step18.png)
+</Frame>
+
+<Info>
+If you're having trouble installing the Worker, please refer to our MacOS Worker troubleshooting guide or the general Worker troubleshooting guide. If the issue persists or you need further assistance, feel free to check our knowledge base for answers, and if you still need help, don’t hesitate to open a support ticket!
+</Info>
+
+<Warning>
+
+Be aware that you will be installing a 20GB size container. This contains all the packages needed to serve AI/ML apps. Everything happens inside the container, nothing within the container can access your filesystem
+</Warning>
+

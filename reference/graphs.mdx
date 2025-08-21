@@ -1,0 +1,49 @@
+---
+title: "Overview"
+---
+
+A in R2R is a knowledge `graph` that is associated with a specific. Each Graph contains:
+
+* **Entities**: Extracted information nodes from documents (e.g., people, places, concepts)
+* **Relationships**: Connections between entities defining how they relate
+* **Communities**: LLM generated descriptions of groupings of related entities found from Leiden clustering.
+* **Document Mappings**: Tracking which documents have contributed to the graph
+
+Key features of Graphs in R2R:
+
+1. **Git-like Model**
+
+   * Each Collection has an associated Graph that can diverge independently
+   * The pull operation syncs document knowledge into the graph
+   * Changes can be experimental without affecting the base Collection and underlying documents
+
+2. **Knowledge Organization**
+
+   * Automatic entity and relationship extraction from documents
+   * Community detection for hierarchical knowledge organization
+   * Support for manual creation and editing of entities, relationships and communities
+   * Rich metadata and property management
+
+3. **Access Control**
+
+   * Graph operations are tied to Collection permissions
+   * Superuser privileges required for certain operations like community building
+   * Document-level access checks when pulling content
+
+## Core Operations
+
+| Method                          | Endpoint                                                            | Description               |
+| ------------------------------- | ------------------------------------------------------------------- | ------------------------- |
+| GET                             | [/graphs/](/reference/get-graph-overview)                                | Get graph overview        |
+| POST                            | [/graphs/\{collection_id}/pull](/reference/pull-and-rebuild-graph)      | Sync documents with graph |
+| POST                            | [/graphs/\{collection_id}/](/reference/get-graph-data-for-a-collection) | Get graph details         |
+
+## Entity Management
+
+| Method | Endpoint                                                                            | Description                               |
+| ------ | ----------------------------------------------------------------------------------- | ----------------------------------------- |
+| GET    | [/graphs/\{collection_id}/entities](/reference/list-graph-entities)                     | List entities (/[r2r-docs.sciphi.ai]/[1]) |
+| POST   | [/graphs/\{collection_id}/entities](/reference/add-new-entities)                        | Create entity                             |
+| GET    | [/graphs/\{collection_id}/entities/\{entity_id}](/reference/get-single-entity-details) | Get entity details                        |
+
+Similar CRUD endpoints exist by mapping `/entities` above to for relationships (`/relationships`) and communities (`/communities`).

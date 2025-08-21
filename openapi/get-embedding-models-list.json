@@ -1,0 +1,256 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO Intelligence",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.intelligence.io.solutions"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/api/v1/embedding-models": {
+      "get": {
+        "summary": "Get Embedding Models List",
+        "description": "Get list of available models for Embeddings API",
+        "operationId": "get-embedding-models-list",
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "object": "list",
+                      "data": [
+                        {
+                          "id": "mixedbread-ai/mxbai-embed-large-v1",
+                          "object": "model",
+                          "created": 1736167493,
+                          "owned_by": "io-intelligence",
+                          "root": null,
+                          "parent": null,
+                          "max_model_len": null,
+                          "permission": [
+                            {
+                              "id": "modelperm-51e1b5335270426cb4255a3b12351d5f",
+                              "object": "model_permission",
+                              "created": 1738928596,
+                              "allow_create_engine": false,
+                              "allow_sampling": true,
+                              "allow_logprobs": true,
+                              "allow_search_indices": false,
+                              "allow_view": true,
+                              "allow_fine_tuning": false,
+                              "organization": "*",
+                              "group": null,
+                              "is_blocking": false
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string",
+                      "example": "list"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "example": "mixedbread-ai/mxbai-embed-large-v1"
+                          },
+                          "object": {
+                            "type": "string",
+                            "example": "model"
+                          },
+                          "created": {
+                            "type": "integer",
+                            "example": 1736167493,
+                            "default": 0
+                          },
+                          "owned_by": {
+                            "type": "string",
+                            "example": "io-intelligence"
+                          },
+                          "root": {},
+                          "parent": {},
+                          "max_model_len": {},
+                          "permission": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string",
+                                  "example": "modelperm-51e1b5335270426cb4255a3b12351d5f"
+                                },
+                                "object": {
+                                  "type": "string",
+                                  "example": "model_permission"
+                                },
+                                "created": {
+                                  "type": "integer",
+                                  "example": 1738928596,
+                                  "default": 0
+                                },
+                                "allow_create_engine": {
+                                  "type": "boolean",
+                                  "example": false,
+                                  "default": true
+                                },
+                                "allow_sampling": {
+                                  "type": "boolean",
+                                  "example": true,
+                                  "default": true
+                                },
+                                "allow_logprobs": {
+                                  "type": "boolean",
+                                  "example": true,
+                                  "default": true
+                                },
+                                "allow_search_indices": {
+                                  "type": "boolean",
+                                  "example": false,
+                                  "default": true
+                                },
+                                "allow_view": {
+                                  "type": "boolean",
+                                  "example": true,
+                                  "default": true
+                                },
+                                "allow_fine_tuning": {
+                                  "type": "boolean",
+                                  "example": false,
+                                  "default": true
+                                },
+                                "organization": {
+                                  "type": "string",
+                                  "example": "*"
+                                },
+                                "group": {},
+                                "is_blocking": {
+                                  "type": "boolean",
+                                  "example": false,
+                                  "default": true
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "Result": {
+                    "value": "string"
+                  }
+                },
+                "schema": {
+                  "type": "string",
+                  "example": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Validation Error": {
+                    "value": {
+                      "detail": [
+                        {
+                          "loc": [
+                            "string",
+                            0
+                          ],
+                          "msg": "string",
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "loc": {
+                            "type": "array"
+                          },
+                          "msg": {
+                            "type": "string",
+                            "example": "string"
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl https://api.intelligence.io.solutions/api/v1/embedding-models \\\n  -H \"Authorization: Bearer $IOINTELLIGENCE_API_KEY\""
+            },
+            {
+              "language": "python",
+              "code": "import requests\n\nurl = \"https://api.intelligence.io.solutions/api/v1/embedding-models\"\n\nheaders = {\n    \"accept\": \"application/json\",\n    \"Authorization\": \"Bearer $IOINTELLIGENCE_API_KEY\",  \n}\n\nresponse = requests.get(url, headers=headers)\n\nprint(response.text)"
+            }
+          ],
+          "samples-languages": [
+            "curl",
+            "python"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,244 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO Intelligence",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.intelligence.io.solutions"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/api/r2r/v3/chunks/search": {
+      "post": {
+        "summary": "Search Chunks",
+        "description": "Perform a semantic search query over all stored chunks.",
+        "operationId": "search-chunks",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "query"
+                ],
+                "properties": {
+                  "query": {
+                    "type": "string",
+                    "description": "JSON object defining search criteria (e.g., document_id, text patterns)",
+                    "format": "json"
+                  },
+                  "search_settings": {
+                    "type": "object",
+                    "description": "Main search settings class that combines shared settings with specialized settings for chunks and graph.",
+                    "properties": {
+                      "model": {
+                        "type": "string"
+                      },
+                      "temperature": {
+                        "type": "number",
+                        "format": "double"
+                      },
+                      "top_p": {
+                        "type": "number",
+                        "format": "double"
+                      },
+                      "max_tokens_to_sample": {
+                        "type": "integer",
+                        "format": "int32"
+                      },
+                      "stream": {
+                        "type": "boolean"
+                      },
+                      "functions": {
+                        "type": "array"
+                      },
+                      "tools": {
+                        "type": "array"
+                      },
+                      "add_generation_kwargs": {
+                        "type": "array"
+                      },
+                      "api_base": {
+                        "type": "string"
+                      },
+                      "response_format": {
+                        "type": "array",
+                        "items": {
+                          "properties": {
+                            "Base Model": {
+                              "type": "object"
+                            }
+                          },
+                          "type": "object"
+                        }
+                      },
+                      "extended_thinking": {
+                        "type": "boolean",
+                        "description": "Flag to enable extended thinking mode (for Anthropic providers)",
+                        "default": false
+                      },
+                      "thinking_budget": {
+                        "type": "integer",
+                        "description": "Token budget for internal reasoning when extended thinking mode is enabled. Must be less than max_tokens_to_sample.",
+                        "format": "int32"
+                      },
+                      "reasoning_effort": {
+                        "type": "string",
+                        "description": "Effort level for internal reasoning when extended thinking mode is enabled, low, medium, or high.Only applicable to OpenAI providers."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "results": [
+                        {
+                          "id": "3f3d47f3-8baf-58eb-8bc2-0171fb1c6e09",
+                          "document_id": "3e157b3a-8469-51db-90d9-52e7d896b49b",
+                          "collection_ids": [
+                            "collection_ids"
+                          ],
+                          "text": "Example text from the document",
+                          "metadata": {
+                            "associated_query": "What is the capital of France?",
+                            "title": "example_document.pdf"
+                          },
+                          "owner_id": "2acb499e-8428-543b-bd85-0d9098718220",
+                          "score": 0.23943702876567796
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "example": "3f3d47f3-8baf-58eb-8bc2-0171fb1c6e09"
+                          },
+                          "document_id": {
+                            "type": "string",
+                            "example": "3e157b3a-8469-51db-90d9-52e7d896b49b"
+                          },
+                          "collection_ids": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "example": "collection_ids"
+                            }
+                          },
+                          "text": {
+                            "type": "string",
+                            "example": "Example text from the document"
+                          },
+                          "metadata": {
+                            "type": "object",
+                            "properties": {
+                              "associated_query": {
+                                "type": "string",
+                                "example": "What is the capital of France?"
+                              },
+                              "title": {
+                                "type": "string",
+                                "example": "example_document.pdf"
+                              }
+                            }
+                          },
+                          "owner_id": {
+                            "type": "string",
+                            "example": "2acb499e-8428-543b-bd85-0d9098718220"
+                          },
+                          "score": {
+                            "type": "number",
+                            "example": 0.23943702876567796,
+                            "default": 0
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {}
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "Result": {
+                    "value": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl -X POST https://api.intelligence.io.solutions/api/r2r/v3/chunks/search \\\n     -H \"Authorization: Bearer $IOINTELLIGENCE_API_KEY\" \\\n     -H \"Content-Type: application/json\" \\\n     -d '{\n  \"query\": \"query\"\n}'"
+            },
+            {
+              "language": "python",
+              "code": "from r2r import R2RClient\n\nclient = R2RClient()\nresponse = client.chunks.search(\n    query=\"search query\",\n    search_settings={\n        \"limit\": 10\n    }\n)"
+            }
+          ],
+          "samples-languages": [
+            "curl",
+            "python"
+          ]
+        }
+      }
+    }
+  }
+}

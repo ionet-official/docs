@@ -1,0 +1,247 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO Intelligence",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.intelligence.io.solutions"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/api/v1/embeddings": {
+      "post": {
+        "summary": "Create Embedding",
+        "description": "Creates an embedding vector representing the input text.",
+        "operationId": "create-embedding",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "model",
+                  "input"
+                ],
+                "properties": {
+                  "model": {
+                    "type": "string",
+                    "description": "ID of the model to use. You can use the List models API to see all of your available models, or see our Model overview for descriptions of them."
+                  },
+                  "input": {
+                    "type": "array",
+                    "description": "Input text to embed, encoded as a string or array of tokens. To embed multiple inputs in a single request, pass an array of strings or array of token arrays. The input must not exceed the max input tokens for the model (8192 tokens for text-embedding-ada-002), cannot be an empty string, and any array must be 2048 dimensions or less. Example Python code for counting tokens. Some models may also impose a limit on total number of tokens summed across inputs.",
+                    "items": {
+                      "type": "integer",
+                      "format": "int32"
+                    }
+                  },
+                  "encoding_format": {
+                    "type": "string",
+                    "description": "The format to return the embeddings in. Can be either float or base64.",
+                    "default": "\"float\""
+                  },
+                  "dimensions": {
+                    "type": "integer",
+                    "description": "The number of dimensions the resulting output embeddings should have. Only supported in text-embedding-3 and later models.",
+                    "format": "int32"
+                  },
+                  "user": {
+                    "type": "string",
+                    "description": "A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. Learn more."
+                  },
+                  "truncate_prompt_tokens": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "additional_data": {
+                    "type": "string",
+                    "description": "Any or Null"
+                  },
+                  "add_special_tokens": {
+                    "type": "boolean",
+                    "description": "If true (the default), special tokens (e.g. BOS) will be added to the prompt.",
+                    "default": true
+                  },
+                  "priority": {
+                    "type": "integer",
+                    "description": "The priority of the request (lower means earlier handling; default: 0). Any priority other than 0 will raise an error if the served model does not use priority scheduling.",
+                    "default": 0,
+                    "format": "int32"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "{\n  \"id\": \"0194e037-96b9-a92c-5f0b-ac43152g2679\",\n  \"object\": \"list\",\n  \"created\": 1738928526,\n  \"model\": \"mixedbread-ai/mxbai-embed-large-v1\",\n  \"data\": [\n    {\n      \"index\": 0,\n      \"object\": \"embedding\",\n      \"embedding\": [\n        -0.017547607421875,\n        -0.10943603515625,\n        -0.40771484375,\n        0.308837890625,\n        ...\n        -0.161376953125,\n        0.42041015625,\n        0.39404296875\n      ]\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 12,\n    \"total_tokens\": 12,\n    \"completion_tokens\": 0,\n    \"prompt_tokens_details\": null\n  }\n}"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "model": "string",
+                      "input": [
+                        0
+                      ],
+                      "encoding_format": "float",
+                      "dimensions": 0,
+                      "user": "string",
+                      "truncate_prompt_tokens": 0,
+                      "additional_data": "string",
+                      "add_special_tokens": true,
+                      "priority": 0
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "model": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "input": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer",
+                        "example": 0,
+                        "default": 0
+                      }
+                    },
+                    "encoding_format": {
+                      "type": "string",
+                      "example": "float"
+                    },
+                    "dimensions": {
+                      "type": "integer",
+                      "example": 0,
+                      "default": 0
+                    },
+                    "user": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "truncate_prompt_tokens": {
+                      "type": "integer",
+                      "example": 0,
+                      "default": 0
+                    },
+                    "additional_data": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "add_special_tokens": {
+                      "type": "boolean",
+                      "example": true,
+                      "default": true
+                    },
+                    "priority": {
+                      "type": "integer",
+                      "example": 0,
+                      "default": 0
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Validation Error": {
+                    "value": {
+                      "detail": [
+                        {
+                          "loc": [
+                            "string",
+                            0
+                          ],
+                          "msg": "string",
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "loc": {
+                            "type": "array"
+                          },
+                          "msg": {
+                            "type": "string",
+                            "example": "string"
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl https://api.intelligence.io.solutions/api/v1/embeddings \\\n  -H \"Authorization: Bearer $IOINTELLIGENCE_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"input\": \"The food was delicious and the waiter...\",\n    \"model\": \"mixedbread-ai/mxbai-embed-large-v1\",\n    \"encoding_format\": \"float\"\n  }'",
+              "name": "cUrl Example"
+            },
+            {
+              "language": "python",
+              "code": "import requests\n\nurl = \"https://api.intelligence.io.solutions/api/v1/embeddings\"\n\nheaders = {\n    \"Authorization\": \"Bearer $IOINTELLIGENCE_API_KEY\",\n    \"Content-Type\": \"application/json\",\n    \"Accept\": \"application/json\"\n}\n\ndata = {\n    \"input\": \"The food was delicious and the waiter...\",\n    \"model\": \"mixedbread-ai/mxbai-embed-large-v1\",\n    \"encoding_format\": \"float\"\n}\n\nresponse = requests.post(url, headers=headers, json=data)\n\nprint(response.json())  "
+            }
+          ],
+          "samples-languages": [
+            "curl",
+            "python"
+          ]
+        }
+      }
+    }
+  }
+}

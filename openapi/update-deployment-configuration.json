@@ -1,0 +1,155 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO API",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.io.solutions/"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/enterprise/v1/io-cloud/caas/deployment/{deployment_id}": {
+      "patch": {
+        "summary": "Update Deployment Configuration",
+        "description": "Modify runtime container settings such as environment variables or entrypoints.",
+        "operationId": "update-deployment-configuration",
+        "parameters": [
+          {
+            "name": "deployment_id",
+            "in": "path",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "status": "string",
+                      "deployment_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "deployment_id": {
+                      "type": "string",
+                      "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "string"
+                  }
+                },
+                "schema": {
+                  "type": "string",
+                  "example": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "detail": [
+                        {
+                          "loc": [
+                            "string",
+                            0
+                          ],
+                          "msg": "string",
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "loc": {
+                            "type": "array"
+                          },
+                          "msg": {
+                            "type": "string",
+                            "example": "string"
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl -X PATCH https://api.io.solutions/enterprise/v1/io-cloud/caas/deployment/{deployment_id} \\\n  -H \"X-API-KEY: $IOCLOUD_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n      \"env_variables\": {\n        \"additionalProp1\": \"value1\",\n        \"additionalProp2\": \"value2\",\n        \"additionalProp3\": \"value3\"\n      },\n      \"secret_env_variables\": {\n        \"additionalProp1\": \"secret_value1\",\n        \"additionalProp2\": \"secret_value2\",\n        \"additionalProp3\": \"secret_value3\"\n      },\n      \"entrypoint\": [\"python3\", \"app.py\"],\n      \"traffic_port\": 8080,\n      \"image_url\": \"example_image_url\",\n      \"registry_username\": \"registry_user\",\n      \"registry_secret\": \"registry_secret_value\",\n      \"args\": [\"--debug\"],\n      \"command\": \"run_app\"\n  }'"
+            },
+            {
+              "language": "python",
+              "code": "import requests\n\ndeployment_id = \"your_deployment_id\"\n\nurl = \"https://api.io.solutions/enterprise/v1/io-cloud/caas/deployment/{deployment_id}\"\nheaders = {\n    \"X-API-KEY\": \"$IOCLOUD_API_KEY\",\n    \"Content-Type\": \"application/json\"\n}\npayload = {\n  \"env_variables\": {\n    \"additionalProp1\": \"value1\",\n    \"additionalProp2\": \"value2\",\n    \"additionalProp3\": \"value3\"\n  },\n  \"secret_env_variables\": {\n    \"additionalProp1\": \"secret_value1\",\n    \"additionalProp2\": \"secret_value2\",\n    \"additionalProp3\": \"secret_value3\"\n  },\n  \"entrypoint\": [\"python3\", \"app.py\"],\n  \"traffic_port\": 8080,\n  \"image_url\": \"example_image_url\",\n  \"registry_username\": \"registry_user\",\n  \"registry_secret\": \"registry_secret_value\",\n  \"args\": [\"--debug\"],\n  \"command\": \"run_app\"\n}\n\nresponse = requests.patch(url, headers=headers, json=payload)\nprint(response.status_code, response.text)"
+            }
+          ],
+          "samples-languages": [
+            "curl",
+            "python"
+          ]
+        }
+      }
+    }
+  }
+}

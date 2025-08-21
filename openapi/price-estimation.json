@@ -1,0 +1,259 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO API",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.io.solutions/"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/enterprise/v1/io-cloud/caas/price": {
+      "get": {
+        "summary": "Deployment Price Check",
+        "description": "Calculates the estimated deployment cost based on selected location, hardware, GPU count, duration, and number of replicas. Returns a detailed price breakdown.",
+        "operationId": "price-estimation",
+        "parameters": [
+          {
+            "name": "location_ids",
+            "in": "path",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "default": [
+                null,
+                null
+              ]
+            },
+            "required": true
+          },
+          {
+            "name": "hardware_id",
+            "in": "path",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            },
+            "required": true
+          },
+          {
+            "name": "duration_hours",
+            "in": "path",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            },
+            "required": true
+          },
+          {
+            "name": "gpus_per_container",
+            "in": "path",
+            "description": "Input should be greater than or equal to 8",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 8
+            },
+            "required": true
+          },
+          {
+            "name": "replica_count",
+            "in": "path",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "data": {
+                        "replica_count": 0,
+                        "gpus_per_container": 0,
+                        "available_replica_count": [
+                          0
+                        ],
+                        "discount": 0,
+                        "ionet_fee": 0,
+                        "ionet_fee_percent": 0,
+                        "currency_conversion_fee": 0,
+                        "currency_conversion_fee_percent": 0,
+                        "total_cost_usdc": 0
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "replica_count": {
+                          "type": "integer",
+                          "example": 0,
+                          "default": 0
+                        },
+                        "gpus_per_container": {
+                          "type": "integer",
+                          "example": 0,
+                          "default": 0
+                        },
+                        "available_replica_count": {
+                          "type": "array",
+                          "items": {
+                            "type": "integer",
+                            "example": 0,
+                            "default": 0
+                          }
+                        },
+                        "discount": {
+                          "type": "integer",
+                          "example": 0,
+                          "default": 0
+                        },
+                        "ionet_fee": {
+                          "type": "integer",
+                          "example": 0,
+                          "default": 0
+                        },
+                        "ionet_fee_percent": {
+                          "type": "integer",
+                          "example": 0,
+                          "default": 0
+                        },
+                        "currency_conversion_fee": {
+                          "type": "integer",
+                          "example": 0,
+                          "default": 0
+                        },
+                        "currency_conversion_fee_percent": {
+                          "type": "integer",
+                          "example": 0,
+                          "default": 0
+                        },
+                        "total_cost_usdc": {
+                          "type": "integer",
+                          "example": 0,
+                          "default": 0
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "string"
+                  }
+                },
+                "schema": {
+                  "type": "string",
+                  "example": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "detail": [
+                        {
+                          "loc": [
+                            "string",
+                            0
+                          ],
+                          "msg": "string",
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "loc": {
+                            "type": "array"
+                          },
+                          "msg": {
+                            "type": "string",
+                            "example": "string"
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl \"https://api.io.solutions/enterprise/v1/io-cloud/caas/price?location_ids=%5B1%2C2%5D&hardware_id=203&duration_hours=1&gpus_per_container=8&replica_count=1\" \\\n  -H \"X-API-KEY: $IOCLOUD_API_KEY\" "
+            },
+            {
+              "language": "python",
+              "code": "import requests\n\nurl = \"https://api.io.solutions/enterprise/v1/io-cloud/caas/price\"\n\nheaders = {\n    \"X-API-KEY\": \"$IOCLOUD_API_KEY\"\n}\nparams = [\n    (\"location_ids\", \"[1,2]\"),\n    (\"hardware_id\", 203),\n    (\"duration_hours\", 1),\n    (\"gpus_per_container\", 8),\n    (\"replica_count\", 1)\n]\n\nresponse = requests.get(url, headers=headers, params=params)\nprint(response.json())"
+            }
+          ],
+          "samples-languages": [
+            "curl",
+            "python"
+          ]
+        }
+      }
+    }
+  }
+}

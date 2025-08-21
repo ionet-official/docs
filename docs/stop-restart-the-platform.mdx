@@ -1,0 +1,46 @@
+---
+title: "Stop & Restart the Platform"
+---
+
+### Stop the Platform
+
+Run the command below in Terminal to stop and remove all containers for Linux.
+
+<CodeGroup>
+  ```Text Terminal Command
+  sudo docker stop $(sudo docker ps -a -q); sudo docker rm $(sudo docker ps -q)
+  ```
+</CodeGroup>
+
+### Restart the Platform
+
+* Reboot your computer or server.
+* After you reboot the device, restart the platform.
+* Rerun the same command provided on the website during the initial setup. It resembles `docker run -d`.
+
+<Danger>
+Verify that you're not running two instances of io-worker-vc.
+</Danger>
+
+Run the command below to verify that you're running a single instance of io-worker-vc.
+
+<CodeGroup>
+  ```Text Terminal Command
+  docker ps
+  ```
+</CodeGroup>
+
+If there are 2 containers running the same image io-worker-vc , the platform fails. The output resembles the sample below:
+
+```
+~$ docker ps
+CONTAINER ID   IMAGE                               COMMAND                  CREATED          STATUS         PORTS     NAMES
+87b1b066bdfa   ionetcontainers/io-worker-monitor   "tail -f /dev/null"      3 seconds ago    Up 2 seconds             agitated_hawking
+7033c1b8feba   ionetcontainers/io-worker-vc        "sudo -E /srp/invoke…"   8 seconds ago    Up 8 seconds             friendly_ritchie
+67f699e12c2e   ionetcontainers/io-worker-vc        "sudo -E /srp/invoke…"   10 seconds ago   Up 8 seconds             sleepy_feynman
+```
+
+#### How to fix this?
+
+Run the stop all docker containers (check troubleshooting guide) and run the (docker run -d ...) command from website only ONCE to run the platform normally.
+

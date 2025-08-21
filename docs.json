@@ -1,0 +1,495 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Company Origins",
+  "colors": {
+    "primary": "#6b6b6b",
+    "light": "#6b6b6b",
+    "dark": "#6b6b6b"
+  },
+  "appearance": {
+    "default": "dark",
+    "strict": true
+  },
+  "favicon": "logo-small-favicon.png",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Home",
+        "pages": [
+          "index"
+        ]
+      },
+      {
+        "tab": "Guides",
+        "groups": [
+          {
+            "group": "Company",
+            "pages": [
+              "docs/inception",
+              "docs/faq",
+              {
+                "group": "IO Coin",
+                "pages": [
+                  "docs/io-coin",
+                  "docs/io-tokenomics",
+                  "docs/io-coin-allocation",
+                  "docs/coin-restrictions",
+                  "docs/ionet-monthly-token-emission-schedule"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Products",
+            "pages": [
+              {
+                "group": "Get Started",
+                "pages": [
+                  "docs/getting-started",
+                  "docs/loginsignup"
+                ]
+              },
+              {
+                "group": "Announcements",
+                "pages": [
+                  "docs/announcements",
+                  "docs/important-action-required-for-expired-refresh-tokens",
+                  "docs/supplier-migration-guide-upgrading-to-m4-series-devices"
+                ]
+              },
+              {
+                "group": "IO Cloud",
+                "pages": [
+                  "docs/io-cloud",
+                  {
+                    "group": "Start Using IO Cloud",
+                    "pages": [
+                      "docs/start-using-io-cloud",
+                      "docs/monitor-manage-clusters-copy",
+                      "docs/deploy-containers",
+                      "docs/deploy-ray-cluster",
+                      "docs/deploy-mega-ray-cluster",
+                      "docs/deploy-bare-metal-cluster"
+                    ]
+                  },
+                  {
+                    "group": "Run Jobs on Clusters",
+                    "pages": [
+                      "docs/run-jobs-on-clusters",
+                      "docs/jupyter-notebook"
+                    ]
+                  },
+                  {
+                    "group": "IO Cloud Payments",
+                    "pages": [
+                      "docs/io-cloud-payments",
+                      "docs/deploy-cluster-and-pay",
+                      "docs/extending-your-cluster-and-pay",
+                      "docs/io-credits"
+                    ]
+                  }
+                ]
+              },
+              {
+                "group": "Block Rewards",
+                "pages": [
+                  "docs/block-rewards",
+                  "docs/monitor-block-rewards",
+                  "docs/proposed-device-block-reward-multiplier"
+                ]
+              },
+              {
+                "group": "IO Staking",
+                "pages": [
+                  "docs/io-staking",
+                  "docs/staking",
+                  "docs/how-to-unstake",
+                  {
+                    "group": "Device Owner Staking",
+                    "pages": [
+                      "docs/device-owner-staking",
+                      "docs/solo-staked-devices",
+                      "docs/protecting-your-stake",
+                      "docs/create-a-co-staking-offer",
+                      "docs/unstaking-deleting-withdrawing"
+                    ]
+                  },
+                  {
+                    "group": "Collaborative Staking (Co-Staking)",
+                    "pages": [
+                      "docs/3rd-party-staking",
+                      "docs/co-staking",
+                      "docs/view-co-staking-device",
+                      "docs/unstake-your-co-stake",
+                      "docs/device-reliability-score"
+                    ]
+                  }
+                ]
+              },
+              {
+                "group": "IO Intelligence",
+                "pages": [
+                  "docs/io-intelligence",
+                  "docs/exploring-ai-models",
+                  "docs/exploring-ai-agents",
+                  "docs/retrieval-engine",
+                  {
+                    "group": "Agent Framework",
+                    "pages": [
+                      "docs/agent-framework",
+                      "docs/agentic-workflow"
+                    ]
+                  },
+                  "docs/training-model"
+                ]
+              },
+              {
+                "group": "IO Worker",
+                "pages": [
+                  "docs/io-worker",
+                  "docs/intro",
+                  "docs/quick-start-guide",
+                  {
+                    "group": "Device Onboarding",
+                    "pages": [
+                      "docs/device-onboarding",
+                      "docs/device-utilization-threshold",
+                      "docs/optimize-pcie-lane-configuration",
+                      "docs/supported-devices",
+                      "docs/proof-of-work"
+                    ]
+                  },
+                  {
+                    "group": "Rewards & Wallets",
+                    "pages": [
+                      "docs/rewards-wallets",
+                      "docs/earnings-rewards",
+                      "docs/solana",
+                      "docs/aptos-wallet"
+                    ]
+                  },
+                  "docs/manage-and-monitor",
+                  {
+                    "group": "MacOS: Install Worker",
+                    "pages": [
+                      "docs/install-on-macos",
+                      "docs/troubleshoot-macos-worker",
+                      "docs/install-docker-on-macos",
+                      "docs/troubleshoot-docker-for-macs"
+                    ]
+                  },
+                  {
+                    "group": "Windows: Install Worker",
+                    "pages": [
+                      "docs/install-on-windows",
+                      "docs/troubleshoot-windows-worker",
+                      "docs/install-docker-on-windows",
+                      "docs/troubleshoot-docker-for-windows",
+                      "docs/cuda-toolkit-optional",
+                      "docs/install-nvidia-drivers-on-windows"
+                    ]
+                  },
+                  {
+                    "group": "Ubuntu: Install Worker",
+                    "pages": [
+                      "docs/install-on-ubuntu",
+                      "docs/ubuntu-install-docker",
+                      "docs/bare-metal-on-demand-supplier-process"
+                    ]
+                  },
+                  {
+                    "group": "Troubleshoot Docker for Linux",
+                    "pages": [
+                      "docs/troubleshoot-docker-for-linux",
+                      "docs/docker-not-installed-or-running",
+                      "docs/worker-disconnects-when-containers-are-running",
+                      "docs/connectivity-tier-not-displaying-correctly",
+                      "docs/waiting-for-io-containers-to-start",
+                      "docs/stop-restart-the-platform",
+                      "docs/additional-guides"
+                    ]
+                  },
+                  "docs/install-on-hiveos",
+                  "docs/troubleshoot-worker-general"
+                ]
+              },
+              {
+                "group": "IO Explorer",
+                "pages": [
+                  "docs/io-explorer",
+                  "docs/homepage",
+                  "docs/block-rewards-page",
+                  "docs/network-map-page",
+                  "docs/clusters-page",
+                  "docs/workers-page",
+                  "docs/inferences-page",
+                  "docs/staking-dashboard",
+                  "docs/tne-on-chain"
+                ]
+              },
+              {
+                "group": "IO ID",
+                "pages": [
+                  "docs/io-id",
+                  "docs/manage-funds",
+                  "docs/managing-your-wallets-in-io-id"
+                ]
+              },
+              "docs/glossary",
+              {
+                "group": "BC8: Your Gateway to Immersive AI Media",
+                "pages": [
+                  "docs/bc8",
+                  "docs/getting-started-with-bc8",
+                  "docs/generating-your-first-ai-image",
+                  "docs/generating-a-video",
+                  "docs/explore-generated-ideas",
+                  "docs/settings-privacy",
+                  "docs/frequently-asked-questions"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "IO Architecture",
+            "pages": [
+              "docs/io-architecture",
+              "docs/io-tunnels-1",
+              "docs/io-network"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "IO API",
+            "pages": [
+              {
+                "group": "Get Started With IO Explorer API",
+                "pages": [
+                  "reference/getting-started-with-your-api",
+                  "reference/objects",
+                  "reference/get-device-details",
+                  "reference/device-summary",
+                  "reference/device-notifications",
+                  "reference/device-details-for-a-block",
+                  "reference/pow-summary",
+                  "reference/block-rewards-summary"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "IO Intelligence",
+            "pages": [
+              {
+                "group": "Getting Started with AI Models API",
+                "pages": [
+                  "reference/get-started-with-io-intelligence-api",
+                  "reference/uploading-images",
+                  "reference/get-models-list",
+                  "reference/create-chat-completion",
+                  "reference/get-embedding-models-list",
+                  "reference/create-embedding"
+                ]
+              },
+              {
+                "group": "Getting Started with AI Agents API",
+                "pages": [
+                  "reference/getting-started-with-api-agents",
+                  "reference/get-agents-list",
+                  "reference/workflows-schema",
+                  "reference/workflows-run"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "RAG API",
+            "pages": [
+              "reference/getting-started-with-the-rag-api",
+              {
+                "group": "Retrieval",
+                "pages": [
+                  "reference/retrieval",
+                  "reference/streaming-retrieval-api",
+                  "reference/semantic-search",
+                  "reference/retrieve-and-generate-rag",
+                  "reference/agent-based-query-resolution",
+                  "reference/prompt-based-completion",
+                  "reference/generate-embedding"
+                ]
+              },
+              {
+                "group": "Documents",
+                "pages": [
+                  "reference/documents",
+                  "reference/list-all-documents",
+                  "reference/upload-and-ingest-a-document",
+                  "reference/replace-document-metadata",
+                  "reference/update-document-metadata-partial",
+                  "reference/download-documents-as-zip",
+                  "reference/get-document-by-id",
+                  "reference/delete-document-by-id",
+                  "reference/get-document-chunks",
+                  "reference/download-original-file",
+                  "reference/delete-documents-by-filter",
+                  "reference/extract-entities",
+                  "reference/deduplicate-document",
+                  "reference/get-extracted-entities",
+                  "reference/get-relationships",
+                  "reference/search-documents"
+                ]
+              },
+              {
+                "group": "Graphs",
+                "pages": [
+                  "reference/graphs",
+                  "reference/get-graph-overview",
+                  "reference/get-graph-data-for-a-collection",
+                  "reference/pull-and-rebuild-graph",
+                  {
+                    "group": "Entities",
+                    "pages": [
+                      "reference/entities",
+                      "reference/list-graph-entities",
+                      "reference/add-new-entities",
+                      "reference/get-single-entity-details"
+                    ]
+                  },
+                  {
+                    "group": "Relationships",
+                    "pages": [
+                      "reference/relationships",
+                      "reference/get-graph-relationships",
+                      "reference/get-relationship-details"
+                    ]
+                  },
+                  {
+                    "group": "Communities",
+                    "pages": [
+                      "reference/communities",
+                      "reference/list-communities",
+                      "reference/build-graph-communities",
+                      "reference/get-community-details",
+                      "reference/update-a-community",
+                      "reference/delete-a-community"
+                    ]
+                  }
+                ]
+              },
+              {
+                "group": "Indices",
+                "pages": [
+                  "reference/indices",
+                  "reference/list-all-indices",
+                  "reference/get-specific-index-details",
+                  "reference/delete-an-index"
+                ]
+              },
+              {
+                "group": "Users",
+                "pages": [
+                  "reference/users",
+                  "reference/get-current-user",
+                  "reference/get-user-by-id",
+                  "reference/get-user-limits",
+                  "reference/list-users-collections",
+                  "reference/add-collection-to-user",
+                  "reference/delete-user-from-collection"
+                ]
+              },
+              {
+                "group": "Collections",
+                "pages": [
+                  "reference/collections",
+                  "reference/list-collections",
+                  "reference/create-a-new-collection",
+                  "reference/get-collection-by-id",
+                  "reference/update-collection",
+                  "reference/delete-collection",
+                  "reference/list-documents-in-collection",
+                  "reference/add-document-to-collection",
+                  "reference/remove-document-from-collection",
+                  "reference/list-users-in-a-collection",
+                  "reference/add-user-to-collection",
+                  "reference/remove-user-from-collection",
+                  "reference/trigger-extraction-for-a-collection",
+                  "reference/get-collection-by-name"
+                ]
+              },
+              {
+                "group": "Conversations",
+                "pages": [
+                  "reference/conversations",
+                  "reference/list-conversations",
+                  "reference/create-a-new-conversation",
+                  "reference/get-conversation-details",
+                  "reference/update-conversation",
+                  "reference/delete-a-conversation",
+                  "reference/add-a-message-to-a-conversation",
+                  "reference/update-a-message"
+                ]
+              },
+              {
+                "group": "Prompts",
+                "pages": [
+                  "reference/prompts",
+                  "reference/list-all-prompts"
+                ]
+              },
+              {
+                "group": "Chunks",
+                "pages": [
+                  "reference/chunks",
+                  "reference/search-chunks",
+                  "reference/get-chunk-by-id",
+                  "reference/update-chunk",
+                  "reference/delete-chunk",
+                  "reference/list-chunks"
+                ]
+              },
+              {
+                "group": "System",
+                "pages": [
+                  "reference/system",
+                  "reference/health-check"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "IO CLOUDS",
+            "pages": [
+              {
+                "group": "Get Started With CaaS API",
+                "pages": [
+                  "reference/get-started-with-caas-api",
+                  "reference/check-maximum-gpus-per-container",
+                  "reference/check-available-replicas-per-location",
+                  "reference/price-estimation",
+                  "reference/deploy-a-container",
+                  "reference/track-deployments-overview",
+                  "reference/get-deployment-details",
+                  "reference/list-deployment-containers",
+                  "reference/container-job-details",
+                  "reference/container-logs",
+                  "reference/update-deployment-configuration",
+                  "reference/extend-deployment-duration",
+                  "reference/terminate-deployment"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "logo": {
+    "dark": "/logo/dark.svg",
+    "light": "/logo/light.svg"
+  }
+}

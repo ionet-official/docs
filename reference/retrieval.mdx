@@ -1,0 +1,124 @@
+---
+title: "Overview"
+description: ""
+---
+
+R2R’s `Retrieval` system provides advanced search and generation capabilities powered by vector search, knowledge graphs, and large language models. The system offers multiple ways to interact with your data:
+
+* Direct semantic search across documents and chunks
+* Retrieval-Augmented Generation (RAG) for AI-powered answers
+* Conversational RAG agents for complex queries
+* Raw LLM completions for flexible text generation
+
+## Core Features
+
+### Vector Search
+
+* Semantic similarity matching using document/chunk embeddings
+* Hybrid search combining vector and keyword approaches
+* Complex filtering with Postgres-style operators
+* Configurable search limits and thresholds
+
+### Knowledge Graph Search
+
+* Entity and relationship-based retrieval
+* Multi-hop traversal for connected information
+* Local and global search strategies
+* Community-aware knowledge structure
+
+### RAG Generation
+
+* Context-aware responses using retrieved content
+* Customizable generation parameters
+* Source attribution and citations
+* Streaming support for real-time responses
+* Web search integration for up-to-date information
+
+### Deep Research Agent
+
+* Multi-turn conversational capabilities
+* Complex query decomposition
+* Context maintenance across interactions
+* Branch management for conversation trees
+* Web search integration for external knowledge
+
+## Available Endpoints
+
+| Method | Endpoint                                               | Description                                                                                    |
+| ------ | ------------------------------------------------------ | ---------------------------------------------------------------------------------------------- |
+| `POST` | [/retrieval/search](/reference/semantic-search)             | Perform semantic search with hybrid vector and knowledge graph capabilities                    |
+| `POST` | [/retrieval/rag](/reference/retrieve-and-generate-rag)      | Generate contextual responses using retrieved information with optional web search integration |
+| `POST` | [/retrieval/agent](/reference/agent-based-query-resolution) | Engage with a RAG-powered conversational agent with web search capabilities                    |
+| `POST` | [/retrieval/completion](/reference/prompt-based-completion) | Generate text completions using language models                                                |
+| `POST` | [/retrieval/embedding](/reference/generate-embedding)       | Generate embeddings for documents or text                                                      |
+
+## Search Settings
+
+### Vector Search Settings
+
+<CodeGroup>
+  ```json json
+  {
+    "use_semantic_search": true,
+    "filters": {"document_id": {"$eq": "3e157b3a-8469-51db-90d9-52e7d896b49b"}},
+    "limit": 20,
+    "use_hybrid_search": true
+  }
+  ```
+</CodeGroup>
+
+### Generation Configuration
+
+<CodeGroup>
+  ```json json
+  {
+    "stream": false,
+    "temperature": 0.7,
+    "max_tokens": 150,
+    "model": "gpt-4o-mini"
+  }
+  ```
+</CodeGroup>
+
+## Key Concepts
+
+### Search
+
+The search endpoint provides direct access to R2R’s retrieval capabilities, allowing you to find relevant content using semantic similarity and knowledge graph relationships. Results can be filtered using complex queries and sorted by relevance.
+
+### RAG
+
+RAG combines retrieval with language model generation to produce informative responses grounded in your content. The system retrieves relevant context from your documents and can optionally integrate web search results to provide up-to-date information, generating accurate, sourced answers to queries.
+
+### Agent
+
+The agent provides a conversational interface for complex information retrieval. It can maintain context across multiple interactions, break down complex queries, and provide detailed responses with citations to source material. It can also leverage web search to incorporate external knowledge when needed.
+
+### Completion
+
+Direct access to language model generation capabilities, useful for tasks that don’t require retrieval from your content. Supports both single-turn and multi-turn conversations.
+
+## Filter Operations
+
+Supported operators for content filtering:
+
+* `eq`: Equals
+* `neq`: Not equals
+* `gt`: Greater than
+* `gte`: Greater than or equal
+* `lt`: Less than
+* `lte`: Less than or equal
+* `like`: Pattern matching
+* `ilike`: Case-insensitive pattern matching
+* `in`: In list
+* `nin`: Not in list
+
+```json
+{
+  "filters": {
+    "metadata.category": {"$eq": "research"},
+    "created_at": {"$gte": "2024-01-01"},
+    "collection_ids": {"$in": ["uuid1", "uuid2"]}
+  }
+}
+```

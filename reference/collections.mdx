@@ -1,0 +1,31 @@
+---
+title: "Overview"
+---
+
+A `Collection` in R2R is a logical grouping mechanism that enables organization and access control for documents and their associated chunks. Collections serve as a fundamental unit for managing permissions, sharing content, and organizing related documents across users and teams.
+
+Collections in R2R provide:
+
+* Organizational structure for documents
+* Access control and permissions management
+* Group-based content sharing
+* Document categorization and management
+* User collaboration capabilities
+
+## Available Endpoints
+
+| Method | Endpoint                                                                              | Description                                                      |
+| ------ | ------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| POST   | [/collections](/reference/create-a-new-collection)                                         | Create a new collection                                          |
+| GET    | [/collections](/reference/list-collections)                                                | List collections with pagination and filtering                   |
+| GET    | [/collections/\{id}](/reference/get-collection-by-id)                                      | Get details of a specific collection                             |
+| POST   | [/collections/\{id}](/reference/update-collection)                                         | Update an existing collection                                    |
+| DELETE | [/collections/\{id}](/reference/delete-collection)                                         | Delete a specific collection                                     |
+| GET    | [/collections/\{id}/documents](/reference/list-documents-in-collection)                    | List documents in a collection                                   |
+| POST   | [/collections/\{id}/documents/\{document_id}](/reference/add-document-to-collection)      | Add a document to a collection                                   |
+| DELETE | [/collections/\{id}/documents/\{document_id}](/reference/remove-document-from-collection) | Remove a document from a collection                              |
+| POST   | [/collections/\{id}/extract](/reference/trigger-extraction-for-a-collection)               | Extract entities and relationships for all unprocessed documents |
+| GET    | [/collections/\{id}/users](/reference/list-users-in-a-collection)                          | List users with access to a collection                           |
+| POST   | [/collections/\{id}/users/\{user_id}](/reference/add-user-to-collection)                  | Add a user to a collection                                       |
+| DELETE | [/collections/\{id}/users/\{user_id}](/reference/remove-user-from-collection)             | Remove a user from a collection                                  |
+| GET    | [/collections/name/\{collection_name}](/reference/get-collection-by-name)                 | Get collection by name                                           |

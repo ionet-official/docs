@@ -1,0 +1,133 @@
+export const IoLandingBlocks = () => {
+  const items = [
+    {
+      href: "/reference/get-started-with-io-intelligence-api",
+      logoSrc: "/images/home/intelligence.png",
+      description:
+        "IO Intelligence is a technology-driven system that enables data processing, automation, and decision-making through AI-powered insights and analytics.",
+    },
+    {
+      href: "/docs/io-staking",
+      logoSrc: "/images/home/staking.png",
+      description:
+        "IO Staking lets users stake $IO tokens to secure the network, support computations, and earn rewards.",
+    },
+    {
+      href: "/docs/deploy-cluster",
+      logoSrc: "/images/home/cloud.png",
+      description:
+        "Access decentralized GPU clusters on demand via IO Workers, eliminating the need for costly hardware or infrastructure.",
+    },
+    {
+      href: "/docs/intro",
+      logoSrc: "/images/home/worker.png",
+      description:
+        "Put the power into your hands with our easy-to-use, one stop interface for all CPU and GPU worker setups, configurations, earnings, and security.",
+    },
+    {
+      href: "/docs/io-coin",
+      logoSrc: "/images/home/coin.png",
+      description:
+        "The native utility token used to pay for compute resources, reward contributors, and ensure the efficient operation and scalability of the decentralized io.net network.",
+    },
+    {
+      href: "/docs/io-explorer",
+      logoSrc: "/images/home/explorer.png",
+      description:
+        "Curious about how our network works, including metrics and rewards? We offer detailed insights into IO.NET's operations, similar to blockchain explorers like Solscan but designed specifically for IO.NET's GPU projects.",
+    },
+    {
+      href: "/docs/io-id",
+      logoSrc: "/images/home/id.png",
+      description:
+        "It's a place where you can track earnings and expenses. IO ID is the central hub where you can easily see what's been added to your balance and how to withdraw it in cryptocurrency.",
+    },
+  ]
+
+
+  const Card = ({ href, title, description, kind, logoSrc }) => {
+    return (
+      <a
+      href={href}
+      className={`
+        group relative block rounded-2xl border p-7 min-h-[260px]
+        transition-transform duration-200
+        hover:-translate-y-0.5
+        ring-0 ring-transparent hover:ring-1
+        text-gray-800 dark:text-slate-100
+        border-gray-200 dark:border-white/10
+        bg-white dark:bg-black
+        shadow-md dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.03),0_10px_30px_rgba(0,0,0,0.35)]
+        hover:shadow-lg dark:hover:shadow-[0_14px_38px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.06)]
+        hover:ring-gray-300 dark:hover:ring-white/10
+      `}
+    >
+      <div className="mb-3 flex min-h-[32px] items-center gap-3">
+        {logoSrc ? (
+          <img src={logoSrc} alt="" className="h-6 mx-auto rounded object-contain" />
+        ) : (
+          <span
+            className={`
+              h-4 w-4 rounded-full flex-none
+              shadow-[0_0_16px_rgba(151,233,255,0.55)]
+              bg-[radial-gradient(circle_at_30%_30%,#fff,#ffd2a8_25%,#ff8fd1_50%,#7acbff_75%,#6ef7a7_100%)]
+              ${orbTint(kind)}
+            `}
+          />
+        )}
+        {title && (
+          <span className="font-bold tracking-[0.08em] text-xs md:text-sm uppercase text-gray-900 dark:text-slate-50/95">
+            {title}
+          </span>
+        )}
+      </div>
+
+      <p className="m-0 text-[15px] leading-6 text-gray-600 dark:text-slate-300/95">
+        {description}
+      </p>
+    </a>
+    );
+  }
+
+  const orbTint = (kind) => {
+    switch (kind) {
+      case "intelligence":
+        return "ring-2 ring-cyan-300/30";
+      case "staking":
+        return "ring-2 ring-emerald-300/30";
+      case "cloud":
+        return "ring-2 ring-sky-300/30";
+      case "worker":
+        return "ring-2 ring-fuchsia-300/30";
+      case "coin":
+        return "ring-2 ring-amber-300/30";
+      case "explorer":
+        return "ring-2 ring-purple-300/30";
+      case "id":
+        return "ring-2 ring-lime-300/30";
+      default:
+        return "";
+    }
+  }
+
+  const top = items.slice(0, 4);
+  const bottom = items.slice(4);
+
+  return (
+    <div className="mx-auto max-w-[1440px] px-4 lg:px-8 my-20">
+      <div className="grid gap-12">
+        <div className="grid gap-7 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+          {top.map((it, i) => (
+            <Card key={i} {...it} />
+          ))}
+        </div>
+
+        <div className="grid gap-7 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {bottom.map((it, i) => (
+            <Card key={i} {...it} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}

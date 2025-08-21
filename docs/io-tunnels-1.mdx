@@ -1,0 +1,34 @@
+---
+title: "IO Tunnels"
+---
+
+<Frame>
+  <img src="/images/docs/6923016-1_2.png" />
+</Frame>
+
+Reverse tunnels technology provides a way to bypass firewall and NAT restrictions, enabling secure access to remote resources. In this document, we will discuss the concept of reverse tunnels, how they work, and how io.net uses them to simplify access for engineers to AntMiners Clusters.
+
+### Understanding Reverse Tunnels
+
+A reverse tunnel is a method to establish a secure connection from a client to a remote server by opening an inbound connection on the server side. This is the opposite of a conventional forward tunnel, where a client opens a connection to the server. By using reverse tunnels, engineers can access remote resources behind NAT routers and firewalls without the need for complex network configurations.
+
+### How Reverse Tunnels Work
+
+1. The remote server (IO Worker) initiates a connection to the client (engineer's machine) through an intermediate server (io.net server).
+2. The io.net server listens for incoming connections from both the client and the remote server. Once the connection is established, data can be exchanged between the client and the remote server through the tunnel as if they were directly connected.
+
+io.net network employs reverse tunnels to simplify access to io.net miners for engineers.
+
+The process involves:
+
+1. The IO Worker establishes a connection to the io.net server, creating a reverse tunnel.
+2. The engineer's machine connects to the io.net server as an intermediary.
+3. The io.net server routes traffic between the engineer's machine and the IO Worker through the reverse tunnel. Engineers can securely access and manage IO Workers without the need for complex network configurations or dealing with firewalls and NAT restrictions.
+
+### Benefits of Reverse Tunnels
+
+1. **Simplified Access**: Engineers can easily access IO Workers without worrying about network restrictions, port forwarding, or VPNs.
+2. **Enhanced Security**: Reverse tunnels provide a secure communication channel, ensuring data privacy and integrity.
+3. **Scalability**: io.net can manage multiple IO Workers simultaneously, allowing engineers to work efficiently. Flexibility: Reverse tunnels work across various platforms, ensuring compatibility with different operating systems and environments.
+
+

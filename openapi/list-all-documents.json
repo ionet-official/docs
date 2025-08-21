@@ -1,0 +1,292 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO Intelligence",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.intelligence.io.solutions"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/api/r2r/v3/documents": {
+      "get": {
+        "summary": "List documents",
+        "description": "Returns a paginated list of documents the authenticated user has access to.",
+        "operationId": "list-all-documents",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ids": {
+                    "type": "string",
+                    "description": "A list of document IDs to retrieve. If not provided, all documents will be returned."
+                  },
+                  "offset": {
+                    "type": "integer",
+                    "description": "Specifies the number of objects to skip. Defaults to 0.",
+                    "default": 0,
+                    "format": "int32"
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "description": "Specifies a limit on the number of objects to return, ranging between 1 and 100. Defaults to 100.",
+                    "default": 100,
+                    "format": "int32"
+                  },
+                  "include_summary_embeddings": {
+                    "type": "boolean",
+                    "description": "Specifies whether or not to include embeddings of each document summary.",
+                    "default": false
+                  },
+                  "owner_only": {
+                    "type": "boolean",
+                    "description": "If true, only returns documents owned by the user, not all accessible documents.",
+                    "default": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "results": [
+                        {
+                          "id": "123e4567-e89b-12d3-a456-426614174000",
+                          "collection_ids": [
+                            "123e4567-e89b-12d3-a456-426614174000"
+                          ],
+                          "owner_id": "123e4567-e89b-12d3-a456-426614174000",
+                          "document_type": "pdf",
+                          "metadata": {
+                            "title": "Sample Document"
+                          },
+                          "version": "1.0",
+                          "title": "Sample Document",
+                          "size_in_bytes": 123456,
+                          "ingestion_status": "pending",
+                          "extraction_status": "pending",
+                          "created_at": "2021-01-01T00:00:00Z",
+                          "updated_at": "2021-01-01T00:00:00Z",
+                          "ingestion_attempt_number": 0,
+                          "summary": "A summary of the document",
+                          "summary_embedding": [
+                            0.1,
+                            0.2,
+                            0.3
+                          ],
+                          "total_tokens": 1000
+                        }
+                      ],
+                      "total_entries": 1
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "example": "123e4567-e89b-12d3-a456-426614174000"
+                          },
+                          "collection_ids": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "example": "123e4567-e89b-12d3-a456-426614174000"
+                            }
+                          },
+                          "owner_id": {
+                            "type": "string",
+                            "example": "123e4567-e89b-12d3-a456-426614174000"
+                          },
+                          "document_type": {
+                            "type": "string",
+                            "example": "pdf"
+                          },
+                          "metadata": {
+                            "type": "object",
+                            "properties": {
+                              "title": {
+                                "type": "string",
+                                "example": "Sample Document"
+                              }
+                            }
+                          },
+                          "version": {
+                            "type": "string",
+                            "example": "1.0"
+                          },
+                          "title": {
+                            "type": "string",
+                            "example": "Sample Document"
+                          },
+                          "size_in_bytes": {
+                            "type": "integer",
+                            "example": 123456,
+                            "default": 0
+                          },
+                          "ingestion_status": {
+                            "type": "string",
+                            "example": "pending"
+                          },
+                          "extraction_status": {
+                            "type": "string",
+                            "example": "pending"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "example": "2021-01-01T00:00:00Z"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "example": "2021-01-01T00:00:00Z"
+                          },
+                          "ingestion_attempt_number": {
+                            "type": "integer",
+                            "example": 0,
+                            "default": 0
+                          },
+                          "summary": {
+                            "type": "string",
+                            "example": "A summary of the document"
+                          },
+                          "summary_embedding": {
+                            "type": "array",
+                            "items": {
+                              "type": "number",
+                              "example": 0.1,
+                              "default": 0
+                            }
+                          },
+                          "total_tokens": {
+                            "type": "integer",
+                            "example": 1000,
+                            "default": 0
+                          }
+                        }
+                      }
+                    },
+                    "total_entries": {
+                      "type": "integer",
+                      "example": 1,
+                      "default": 0
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {}
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "detail": [
+                        {
+                          "loc": [
+                            "string",
+                            0
+                          ],
+                          "msg": "string",
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "loc": {
+                            "type": "array"
+                          },
+                          "msg": {
+                            "type": "string",
+                            "example": "string"
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl -X GET \"https://api.intelligence.io.solutions/api/r2r/v3/documents\" \\\n-H \"Authorization: Bearer $IOINTELLIGENCE_API_KEY\""
+            },
+            {
+              "language": "python",
+              "code": "from r2r import R2RClient\n\nclient = R2RClient()\n# when using auth, do client.login(...)\n\nresponse = client.documents.list(\n    limit=10,\n    offset=0\n)"
+            }
+          ],
+          "samples-languages": [
+            "curl",
+            "python"
+          ]
+        }
+      }
+    }
+  }
+}

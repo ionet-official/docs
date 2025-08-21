@@ -1,0 +1,187 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO API",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.io.solutions/"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/enterprise/v1/io-cloud/caas/hardware/max-gpus-per-container": {
+      "get": {
+        "summary": "Check maximum GPUs per container",
+        "description": "Returns the maximum number of GPUs available per hardware type across all locations, helping to determine deployment limits by hardware.",
+        "operationId": "check-maximum-gpus-per-container",
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "data": {
+                        "hardware": [
+                          {
+                            "max_gpus_per_container": 0,
+                            "available": 0,
+                            "hardware_id": 0,
+                            "hardware_name": "string",
+                            "brand_name": "string"
+                          }
+                        ],
+                        "total": 0
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "hardware": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "max_gpus_per_container": {
+                                "type": "integer",
+                                "example": 0,
+                                "default": 0
+                              },
+                              "available": {
+                                "type": "integer",
+                                "example": 0,
+                                "default": 0
+                              },
+                              "hardware_id": {
+                                "type": "integer",
+                                "example": 0,
+                                "default": 0
+                              },
+                              "hardware_name": {
+                                "type": "string",
+                                "example": "string"
+                              },
+                              "brand_name": {
+                                "type": "string",
+                                "example": "string"
+                              }
+                            }
+                          }
+                        },
+                        "total": {
+                          "type": "integer",
+                          "example": 0,
+                          "default": 0
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "string"
+                  }
+                },
+                "schema": {
+                  "type": "string",
+                  "example": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "detail": [
+                        {
+                          "loc": [
+                            "string",
+                            0
+                          ],
+                          "msg": "string",
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "loc": {
+                            "type": "array"
+                          },
+                          "msg": {
+                            "type": "string",
+                            "example": "string"
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl https://api.io.solutions/enterprise/v1/io-cloud/caas/hardware/max-gpus-per-container \\\n  -H \"X-API-KEY: $IOCLOUD_API_KEY\" "
+            },
+            {
+              "language": "python",
+              "code": "import requests\n\nurl = \"https://api.io.solutions/enterprise/v1/io-cloud/caas/hardware/max-gpus-per-container\"\n\nheaders = {\n    \"X-API-KEY\": \"$IOCLOUD_API_KEY\"\n}\n\nresponse = requests.get(url, headers=headers)\n\nprint(response.status_code)\nprint(response.json())"
+            }
+          ],
+          "samples-languages": [
+            "curl",
+            "python"
+          ]
+        }
+      }
+    }
+  }
+}

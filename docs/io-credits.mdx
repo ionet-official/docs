@@ -1,0 +1,141 @@
+---
+title: "IO Credits"
+description: "Prepaid credits for deploying compute on IO Cloud."
+---
+
+### What Are IO Credits?
+
+**IO Credits** are prepaid credits you can use to pay for compute deployments on IO Cloud, including Ray Clusters, VMs, Kubernetes, and Baremetal. **Each IO Credit is equivalent to** 1 USD, making pricing simple and consistent.
+
+<Frame>
+![](/images/docs/96c703934740b030402097520657bbb45106447cbd43118f46f6ecb24efea691-IO_Credits1.jpg)
+</Frame>
+
+### Quick Start
+
+1. Submit a request form to receive IO Credits.
+2. Once approved, credits will appear in your account.
+3. Use your credits to deploy compute or inference workloads.
+4. Track your usage, view your balance, and request withdrawals in **Manage Funds.**
+
+### Why Use IO Credits?
+
+* Pay once, use anytime
+* Works across all IO products
+* Easier checkout during deployments
+* Refunds and incentives automatically appear as credits
+* API support for fully automated workflows
+
+## How to Get IO Credits
+
+You can fund your IO account by requesting prepaid credits:
+
+1. Click **"Request IO Credits"** on any IO Cloud product page.
+
+   <Frame>
+   ![](/images/docs/4991bf36a10dc3cebf3895b4ff0f958ea87293ecbade02652162442f08f13947-IO_Credits2.jpg)
+   </Frame>
+
+2. The IO team will review your request and reach out if any details are needed.
+
+3. Once approved, your credits will appear in your wallet as a single balance.
+
+4. You’ll see the updated amount reflected in your account dashboard.
+
+#### Refunds as Credits
+
+If a deployment ends early or is cancelled, any unused funds are returned as IO Credits. You'll be notified via the **Notification Center**.
+
+## How to Use IO Credits
+
+#### Compute Products (Ray, CaaS, Baremetal, VM)
+
+During checkout, you’ll see three payment options: **USDC**, **IO Coin** and **IO Credits**. Click **IO Credits** to view the **required credits** and see **your available balance**
+
+<Info>
+Note: 1 IO Credit = 1 USD
+</Info>
+**If credits are enough**, you will be able to click the active **Pay & Deploy Container** button
+
+<Frame>
+![](/images/docs/3a024467b6a70650dcb8b247822e5f54087df4843ac5f02230d4b4d10cd085a9-IO_Credits4.jpg)
+</Frame>
+
+**If credits are insufficient**, the **Pay & Deploy Container** button will be greyed out with a message: *"Not enough credits. Use another payment method or request more."*
+
+<Info>
+Users with zero credits will not see this tab
+</Info>
+<Frame>
+![](/images/docs/5aaa39b884274496f2e1d7505e8bd438b2121f416b4f780fe000a30b00312e0e-IO_Credits3.jpg)
+</Frame>
+
+#### Use via API
+
+Deployment endpoints accept `payment_method: "credits"`. If **Balance Is Low**, fallback options may include:
+
+* `GET /credits/check?amount=XX`
+* Pending Payment state
+* Small negative credit allowance (e.g., -$10)
+* 5-minute grace window with top-up prompt
+* Failure if not topped up in time
+
+## How to Manage Your Credits
+
+#### View & Use Credits
+
+Go to **Manage Funds** from the top bar. You'll see:
+
+* **Total IO Credits** – shown as a single balance (in USD)
+* **Request Withdrawal** (for purchased credits only)
+* **Use for IO Cloud**
+* **View Transaction History**
+
+<Frame>
+![](/images/docs/4ff659fe3f20e28392dc3f681aa19294be4a18f3ceff628a17e8a01a85971e92-IO_Credits4.jpg)
+</Frame>
+
+#### Request Withdrawal
+
+Submit a manual request to withdraw available **purchased credit**s from your balance.
+
+Withdrawals are only available to users who have submitted the credit request form and paid for their credits. Once submitted, withdrawal requests are reviewed by the IO Finance team and are typically processed within **3–7 business days.**
+
+<Frame>
+![](/images/docs/88bbd4314c7ff32110932e6267201a4899088cd44284cd250913810a3dfc863b-IO_Credits5.jpg)
+</Frame>
+
+#### Transaction History
+
+The Transaction History section gives you full visibility into how your IO Credits have been added, used, or refunded. It helps you track spending, reconcile deployments, and understand your current balance.
+
+You’ll find entries for:
+
+* **Credit purchases** – credits added via BD team approval or SpherePay funding
+* **Usage deductions** – credits spent on compute deployments or inference runs
+* **Refunds** – returned credits from early terminations or unused deployments
+
+Each entry includes **IO Service, Timestamp, Type of transaction, Amount added or deducted, Transaction ID**
+
+Use this log to audit your activity or troubleshoot billing questions.
+
+<Frame>
+![](/images/docs/d17cbf842973356dee84d9503f1dc35eaa810121fa53b35c5abcb4cc98d9d575-IO_Credits6.jpg)
+</Frame>
+
+## Credit Usage via API and Tracking
+
+Credits are tied to your IO ID and can be used across all IO Cloud products. When using IO APIs, you can specify the payment method as "`credits`" to automatically deduct from your balance.
+
+## FAQs
+
+<AccordionGroup>
+<Accordion title="What happens if I don’t have enough IO Credits?">
+You’ll be prompted to top up or use another payment method. Your deployment will pause temporarily and may fail if not resolved in time.
+</Accordion>
+
+<Accordion title="Can I convert credits back to USDC?">
+Only purchased credits may be withdrawn, after a manual review by the finance team.
+</Accordion>
+</AccordionGroup>
+

@@ -1,0 +1,238 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO Intelligence",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.intelligence.io.solutions"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/api/v1/workflows/run": {
+      "post": {
+        "summary": "Workflows Run",
+        "description": "",
+        "operationId": "workflows-run",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "objective",
+                  "agent_names",
+                  "args"
+                ],
+                "properties": {
+                  "objective": {
+                    "type": "string",
+                    "description": "The input text that will be analyzed, classified, summarized, translated, or processed by AI agents."
+                  },
+                  "agent_names": {
+                    "type": "array",
+                    "description": "A list of AI agents that will process the input text. Available agents include reasoning, sentiment analysis, classification, summarization, translation, and more.",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "args": {
+                    "type": "object",
+                    "description": "Parameters required for a specific AI workflow. The structure varies depending on the selected workflow.",
+                    "required": [
+                      "type"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "description": "This field determines which workflow-specific parameters are required."
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "Unique identifier for the custom workflow step."
+                      },
+                      "instructions": {
+                        "type": "object",
+                        "description": "Any extra contextual information needed for processing.",
+                        "properties": {}
+                      },
+                      "classify_by": {
+                        "type": "array",
+                        "description": "Defines the criteria used for classification (e.g., categories or labels).",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "objective": {
+                        "type": "string",
+                        "description": "The main goal or intent of the workflow."
+                      },
+                      "threshold": {
+                        "type": "integer",
+                        "description": "Defines the sensitivity level for content moderation. Higher values may filter out more content.",
+                        "format": "int32"
+                      },
+                      "target_language": {
+                        "type": "string",
+                        "description": "The target language for translation (e.g., \"fr\" for French)."
+                      },
+                      "max_words": {
+                        "type": "integer",
+                        "description": "Maximum number of words allowed for summarization (default: 100).",
+                        "format": "int32"
+                      },
+                      "context": {
+                        "type": "object",
+                        "description": "Additional parameters or metadata for processing.",
+                        "properties": {}
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "result": {
+                        "summary": "AI transforms businesses with automation, data-driven insights, and enhanced decision-making. It improves efficiency and customer experience.",
+                        "key_points": [
+                          "AI in customer service",
+                          "AI-powered analytics",
+                          "Challenges with ethical concerns and data privacy"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "summary": {
+                          "type": "string",
+                          "example": "AI transforms businesses with automation, data-driven insights, and enhanced decision-making. It improves efficiency and customer experience."
+                        },
+                        "key_points": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "example": "AI in customer service"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "Result": {
+                    "value": "string"
+                  }
+                },
+                "schema": {
+                  "type": "string",
+                  "example": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Validation Error": {
+                    "value": {
+                      "detail": [
+                        {
+                          "loc": [
+                            "string",
+                            0
+                          ],
+                          "msg": "string",
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "loc": {
+                            "type": "array"
+                          },
+                          "msg": {
+                            "type": "string",
+                            "example": "string"
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl https://api.intelligence.io.solutions/api/v1/workflows/run \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $IOINTELLIGENCE_API_KEY\" \\\n  -d '{\n   \"text\":\"Artificial Intelligence (AI) has rapidly transformed the business landscape, offering automation, data-driven insights, and enhanced decision-making. Companies across industries—ranging from healthcare to finance—are leveraging AI to improve efficiency and customer experience.\\n\\nOne major application of AI is in customer service, where chatbots and virtual assistants provide instant responses, reducing the need for human intervention. AI-powered analytics also help businesses predict market trends, personalize marketing strategies, and optimize supply chains.\\n\\nHowever, the adoption of AI comes with challenges, such as ethical concerns, data privacy, and the need for specialized skills. As AI continues to evolve, companies must balance innovation with responsible AI deployment.\",\n   \"agent_names\":[\n      \"summary_agent\"\n   ],\n   \"args\":{\n      \"type\":\"summarize_text\",\n      \"name\":\"Summary Agent\",\n      \"instructions\":\"Summarize the above passage in 2-3 sentences.\"\n   }\n}'"
+            },
+            {
+              "language": "python",
+              "code": "from iointel import (\n    Agent,\n    Workflow\n)\n\nimport os\nimport asyncio\n\napi_key = os.environ[\"OPENAI_API_KEY\"]  # Replace with your actual IO.net API key\n\ntext = \"\"\"In the rapidly evolving landscape of artificial intelligence, the ability to condense vast amounts of information into concise and meaningful summaries is crucial. From research papers and business reports to legal documents and news articles, professionals across industries rely on summarization to extract key insights efficiently. Traditional summarization techniques often struggle with maintaining coherence and contextual relevance. However, advanced AI models now leverage natural language understanding to identify core ideas, eliminate redundancy, and generate human-like summaries. As organizations continue to deal with an ever-growing influx of data, the demand for intelligent summarization tools will only increase. Whether enhancing productivity, improving decision-making, or streamlining workflows, AI-powered summarization is set to become an indispensable asset in the digital age.\"\"\"\n\nagent = Agent(\n    name=\"Summarize Agent\",\n    instructions=\"You are an assistant specialized in summarization.\",\n    model=\"meta-llama/Llama-3.3-70B-Instruct\",\n    api_key=api_key,\n    base_url=\"https://api.intelligence.io.solutions/api/v1\"\n)\n\nworkflow = Workflow(objective=text, client_mode=False)\n\nasync def run_workflow():\n    results = (await workflow.summarize_text(max_words=50,agents=[agent]).run_tasks())[\"results\"]\n    return results\n\nresults = asyncio.run(run_workflow())\nprint(results)"
+            }
+          ],
+          "samples-languages": [
+            "curl",
+            "python"
+          ]
+        }
+      }
+    }
+  }
+}

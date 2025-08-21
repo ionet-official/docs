@@ -1,0 +1,22 @@
+---
+title: "Overview"
+---
+
+A `Chunk` in R2R represents a processed segment of content derived from a parent Document. Chunks are the fundamental unit of retrieval and serve as the basis for semantic search, knowledge graph construction, and RAG operations. Each chunk contains text content, metadata, and optional vector embeddings.
+
+Chunks are automatically generated during document ingestion and are optimized for:
+
+* Semantic search and retrieval
+* Knowledge graph relationship extraction
+* Vector similarity comparisons
+* Metadata filtering and organization
+
+## Available Endpoints
+
+| Method | Endpoint                               | Description                                   |
+| ------ | -------------------------------------- | --------------------------------------------- |
+| GET    | [/chunks](/reference/list-chunks)           | List chunks with pagination and filtering     |
+| POST   | [/chunks/search](/reference/search-chunks)  | Perform semantic search with advanced filters |
+| GET    | [/chunks/\{id}](/reference/get-chunk-by-id) | Retrieve a chunk by its ID                    |
+| POST   | [/chunks/\{id}](/reference/update-chunk)    | Update chunk content or metadata              |
+| DELETE | [/chunks/\{id}](/reference/delete-chunk)    | Delete a specific chunk                       |

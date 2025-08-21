@@ -1,0 +1,25 @@
+---
+title: "Overview"
+description: ""
+---
+
+A `Conversation` in R2R represents a threaded exchange of messages that can branch into multiple paths. Conversations provide a structured way to maintain dialogue history, support branching discussions, and manage message flows.
+
+Conversations in R2R provide:
+
+* Threaded message management
+* Message editing with history preservation
+* Metadata attachment capabilities
+* Conversational context maintenance
+
+## Available Endpoints
+
+| Method | Endpoint                                                               | Description                        |
+| ------ | ---------------------------------------------------------------------- | ---------------------------------- |
+| POST   | [/conversations](/reference/create-a-new-conversation)                      | Create a new conversation          |
+| GET    | [/conversations](/reference/list-conversations)                             | List conversations with pagination |
+| GET    | [/conversations/\{id}](/reference/get-conversation-details)                 | Get conversation details           |
+| POST   | [/conversations/\{id}](/reference/update-conversation)                      | Update conversation                |
+| DELETE | [/conversations/\{id}](/reference/delete-a-conversation)                    | Delete a conversation              |
+| POST   | [/conversations/\{id}/messages](/reference/add-a-message-to-a-conversation) | Add a message to conversation      |
+| POST   | [/conversations/\{id}/messages/\{message_id}](/reference/update-a-message) | Update an existing message         |

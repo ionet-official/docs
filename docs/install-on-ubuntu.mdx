@@ -1,0 +1,291 @@
+---
+title: "Overview"
+description: "A step-by-step guide for setting up the environment for io.net on Ubuntu-based machines."
+---
+
+<iframe width="100%" height="480" src="https://www.youtube.com/embed/NwsW-usiMwI" title="IO Worker Guide for Linux" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+### Before Starting
+
+##### 1. Open the Ubuntu Terminal through the Start Menu.
+
+**Terminal** is a tool on your computer that lets you type in commands to tell the computer what to do. Instead of clicking on things with a mouse, you write instructions, and the computer follows them. It's like talking directly to your computer using text.
+
+Click the **Start Menu** icon, start typing "**Terminal**" in the search field, then click the **Terminal** icon:
+
+<Frame>
+![](/images/docs/8517ea8baf36302c57bf3a61da4ea487bbcfa11568ddfe8b6cc92f621f39a8d8-Step0-1.jpg)
+</Frame>
+
+##### 2. Verify Your Ubuntu Version
+
+For Linux users, ensure that your system is running Ubuntu 20.04 or later. You can check your Ubuntu version by executing the following command in the terminal.
+
+<Info>
+We recommend that you use Ubuntu 22.04 LTS.
+</Info>
+
+```
+lsb_release -a
+```
+
+<Frame>
+![](/images/docs/ae306f4207b78534e59c457af2b16ba289b926cf3cc38ac108753f5c5230701a-Step0-2.jpg)
+</Frame>
+
+##### 3. CPU Requirement for Linux
+
+We currently support AMD & Intel processors. You can find all supported processor and video card models [found here](/docs/supported-devices).
+
+To check your processor type, use the following command in the terminal:
+
+```
+lscpu
+```
+
+<Frame>
+![](/images/docs/3a7aa65b8e36befd16e86476a5c1cc78d1ce6bc34c99e687f1276bb4c52545bb-Step0-3.jpg)
+</Frame>
+
+### Go to [cloud.io.net](https://cloud.io.net)
+
+If you have not yet created an account, Creating an account on io.net is currently available only through X (Twitter), Apple ID or Google. Simply click on the "Sign Up" button and select either X, Apple ID, Worldcoin or Google to proceed with account creation.
+
+<Frame>
+![](/images/docs/2554dd32777b45ea0839ad703b6334d8d511d143858e054c186161ea56fed81f-Step1.jpg)
+</Frame>
+
+### 1. From IO Elements Navigate to IO Worker
+
+IO Elements serves as your new control panel for navigating the service efficiently. Click on **IO Worker** to delve deeper into its functionalities and features.
+
+<Frame>
+![](/images/docs/29ccbbb2af3011e0d4b8324cc218a16e4613e048ac672c208ce3585122b9231f-Step2.jpg)
+</Frame>
+
+### 2. Use "Connect New Worker" Button to Open the Wizard
+
+If Workers have not yet been added, you can use the central button. If the screen is full of information, find the same button in the upper right corner.
+
+<Frame>
+![](/images/docs/3be64991eafe5044d5c65c8d340757f14235c2817d07841ded76148e8206b2ab-Step3.jpg)
+</Frame>
+
+### 3. Name Your Device
+
+Click the "**Pencil**" icon to open the popup for editing the device name. 
+
+Please add a unique name for your device. An ideal format would be something like this:&#x20;**&#x2028;My-Test-Device**.
+
+<Frame>
+![](/images/docs/70d65eb880726dae8e578bce534e1213fd1f218778ec3c6e2df4e4bfdf652093-Step4.jpg)
+</Frame>
+
+### Select Ubuntu Operating System
+
+Choose the Operating System of your device from MacOS, Windows or **Ubuntu**.
+
+<Frame>
+![](/images/docs/ac2191e9516f42ccddad1b134243fcadd6919ae6a3f337839019cafbda239853-Step5.jpg)
+</Frame>
+
+### 5. Select Device Type
+
+You should choose the device type based on your task. A video card is better suited for AI tasks, while a processor is more suitable for graphic rendering.
+
+<Tooltip tip="GPU – Graphics Processing Unit, is a special computer chip that helps make images and videos appear on your screen faster. It's like a supercharged engine for handling visual tasks, such as gaming, watching videos, and designing graphics. They accelerate the computational tasks involved in training and running machine learning models.">GPU</Tooltip> - This is the part of your computer or laptop that handles graphics - the video card. It's usually from Nvidea or Radeon. You can find a full list of video cards that io.net is compatible with [here](/docs/supported-devices).
+
+<Tooltip tip="CPU – CPU stands for Central Processing Unit. It is the primary component of a computer responsible for executing instructions and performing calculations required to run software programs and operating systems.">CPU</Tooltip> - This forms the core of every smart device in our world, including your computer or laptop. Now, alongside Intel and AMD processors, Apple's processors have also joined the lineup. You can find a comprehensive list of processors compatible with io.net [here](/docs/supported-devices).
+
+<Frame>
+![](/images/docs/872107ee75e5126694ade8a5fc8c750406853031910e487ddafa4e9cbe04bee8-Step6.jpg)
+</Frame>
+
+You can also verify whether your GPU or CPU is included in the list of devices supported by our service on the wizard page.
+
+<Warning>
+If you select a GPU Worker and your device doesn't have GPU the setup will fail.
+</Warning>
+
+### 6. Prerequisites for Ubuntu - One-Time Setup for Hardware
+
+Before proceeding, ensure you have the necessary tools installed on your Ubuntu system (**skip if Docker and NVIDIA driver are already installed and configured**).
+
+<Info>
+Do not install and use beta drivers for Linux.
+</Info>
+
+If not, to install IO.Net Setup, follow these steps:
+
+<Frame>
+![](/images/docs/018212db70f2912f149a3bb9e4cca955769279517f78c9ce71bef4fd9358a79c-Step7.jpg)
+</Frame>
+
+1. Install the desktop IO.NET Setup Script using the installation command in the Terminal:
+
+   ```
+   curl -L https://github.com/ionet-official/io-net-official-setup-script/raw/main/ionet-setup.sh -o ionet-setup.sh
+   ```
+
+   <Warning>
+     ```
+     sudo apt install curl 
+     ```
+   </Warning>
+
+2. Grant permissions to the new IO.NET Setup Script with this command:
+   ```
+   chmod +x ionet-setup.sh && ./ionet-setup.sh
+   ```
+
+3. **For systems equipped with GPUs**, wait for the system to restart. Once it has restarted, run the setup again using the command provided earlier.
+
+<Warning>
+When using SXM or NV Link, ensure that Fabric Manager is [installed correctly](https://docs.nvidia.com/datacenter/tesla/pdf/fabric-manager-user-guide.pdf) and enabled. This will prevent initialization issues and ensure that all GPUs are functioning properly, thereby avoiding PoW verification failures.
+</Warning>
+
+<Frame>
+![](/images/docs/696627b690cbe33a0067e4a09f76ffaa761288cd598aa3e465c09fa62abba658-Step8.jpg)
+</Frame>
+
+### 7. Download and Launch IO Binary
+
+**IO Binary** is a compiled executable file used to perform computational tasks and manage system operations. It is crucial for the smooth operation of the platform as it handles essential functions directly related to the performance and reliability of the computational resources.
+
+<Warning>
+Do not modify or run code directly in io.net’s docker containers. This may disqualify your device from earning block rewards or being hired. If you have suggestions or ideas for custom code in our Docker containers, contact customer support to suggest them.
+</Warning>
+In this step, follow these instructions in the Terminal:
+
+<Frame>
+![](/images/docs/b343c9da6d0333a9fc465e3c7acb0837ff008b49116395dd900c3ce8c85d40d3-Step9.jpg)
+</Frame>
+
+1. Download the IO Binary for Ubuntu using the following link:
+
+   ```
+   curl -L https://github.com/ionet-official/io_launch_binaries/raw/main/io_net_launch_binary_linux -o io_net_launch_binary_linux
+   ```
+
+2. Grant permissions to the new IO Binary with this command:
+
+   ```
+   chmod +x io_net_launch_binary_linux
+   ```
+
+   <Frame>
+   ![](/images/docs/33e2d92e8840064f73aaac67a46177af10376a1cdd97599a1962146473899578-Step10.jpg)
+   </Frame>
+
+3. Copy generated the IO Binary address provided in the wizard and past it into Terminal to run further:
+
+   ```
+   ./io_net_launch_binary_linux
+   ```
+
+   <Info>
+   If you want to disable sleep mode for a device, you can pass the --disable_sleep_mode=true argument at the end of the command line.
+
+     ```
+     ./io_net_launch_binary_linux --disable_sleep_mode=true
+     ```
+
+     You can find more additional arguments to use with the IO Binary command [here](https://github.com/ionet-official/io_launch_binaries?tab=readme-ov-file#usage).
+   </Info>
+
+   <Frame>
+   ![](/images/docs/13ffdd54332e490e94d96635e76a163211af5445aa20084d8f6670301f46e775-Step11.jpg)
+   </Frame>
+
+### 8. Authorize Your New Device
+
+The IO Binary may prompt you to authorize your new device.
+
+<Info>
+Remember, you have 3 minutes to complete the authorization of the device. If you miss it, you will need to rerun the code again.
+</Info>
+
+You can do this in two ways:
+
+1. **Copy the Link from the Terminal**:
+
+   <Frame>
+   ![](/images/docs/423a0b7594694de931c5d956fdb2cf6043b8315b8081961d8da38807747e3ca5-Step12.jpg)
+   </Frame>
+
+   Paste it into your browser and confirm the action. After confirmation, the system will prompt you to log in.
+
+   <Frame>
+   ![](/images/docs/014e9fce8385b397225aab90811258455daf1c00da5965addb59a3742ddefee7-Step13.jpg)
+   </Frame>
+
+2. **Copy the Code from the Terminal**:
+
+   <Frame>
+   ![](/images/docs/dfb82203d9afd67d17dc3f378d385d3d9c4968e7dd1604915a2d8c126208de8b-Step14.jpg)
+   </Frame>
+
+   Enter this code on the page [https://auth0.io.solutions/activate](https://auth0.io.solutions/activate) to authorize the device. After it, the system will prompt you to log in.
+
+   <Frame>
+   ![](/images/docs/5f07fb0980481ed06c28798520ce170ea7dac0df0de99a64a8369b1c0b9f80ac-Step15.jpg)
+   </Frame>
+
+<Info>
+   **Onboarding Multiple Devices by Bypassing Interactive Authentication**
+
+  To onboard a new device, use the following command with the **--token** flag:
+
+  <Frame>
+  ![](/images/docs/4502208042e69315b9ec20958e19099fc793541669e0735a801e63ca157c3fcc-Step16.jpg)
+  </Frame>
+
+  ```
+  ./io_net_launch_binary_linux --token your-token-value
+  ```
+
+  This will allow you to bypass the interactive authentication process.
+</Info>
+
+### 9. Remove previously installed Docker containers
+
+<Tooltip tip="IO Binary – It's a file that contains executable instructions in a format that a computer can directly execute. It represents a software application in a form that the computer's processor can understand and run.">IO Binary</Tooltip> will ask you questions related to previously installed Docker Containers. To continue the installation of <Tooltip tip="IO Worker – IO Worker is a component of the IO.NET ecosystem that enables users to rent out their computing devices like GPUs and CPUs to those needing computational power. By leasing their device's processing capabilities, users earn rewards for tasks like artificial intelligence computations or rendering. This setup fosters decentralized computing and resource sharing, fostering collaboration and mutual benefit among users on the IO.NET platform.">IO Worker</Tooltip>, you must agree to remove all old containers and proceed by typing: **Yes**
+
+<Frame>
+![](/images/docs/fac78e9f33ba9e22f16e2648e6eb05a335cefafaab41e8dd0c0a7b1b951b1307-Step17.jpg)
+</Frame>
+
+### 10. Waiting for Worker Connection to Complete
+
+IO Binary will install all additional containers and images for your Docker. The process may take some time to complete as it installs additional packages for Docker. Please allow the installation process to finish.
+
+<Frame>
+![](/images/docs/c26b3c9a5a025c5b7a16c8c209c2904bdd8c68bc3e0303468f3bc9125849ab7d-Step18.jpg)
+</Frame>
+
+Afterward, return to the browser to complete the installation.
+
+You may need to wait for up to 10 minutes while the device checks and connects to the IO ecosystem. If it doesn't connect, reach out to our Support ticket by logging into your [IO.Net account](https://worker.io.net).
+
+<Frame>
+![](https://files.readme.io/7059edf-Step13.gif)
+</Frame>
+
+<Warning>
+
+Please disable power-saving mode when running your devices on IO Net. Power-saving mode can impair device performance, potentially leading to failure in PoW or being classified as not providing adequate computing power.
+</Warning>
+### Congratulations on Successfully Setting up Your First Worker.
+
+Now that your Worker has been successfully created and is running, you can track its status on the Workers page.
+
+<Frame>
+![](/images/docs/8abd710bde90af9578fe8b0846052e36ac73e2e84069f14ba1ecaacd7c83956a-step20.png)
+</Frame>
+
+<Info>
+If you're having trouble installing Worker, please refer to our [Worker troubleshooting guide](/docs/troubleshoot-worker-general). If the issue persists or you need further assistance, feel free to [check our knowledge base](https://support.io.net/en/support/home) for answers, and if you still need help, don’t hesitate to open a support ticket
+</Info>
+
+<Warning>
+Be aware that you will be installing a 20GB size container. This contains all the packages needed to serve AI/ML apps. Everything happens inside the container, nothing within the container can access your filesystem.
+</Warning>

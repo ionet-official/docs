@@ -1,0 +1,744 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO Intelligence",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.intelligence.io.solutions"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/api/v1/workflows/schema": {
+      "get": {
+        "summary": "Workflows Schema",
+        "description": "Get list of available models for Embeddings API",
+        "operationId": "workflows-schema",
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "$defs": {
+                        "ClassificationArgs": {
+                          "properties": {
+                            "classify_by": {
+                              "items": {
+                                "type": "string"
+                              },
+                              "title": "Classify By",
+                              "type": "array"
+                            }
+                          },
+                          "required": [
+                            "classify_by"
+                          ],
+                          "title": "ClassificationArgs",
+                          "type": "object"
+                        },
+                        "CustomArgs": {
+                          "properties": {
+                            "name": {
+                              "description": "Unique name/ID for the custom workflow step.",
+                              "title": "Name",
+                              "type": "string"
+                            },
+                            "objective": {
+                              "description": "Primary objective or text prompt for the workflow.",
+                              "title": "Objective",
+                              "type": "string"
+                            },
+                            "instructions": {
+                              "description": "Optional instructions to be passed along.",
+                              "title": "Instructions",
+                              "type": "string"
+                            },
+                            "context": {
+                              "description": "Additional context or parameters.",
+                              "title": "Context",
+                              "type": "object"
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "objective",
+                            "instructions"
+                          ],
+                          "title": "CustomArgs",
+                          "type": "object"
+                        },
+                        "ExtractEntitiesArgs": {
+                          "properties": {},
+                          "title": "ExtractEntitiesArgs",
+                          "type": "object"
+                        },
+                        "ModerationArgs": {
+                          "properties": {
+                            "threshold": {
+                              "title": "Threshold",
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "threshold"
+                          ],
+                          "title": "ModerationArgs",
+                          "type": "object"
+                        },
+                        "ReasoningArgs": {
+                          "properties": {},
+                          "title": "ReasoningArgs",
+                          "type": "object"
+                        },
+                        "SentimentArgs": {
+                          "properties": {},
+                          "title": "SentimentArgs",
+                          "type": "object"
+                        },
+                        "SummarizeArgs": {
+                          "properties": {
+                            "max_words": {
+                              "default": 100,
+                              "title": "Max Words",
+                              "type": "integer"
+                            }
+                          },
+                          "title": "SummarizeArgs",
+                          "type": "object"
+                        },
+                        "TranslateArgs": {
+                          "properties": {
+                            "target_language": {
+                              "title": "Target Language",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "target_language"
+                          ],
+                          "title": "TranslateArgs",
+                          "type": "object"
+                        }
+                      },
+                      "properties": {
+                        "text": {
+                          "title": "Text",
+                          "type": "string"
+                        },
+                        "args": {
+                          "anyOf": [
+                            {
+                              "discriminator": {
+                                "mapping": {
+                                  "classify": "#/$defs/ClassificationArgs",
+                                  "custom": "#/$defs/CustomArgs",
+                                  "extract_categorized_entities": "#/$defs/ExtractEntitiesArgs",
+                                  "moderation": "#/$defs/ModerationArgs",
+                                  "sentiment": "#/$defs/SentimentArgs",
+                                  "solve_with_reasoning": "#/$defs/ReasoningArgs",
+                                  "summarize_text": "#/$defs/SummarizeArgs",
+                                  "translate_text": "#/$defs/TranslateArgs"
+                                },
+                                "propertyName": "type"
+                              },
+                              "oneOf": [
+                                {
+                                  "$ref": "#/$defs/ReasoningArgs"
+                                },
+                                {
+                                  "$ref": "#/$defs/SummarizeArgs"
+                                },
+                                {
+                                  "$ref": "#/$defs/SentimentArgs"
+                                },
+                                {
+                                  "$ref": "#/$defs/ExtractEntitiesArgs"
+                                },
+                                {
+                                  "$ref": "#/$defs/TranslateArgs"
+                                },
+                                {
+                                  "$ref": "#/$defs/ClassificationArgs"
+                                },
+                                {
+                                  "$ref": "#/$defs/ModerationArgs"
+                                },
+                                {
+                                  "$ref": "#/$defs/CustomArgs"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "default": null,
+                          "title": "Args"
+                        },
+                        "agent_names": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "title": "Agent Names",
+                          "type": "array"
+                        }
+                      },
+                      "required": [
+                        "text",
+                        "agent_names"
+                      ],
+                      "title": "TextRequest",
+                      "type": "object"
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "$defs": {
+                      "type": "object",
+                      "properties": {
+                        "ClassificationArgs": {
+                          "type": "object",
+                          "properties": {
+                            "properties": {
+                              "type": "object",
+                              "properties": {
+                                "classify_by": {
+                                  "type": "object",
+                                  "properties": {
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "type": {
+                                          "type": "string",
+                                          "example": "string"
+                                        }
+                                      }
+                                    },
+                                    "title": {
+                                      "type": "string",
+                                      "example": "Classify By"
+                                    },
+                                    "type": {
+                                      "type": "string",
+                                      "example": "array"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "required": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "example": "classify_by"
+                              }
+                            },
+                            "title": {
+                              "type": "string",
+                              "example": "ClassificationArgs"
+                            },
+                            "type": {
+                              "type": "string",
+                              "example": "object"
+                            }
+                          }
+                        },
+                        "CustomArgs": {
+                          "type": "object",
+                          "properties": {
+                            "properties": {
+                              "type": "object",
+                              "properties": {
+                                "name": {
+                                  "type": "object",
+                                  "properties": {
+                                    "description": {
+                                      "type": "string",
+                                      "example": "Unique name/ID for the custom workflow step."
+                                    },
+                                    "title": {
+                                      "type": "string",
+                                      "example": "Name"
+                                    },
+                                    "type": {
+                                      "type": "string",
+                                      "example": "string"
+                                    }
+                                  }
+                                },
+                                "objective": {
+                                  "type": "object",
+                                  "properties": {
+                                    "description": {
+                                      "type": "string",
+                                      "example": "Primary objective or text prompt for the workflow."
+                                    },
+                                    "title": {
+                                      "type": "string",
+                                      "example": "Objective"
+                                    },
+                                    "type": {
+                                      "type": "string",
+                                      "example": "string"
+                                    }
+                                  }
+                                },
+                                "instructions": {
+                                  "type": "object",
+                                  "properties": {
+                                    "description": {
+                                      "type": "string",
+                                      "example": "Optional instructions to be passed along."
+                                    },
+                                    "title": {
+                                      "type": "string",
+                                      "example": "Instructions"
+                                    },
+                                    "type": {
+                                      "type": "string",
+                                      "example": "string"
+                                    }
+                                  }
+                                },
+                                "context": {
+                                  "type": "object",
+                                  "properties": {
+                                    "description": {
+                                      "type": "string",
+                                      "example": "Additional context or parameters."
+                                    },
+                                    "title": {
+                                      "type": "string",
+                                      "example": "Context"
+                                    },
+                                    "type": {
+                                      "type": "string",
+                                      "example": "object"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "required": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "example": "name"
+                              }
+                            },
+                            "title": {
+                              "type": "string",
+                              "example": "CustomArgs"
+                            },
+                            "type": {
+                              "type": "string",
+                              "example": "object"
+                            }
+                          }
+                        },
+                        "ExtractEntitiesArgs": {
+                          "type": "object",
+                          "properties": {
+                            "properties": {
+                              "type": "object",
+                              "properties": {}
+                            },
+                            "title": {
+                              "type": "string",
+                              "example": "ExtractEntitiesArgs"
+                            },
+                            "type": {
+                              "type": "string",
+                              "example": "object"
+                            }
+                          }
+                        },
+                        "ModerationArgs": {
+                          "type": "object",
+                          "properties": {
+                            "properties": {
+                              "type": "object",
+                              "properties": {
+                                "threshold": {
+                                  "type": "object",
+                                  "properties": {
+                                    "title": {
+                                      "type": "string",
+                                      "example": "Threshold"
+                                    },
+                                    "type": {
+                                      "type": "string",
+                                      "example": "number"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "required": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "example": "threshold"
+                              }
+                            },
+                            "title": {
+                              "type": "string",
+                              "example": "ModerationArgs"
+                            },
+                            "type": {
+                              "type": "string",
+                              "example": "object"
+                            }
+                          }
+                        },
+                        "ReasoningArgs": {
+                          "type": "object",
+                          "properties": {
+                            "properties": {
+                              "type": "object",
+                              "properties": {}
+                            },
+                            "title": {
+                              "type": "string",
+                              "example": "ReasoningArgs"
+                            },
+                            "type": {
+                              "type": "string",
+                              "example": "object"
+                            }
+                          }
+                        },
+                        "SentimentArgs": {
+                          "type": "object",
+                          "properties": {
+                            "properties": {
+                              "type": "object",
+                              "properties": {}
+                            },
+                            "title": {
+                              "type": "string",
+                              "example": "SentimentArgs"
+                            },
+                            "type": {
+                              "type": "string",
+                              "example": "object"
+                            }
+                          }
+                        },
+                        "SummarizeArgs": {
+                          "type": "object",
+                          "properties": {
+                            "properties": {
+                              "type": "object",
+                              "properties": {
+                                "max_words": {
+                                  "type": "object",
+                                  "properties": {
+                                    "default": {
+                                      "type": "integer",
+                                      "example": 100,
+                                      "default": 0
+                                    },
+                                    "title": {
+                                      "type": "string",
+                                      "example": "Max Words"
+                                    },
+                                    "type": {
+                                      "type": "string",
+                                      "example": "integer"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "title": {
+                              "type": "string",
+                              "example": "SummarizeArgs"
+                            },
+                            "type": {
+                              "type": "string",
+                              "example": "object"
+                            }
+                          }
+                        },
+                        "TranslateArgs": {
+                          "type": "object",
+                          "properties": {
+                            "properties": {
+                              "type": "object",
+                              "properties": {
+                                "target_language": {
+                                  "type": "object",
+                                  "properties": {
+                                    "title": {
+                                      "type": "string",
+                                      "example": "Target Language"
+                                    },
+                                    "type": {
+                                      "type": "string",
+                                      "example": "string"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "required": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "example": "target_language"
+                              }
+                            },
+                            "title": {
+                              "type": "string",
+                              "example": "TranslateArgs"
+                            },
+                            "type": {
+                              "type": "string",
+                              "example": "object"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "properties": {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "object",
+                          "properties": {
+                            "title": {
+                              "type": "string",
+                              "example": "Text"
+                            },
+                            "type": {
+                              "type": "string",
+                              "example": "string"
+                            }
+                          }
+                        },
+                        "args": {
+                          "type": "object",
+                          "properties": {
+                            "anyOf": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "discriminator": {
+                                    "type": "object",
+                                    "properties": {
+                                      "mapping": {
+                                        "type": "object",
+                                        "properties": {
+                                          "classify": {
+                                            "type": "string",
+                                            "example": "#/$defs/ClassificationArgs"
+                                          },
+                                          "custom": {
+                                            "type": "string",
+                                            "example": "#/$defs/CustomArgs"
+                                          },
+                                          "extract_categorized_entities": {
+                                            "type": "string",
+                                            "example": "#/$defs/ExtractEntitiesArgs"
+                                          },
+                                          "moderation": {
+                                            "type": "string",
+                                            "example": "#/$defs/ModerationArgs"
+                                          },
+                                          "sentiment": {
+                                            "type": "string",
+                                            "example": "#/$defs/SentimentArgs"
+                                          },
+                                          "solve_with_reasoning": {
+                                            "type": "string",
+                                            "example": "#/$defs/ReasoningArgs"
+                                          },
+                                          "summarize_text": {
+                                            "type": "string",
+                                            "example": "#/$defs/SummarizeArgs"
+                                          },
+                                          "translate_text": {
+                                            "type": "string",
+                                            "example": "#/$defs/TranslateArgs"
+                                          }
+                                        }
+                                      },
+                                      "propertyName": {
+                                        "type": "string",
+                                        "example": "type"
+                                      }
+                                    }
+                                  },
+                                  "oneOf": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "$ref": {
+                                          "type": "string",
+                                          "example": "#/$defs/ReasoningArgs"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "default": {},
+                            "title": {
+                              "type": "string",
+                              "example": "Args"
+                            }
+                          }
+                        },
+                        "agent_names": {
+                          "type": "object",
+                          "properties": {
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "example": "string"
+                                }
+                              }
+                            },
+                            "title": {
+                              "type": "string",
+                              "example": "Agent Names"
+                            },
+                            "type": {
+                              "type": "string",
+                              "example": "array"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "required": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "example": "text"
+                      }
+                    },
+                    "title": {
+                      "type": "string",
+                      "example": "TextRequest"
+                    },
+                    "type": {
+                      "type": "string",
+                      "example": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "Result": {
+                    "value": "string"
+                  }
+                },
+                "schema": {
+                  "type": "string",
+                  "example": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Validation Error": {
+                    "value": {
+                      "detail": [
+                        {
+                          "loc": [
+                            "string",
+                            0
+                          ],
+                          "msg": "string",
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "loc": {
+                            "type": "array"
+                          },
+                          "msg": {
+                            "type": "string",
+                            "example": "string"
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl https://api.intelligence.io.solutions/api/v1/workflows/schema \\\n  -H \"Authorization: Bearer $IOINTELLIGENCE_API_KEY\""
+            },
+            {
+              "language": "python",
+              "code": "import requests\n\nurl = \"https://api.intelligence.io.solutions/api/v1/workflows/schema\"\nheaders = {\n    \"Authorization\": \"Bearer $IOINTELLIGENCE_API_KEY\",\n    \"Content-Type\": \"application/json\"\n}\n\nresponse = requests.get(url, headers=headers)\nprint(response.json())"
+            }
+          ],
+          "samples-languages": [
+            "curl",
+            "python"
+          ]
+        }
+      }
+    }
+  }
+}

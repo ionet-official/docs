@@ -1,0 +1,254 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO Intelligence",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.intelligence.io.solutions"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/api/r2r/v3/conversations/{id}/messages/{message_id}": {
+      "post": {
+        "summary": "Update message in conversation",
+        "description": "Update an existing message in a conversation. This endpoint updates the content of an existing message in a conversation.",
+        "operationId": "update-a-message",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique identifier of the conversation",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "required": true
+          },
+          {
+            "name": "message_id",
+            "in": "path",
+            "description": "The ID of the message to update",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "string",
+                    "description": "The new content for the message"
+                  },
+                  "metadata": {
+                    "type": "array",
+                    "description": "Additional metadata for the message metadata"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "results": {
+                        "id": "id",
+                        "message": {
+                          "role": "user",
+                          "content": "This is a test message.",
+                          "name": "name",
+                          "function_call": {
+                            "key": "value"
+                          },
+                          "tool_calls": [
+                            {
+                              "key": "value"
+                            }
+                          ],
+                          "tool_call_id": "tool_call_id",
+                          "metadata": {
+                            "key": "value"
+                          },
+                          "structured_content": [
+                            {
+                              "key": "value"
+                            }
+                          ],
+                          "image_url": "image_url"
+                        },
+                        "metadata": {
+                          "key": "value"
+                        }
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "results": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "example": "id"
+                        },
+                        "message": {
+                          "type": "object",
+                          "properties": {
+                            "role": {
+                              "type": "string",
+                              "example": "user"
+                            },
+                            "content": {
+                              "type": "string",
+                              "example": "This is a test message."
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "name"
+                            },
+                            "function_call": {
+                              "type": "object",
+                              "properties": {
+                                "key": {
+                                  "type": "string",
+                                  "example": "value"
+                                }
+                              }
+                            },
+                            "tool_calls": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "key": {
+                                    "type": "string",
+                                    "example": "value"
+                                  }
+                                }
+                              }
+                            },
+                            "tool_call_id": {
+                              "type": "string",
+                              "example": "tool_call_id"
+                            },
+                            "metadata": {
+                              "type": "object",
+                              "properties": {
+                                "key": {
+                                  "type": "string",
+                                  "example": "value"
+                                }
+                              }
+                            },
+                            "structured_content": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "key": {
+                                    "type": "string",
+                                    "example": "value"
+                                  }
+                                }
+                              }
+                            },
+                            "image_url": {
+                              "type": "string",
+                              "example": "image_url"
+                            }
+                          }
+                        },
+                        "metadata": {
+                          "type": "object",
+                          "properties": {
+                            "key": {
+                              "type": "string",
+                              "example": "value"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {}
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "Result": {
+                    "value": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl -X POST https://api.intelligence.io.solutions/api/r2r/v3/conversations/{id}/messages/{message_id} \\\n  -H \"Authorization: Bearer $IOINTELLIGENCE_API_KEY\" \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\"content\": \"Updated content\"}'"
+            },
+            {
+              "language": "python",
+              "code": "from r2r import R2RClient\n\nclient = R2RClient()\n# when using auth, do client.login(...)\n\nresult = client.conversations.update_message(\n    \"123e4567-e89b-12d3-a456-426614174000\",\n    \"message_id_to_update\",\n    content=\"Updated content\"\n)"
+            }
+          ],
+          "samples-languages": [
+            "curl",
+            "python"
+          ]
+        }
+      }
+    }
+  }
+}

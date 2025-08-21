@@ -1,0 +1,383 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO Intelligence",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.intelligence.io.solutions"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/api/r2r/v3/users/{id}/limits": {
+      "get": {
+        "summary": "Fetch User Limits",
+        "description": "Return the system default limits, user-level overrides, and final “effective” limit settings for the specified user.",
+        "operationId": "get-user-limits",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User ID",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "results": {
+                        "storage_limits": {
+                          "chunks": {
+                            "limit": 1,
+                            "used": 1,
+                            "remaining": 1
+                          },
+                          "documents": {
+                            "limit": 1,
+                            "used": 1,
+                            "remaining": 1
+                          },
+                          "collections": {
+                            "limit": 1,
+                            "used": 1,
+                            "remaining": 1
+                          }
+                        },
+                        "system_defaults": {
+                          "global_per_min": 1,
+                          "monthly_limit": 1,
+                          "route_per_min": 1
+                        },
+                        "user_overrides": {
+                          "key": "value"
+                        },
+                        "effective_limits": {
+                          "global_per_min": 1,
+                          "monthly_limit": 1,
+                          "route_per_min": 1
+                        },
+                        "usage": {
+                          "global_per_min": {
+                            "used": 1,
+                            "limit": 1,
+                            "remaining": 1
+                          },
+                          "monthly_limit": {
+                            "used": 1,
+                            "limit": 1,
+                            "remaining": 1
+                          },
+                          "routes": {
+                            "key": {
+                              "route_per_min": {
+                                "used": 1,
+                                "limit": 1,
+                                "remaining": 1
+                              },
+                              "monthly_limit": {
+                                "used": 1,
+                                "limit": 1,
+                                "remaining": 1
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "results": {
+                      "type": "object",
+                      "properties": {
+                        "storage_limits": {
+                          "type": "object",
+                          "properties": {
+                            "chunks": {
+                              "type": "object",
+                              "properties": {
+                                "limit": {
+                                  "type": "integer",
+                                  "example": 1,
+                                  "default": 0
+                                },
+                                "used": {
+                                  "type": "integer",
+                                  "example": 1,
+                                  "default": 0
+                                },
+                                "remaining": {
+                                  "type": "integer",
+                                  "example": 1,
+                                  "default": 0
+                                }
+                              }
+                            },
+                            "documents": {
+                              "type": "object",
+                              "properties": {
+                                "limit": {
+                                  "type": "integer",
+                                  "example": 1,
+                                  "default": 0
+                                },
+                                "used": {
+                                  "type": "integer",
+                                  "example": 1,
+                                  "default": 0
+                                },
+                                "remaining": {
+                                  "type": "integer",
+                                  "example": 1,
+                                  "default": 0
+                                }
+                              }
+                            },
+                            "collections": {
+                              "type": "object",
+                              "properties": {
+                                "limit": {
+                                  "type": "integer",
+                                  "example": 1,
+                                  "default": 0
+                                },
+                                "used": {
+                                  "type": "integer",
+                                  "example": 1,
+                                  "default": 0
+                                },
+                                "remaining": {
+                                  "type": "integer",
+                                  "example": 1,
+                                  "default": 0
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "system_defaults": {
+                          "type": "object",
+                          "properties": {
+                            "global_per_min": {
+                              "type": "integer",
+                              "example": 1,
+                              "default": 0
+                            },
+                            "monthly_limit": {
+                              "type": "integer",
+                              "example": 1,
+                              "default": 0
+                            },
+                            "route_per_min": {
+                              "type": "integer",
+                              "example": 1,
+                              "default": 0
+                            }
+                          }
+                        },
+                        "user_overrides": {
+                          "type": "object",
+                          "properties": {
+                            "key": {
+                              "type": "string",
+                              "example": "value"
+                            }
+                          }
+                        },
+                        "effective_limits": {
+                          "type": "object",
+                          "properties": {
+                            "global_per_min": {
+                              "type": "integer",
+                              "example": 1,
+                              "default": 0
+                            },
+                            "monthly_limit": {
+                              "type": "integer",
+                              "example": 1,
+                              "default": 0
+                            },
+                            "route_per_min": {
+                              "type": "integer",
+                              "example": 1,
+                              "default": 0
+                            }
+                          }
+                        },
+                        "usage": {
+                          "type": "object",
+                          "properties": {
+                            "global_per_min": {
+                              "type": "object",
+                              "properties": {
+                                "used": {
+                                  "type": "integer",
+                                  "example": 1,
+                                  "default": 0
+                                },
+                                "limit": {
+                                  "type": "integer",
+                                  "example": 1,
+                                  "default": 0
+                                },
+                                "remaining": {
+                                  "type": "integer",
+                                  "example": 1,
+                                  "default": 0
+                                }
+                              }
+                            },
+                            "monthly_limit": {
+                              "type": "object",
+                              "properties": {
+                                "used": {
+                                  "type": "integer",
+                                  "example": 1,
+                                  "default": 0
+                                },
+                                "limit": {
+                                  "type": "integer",
+                                  "example": 1,
+                                  "default": 0
+                                },
+                                "remaining": {
+                                  "type": "integer",
+                                  "example": 1,
+                                  "default": 0
+                                }
+                              }
+                            },
+                            "routes": {
+                              "type": "object",
+                              "properties": {
+                                "key": {
+                                  "type": "object",
+                                  "properties": {
+                                    "route_per_min": {
+                                      "type": "object",
+                                      "properties": {
+                                        "used": {
+                                          "type": "integer",
+                                          "example": 1,
+                                          "default": 0
+                                        },
+                                        "limit": {
+                                          "type": "integer",
+                                          "example": 1,
+                                          "default": 0
+                                        },
+                                        "remaining": {
+                                          "type": "integer",
+                                          "example": 1,
+                                          "default": 0
+                                        }
+                                      }
+                                    },
+                                    "monthly_limit": {
+                                      "type": "object",
+                                      "properties": {
+                                        "used": {
+                                          "type": "integer",
+                                          "example": 1,
+                                          "default": 0
+                                        },
+                                        "limit": {
+                                          "type": "integer",
+                                          "example": 1,
+                                          "default": 0
+                                        },
+                                        "remaining": {
+                                          "type": "integer",
+                                          "example": 1,
+                                          "default": 0
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {}
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "Result": {
+                    "value": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl -X GET https://api.intelligence.io.solutions/api/r2r/v3/users/{id}/limits \\\n  -H \"Authorization: Bearer $IOINTELLIGENCE_API_KEY\""
+            },
+            {
+              "language": "python",
+              "code": "from r2r import R2RClient\n\nclient = R2RClient()\n# client.login(...)\n\nuser_limits = client.users.get_limits(\"550e8400-e29b-41d4-a716-446655440000\")"
+            }
+          ],
+          "samples-languages": [
+            "curl",
+            "python"
+          ]
+        }
+      }
+    }
+  }
+}

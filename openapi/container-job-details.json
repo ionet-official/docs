@@ -1,0 +1,248 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO API",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.io.solutions/"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/enterprise/v1/io-cloud/caas/deployment/{deployment_id}/containers-jobs/{container_id}": {
+      "get": {
+        "summary": "Container Job Details",
+        "description": "Inspect job-level details of a specific container within a deployment.",
+        "operationId": "container-job-details",
+        "parameters": [
+          {
+            "name": "deployment_id",
+            "in": "path",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "required": true
+          },
+          {
+            "name": "container_id",
+            "in": "path",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "data": {
+                        "total": 0,
+                        "workers": [
+                          {
+                            "device_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                            "container_id": "string",
+                            "hardware": "string",
+                            "brand_name": "string",
+                            "created_at": "2025-05-06T14:42:11.552Z",
+                            "uptime_percent": 0,
+                            "gpus_per_container": 0,
+                            "status": "string",
+                            "container_events": [
+                              {
+                                "time": "2025-05-06T14:42:11.552Z",
+                                "message": "string"
+                              }
+                            ],
+                            "public_url": "string"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "integer",
+                          "example": 0,
+                          "default": 0
+                        },
+                        "workers": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "device_id": {
+                                "type": "string",
+                                "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                              },
+                              "container_id": {
+                                "type": "string",
+                                "example": "string"
+                              },
+                              "hardware": {
+                                "type": "string",
+                                "example": "string"
+                              },
+                              "brand_name": {
+                                "type": "string",
+                                "example": "string"
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "example": "2025-05-06T14:42:11.552Z"
+                              },
+                              "uptime_percent": {
+                                "type": "integer",
+                                "example": 0,
+                                "default": 0
+                              },
+                              "gpus_per_container": {
+                                "type": "integer",
+                                "example": 0,
+                                "default": 0
+                              },
+                              "status": {
+                                "type": "string",
+                                "example": "string"
+                              },
+                              "container_events": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "time": {
+                                      "type": "string",
+                                      "example": "2025-05-06T14:42:11.552Z"
+                                    },
+                                    "message": {
+                                      "type": "string",
+                                      "example": "string"
+                                    }
+                                  }
+                                }
+                              },
+                              "public_url": {
+                                "type": "string",
+                                "example": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "string"
+                  }
+                },
+                "schema": {
+                  "type": "string",
+                  "example": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "detail": [
+                        {
+                          "loc": [
+                            "string",
+                            0
+                          ],
+                          "msg": "string",
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "loc": {
+                            "type": "array"
+                          },
+                          "msg": {
+                            "type": "string",
+                            "example": "string"
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl https://api.io.solutions/enterprise/v1/io-cloud/caas/deployment/{deployment_id}/containers-jobs/{container_id} \\\n  -H \"X-API-KEY: $IOCLOUD_API_KEY\" "
+            },
+            {
+              "language": "python",
+              "code": "import requests\n\ndeployment_id = \"your_deployment_id\"\ncontainer_id = \"your_container_id\"\n\nurl = f\"https://api.io.solutions/enterprise/v1/io-cloud/caas/deployment/{deployment_id}/containers-jobs/{container_id}\"\nheaders = {\n    \"X-API-KEY\": \"$IOCLOUD_API_KEY\"\n}\n\nresponse = requests.get(url, headers=headers)\nprint(response.status_code, response.text)"
+            }
+          ],
+          "samples-languages": [
+            "curl",
+            "python"
+          ]
+        }
+      }
+    }
+  }
+}

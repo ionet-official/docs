@@ -1,0 +1,24 @@
+---
+title: "Overview"
+description: ""
+---
+
+A `User` in R2R represents an authenticated entity that can interact with the system. Users are the foundation of R2R’s access control system, enabling granular permissions management, activity tracking, and content organization through collections.
+
+Users in R2R provide:
+
+* Authentication and authorization
+* Collection membership management
+* Activity tracking and analyticsMetadata customization
+* Superuser capabilities for system administration
+
+## Available Endpoints
+
+| Method | Endpoint                                                                              | Description                                       |
+| ------ | ------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| GET    | [/users/\{user_id}](/reference/get-user-by-id)                                            | Get detailed information about a specific user    |
+| GET    | [/users/\{user_id}/collections](/reference/list-users-collections)                        | List all collections that the user is a member of |
+| POST   | [/users/\{user_id}/collections/\{collection_id}](/reference/add-collection-to-user)      | Add the user to a specified collection            |
+| DELETE | [/users/\{user_id}/collections/\{collection_id}](/reference/delete-user-from-collection) | Remove the user from a specified collection       |
+| GET    | [/users/\{user_id}/limits](/reference/get-user-limits)                                    | Fetch User Limits                                 |
+| GET    | [/users/me](/reference/get-current-user)                                                   | Get authenticated user details                    |

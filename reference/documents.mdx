@@ -1,0 +1,37 @@
+---
+title: "Overview"
+---
+
+A `Document` in R2R is the system’s digital representation of any piece of content you ingest, like a PDF report, webpage text, image, or audio file. It acts as the central container for downstream Chunks, Entities, and more.
+
+Key processes associated with a `Document` include:
+
+* **Ingestion**: Content is accepted from various formats (`.pdf`, `.docx`, `.txt`, `.png`, `.mp3`, etc.) via file upload, raw text, or pre-defined chunks.
+* **Chunking**: The document’s content is broken down into smaller, searchable `Chunks`.
+* **Metadata & Collections**: Documents are associated with descriptive `metadata` (e.g., title, source) and organized into `Collections` for access control.
+* **Enrichment (Optional)**: The system can extract `Entities` and `Relationships` for knowledge graphs or generate embeddings for semantic search.
+* **Status Tracking**: Ingestion and enrichment processes are monitored.
+
+Essentially, the `Document` object is R2R’s foundational unit for turning your raw information into searchable, analyzable knowledge for RAG and agentic workflows.
+
+## Core Document Endpoints
+
+This section provides a high-level overview. See the detailed endpoint documentation below for request/response schemas and examples.
+
+| Method   | Endpoint                                                            | Description                                                                                                                                                                                                                                |
+| -------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `POST`   | [/documents](/reference/list-all-documents)                              | Ingest new information (file, text, or chunks) as a document. ([r2r-docs.sciphi.ai](https://r2r-docs.sciphi.ai/api-and-sdks/documents/documents?utm_source=chatgpt.com))                                                                     |
+| `GET`    | [/documents](/reference/upload-and-ingest-a-document)                    | List existing documents with pagination and filtering.                                                                                                                                                                                     |
+| `GET`    | [/documents/\{id}](/reference/get-document-by-id)                        | Retrieve details (metadata, status) about a specific document.                                                                                                                                                                             |
+| `GET`    | [/documents/\{id}/download](/reference/download-original-file)           | Download the original source file of a document.                                                                                                                                                                                           |
+| `GET`    | [/documents/\{id}/chunks](/reference/get-document-chunks)                | List the text *Chunks* derived from a document’s content.                                                                                                                                                                                  |
+| `PATCH`  | [/documents/\{id}/metadata](/reference/update-document-metadata-partial) | Add or update metadata for a document.                                                                                                                                                                                                     |
+| `PUT`    | [/documents/\{id}/metadata](/reference/replace-document-metadata)        | Replace all metadata for a document.                                                                                                                                                                                                       |
+| `DELETE` | [/documents/\{id}](/reference/delete-document-by-id)                     | Delete a specific document and its associated data.                                                                                                                                                                                        |
+| `DELETE` | [/documents/by-filter](/reference/delete-documents-by-filter)            | Delete multiple documents matching filter criteria.                                                                                                                                                                                        |
+| `POST`   | [/documents/search](/reference/search-documents)                         | Search across generated document summaries.                                                                                                                                                                                                |
+| `GET`    | [/documents/download_zip](/reference/download-documents-as-zip)         | Download multiple original document files as a zip archive.                                                                                                                                                                                |
+| `POST`   | [/documents/\{id}/extract](/reference/extract-entities)                  | Start knowledge graph entity/relationship extraction for a document.                                                                                                                                                                       |
+| `GET`    | [/documents/\{id}/entities](/reference/get-extracted-entities)           | List *Entities* identified within a document.                                                                                                                                                                                              |
+| `GET`    | [/documents/\{id}/relationship](/reference/get-relationships)            | List *Relationships* identified within a document.                                                                                                                                                                                         |
+| `POST`   | [/documents/\{id}/deduplicate](/reference/deduplicate-document)          | Start entity deduplication process for a document.                                                                                                                                                                                         |

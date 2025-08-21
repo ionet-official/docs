@@ -1,0 +1,22 @@
+---
+title: "Overview"
+---
+
+## Community management endpoints
+
+Communities are groups of entities that are connected to each other. They can be generated using a clustering and summarization algorithm implemented by R2R.
+
+To automatically generate communities from entities and relationships present in the graph, you can use the following endpoint:
+
+| Method | Endpoint                                                                     | Description            |
+| ------ | ---------------------------------------------------------------------------- | ---------------------- |
+| GET    | [/graphs/\{collection_id}/communities/build](/reference/build-graph-communities) | Create a new community |
+
+Once communities are generated, you can manage them using the following endpoints. You can also add your own communities to the graph.
+
+| Method | Endpoint                                                                           | Description                   |
+| ------ | ---------------------------------------------------------------------------------- | ----------------------------- |
+| GET    | [graphs/\{collection_id}/communities](/reference/list-communities)                     | Get relationships for a graph |
+| POST   | [/graphs/\{collection_id}/communities/\{community_id}](/reference/)                   | Retrieve a community          |
+| POST   | [/graphs/\{collection_id}/communities/\{community_id}](/reference/update-a-community) | Update community              |
+| DELETE | [graphs/\{collection_id}/communities/\{community_id}](/reference/delete-a-community)  | Delete community              |

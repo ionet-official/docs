@@ -1,0 +1,4435 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "LLM-Serving API",
+    "description": "API for managing chat and model services",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/v1/chats/{chat_id}/details": {
+      "get": {
+        "tags": [
+          "chats"
+        ],
+        "summary": "Get Chat Details",
+        "description": "Get chat details",
+        "operationId": "get_chat_details_v1_chats__chat_id__details_get",
+        "parameters": [
+          {
+            "name": "chat_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Chat Id"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatData"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/chat/completions": {
+      "post": {
+        "tags": [
+          "chats"
+        ],
+        "summary": "Create Chat Completion",
+        "description": "Create a new chat completion",
+        "operationId": "create_chat_completion_v1_chat_completions_post",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChatRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatData"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/embedding-models": {
+      "get": {
+        "tags": [
+          "models"
+        ],
+        "summary": "Get Embedding Models",
+        "description": "Get a list of available embedding models.",
+        "operationId": "get_embedding_models",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ModelData"
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error"
+          }
+        }
+      }
+    },
+    "/v1/embeddings": {
+      "post": {
+        "tags": [
+          "embeddings"
+        ],
+        "summary": "Create Embeddings",
+        "description": "Creates an embedding vector representing the input text.",
+        "operationId": "create_embeddings",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmbeddingRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmbeddingResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/chats": {
+      "get": {
+        "tags": [
+          "chats"
+        ],
+        "summary": "Get Chat List",
+        "operationId": "get_chat_list_v1_chats_get",
+        "parameters": [
+          {
+            "name": "llm_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Llm Id"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "chats"
+        ],
+        "summary": "Create Chat",
+        "description": "Create a new chat",
+        "operationId": "create_chat_v1_chats_post",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChatRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatData"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/chats/{chat_id}/messages": {
+      "get": {
+        "tags": [
+          "chats"
+        ],
+        "summary": "Get Chat Messages",
+        "description": "Get paginated messages for a chat",
+        "operationId": "get_chat_messages_v1_chats__chat_id__messages_get",
+        "parameters": [
+          {
+            "name": "chat_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Chat Id"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 50,
+              "title": "Page Size"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedMessageResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "chats"
+        ],
+        "summary": "Send Messages",
+        "description": "Send messages to a chat with optional streaming support",
+        "operationId": "send_messages_v1_chats__chat_id__messages_post",
+        "parameters": [
+          {
+            "name": "chat_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Chat Id"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MessageRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageBatchResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/chats/{chat_id}": {
+      "delete": {
+        "tags": [
+          "chats"
+        ],
+        "summary": "Delete Chat",
+        "description": "Delete a chat",
+        "operationId": "delete_chat_v1_chats__chat_id__delete",
+        "parameters": [
+          {
+            "name": "chat_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Chat Id"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/models/{model_id}": {
+      "get": {
+        "tags": [
+          "models"
+        ],
+        "summary": "Get Model Details",
+        "description": "Get model details by ID",
+        "operationId": "get_model_details_v1_models__model_id__get",
+        "parameters": [
+          {
+            "name": "model_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Model Id"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModelData"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/workflows/schema": {
+      "get": {
+        "tags": [
+          "agents"
+        ],
+        "summary": "Get Workflow Schema",
+        "description": "Retrieves the JSON schema that describes the structure of a workflow.",
+        "operationId": "get_workflow_schema_v1_workflows_schema_get",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowSchema"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/r2r/v3/retrieval/search": {
+      "post": {
+        "tags": [
+          "search"
+        ],
+        "summary": "Search Retrieval",
+        "description": "Performs a search on the retrieval system.",
+        "operationId": "search_retrieval_v3_retrieval_search_post",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/r2r/v3/retrieval/rag": {
+      "post": {
+        "tags": [
+          "rag"
+        ],
+        "summary": "Retrieval Augmented Generation",
+        "description": "Performs Retrieval-Augmented Generation (RAG) based on the input query.",
+        "operationId": "retrieval_augmented_generation_v3_retrieval_rag_post",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RAGRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RAGResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/r2r/v3/retrieval/agent": {
+      "post": {
+        "tags": [
+          "agents"
+        ],
+        "summary": "Run Retrieval Agent",
+        "description": "Performs an agent operation using the retrieval system.",
+        "operationId": "run_retrieval_agent_v3_retrieval_agent_post",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RetrievalAgentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RetrievalAgentResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/r2r/v3/retrieval/completion": {
+      "post": {
+        "tags": [
+          "rag"
+        ],
+        "summary": "Retrieval Completion",
+        "description": "Performs a completion using data retrieved from the retrieval system.",
+        "operationId": "retrieval_completion_v3_retrieval_completion_post",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RetrievalCompletionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RetrievalCompletionResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/r2r/v3/retrieval/embedding": {
+      "post": {
+        "tags": [
+          "embeddings"
+        ],
+        "summary": "Retrieval Embedding",
+        "description": "Performs an embedding operation for retrieval purposes.",
+        "operationId": "retrieval_embedding_v3_retrieval_embedding_post",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RetrievalEmbeddingRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RetrievalEmbeddingResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/r2r/v3/documents": {
+      "get": {
+        "tags": [
+          "documents"
+        ],
+        "summary": "Get Documents",
+        "description": "Retrieves a list of documents in the retrieval system.",
+        "operationId": "get_documents_v3_documents_get",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentsList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "documents"
+        ],
+        "summary": "Upload Document",
+        "description": "Upload a new document to the retrieval system.",
+        "operationId": "upload_document_v3_documents_post",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/UploadDocumentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadDocumentResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/models": {
+      "get": {
+        "tags": [
+          "models"
+        ],
+        "summary": "Get Models List",
+        "description": "Get list of available models for Chat Completions API",
+        "operationId": "get_models_list_v1_models_get",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModelList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/stats/token-usage": {
+      "get": {
+        "tags": [
+          "stats"
+        ],
+        "summary": "Get Token Usage",
+        "description": "Get today's token usage for the authenticated user",
+        "operationId": "get_token_usage_v1_stats_token_usage_get",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GeneralTokenUsage"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/stats/daily-token-quota/{model_id}": {
+      "get": {
+        "tags": [
+          "stats"
+        ],
+        "summary": "Daily Token Quota Per Model",
+        "description": "Get the global daily quota limits for all models",
+        "operationId": "daily_token_quota_per_model_v1_stats_daily_token_quota__model_id__get",
+        "parameters": [
+          {
+            "name": "model_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Model Id"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GeneralModelQuota"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/stats/global-token-usage": {
+      "get": {
+        "tags": [
+          "stats"
+        ],
+        "summary": "Global Token Usage All Time",
+        "description": "Get global token usage aggregated per model and usage category all time",
+        "operationId": "global_token_usage_all_time_v1_stats_global_token_usage_get",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalTokenUsageDataAllTime"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/agents": {
+      "get": {
+        "tags": [
+          "agents"
+        ],
+        "summary": "Get Available Agents",
+        "operationId": "get_available_agents_v1_agents_get",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgentsList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/agents/": {
+      "get": {
+        "tags": [
+          "agents"
+        ],
+        "summary": "Get Available Agents",
+        "operationId": "get_available_agents_v1_agents__get",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgentsList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/workflows/list": {
+      "get": {
+        "tags": [
+          "agents"
+        ],
+        "summary": "Get Yaml List",
+        "operationId": "get_yaml_list_v1_workflows_list_get",
+        "parameters": [
+          {
+            "name": "folder",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Folder"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/YamlInfoList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/workflows/folders": {
+      "get": {
+        "tags": [
+          "agents"
+        ],
+        "summary": "Get Folders List",
+        "operationId": "get_folders_list_v1_workflows_folders_get",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FolderInfoList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/workflows/new": {
+      "post": {
+        "tags": [
+          "agents"
+        ],
+        "summary": "New Workflow",
+        "operationId": "new_workflow_v1_workflows_new_post",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_new_workflow_v1_workflows_new_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/YamlInfo"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/workflows/run/{workflow_id}": {
+      "get": {
+        "tags": [
+          "agents"
+        ],
+        "summary": "Run Workflow",
+        "operationId": "run_workflow_v1_workflows_run__workflow_id__get",
+        "parameters": [
+          {
+            "name": "workflow_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Workflow Id"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_run_workflow_v1_workflows_run__workflow_id__get"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/workflows/{workflow_id}": {
+      "get": {
+        "tags": [
+          "agents"
+        ],
+        "summary": "Get Workflow Data",
+        "operationId": "get_workflow_data_v1_workflows__workflow_id__get",
+        "parameters": [
+          {
+            "name": "workflow_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Workflow Id"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/YamlData"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "agents"
+        ],
+        "summary": "Update Workflow Info",
+        "operationId": "update_workflow_info_v1_workflows__workflow_id__patch",
+        "parameters": [
+          {
+            "name": "workflow_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Workflow Id"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_update_workflow_info_v1_workflows__workflow_id__patch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "agents"
+        ],
+        "summary": "Remove Workflow",
+        "operationId": "remove_workflow_v1_workflows__workflow_id__delete",
+        "parameters": [
+          {
+            "name": "workflow_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Workflow Id"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/secrets/": {
+      "get": {
+        "tags": [
+          "agents"
+        ],
+        "summary": "Get Secrets List",
+        "operationId": "get_secrets_list_v1_secrets__get",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SecretInfoList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "agents"
+        ],
+        "summary": "New Secret",
+        "operationId": "new_secret_v1_secrets__post",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_new_secret_v1_secrets__post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SecretInfo"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/secrets/{secret_id}": {
+      "get": {
+        "tags": [
+          "agents"
+        ],
+        "summary": "Get Secret Info",
+        "operationId": "get_secret_info_v1_secrets__secret_id__get",
+        "parameters": [
+          {
+            "name": "secret_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Secret Id"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SecretInfo"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "agents"
+        ],
+        "summary": "Update Secret",
+        "operationId": "update_secret_v1_secrets__secret_id__patch",
+        "parameters": [
+          {
+            "name": "secret_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Secret Id"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_update_secret_v1_secrets__secret_id__patch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "agents"
+        ],
+        "summary": "Delete Secret",
+        "operationId": "delete_secret_v1_secrets__secret_id__delete",
+        "parameters": [
+          {
+            "name": "secret_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Secret Id"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ping": {
+      "get": {
+        "summary": "Health Check",
+        "operationId": "health_check_ping_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AgentMetadata": {
+        "properties": {
+          "image_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image Url",
+            "description": "URL to the agent's display image"
+          },
+          "tags": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tags",
+            "description": "List of tags describing agent features and status",
+            "examples": [
+              "New",
+              "Free",
+              "Uncensored"
+            ]
+          }
+        },
+        "type": "object",
+        "title": "AgentMetadata"
+      },
+      "AgentSpecificationDescription": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "persona": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PersonaConfig"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/AgentMetadata",
+            "description": "Agent metadata including some optional fields",
+            "examples": [
+              {
+                "image_url": "https://example.com/gpt4.jpg"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "metadata"
+        ],
+        "title": "AgentSpecificationDescription",
+        "description": "Links to app.agents.available_agents.AgentSpecification"
+      },
+      "AgentsList": {
+        "properties": {
+          "agents": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/AgentSpecificationDescription"
+            },
+            "type": "object",
+            "title": "Agents"
+          }
+        },
+        "type": "object",
+        "required": [
+          "agents"
+        ],
+        "title": "AgentsList"
+      },
+      "Body_new_secret_v1_secrets__post": {
+        "properties": {
+          "secret_name": {
+            "type": "string",
+            "maxLength": 1024,
+            "minLength": 1,
+            "title": "Secret Name"
+          },
+          "secret_value": {
+            "type": "string",
+            "maxLength": 1024,
+            "minLength": 4,
+            "title": "Secret Value"
+          },
+          "tool_name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 1024,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tool Name"
+          },
+          "tool_arg": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 1024,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tool Arg"
+          },
+          "is_default_for_tool": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Default For Tool"
+          }
+        },
+        "type": "object",
+        "required": [
+          "secret_name",
+          "secret_value"
+        ],
+        "title": "Body_new_secret_v1_secrets__post"
+      },
+      "Body_new_workflow_v1_workflows_new_post": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "folder": {
+            "type": "string",
+            "title": "Folder",
+            "default": ""
+          },
+          "yaml_file": {
+            "type": "string",
+            "format": "binary",
+            "title": "Yaml File"
+          },
+          "metadata": {
+            "type": "string",
+            "title": "Metadata",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "yaml_file"
+        ],
+        "title": "Body_new_workflow_v1_workflows_new_post"
+      },
+      "Body_run_workflow_v1_workflows_run__workflow_id__get": {
+        "properties": {
+          "tool_args": {
+            "type": "string",
+            "title": "Tool Args",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "title": "Body_run_workflow_v1_workflows_run__workflow_id__get"
+      },
+      "Body_update_secret_v1_secrets__secret_id__patch": {
+        "properties": {
+          "secret_name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 1024,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Secret Name"
+          },
+          "secret_value": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 1024,
+                "minLength": 4
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Secret Value"
+          },
+          "tool_name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 1024,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tool Name"
+          },
+          "tool_arg": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 1024,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tool Arg"
+          },
+          "is_default_for_tool": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Default For Tool"
+          }
+        },
+        "type": "object",
+        "title": "Body_update_secret_v1_secrets__secret_id__patch"
+      },
+      "Body_update_workflow_info_v1_workflows__workflow_id__patch": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "yaml_file": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "binary"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Yaml File"
+          },
+          "metadata": {
+            "type": "string",
+            "title": "Metadata",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "title": "Body_update_workflow_info_v1_workflows__workflow_id__patch"
+      },
+      "ChatData": {
+        "properties": {
+          "chat_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Chat Id"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "llm_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Llm Id"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ChatStatus"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "summary": {
+            "type": "string",
+            "title": "Summary",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "chat_id",
+          "user_id",
+          "title",
+          "llm_id",
+          "status",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "ChatData"
+      },
+      "ChatList": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/ChatData"
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "ChatList"
+      },
+      "ChatRequest": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Title",
+            "description": "Chat title"
+          },
+          "llm_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Llm Id",
+            "description": "Model identifier"
+          }
+        },
+        "type": "object",
+        "required": [
+          "title",
+          "llm_id"
+        ],
+        "title": "ChatRequest"
+      },
+      "ChatStatus": {
+        "type": "string",
+        "enum": [
+          "active",
+          "archived"
+        ],
+        "title": "ChatStatus"
+      },
+      "FolderInfo": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "files": {
+            "type": "integer",
+            "title": "Files"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "files"
+        ],
+        "title": "FolderInfo"
+      },
+      "FolderInfoList": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/FolderInfo"
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "FolderInfoList"
+      },
+      "GeneralModelQuota": {
+        "properties": {
+          "model_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Model Id",
+            "description": "Unique model identifier"
+          },
+          "quotas": {
+            "items": {
+              "$ref": "#/components/schemas/ModelQuota"
+            },
+            "type": "array",
+            "title": "Quotas",
+            "description": "Token quota per category for the model"
+          }
+        },
+        "type": "object",
+        "required": [
+          "model_id"
+        ],
+        "title": "GeneralModelQuota",
+        "description": "General Model token quota data."
+      },
+      "GeneralTokenUsage": {
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id",
+            "description": "Unique user identifier"
+          },
+          "usage": {
+            "items": {
+              "$ref": "#/components/schemas/TokenUsage"
+            },
+            "type": "array",
+            "title": "Usage",
+            "description": "Token usage per category, per model"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Timestamp",
+            "description": "Last updated timestamp"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_id"
+        ],
+        "title": "GeneralTokenUsage"
+      },
+      "GlobalTokenUsageDataAllTime": {
+        "properties": {
+          "messages": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "propertyNames": {
+              "format": "uuid"
+            },
+            "type": "object",
+            "title": "Messages",
+            "description": "Total messages token usage per model."
+          },
+          "api_completions": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "propertyNames": {
+              "format": "uuid"
+            },
+            "type": "object",
+            "title": "Api Completions",
+            "description": "Total API completions token usage per model."
+          },
+          "embeddings": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "propertyNames": {
+              "format": "uuid"
+            },
+            "type": "object",
+            "title": "Embeddings",
+            "description": "Total embeddings token usage per model."
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Timestamp",
+            "description": "Last updated timestamp."
+          }
+        },
+        "type": "object",
+        "title": "GlobalTokenUsageDataAllTime",
+        "description": "Global Token Usage Data aggregated per model and usage category (chat messages, API completions, embeddings)."
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "LicenseInfo": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "License name like MIT / Apache 2.0 / etc"
+          },
+          "url": {
+            "type": "string",
+            "title": "Url",
+            "description": "URL to license"
+          },
+          "contact": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Contact",
+            "description": "How to contact the developers"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "url"
+        ],
+        "title": "LicenseInfo"
+      },
+      "MessageBatchResponse": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/MessageData"
+            },
+            "type": "array",
+            "title": "Data",
+            "description": "list of processed messages"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "MessageBatchResponse"
+      },
+      "MessageContent": {
+        "properties": {
+          "content": {
+            "type": "string",
+            "title": "Content",
+            "description": "Message content"
+          },
+          "role": {
+            "$ref": "#/components/schemas/MessageRole",
+            "description": "Message sender role",
+            "examples": [
+              "user",
+              "assistant",
+              "system"
+            ]
+          },
+          "metadata": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Metadata",
+            "description": "Additional message metadata"
+          }
+        },
+        "type": "object",
+        "required": [
+          "content",
+          "role"
+        ],
+        "title": "MessageContent"
+      },
+      "MessageData": {
+        "properties": {
+          "message_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Message Id",
+            "description": "Unique message identifier"
+          },
+          "chat_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Chat Id",
+            "description": "Associated chat identifier"
+          },
+          "content": {
+            "type": "string",
+            "title": "Content",
+            "description": "Message content"
+          },
+          "role": {
+            "type": "string",
+            "title": "Role",
+            "description": "Message sender role"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Timestamp",
+            "description": "Server timestamp"
+          },
+          "metadata": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Metadata",
+            "description": "Additional metadata including streaming status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "message_id",
+          "chat_id",
+          "content",
+          "role",
+          "timestamp"
+        ],
+        "title": "MessageData"
+      },
+      "MessageRequest": {
+        "properties": {
+          "messages": {
+            "items": {
+              "$ref": "#/components/schemas/MessageContent"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Messages",
+            "description": "List of messages to be sent"
+          },
+          "stream": {
+            "type": "boolean",
+            "title": "Stream",
+            "description": "Enable streaming response. If true, returns Server-Sent Events",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "messages"
+        ],
+        "title": "MessageRequest"
+      },
+      "MessageRole": {
+        "type": "string",
+        "enum": [
+          "user",
+          "assistant",
+          "system"
+        ],
+        "title": "MessageRole"
+      },
+      "ModelData": {
+        "properties": {
+          "model_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Model Id",
+            "description": "Unique model identifier"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Model name"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description",
+            "description": "Model description"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ModelStatus",
+            "description": "Current model status"
+          },
+          "chat_daily_quota_tier_1": {
+            "type": "integer",
+            "title": "Chat Daily Quota Tier 1",
+            "description": "Daily chat quota for tier 1 users"
+          },
+          "api_completions_daily_quota_tier_1": {
+            "type": "integer",
+            "title": "Api Completions Daily Quota Tier 1",
+            "description": "Daily API completions quota for tier 1 users"
+          },
+          "embeddings_daily_quota_tier_1": {
+            "type": "integer",
+            "title": "Embeddings Daily Quota Tier 1",
+            "description": "Daily embeddings quota for tier 1 users"
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/ModelMetadata",
+            "description": "Model metadata including some optional fields",
+            "examples": [
+              {
+                "context_length": 8192,
+                "developer": "Meta AI",
+                "image_url": "https://example.com/gpt4.jpg",
+                "short_description": "The latest and greatest AI model",
+                "tags": [
+                  "New",
+                  "Premium",
+                  "Uncensored"
+                ],
+                "trendiness": 9,
+                "version": "1.0"
+              }
+            ]
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At",
+            "description": "Model creation timestamp"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At",
+            "description": "Last update timestamp"
+          }
+        },
+        "type": "object",
+        "required": [
+          "model_id",
+          "name",
+          "status",
+          "chat_daily_quota_tier_1",
+          "api_completions_daily_quota_tier_1",
+          "embeddings_daily_quota_tier_1",
+          "metadata",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "ModelData"
+      },
+      "ModelList": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/ModelData"
+            },
+            "type": "array",
+            "title": "Data",
+            "description": "List of available models"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "ModelList"
+      },
+      "ModelMetadata": {
+        "properties": {
+          "image_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image Url",
+            "description": "URL to the model's display image"
+          },
+          "tags": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tags",
+            "description": "List of tags describing model features and status",
+            "examples": [
+              "New",
+              "Free",
+              "Uncensored"
+            ]
+          },
+          "version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Version",
+            "description": "Model version identifier"
+          },
+          "developer": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Developer",
+            "description": "Organization that developed the model"
+          },
+          "short_description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Short Description",
+            "description": "Short description of the model"
+          },
+          "enable_api_chat_completions": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Enable Api Chat Completions",
+            "description": "Flag to enable Open AI chat completions API for the model",
+            "default": false,
+            "examples": [
+              true,
+              false
+            ]
+          },
+          "enable_api_embeddings": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Enable Api Embeddings",
+            "description": "Flag to enable Open AI embeddings API for the model",
+            "default": false,
+            "examples": [
+              true,
+              false
+            ]
+          },
+          "enable_chat_ui": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Enable Chat Ui",
+            "description": "Flag to enable chat UI for the model",
+            "default": true,
+            "examples": [
+              true,
+              false
+            ]
+          },
+          "trendiness": {
+            "type": "integer",
+            "maximum": 10.0,
+            "minimum": 0.0,
+            "title": "Trendiness",
+            "description": "Trendiness score of the model, higher score means more popular. Range: 0-10.",
+            "default": 0
+          },
+          "license": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LicenseInfo"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Model license metadata"
+          },
+          "tool_support": {
+            "$ref": "#/components/schemas/ToolSupport",
+            "description": "Tool calling support quirks for the model",
+            "default": "no"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "ModelMetadata"
+      },
+      "ModelQuota": {
+        "properties": {
+          "model_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Model Id",
+            "description": "Unique model identifier"
+          },
+          "category": {
+            "$ref": "#/components/schemas/UsageCategories",
+            "description": "Token usage category",
+            "examples": [
+              "chat",
+              "api_completions",
+              "embeddings"
+            ]
+          },
+          "quota": {
+            "type": "integer",
+            "title": "Quota",
+            "description": "Token quota for the model"
+          }
+        },
+        "type": "object",
+        "required": [
+          "model_id",
+          "category",
+          "quota"
+        ],
+        "title": "ModelQuota",
+        "description": "Model token quota data."
+      },
+      "ModelStatus": {
+        "type": "string",
+        "enum": [
+          "active",
+          "inactive"
+        ],
+        "title": "ModelStatus"
+      },
+      "PaginatedMessageResponse": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/MessageData"
+            },
+            "type": "array",
+            "title": "Data",
+            "description": "list of messages"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/PaginationResponse",
+            "description": "Pagination information"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data",
+          "pagination"
+        ],
+        "title": "PaginatedMessageResponse"
+      },
+      "PaginationResponse": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "page": {
+            "type": "integer",
+            "title": "Page"
+          },
+          "page_size": {
+            "type": "integer",
+            "title": "Page Size"
+          },
+          "total_pages": {
+            "type": "integer",
+            "title": "Total Pages"
+          },
+          "has_next": {
+            "type": "boolean",
+            "title": "Has Next"
+          },
+          "has_previous": {
+            "type": "boolean",
+            "title": "Has Previous"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total",
+          "page",
+          "page_size",
+          "total_pages",
+          "has_next",
+          "has_previous"
+        ],
+        "title": "PaginationResponse"
+      },
+      "PersonaConfig": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name",
+            "description": "If the persona has a specific name or nickname."
+          },
+          "age": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Age",
+            "description": "Approximate age of the persona (if relevant)."
+          },
+          "role": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Role",
+            "description": "General role or type, e.g. 'a brave knight', 'a friendly teacher', etc."
+          },
+          "style": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Style",
+            "description": "A short description of the agent's style or demeanor (e.g., 'formal and polite')."
+          },
+          "domain_knowledge": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Domain Knowledge",
+            "description": "List of domains or special areas of expertise the agent has."
+          },
+          "quirks": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Quirks",
+            "description": "Any unique quirks or mannerisms, e.g. 'likes using puns' or 'always references coffee.'"
+          },
+          "bio": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bio",
+            "description": "A short biography or personal background for the persona."
+          },
+          "lore": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lore",
+            "description": "In-universe lore or backstory, e.g. 'grew up in a small village with magical powers.'"
+          },
+          "personality": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Personality",
+            "description": "A more direct statement of the persona's emotional or psychological traits."
+          },
+          "conversation_style": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Conversation Style",
+            "description": "How the character speaks in conversation, e.g., 'often uses slang' or 'very verbose and flowery.'"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description",
+            "description": "A general descriptive text, e.g., 'A tall, lean figure wearing a cloak, with a stern demeanor.'"
+          },
+          "friendliness": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Friendliness",
+            "description": "How friendly the agent is, from 0 (hostile) to 1 (friendly)."
+          },
+          "creativity": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Creativity",
+            "description": "How creative the agent is, from 0 (very logical) to 1 (very creative)."
+          },
+          "curiosity": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Curiosity",
+            "description": "How curious the agent is, from 0 (disinterested) to 1 (very curious)."
+          },
+          "empathy": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Empathy",
+            "description": "How empathetic the agent is, from 0 (cold) to 1 (very empathetic)."
+          },
+          "humor": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Humor",
+            "description": "How humorous the agent is, from 0 (serious) to 1 (very humorous)."
+          },
+          "formality": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Formality",
+            "description": "How formal the agent is, from 0 (very casual) to 1 (very formal)."
+          },
+          "emotional_stability": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Emotional Stability",
+            "description": "How emotionally stable the agent is, from 0 (very emotional) to 1 (very stable)."
+          }
+        },
+        "type": "object",
+        "title": "PersonaConfig",
+        "description": "A configuration object that describes an agent's persona or character."
+      },
+      "SecretInfo": {
+        "properties": {
+          "secret_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Secret Id"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "secret_name": {
+            "type": "string",
+            "title": "Secret Name"
+          },
+          "display": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Display"
+          },
+          "tool_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tool Name"
+          },
+          "tool_arg": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tool Arg"
+          },
+          "is_default_for_tool": {
+            "type": "boolean",
+            "title": "Is Default For Tool"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "secret_id",
+          "user_id",
+          "secret_name",
+          "display",
+          "tool_name",
+          "tool_arg",
+          "is_default_for_tool",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "SecretInfo"
+      },
+      "SecretInfoList": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/SecretInfo"
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "SecretInfoList"
+      },
+      "TokenUsage": {
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id",
+            "description": "Unique user identifier"
+          },
+          "category": {
+            "$ref": "#/components/schemas/UsageCategories",
+            "description": "Token usage category",
+            "examples": [
+              "chat",
+              "api_completions",
+              "embeddings"
+            ]
+          },
+          "usage_per_model": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "propertyNames": {
+              "format": "uuid"
+            },
+            "type": "object",
+            "title": "Usage Per Model",
+            "description": "Token usage_per_model per model"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_id",
+          "category"
+        ],
+        "title": "TokenUsage"
+      },
+      "ToolSupport": {
+        "type": "string",
+        "enum": [
+          "no",
+          "auto",
+          "extra_body_auto",
+          "required"
+        ],
+        "title": "ToolSupport"
+      },
+      "UsageCategories": {
+        "type": "string",
+        "enum": [
+          "chat",
+          "api_completions",
+          "embeddings"
+        ],
+        "title": "UsageCategories"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "YamlData": {
+        "properties": {
+          "workflow_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Workflow Id"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "folder": {
+            "type": "string",
+            "title": "Folder"
+          },
+          "status": {
+            "$ref": "#/components/schemas/YamlStatus"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "content": {
+            "type": "string",
+            "title": "Content"
+          },
+          "metadata": {
+            "type": "object",
+            "title": "Metadata"
+          }
+        },
+        "type": "object",
+        "required": [
+          "workflow_id",
+          "user_id",
+          "name",
+          "folder",
+          "status",
+          "created_at",
+          "updated_at",
+          "content",
+          "metadata"
+        ],
+        "title": "YamlData"
+      },
+      "YamlInfo": {
+        "properties": {
+          "workflow_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Workflow Id"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "folder": {
+            "type": "string",
+            "title": "Folder"
+          },
+          "status": {
+            "$ref": "#/components/schemas/YamlStatus"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "workflow_id",
+          "user_id",
+          "name",
+          "folder",
+          "status",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "YamlInfo"
+      },
+      "YamlInfoList": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/YamlInfo"
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "YamlInfoList"
+      },
+      "YamlStatus": {
+        "type": "string",
+        "enum": [
+          "active",
+          "deleted"
+        ],
+        "title": "YamlStatus"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.intelligence.io.solutions/api"
+    }
+  ]
+}

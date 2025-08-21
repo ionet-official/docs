@@ -1,0 +1,201 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO Intelligence",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.intelligence.io.solutions"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/api/r2r/v3/graphs/{collection_id}/entities": {
+      "post": {
+        "summary": "Create Entity",
+        "description": "Creates a new entity in the graph.",
+        "operationId": "add-new-entities",
+        "parameters": [
+          {
+            "name": "collection_id",
+            "in": "path",
+            "description": "Collection ID",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "description"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "The name of the entity to create."
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "The description of the entity to create."
+                  },
+                  "category": {
+                    "type": "string",
+                    "description": "The category of the entity to create."
+                  },
+                  "metadata": {
+                    "type": "array",
+                    "description": "The metadata of the entity to create."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "results": {
+                        "name": "name",
+                        "description": "description",
+                        "category": "category",
+                        "metadata": {
+                          "key": "value"
+                        },
+                        "id": "id",
+                        "parent_id": "parent_id",
+                        "description_embedding": [
+                          1.1
+                        ],
+                        "chunk_ids": [
+                          "chunk_ids"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "results": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "example": "name"
+                        },
+                        "description": {
+                          "type": "string",
+                          "example": "description"
+                        },
+                        "category": {
+                          "type": "string",
+                          "example": "category"
+                        },
+                        "metadata": {
+                          "type": "object",
+                          "properties": {
+                            "key": {
+                              "type": "string",
+                              "example": "value"
+                            }
+                          }
+                        },
+                        "id": {
+                          "type": "string",
+                          "example": "id"
+                        },
+                        "parent_id": {
+                          "type": "string",
+                          "example": "parent_id"
+                        },
+                        "description_embedding": {
+                          "type": "array",
+                          "items": {
+                            "type": "number",
+                            "example": 1.1,
+                            "default": 0
+                          }
+                        },
+                        "chunk_ids": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "example": "chunk_ids"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {}
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "Result": {
+                    "value": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl -X POST https://api.intelligence.io.solutions/api/r2r/v3/graphs/{collection_id}/entities \\\n  -H \"Authorization: Bearer $IOINTELLIGENCE_API_KEY\" \\\n     -H \"Content-Type: application/json\" \\\n     -d '{\n  \"name\": \"name\",\n  \"description\": \"description\"\n}'"
+            }
+          ],
+          "samples-languages": [
+            "curl"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,182 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO API",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.io.solutions/"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/v1/io-worker/devices/{device_id}/notifications": {
+      "get": {
+        "summary": "Device Notifications",
+        "description": "This endpoint returns all device notifications or specific types of notifications.",
+        "operationId": "device-notifications",
+        "parameters": [
+          {
+            "name": "device_id",
+            "in": "path",
+            "description": "The unique identifier for your device.",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Define notification type. The possible values are: all, error, warning, info, success.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "data": [
+                        {
+                          "created_at": "2023-08-29 19:06:40",
+                          "device_id": "c4ba4d4b-8762-4437-b82c-6f78a20a8cb5",
+                          "id": 1,
+                          "text": "down for 3 mins"
+                        }
+                      ],
+                      "status": "succeeded"
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "created_at": {
+                            "type": "string",
+                            "example": "2023-08-29 19:06:40"
+                          },
+                          "device_id": {
+                            "type": "string",
+                            "example": "c4ba4d4b-8762-4437-b82c-6f78a20a8cb5"
+                          },
+                          "id": {
+                            "type": "integer",
+                            "example": 1,
+                            "default": 0
+                          },
+                          "text": {
+                            "type": "string",
+                            "example": "down for 3 mins"
+                          }
+                        }
+                      }
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "succeeded"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "Result": {
+                    "value": "\t\nNot found"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Validation Error": {
+                    "value": {
+                      "detail": [
+                        {
+                          "loc": [
+                            "string",
+                            0
+                          ],
+                          "msg": "string",
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "loc": {
+                            "type": "array"
+                          },
+                          "msg": {
+                            "type": "string",
+                            "example": "string"
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl -X GET \"https://api.io.solutions/v1/io-worker/devices/{device_id}/notifications\" \n-H \"Token: {your_token}\""
+            }
+          ],
+          "samples-languages": [
+            "curl"
+          ]
+        }
+      }
+    }
+  }
+}

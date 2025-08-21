@@ -1,0 +1,273 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO Intelligence",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.intelligence.io.solutions"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/api/r2r/v3/collections/{id}/users": {
+      "get": {
+        "summary": "List users in collection",
+        "description": "Get all users in a collection with pagination and sorting options.",
+        "operationId": "list-users-in-a-collection",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Collection ID",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "results": [
+                        {
+                          "id": "id",
+                          "email": "email",
+                          "is_active": true,
+                          "is_superuser": true,
+                          "created_at": "2024-01-15T09:30:00Z",
+                          "updated_at": "2024-01-15T09:30:00Z",
+                          "is_verified": true,
+                          "collection_ids": [
+                            "collection_ids"
+                          ],
+                          "graph_ids": [
+                            "graph_ids"
+                          ],
+                          "document_ids": [
+                            "document_ids"
+                          ],
+                          "limits_overrides": {
+                            "key": "value"
+                          },
+                          "metadata": {
+                            "key": "value"
+                          },
+                          "verification_code_expiry": "2024-01-15T09:30:00Z",
+                          "name": "name",
+                          "bio": "bio",
+                          "profile_picture": "profile_picture",
+                          "total_size_in_bytes": 1,
+                          "num_files": 1,
+                          "account_type": "account_type",
+                          "hashed_password": "hashed_password",
+                          "google_id": "google_id",
+                          "github_id": "github_id"
+                        }
+                      ],
+                      "total_entries": 1
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "example": "id"
+                          },
+                          "email": {
+                            "type": "string",
+                            "example": "email"
+                          },
+                          "is_active": {
+                            "type": "boolean",
+                            "example": true,
+                            "default": true
+                          },
+                          "is_superuser": {
+                            "type": "boolean",
+                            "example": true,
+                            "default": true
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "example": "2024-01-15T09:30:00Z"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "example": "2024-01-15T09:30:00Z"
+                          },
+                          "is_verified": {
+                            "type": "boolean",
+                            "example": true,
+                            "default": true
+                          },
+                          "collection_ids": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "example": "collection_ids"
+                            }
+                          },
+                          "graph_ids": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "example": "graph_ids"
+                            }
+                          },
+                          "document_ids": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "example": "document_ids"
+                            }
+                          },
+                          "limits_overrides": {
+                            "type": "object",
+                            "properties": {
+                              "key": {
+                                "type": "string",
+                                "example": "value"
+                              }
+                            }
+                          },
+                          "metadata": {
+                            "type": "object",
+                            "properties": {
+                              "key": {
+                                "type": "string",
+                                "example": "value"
+                              }
+                            }
+                          },
+                          "verification_code_expiry": {
+                            "type": "string",
+                            "example": "2024-01-15T09:30:00Z"
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "name"
+                          },
+                          "bio": {
+                            "type": "string",
+                            "example": "bio"
+                          },
+                          "profile_picture": {
+                            "type": "string",
+                            "example": "profile_picture"
+                          },
+                          "total_size_in_bytes": {
+                            "type": "integer",
+                            "example": 1,
+                            "default": 0
+                          },
+                          "num_files": {
+                            "type": "integer",
+                            "example": 1,
+                            "default": 0
+                          },
+                          "account_type": {
+                            "type": "string",
+                            "example": "account_type"
+                          },
+                          "hashed_password": {
+                            "type": "string",
+                            "example": "hashed_password"
+                          },
+                          "google_id": {
+                            "type": "string",
+                            "example": "google_id"
+                          },
+                          "github_id": {
+                            "type": "string",
+                            "example": "github_id"
+                          }
+                        }
+                      }
+                    },
+                    "total_entries": {
+                      "type": "integer",
+                      "example": 1,
+                      "default": 0
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {}
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "Result": {
+                    "value": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl -X GET https://api.intelligence.io.solutions/api/r2r/v3/collections/{id}/users \\\n  -H \"Authorization: Bearer $IOINTELLIGENCE_API_KEY\""
+            },
+            {
+              "language": "python",
+              "code": "from r2r import R2RClient\n\nclient = R2RClient()\n# when using auth, do client.login(...)\n\nresult = client.collections.list_users(\n    \"123e4567-e89b-12d3-a456-426614174000\",\n    offset=0,\n    limit=10,\n)"
+            }
+          ],
+          "samples-languages": [
+            "curl",
+            "python"
+          ]
+        }
+      }
+    }
+  }
+}

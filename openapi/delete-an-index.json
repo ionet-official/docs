@@ -1,0 +1,137 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO Intelligence",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.intelligence.io.solutions"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/api/r2r/v3/indices/{table_name}/{index_name}": {
+      "delete": {
+        "summary": "Delete Vector Index",
+        "description": "Delete an existing vector similarity search index.",
+        "operationId": "delete-an-index",
+        "parameters": [
+          {
+            "name": "table_name",
+            "in": "path",
+            "description": "The table of vector embeddings to delete (e.g. vectors, entity, document_collections)",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "chunks",
+                "documents_entities",
+                "graphs_entities",
+                "graphs_communities"
+              ]
+            },
+            "required": true
+          },
+          {
+            "name": "index_name",
+            "in": "path",
+            "description": "The name of the index to delete",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "results": {
+                        "message": "message"
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "results": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "message"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {}
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "Result": {
+                    "value": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl -X DELETE https://api.intelligence.io.solutions/api/r2r/v3/indices/{table_name}/{index_name} \\\n  -H \"Authorization: Bearer $IOINTELLIGENCE_API_KEY\""
+            },
+            {
+              "language": "python",
+              "code": "from r2r import R2RClient\n\nclient = R2RClient()\n\n# Delete an index with orchestration for cleanup\nresult = client.indices.delete(\n    index_name=\"index_1\",\n    table_name=\"vectors\",\n    run_with_orchestration=True\n)"
+            }
+          ],
+          "samples-languages": [
+            "curl",
+            "python"
+          ]
+        }
+      }
+    }
+  }
+}

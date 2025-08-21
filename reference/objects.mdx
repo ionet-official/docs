@@ -1,0 +1,169 @@
+---
+title: "Device Object"
+---
+
+### Device Object
+
+A Device represents a machine or worker with one or more GPUs. A device has specific attributes such as an ID, performance metrics, location, SOC 2 compliance status, speed metrics, and a record of its availability. Jobs are run on devices and are represented by dimensions such as duration, connectivity, and earnings associated with a specific job.
+
+### Attributes
+
+<ParamField path="base_tier_name" type="string" required>
+  The tier level assigned to the device based on its network speed.
+</ParamField>
+
+<ParamField path="brand_icon" type="string" required>
+  The web address where the icon that corresponds to the device is hosted.
+</ParamField>
+
+<ParamField path="device_id" type="string" required>
+  The unique identifier for your device.
+</ParamField>
+
+<ParamField path="down_percentage" type="integer" required>
+  The percentage of time the device was down or unavailable.
+</ParamField>
+
+<ParamField path="download_speed_mbps" type="integer" required>
+  The average download speed for this device, measured in megabits per second.
+</ParamField>
+
+<ParamField path="downtime_by_date" type="object" required>
+  An object where each key is a date string (YYYY-MM-DD format) representing a specific day. 
+  The value is an array of objects, each detailing downtime information for that day.
+
+  <Expandable title="properties">
+    <ParamField path="downtime_by_date.key" type="string" required>
+      Format: YYYY-MM-DD — The date the downtime occurred on.
+    </ParamField>
+
+    <ParamField path="downtime_by_date.value" type="array" required>
+      Each date key maps to an array of objects, where each object contains the following properties.
+
+      <Expandable title="properties">
+        <ParamField path="downtime_by_date.value.downtime" type="number" required>
+          The total duration of downtime in seconds.
+        </ParamField>
+
+        <ParamField path="downtime_by_date.value.note" type="string" required>
+          A note providing the downtime duration in days, hours, and minutes.
+        </ParamField>
+        **Example**
+
+        ```json json
+        {
+          "2023-09-11": {
+            "downtime": 281.508,
+            "note": "down for 0 days and 0 hours and 4 minutes"
+          },
+          "2023-09-12": {
+            "downtime": 12193.385,
+            "note": "down for 0 days and 3 hours and 23 minutes"
+          }
+        }
+        ```
+      </Expandable>
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField path="hardware_name" type="string" required>
+  The name of the hardware model used in the device, such as 'RTX A6000'.
+</ParamField>
+
+<ParamField path="hardware_quantity" type="integer" required>
+  The number of hardware components, defined in /hardware_name, installed in the device.
+</ParamField>
+
+<ParamField path="iso2" type="string" required>
+  The Country ISO Code provides the country location of the device. For example, CA for Canada.
+</ParamField>
+
+<ParamField path="jobs" type="array" required>
+  An array of objects, each representing different dimensions of the job. 
+  Every object in the array contains info about an aspect of the job, including duration, status, earnings, and slashed earnings.
+
+  <Expandable title="properties">
+    <ParamField path="jobs.compute_minutes_hired" type="integer" required>
+      Total number of minutes a customer hired the device.
+    </ParamField>
+
+    <ParamField path="jobs.compute_minutes_served" type="integer" required>
+      Total number of minutes the device was used for the job.
+    </ParamField>
+
+    <ParamField path="jobs.earned" type="integer" required>
+      Total $IO earnings for this hired job.
+    </ParamField>
+
+    <ParamField path="jobs.end_time" type="datetime string" required>
+      The date and time the job ends, in UTC.
+    </ParamField>
+
+    <ParamField path="jobs.for" type="string" required>
+      The Cluster ID.
+    </ParamField>
+
+    <ParamField path="jobs.slashed" type="integer" required>
+      Total slashed earnings for this job.
+    </ParamField>
+
+    <ParamField path="jobs.start_time" type="datetime string" required>
+      The date and time the job starts, in UTC.
+    </ParamField>
+
+    <ParamField path="jobs.status" type="string" required>
+      The status of the job.
+    </ParamField>
+
+    <ParamField path="jobs.total_hire_rate" type="integer" required>
+      The amount paid to the device owner if the device performs at 100% uptime for the duration of the job.
+    </ParamField>
+
+    <ParamField path="jobs.uptime_percent" type="integer" required>
+      Percent of time the device was connected.
+    </ParamField>
+
+    **Example**
+
+    ```json
+    {
+      "jobs": [
+        {
+          "compute_minutes_hired": 300,
+          "compute_minutes_served": 0,
+          "earned": 0,
+          "end_time": "2023-09-12 00:00:00",
+          "for": "e242cd76-9e65-4de1-b3ec-1cb8b002b38d",
+          "slashed": 0,
+          "start_time": "2023-09-12 00:00:00",
+          "status": "pending",
+          "total_hire_rate": 10.8,
+          "uptime_percent": 100
+        }
+      ]
+    }
+    ```
+  </Expandable>
+</ParamField>
+
+<ParamField path="location_icon" type="string" required>
+  The URL of where the location icon is stored.
+</ParamField>
+
+<ParamField path="location_name" type="string" required>
+  The name of the country where the device is located. Canada, for example.
+</ParamField>
+
+<ParamField path="security_soc2" type="boolean" required>
+  Indicates if the device complies with SOC 2 (System and Organization Controls 2) standards: True or False.
+</ParamField>
+
+<ParamField path="upload_speed_mbps" type="integer" required>
+  The average upload speed in MBPS.
+</ParamField>
+
+<ParamField path="status" type="string" required>
+  The status of the job running on the device.
+</ParamField>
+

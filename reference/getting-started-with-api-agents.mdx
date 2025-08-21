@@ -1,0 +1,149 @@
+---
+sidebarTitle: Overview
+title: "Getting Started with AI Agents API"
+---
+
+<Warning>
+Beta Notice: This project is in rapid development and may not be stable for production use.
+</Warning>
+
+AI Agents in the IO Intelligence API are specialized assistants designed to handle a variety of tasks, from reasoning and summarization to sentiment analysis and translation. These agents leverage advanced AI capabilities to automate complex workflows, enhance decision-making, and streamline information processing.
+
+Each AI agent is tailored for a specific function — whether it's extracting key information, classifying data, moderating content, or translating languages. By integrating these agents into your applications, you can harness powerful AI-driven automation with ease.
+
+For a deeper understanding of how these agents and workflows operate, refer to the [IO Intelligence Agent Framework](https://github.com/ionet-official/iointel/blob/main/README.md), which provides details on agent creation, workflow orchestration, and API endpoints.
+
+### Important Note on Usage Limits
+
+The IO Intelligence API provides the following **free daily limits** (measured in LLM tokens) **per account, per day, per model**.
+
+#### Column Definitions
+
+* **LLM Model Name:** The name of the large language model (LLM) available for use.
+* **Daily Chat Quota:** The maximum number of tokens you can use in chat-based interactions with this model per day.
+* **Daily API Quota:** The maximum number of tokens allowed for API-based interactions per day.
+* **Daily Embeddings Quota:** The maximum number of tokens available for embedding operations per day.
+* **Context Length:** The maximum number of tokens the model can process in a single request (including both input and output).
+
+Please refer to the table below for model-specific limits:
+
+<table><thead><tr><th >LLM Model Name</th><th >Daily Chat quote</th><th >Daily API quote</th><th >Daily Embeddings quote</th><th >Context Length</th></tr></thead><tbody><tr><td >Llama-4-Maverick-17B-128E-Instruct-FP8</td><td >1,000,000 tk</td><td >500,000 tk</td><td >N/A</td><td >430,000 tk</td></tr><tr><td >gpt-oss-120b</td><td >1,000,000 tk</td><td >50,000,000 tk</td><td >N/A</td><td >131,072 tk</td></tr><tr><td >gpt-oss-20b</td><td >1,000,000 tk</td><td >500,000 tk</td><td >N/A</td><td >131,072 tk</td></tr><tr><td >DeepSeek-R1-0528</td><td >1,000,000 tk</td><td >500,000 tk</td><td >N/A</td><td >128,000 tk</td></tr><tr><td >Qwen3-235B-A22B-Thinking-2507</td><td >1,000,000 tk</td><td >500,000 tk</td><td >N/A</td><td >262,144 tk</td></tr><tr><td >Qwen3-Coder-480B-A35B-Instruct-int4-mixed-ar</td><td >1,000,000 tk</td><td >500,000 tk</td><td >N/A</td><td >106,000 tk</td></tr><tr><td >Llama-3.3-70B-Instruct</td><td >1,000,000 tk</td><td >50,000,000 tk</td><td >N/A</td><td >128,000 tk</td></tr><tr><td >Mistral-Nemo-Instruct-2407</td><td >1,000,000 tk</td><td >500,000 tk</td><td >N/A</td><td >128,000 tk</td></tr><tr><td >Magistral-Small-2506</td><td >1,000,000 tk</td><td >500,000 tk</td><td >N/A</td><td >128,000 tk</td></tr><tr><td >Devstral-Small-2505</td><td >1,000,000 tk</td><td >500,000 tk</td><td >N/A</td><td >128,000 tk</td></tr><tr><td >Mistral-Large-Instruct-2411</td><td >1,000,000 tk</td><td >500,000 tk</td><td >/A</td><td >128,000 tk</td></tr><tr><td >aya-expanse-32b</td><td >1,000,000 tk</td><td >500,000 tk</td><td >N/A</td><td >8,000 tk</td></tr><tr><td >Qwen2.5-VL-32B-Instruct</td><td >N/A</td><td >500,000 tk</td><td >N/A</td><td >32,000 tk</td></tr><tr><td >Llama-3.2-90B-Vision-Instruct</td><td >N/A</td><td >200,000 tk</td><td >N/A</td><td >16,000 tk</td></tr><tr><td >bge-multilingual-gemma2</td><td >N/A</td><td >N/A</td><td >1,000,000 tk</td><td >4,096 tk</td></tr></tbody></table>
+
+This limit is designed to ensure fair and balanced usage for all users. If you anticipate needing a higher request limit, please consider optimizing your implementation or reach out to us for assistance.
+
+## Introduction
+
+You can interact with the API using HTTP requests from any programming language or by using the official Python.
+
+To install the official Python library, run the following command:
+
+```
+pip install iointel
+```
+
+### Example: Using the AI Agents API in Python
+
+Here’s an example of how you can use the `iointel Python` library to interact with the IO Intelligence API:
+
+<CodeGroup>
+  ```python Python
+  from iointel import (
+      Agent,
+      Workflow
+  )
+
+  import os
+  import asyncio
+
+  api_key = os.environ["OPENAI_API_KEY"]  # Replace with your actual IO.net API key
+
+  text = """In the rapidly evolving landscape of artificial intelligence, the ability to condense vast amounts of information into concise and meaningful summaries is crucial. From research papers and business reports to legal documents and news articles, professionals across industries rely on summarization to extract key insights efficiently. Traditional summarization techniques often struggle with maintaining coherence and contextual relevance. However, advanced AI models now leverage natural language understanding to identify core ideas, eliminate redundancy, and generate human-like summaries. As organizations continue to deal with an ever-growing influx of data, the demand for intelligent summarization tools will only increase. Whether enhancing productivity, improving decision-making, or streamlining workflows, AI-powered summarization is set to become an indispensable asset in the digital age."""
+
+  agent = Agent(
+      name="Summarize Agent",
+      instructions="You are an assistant specialized in summarization.",
+      model="meta-llama/Llama-3.3-70B-Instruct",
+      api_key=api_key,
+      base_url="https://api.intelligence.io.solutions/api/v1"
+  )
+
+  workflow = Workflow(objective=text, client_mode=False)
+
+  async def run_workflow():
+      results = (await workflow.summarize_text(max_words=50,agents=[agent]).run_tasks())["results"]
+      return results
+
+  results = asyncio.run(run_workflow())
+  print(results)
+  ```
+</CodeGroup>
+
+This snippet demonstrates how to configure the client, send a chat completion request using the `Llama-3.3-70B-Instruct` agent, and retrieve a response.
+
+<Warning>
+`run_tasks()` is now asynchronous. All usage must be wrapped inside an async function. Use asyncio.run() to execute it.
+</Warning>
+
+## Authentication
+
+### API keys
+
+IO Intelligence APIs authenticate requests using API keys. You can [generate API keys from your user](https://ai.io.net/ai/api-keys) account:
+
+<Warning>
+Always treat your API key as a secret! Do not share it or expose it in client-side code (e.g., browsers or mobile apps). Instead, store it securely in an environment variable or a key management service on your backend server.
+</Warning>
+
+Include the API key in an `Authorization` HTTP header for all API requests:
+
+```
+Authorization: Bearer \$IOINTELLIGENCE_API_KEY
+```
+
+### Example: List Available Agents
+
+Here's an example `curl` command to list all agents available in IO Intelligence:
+
+<CodeGroup>
+  ```curl curl
+  curl https://api.intelligence.io.solutions/api/v1/agents /
+    -H "Authorization: Bearer \$IOINTELLIGENCE_API_KEY" 
+  ```
+</CodeGroup>
+
+<Frame>
+![](/images/reference/d662245a9a9e42e605edab5851966cd24a7c8ec6bea32ef23aac82f57ea300cc-agents.jpg)
+</Frame>
+
+This request should return a response like this:
+
+<CodeGroup>
+  ```json json
+  {
+    "agents": {
+      "reasoning_agent": {
+        "name": "Reasoning Agent",
+        "description": "A logic-driven problem solver that breaks down complex scenarios into clear, step-by-step conclusions. Whether evaluating arguments, making inferences, or troubleshooting issues, this agent excels at structured thinking and insightful analysis.",
+        "persona": null,
+        "metadata": {
+          "image_url": null,
+          "tags": [
+            "text"
+          ]
+        }
+      },
+      "summary_agent": {
+        ...
+      },
+      "sentiment_analysis_agent": {
+       ...
+      },
+      ...
+    }
+  }
+  ```
+</CodeGroup>
+
+With these steps, you've successfully made your first request to the IO Intelligence: Agents API.
+
+For further details on **Agents, Workflows, and API Endpoints**, check out the [IO Intelligence Agent Framework](https://github.com/ionet-official/iointel/blob/main/README.md).

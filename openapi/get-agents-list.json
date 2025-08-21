@@ -1,0 +1,129 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO Intelligence",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.intelligence.io.solutions"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/api/v1/agents": {
+      "get": {
+        "summary": "Get Agents List",
+        "description": "Get list of available agents",
+        "operationId": "get-agents-list",
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "{\n    \"agents\": {\n        \"summary_agent\": {\n          \"name\": \"Summary Agent\",\n          \"description\": \"An expert in distilling large volumes of text into concise, meaningful summaries. Whether condensing reports, extracting key points from articles, or generating executive briefs, this agent ensures that critical information is delivered efficiently.\",\n          \"persona\": null,\n          \"metadata\": {\n            \"image_url\": null,\n            \"tags\": [\n              \"text\"\n            ]\n          }\n        },\n        \"sentiment_analysis_agent\": {\n          \"name\": \"Sentiment Analysis Agent\",\n          \"description\": \"A neutral and analytical evaluator of emotions embedded in text, this agent determines sentiment with precision—be it positive, negative, or neutral. Ideal for brand monitoring, customer feedback analysis, and social media insights, it provides an unbiased pulse on public opinion.\",\n          \"persona\": null,\n          \"metadata\": {\n            \"image_url\": null,\n            \"tags\": [\n              \"text\"\n            ]\n          }\n        },\n        ...\n    }\n}"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "Result": {
+                    "value": "string"
+                  }
+                },
+                "schema": {
+                  "type": "string",
+                  "example": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Validation Error": {
+                    "value": {
+                      "detail": [
+                        {
+                          "loc": [
+                            "string",
+                            0
+                          ],
+                          "msg": "string",
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "loc": {
+                            "type": "array"
+                          },
+                          "msg": {
+                            "type": "string",
+                            "example": "string"
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl https://api.intelligence.io.solutions/api/v1/agents \\\n  -H \"Authorization: Bearer $IOINTELLIGENCE_API_KEY\""
+            },
+            {
+              "language": "python",
+              "code": "import requests\n\nurl = \"https://api.intelligence.io.solutions/api/v1/agents\"\nheaders = {\n    \"Authorization\": \"Bearer $IOINTELLIGENCE_API_KEY\",\n    \"Content-Type\": \"application/json\"\n}\n\nresponse = requests.get(url, headers=headers)\nprint(response.json())"
+            }
+          ],
+          "samples-languages": [
+            "curl",
+            "python"
+          ]
+        }
+      }
+    }
+  }
+}

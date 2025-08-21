@@ -1,0 +1,121 @@
+---
+title: "HiveOS: Install Worker"
+description: "A step-by-step process for running io.net on HiveOS:"
+---
+
+### What is HiveOS?
+
+HiveOS is an operating system designed specifically for mining cryptocurrencies. It is optimized for mining efficiency, stability, and ease of use, offering features such as remote monitoring, management of mining rigs, and support for a variety of mining hardware. HiveOS is popular among cryptocurrency miners for its user-friendly interface, robust performance, and support for a wide range of mining algorithms and coins..
+
+### 1. [Download the HiveOS](https://hiveon.com/install/) Version from the Hiveon Website
+
+<Frame>
+![](/images/docs/f99d5255e980cbaa58e7a8dc0037e8f1fa01d8e6faef8712d473130ff09e67d1-Step1.jpg)
+</Frame>
+
+### 2. Burn the HiveOS image into the hard drive of the machine you want to rent using [Etcher.io](https://etcher.balena.io/)
+
+<Frame>
+![](/images/docs/9c4a2fe1bea74e88df9742a4b72f8f06ba5b3bf65498b578a523d24c280aca7b-Step2.jpg)
+</Frame>
+
+### 3. Add a new worker in HiveOS
+
+<Frame>
+![](/images/docs/4321a44c31018122f4d2a01dfd81118970bb82c0c69bf30165a5b67affcc635f-Step3.jpg)
+</Frame>
+
+In this step, what you are required to do is:
+
+* Click on the plus icon on the toolbar and select **Add Worker** option.
+* Enter the required information for the new worker, such as the worker name, rig type, and other details as needed.
+* Save or confirm the changes to add the new worker to your account..
+
+### 4. In the settings, enter the Rig ID and password in the rig
+
+<Frame>
+![](/images/docs/dc342aa474bcfdc6804913b158ac33f348fe6d25b48ca1e83ef9700d000660e8-Step4.jpg)
+</Frame>
+
+### 5. Open the console from the toolbar
+
+<Frame>
+![](/images/docs/ed53cc1516b049d63547522e80346e5cb80ee259fa7ac8c3f086e9c633ceae95-Step5.jpg)
+</Frame>
+
+Click on the Console icon in the toolbar to open the command line interface
+
+### 6. Enter commands into the command line
+
+**Command Line** is a tool on your computer that lets you type in commands to tell the computer what to do. Instead of clicking on things with a mouse, you write instructions, and the computer follows them. It's like talking directly to your computer using text.
+
+<Frame>
+![](/images/docs/f7cb363-Step6.jpg)
+</Frame>
+
+Enter the following commands in a row into the command line:
+
+```
+sudo apt-get update -y
+```
+
+```
+sudo apt-get install -y gnupg1
+```
+
+```
+cd ~
+```
+
+```
+wget https://raw.githubusercontent.com/ionet-official/io-net-official-setup-script/main/ionet-setup.sh
+```
+
+```
+chmod +x ionet-setup.sh
+```
+
+```
+./ionet-setup.sh
+```
+
+```
+sudo reboot
+```
+
+To check if all your graphics cards are connected, enter this additional command:
+
+```
+nvidia-smi
+```
+
+<Warning>
+When using SXM or NV Link, ensure that Fabric Manager is [installed correctly](https://docs.nvidia.com/datacenter/tesla/pdf/fabric-manager-user-guide.pdf) and enabled. This will prevent initialization issues and ensure that all GPUs are functioning properly, thereby avoiding PoW verification failures.
+</Warning>
+
+### 7. Execute the Docker command provided on the 'Connect New Device' page in your dashboard.
+
+<Frame>
+![](/images/docs/7a040c96d16e16b430c5219bb4a834af889ae830c4bb8260e4f4fa0da5662605-Step7.jpg)
+</Frame>
+
+### 8. Check both IO-worker-monitor and IO-worker-vc are running
+
+```
+docker ps
+```
+
+Wait for the device to indicate "Running" on the device page.
+
+<Warning>
+If only one container appears, run the command "docker ps" again.
+</Warning>
+
+### Congratulations on successfully setting up your first Worker.
+
+Now that your Worker has been successfully created and is running, you can track its status on the Workers page.
+
+<Info>
+If you're having trouble installing Worker, please refer to our [Worker troubleshooting guide](/docs/troubleshoot-worker-general). If the issue persists or you need further assistance, feel free to [check our knowledge base](https://support.io.net/en/support/home) for answers, and if you still need help, don’t hesitate to open a support ticket!
+</Info>
+

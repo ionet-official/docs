@@ -1,0 +1,188 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO API",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.io.solutions/"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/enterprise/v1/io-cloud/caas/available-replicas?hardware_id={hardawer_id}&hardware_qty={hardware_qty}": {
+      "get": {
+        "summary": "Check available replicas per location",
+        "description": "Returns the number of deployable replicas in each location based on selected hardware type and GPU count per container, useful for matching supply to workload needs.",
+        "operationId": "check-available-replicas-per-location",
+        "parameters": [
+          {
+            "name": "hardware_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "hardware_qty",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "data": [
+                        {
+                          "id": 0,
+                          "iso2": "string",
+                          "name": "string",
+                          "available_replicas": 0
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "example": 0,
+                            "default": 0
+                          },
+                          "iso2": {
+                            "type": "string",
+                            "example": "string"
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "string"
+                          },
+                          "available_replicas": {
+                            "type": "integer",
+                            "example": 0,
+                            "default": 0
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "string"
+                  }
+                },
+                "schema": {
+                  "type": "string",
+                  "example": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "detail": [
+                        {
+                          "loc": [
+                            "string",
+                            0
+                          ],
+                          "msg": "string",
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "loc": {
+                            "type": "array"
+                          },
+                          "msg": {
+                            "type": "string",
+                            "example": "string"
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl https://api.io.solutions/enterprise/v1/io-cloud/caas/available-replicas?hardware_id={hardawer_id}&hardware_qty={hardware_qty} \\\n  -H \"X-API-KEY: $IOCLOUD_API_KEY\" "
+            },
+            {
+              "language": "python",
+              "code": "import requests\n\nurl = \"https://api.io.solutions/enterprise/v1/io-cloud/caas/available-replicas\"\n\nheaders = {\n    \"X-API-KEY\": \"$IOCLOUD_API_KEY\"\n}\nparams = {\n    \"hardware_id\": \"YOUR_HARDWARE_ID\",\n    \"hardware_qty\": \"YOUR_QUANTITY\"\n}\n\nresponse = requests.get(url, headers=headers, params=params)\n\nprint(response.status_code)\nprint(response.json())"
+            }
+          ],
+          "samples-languages": [
+            "curl",
+            "python"
+          ]
+        }
+      }
+    }
+  }
+}

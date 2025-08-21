@@ -1,0 +1,207 @@
+---
+title: "Ubuntu: Install Docker"
+description: "A step-by-step guide for installing Docker on Linux-based machines"
+---
+
+<iframe width="100%" height="480" src="https://www.youtube.com/embed/phTIvWLXj-I" title="Docker Guide for Linux" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+### What is Docker?
+
+Let's take a quick look at what **Docker** is? Imagine Docker as a magic box where you put your software and everything it needs to run. This box can be easily carried to any computer, and when you open it, your software works just the way you packed it, without needing anything extra from that computer. Here are a few steps to install Docker:
+
+### Before installing Docker, please check if it is already installed
+
+Run the following command to verify if Docker is not installed:
+
+```
+docker compose version
+```
+
+If you see the following error, you can proceed with this guide:
+
+```
+Command 'docker' not found, but can be installed with:
+sudo snap install docker         # version 24.0.5, or
+sudo apt  install podman-docker  # version 3.4.4+ds1-1ubuntu1.22.04.2
+sudo apt  install docker.io      # version 24.0.7-0ubuntu2~22.04.1
+See 'snap info docker' for additional versions.
+```
+
+<Frame>
+![](/images/docs/42529592fb80df67a21db51dba23f3047b7e4a44e8bd8749aef557d622818a54-linuxDocker1.jpg)
+</Frame>
+
+### 1. Download Docker
+
+Go to the [Docker website](https://www.docker.com/products/docker-desktop/) and click on "**Download for Linux**." You will be redirected to a page with supported Linux platforms.
+
+<Frame>
+![](/images/docs/ecc37b57949cf7c8f434d6e045dcd8aa81a6d5975d34f4fb21014f90ab35f58d-linuxDocker2.jpg)
+</Frame>
+
+### 2. Download the appropriate version for your system
+
+Select the appropriate version for your system, such as Ubuntu, and click on the link in the **"Supported platforms"** section of the page. Downloading the Docker file may take some time. Please be patient.
+
+<Frame>
+![](/images/docs/42f5d44e9cd5deb0958b35ab51ba2d630c22c6e1dac908cf0a0bedb0e2127a5d-linuxDocker3.jpg)
+</Frame>
+
+### 3.Open the Ubuntu <Tooptip tip="Terminal – A terminal is a text-based interface in a computer system used for entering commands and interacting with the operating system or applications. It provides a way to navigate the file system, run programs, manage processes, and perform various tasks using command-line instructions. Terminals are commonly used in Unix-based systems like Linux and macOS, where users can access a terminal window to enter commands directly.">Terminal</Tooptip> through the Start Menu
+
+**Terminal** is a tool on your computer that lets you type in commands to tell the computer what to do. Instead of clicking on things with a mouse, you write instructions, and the computer follows them. It's like talking directly to your computer using text.
+
+Click the **Start Menu** icon, start typing "**Terminal**" in the search field, then click the **Terminal** icon:
+
+<Frame>
+![](/images/docs/45446c6e23adfd8969639f804c3a830b2c163b30ac23016a865eae007ad2aafd-linuxDocker4.jpg)
+</Frame>
+
+### 4. Copy and run the first command
+
+Return to the Docker page and copy the first command from the "Install Docker Desktop" section:
+
+```
+sudo apt-get update
+```
+
+<Frame>
+![](/images/docs/20d54c1ef7cf10e2fb4be5b56139d90d1683fc7bba629d8acc4796285f7fb0eb-linuxDocker5.jpg)
+</Frame>
+
+Paste the command into the Terminal and press Enter. After that, you will be prompted to enter your password for confirmation. Type your password (note that it will not be visible while typing) and press Enter again.
+
+<Frame>
+![](/images/docs/a909e45586db81618cb470b43d4723916606aef957e20b32c7df3f9859bb8b2d-linuxDocker6.jpg)
+</Frame>
+
+### 5. Check the .deb package
+
+In the Terminal, you need to check the name of the downloaded file. First, navigate to the "Downloads" folder by typing this command:
+
+```
+cd Downloads/
+```
+
+Then, enter the following command to see the list of files in the "Downloads" folder:
+
+```
+ls
+```
+
+<Frame>
+![](/images/docs/c9d80b344194b1b96b8bf698940278a7ce741e6f63a75a30abe354dd8a058716-linuxDocker7.jpg)
+</Frame>
+
+### 6. Copy the installation command
+
+Return to the Docker installation page and copy the second command from the "Install Docker Desktop" section:
+
+```
+ sudo apt-get install ./docker-desktop-amd64.deb
+```
+
+<Warning>
+Make sure to replace the package name with the correct one from the Terminal (based on what you saw in the previous step).
+</Warning>
+
+<Frame>
+![](/images/docs/e97ccf28cd35400b306b483990d8256a596438b8db37321ecb49db2a4b8b74a8-linuxDocker8.jpg)
+</Frame>
+
+Paste the command into the **Terminal** and press Enter. After that, you will be prompted to enter your password for confirmation. Type your password (note that it will not be visible while typing) and press Enter again.
+
+<Danger>
+  If you encounter an error related to the absence of Docker CE-CLI during the installation, you can follow this detailed guide: [How to Install Docker CE on Ubuntu](https://www.rosehosting.com/blog/how-to-install-docker-ce-on-ubuntu-22-04).
+
+  After completing the steps, you can continue installing Docker Desktop from where you left off.
+</Danger>
+
+During the installation process, you will be asked to confirm if Docker can use some space on your computer. Type **Yes** to complete the installation successfully..
+
+<Frame>
+![](/images/docs/19518168ba3e69135722b37e366099499016b3eec1f2ea07a84caf0508b18e5c-linuxDocker9.jpg)
+</Frame>
+
+<Warning>
+You must restart your device after installing Docker Desktop; otherwise, the system may not allow you to use it properly, even if Docker appears to be running.
+</Warning>
+
+### 7. Run the Docker Desktop
+
+Return to the Docker installation page and copy the command from the "Launch Docker Desktop" section:
+
+<Frame>
+![](/images/docs/69088b96ed2cd5660233bb54cb1391580328cb16a8551dc49b2bcab4607955ca-linuxDocker10.jpg)
+</Frame>
+
+Paste the command into the Terminal and press Enter. If there are no issues with the installation, Docker should be running.
+
+<Frame>
+![](/images/docs/8fc9e20d29d8f572a676c8e58e41aefb2c44e252e72223c155289d02cdb30033-linuxDocker11.jpg)
+</Frame>
+
+### 7. Verify that Docker Desktop is Successfully Installed
+
+Copy and paste the following line into Terminal.
+
+<CodeGroup>
+  ```Text Terminal Command
+  sudo systemctl status docker
+  ```
+</CodeGroup>
+
+<Frame>
+![](/images/docs/d1adae840c242b42659a546f99705a705e5a5682d3ca78446b048b7052ef5dba-linuxDocker12.jpg)
+</Frame>
+
+The result will be the current version of running Docker.
+
+```
+● docker.service  - Docker Application Container Engine
+          Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
+          Active: active (running) since Thu 2023-02-09 03:02:24 CST; 10s ago
+     TriggeredBy: ● docker.socket
+            Docs: https://docs.docker.com
+        Main PID: 2361 (dockerd)
+           Tasks: 9
+          Memory: 26.2M
+             CPU: 780ms
+          CGroup: /system.slice/docker.service
+                 └─2361 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock 
+```
+
+### 8. Verify Docker Installation with GPU
+
+Confirmation Command:
+
+* To confirm that your setup is working correctly, run:
+  <CodeGroup>
+    ```Text Terminal Command
+    docker run --gpus all nvidia/cuda:11.0.3-base-ubuntu18.04 nvidia-smi
+    ```
+  </CodeGroup>
+* The output should resemble the information displayed by `nvidia-smi`.
+* This command verifies that Docker is correctly utilizing your GPU.
+
+### Congratulations on Successfully Setting up Docker
+
+Now that Docker has been successfully installed and is running, you can proceed with [setting up the Worker](/docs/install-on-ubuntu).
+
+### Troubleshoot Docker Installation
+
+Use the Reset Script (end of page):
+
+* If the confirmation command fails, use the reset_drivers_and_docker script:
+  <CodeGroup>
+    ```Text Terminal Command
+    chmod +x reset_drivers_and_docker.sh  
+    ./reset_drivers_and_docker.sh
+    ```
+  </CodeGroup>
+* After running the script, restart your device.
+* Rerun the setup from the website. After an automatic restart, rerun the setup to complete the installation.
+* If the confirmation command continues to fail, seek assistance on the community support channel.
+
+<Info>
+If you encounter issues with Docker, please refer to our [Troubleshooting Docker guide](/docs/troubleshoot-docker). If the problem persists or if you need further assistance, feel free to [check our knowledge base](https://support.io.net/en/support/home) for answers, and if you still need help, don’t hesitate to open a support ticket!
+</Info>

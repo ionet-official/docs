@@ -1,0 +1,280 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO API",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.io.solutions/"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/v1/io-explorer/devices/{device_id}/summary": {
+      "get": {
+        "summary": "Device Summary",
+        "description": "The Device Summary endpoint provides detailed information about a specific device. This allows you to view the device's status, aspects of connectivity, compute hours served, earnings and more.",
+        "operationId": "device-summary",
+        "parameters": [
+          {
+            "name": "device_id",
+            "in": "path",
+            "description": "The unique identifier for your device.",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "data": {
+                        "connectivity_tier": 2,
+                        "device_id": "c4ba4d4b-8762-4437-b82c-6f78a20a8cb5",
+                        "down_percentage": 22,
+                        "download_speed_mbps": 67,
+                        "downtime_by_date": {
+                          "2023-08-25": {
+                            "downtime": 58411,
+                            "note": "down for 0 days and 16 hours and 13 minutes"
+                          },
+                          "2023-08-31": {
+                            "downtime": 86400,
+                            "note": "down for 1 days and 0 hours and 0 minutes"
+                          },
+                          "2023-09-01": {
+                            "downtime": 0,
+                            "note": "down for 0 days and 0 hours and 0 minutes"
+                          }
+                        },
+                        "total_compute_hours_served": 0,
+                        "total_download_traffic": 0,
+                        "total_earnings": 0,
+                        "total_jobs": 0,
+                        "total_slashed_earning": 0,
+                        "total_upload_traffic": 0,
+                        "upload_speed_mbps": 46,
+                        "value": 0.1
+                      },
+                      "status": "succeeded"
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "connectivity_tier": {
+                          "type": "integer",
+                          "example": 2,
+                          "default": 0
+                        },
+                        "device_id": {
+                          "type": "string",
+                          "example": "c4ba4d4b-8762-4437-b82c-6f78a20a8cb5"
+                        },
+                        "down_percentage": {
+                          "type": "integer",
+                          "example": 22,
+                          "default": 0
+                        },
+                        "download_speed_mbps": {
+                          "type": "integer",
+                          "example": 67,
+                          "default": 0
+                        },
+                        "downtime_by_date": {
+                          "type": "object",
+                          "properties": {
+                            "2023-08-25": {
+                              "type": "object",
+                              "properties": {
+                                "downtime": {
+                                  "type": "integer",
+                                  "example": 58411,
+                                  "default": 0
+                                },
+                                "note": {
+                                  "type": "string",
+                                  "example": "down for 0 days and 16 hours and 13 minutes"
+                                }
+                              }
+                            },
+                            "2023-08-31": {
+                              "type": "object",
+                              "properties": {
+                                "downtime": {
+                                  "type": "integer",
+                                  "example": 86400,
+                                  "default": 0
+                                },
+                                "note": {
+                                  "type": "string",
+                                  "example": "down for 1 days and 0 hours and 0 minutes"
+                                }
+                              }
+                            },
+                            "2023-09-01": {
+                              "type": "object",
+                              "properties": {
+                                "downtime": {
+                                  "type": "integer",
+                                  "example": 0,
+                                  "default": 0
+                                },
+                                "note": {
+                                  "type": "string",
+                                  "example": "down for 0 days and 0 hours and 0 minutes"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "total_compute_hours_served": {
+                          "type": "integer",
+                          "example": 0,
+                          "default": 0
+                        },
+                        "total_download_traffic": {
+                          "type": "integer",
+                          "example": 0,
+                          "default": 0
+                        },
+                        "total_earnings": {
+                          "type": "integer",
+                          "example": 0,
+                          "default": 0
+                        },
+                        "total_jobs": {
+                          "type": "integer",
+                          "example": 0,
+                          "default": 0
+                        },
+                        "total_slashed_earning": {
+                          "type": "integer",
+                          "example": 0,
+                          "default": 0
+                        },
+                        "total_upload_traffic": {
+                          "type": "integer",
+                          "example": 0,
+                          "default": 0
+                        },
+                        "upload_speed_mbps": {
+                          "type": "integer",
+                          "example": 46,
+                          "default": 0
+                        },
+                        "value": {
+                          "type": "number",
+                          "example": 0.1,
+                          "default": 0
+                        }
+                      }
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "succeeded"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "Result": {
+                    "value": "Not found"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Validation Error": {
+                    "value": {
+                      "detail": [
+                        {
+                          "loc": [
+                            "string",
+                            0
+                          ],
+                          "msg": "string",
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "loc": {
+                            "type": "array"
+                          },
+                          "msg": {
+                            "type": "string",
+                            "example": "string"
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl -X GET \"https://api.io.solutions/v1/io-explorer/devices/{device_id}/summary\" \n-H \"Token: {your_token}\""
+            }
+          ],
+          "samples-languages": [
+            "curl"
+          ]
+        }
+      }
+    }
+  }
+}

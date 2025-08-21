@@ -1,0 +1,238 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO API",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.io.solutions/"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/v1/io-blocks/blocks/{block_id}/workers/{device_id}": {
+      "get": {
+        "summary": "Device Details for a Block",
+        "description": "This endpoint returns granular information about a device in the context of a specific block reward. It offers details about Block Reward challenges, the outcome, and details about the device.",
+        "operationId": "device-details-for-a-block",
+        "parameters": [
+          {
+            "name": "device_id",
+            "in": "path",
+            "description": "The unique identifier for your device.",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "block_id",
+            "in": "path",
+            "description": "The unique identifier for a specific block.",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "status": "Success",
+                      "time_and_date": "2024-03-18T22:00:00Z",
+                      "block_id": "2024-05-13T15:00:00",
+                      "device_id": "bedefd6b-44e8-4855-9692-f216e34a8d65",
+                      "connectivity_tier": "Ultra High Speed",
+                      "processor": "NVIDIA A100 PCIE-80GB",
+                      "processor_quantity": 10,
+                      "pow": "Success",
+                      "potl": "Success",
+                      "uptime_in_minutes": 50,
+                      "total_score": 12032.5,
+                      "normalized_score": 327.54,
+                      "rewarded": 1.401,
+                      "brand_name": "NVIDIA",
+                      "brand_id": 2,
+                      "pow_success_list": true,
+                      "potl_success_list": true
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "time_and_date": {
+                      "type": "string",
+                      "example": "2024-03-18T22:00:00Z"
+                    },
+                    "block_id": {
+                      "type": "string",
+                      "example": "2024-05-13T15:00:00"
+                    },
+                    "device_id": {
+                      "type": "string",
+                      "example": "bedefd6b-44e8-4855-9692-f216e34a8d65"
+                    },
+                    "connectivity_tier": {
+                      "type": "string",
+                      "example": "Ultra High Speed"
+                    },
+                    "processor": {
+                      "type": "string",
+                      "example": "NVIDIA A100 PCIE-80GB"
+                    },
+                    "processor_quantity": {
+                      "type": "integer",
+                      "example": 10,
+                      "default": 0
+                    },
+                    "pow": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "potl": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "uptime_in_minutes": {
+                      "type": "integer",
+                      "example": 50,
+                      "default": 0
+                    },
+                    "total_score": {
+                      "type": "number",
+                      "example": 12032.5,
+                      "default": 0
+                    },
+                    "normalized_score": {
+                      "type": "number",
+                      "example": 327.54,
+                      "default": 0
+                    },
+                    "rewarded": {
+                      "type": "number",
+                      "example": 1.401,
+                      "default": 0
+                    },
+                    "brand_name": {
+                      "type": "string",
+                      "example": "NVIDIA"
+                    },
+                    "brand_id": {
+                      "type": "integer",
+                      "example": 2,
+                      "default": 0
+                    },
+                    "pow_success_list": {
+                      "type": "boolean",
+                      "example": true,
+                      "default": true
+                    },
+                    "potl_success_list": {
+                      "type": "boolean",
+                      "example": true,
+                      "default": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "Result": {
+                    "value": "\t\nNot found"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Validation Error": {
+                    "value": {
+                      "detail": [
+                        {
+                          "loc": [
+                            "string",
+                            0
+                          ],
+                          "msg": "string",
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "loc": {
+                            "type": "array"
+                          },
+                          "msg": {
+                            "type": "string",
+                            "example": "string"
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl -X GET \"https://api.io.solutions/v1/io-blocks/{block_id}/workers/{device_id}\" \n-H \"Token: {your_token}\""
+            }
+          ],
+          "samples-languages": [
+            "curl"
+          ]
+        }
+      }
+    }
+  }
+}

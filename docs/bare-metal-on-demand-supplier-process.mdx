@@ -1,0 +1,52 @@
+---
+title: "Bare Metal On-Demand Supplier Process"
+description: "As a supplier of bare metal on-demand devices, you provide critical hardware that powers high-performance computing tasks for consumers. This guide outlines the steps to register your devices, comply with network standards, and securely reset hardware after bookings, ensuring seamless participation and maximum rewards."
+---
+
+### Register Your Device
+
+1. Install the latest version of the IO.NET Binary.
+2. Use the following command to launch the binary: `/io_net_launch_binary_linux --device_id=DEVICE_ID --user_id=USER_ID --operating_system="Linux" --usegpus=true --device_name=DEVICE_NAME --worker_mode=baremetal --worker_ip=HOST_IP --worker_port=HOST_PORT` Replace **DEVICE_ID** and **USER_ID** with your specific identifiers.
+
+### When Your Device is Hired
+
+* Once your device is hired as a Bare Metal device:
+  * **Exemption**: It is exempt from Proof of Work and Proof of Time Lock requirements, allowing you to earn block rewards even under the consumer’s control.
+
+### Post-Booking Requirements
+
+* **Wipe the Device**:
+  * You have 24 hours to wipe the device and reinstall the binary after the booking period ends. Failure to do so will result in the cessation of block rewards for the device.
+
+* **Reinstallation Steps**:
+
+  * Reinstall the IO.NET Binary.
+
+  * Inform our Customer Support (CS) team by following these steps:
+
+    * Sign in or create an account at the [Support Portal](https://support.io.net/en/support/signup).
+
+    * Submit a support ticket with the following:
+
+      * **Issue Type**: “IO Worker”
+      * **Subject**: “Recycled the device(s)”
+      * **Device ID(s)**: List all recycled device IDs.
+      * **Description**: Add “Recycled the device(s)” under the explanation field.
+
+    * Submit the form.
+
+### Recommended Cleanup Steps
+
+| Action                        | Steps |
+|--------------------------------|-------|
+| **Terminate Active Processes** | **Purpose:** Ensure no data is in use or locked.<br /> **Actions:** Shut down applications, databases, and services. Stop all background tasks.<br /> **Verification:** Confirm no active processes remain using tools like `ps` or `top`. |
+| **Unmount and Securely Wipe Drives** | **Purpose:** Ensure no residual data is recoverable.<br /> **Actions:** Unmount filesystems using `umount`. Securely delete data using tools like `shred`, `dd`, or `wipe`. For SSDs, use the manufacturer's secure erase utility. |
+| **Reset RAID Configuration**  | **Purpose:** Clear RAID metadata.<br /> **Actions:** Delete RAID arrays using `mdadm` or vendor utilities. |
+| **Update Firmware**            | **Purpose:** Remove malicious firmware or backdoors.<br /> **Actions:** Update server firmware (BIOS/UEFI, BMC/iDRAC/iLO).<br /> **Verification:** Confirm firmware updates are applied. |
+| **Reset Configuration**        | **Purpose:** Restore server to factory defaults.<br /> **Actions:** Reset BIOS/UEFI and IPMI/iDRAC/iLO configurations, including passwords and network settings. |
+| **Document the Cleaning Process** | **Purpose:** Maintain an audit trail.<br /> **Actions:** Record the commands and tools used. Attach logs for verification. |
+| **Verify Clean State**         | **Purpose:** Ensure no residual data or configurations.<br /> **Actions:** Boot into a live environment (e.g., Ubuntu Live USB). Check that drives are unpartitioned and firmware is reset. |
+| **Reinstall Base OS**          | **Purpose:** Prepare the server for the next customer.<br /> **Actions:** Reinstall the requested base OS or leave it unformatted per customer requirements. |
+
+
+

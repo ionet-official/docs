@@ -1,0 +1,20 @@
+---
+title: "Overview"
+---
+
+## Relationship management endpoints
+
+Relationships are basic building blocks of a graph. They can be automatically extracted from a document and then added to a graph.
+
+To manage relationships extracted from a document, you can use the following endpoints:
+
+| Method | Endpoint                                                 | Description                                        |
+| ------ | -------------------------------------------------------- | -------------------------------------------------- |
+| `GET`  | [/documents/\{id}/relationship](/reference/get-relationships) | List *Relationships* identified within a document. |
+
+Once entities are added to a graph using the “/graphs/\{id}/\{object_type}/add” endpoint, you can manage them using the following endpoints:
+
+| Method | Endpoint                                                      | Description                    |
+| ------ | ------------------------------------------------------------- | ------------------------------ |
+| GET    | [/graphs/\{id}/relationships](/reference/get-graph-relationships)  | Get relationships for a graph  |
+| GET    | [/graphs/\{id}/relationships/\{id}](/reference/get-relationship-details) | Get a relationship for a graph |

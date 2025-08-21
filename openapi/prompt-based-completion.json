@@ -1,0 +1,216 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO Intelligence",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.intelligence.io.solutions"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/api/r2r/v3/retrieval/completion": {
+      "post": {
+        "summary": "Prompt-based completion",
+        "description": "Sends a raw prompt for direct completion using a selected model.",
+        "operationId": "prompt-based-completion",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "messages": {
+                    "type": "object",
+                    "description": "The input prompt",
+                    "required": [
+                      "role"
+                    ],
+                    "properties": {
+                      "role": {
+                        "type": "string",
+                        "description": "Or allowed string *",
+                        "enum": [
+                          "system",
+                          "user",
+                          "assistant",
+                          "function",
+                          "tool"
+                        ]
+                      },
+                      "content": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "function_call": {
+                        "type": "array"
+                      },
+                      "tool_calls": {
+                        "type": "array"
+                      },
+                      "tool_call_id": {
+                        "type": "string"
+                      },
+                      "metadata": {
+                        "type": "array"
+                      },
+                      "structured_content": {
+                        "type": "array"
+                      },
+                      "image_url": {
+                        "type": "string"
+                      },
+                      "image_data": {
+                        "type": "array"
+                      }
+                    }
+                  },
+                  "generation_config": {
+                    "type": "object",
+                    "description": "Model to use (e.g., gpt-4)",
+                    "properties": {
+                      "model": {
+                        "type": "string"
+                      },
+                      "temperature": {
+                        "type": "number",
+                        "format": "double"
+                      },
+                      "top_p": {
+                        "type": "number",
+                        "format": "double"
+                      },
+                      "max_tokens_to_sample": {
+                        "type": "integer",
+                        "format": "int32"
+                      },
+                      "stream": {
+                        "type": "boolean"
+                      },
+                      "functions": {
+                        "type": "array"
+                      },
+                      "tools": {
+                        "type": "array"
+                      },
+                      "add_generation_kwargs": {
+                        "type": "array"
+                      },
+                      "api_base": {
+                        "type": "string"
+                      },
+                      "response_format": {
+                        "type": "array",
+                        "items": {
+                          "properties": {
+                            "Base Model": {
+                              "type": "object"
+                            }
+                          },
+                          "type": "object"
+                        }
+                      },
+                      "extended_thinking": {
+                        "type": "boolean",
+                        "description": "Flag to enable extended thinking mode (for Anthropic providers)",
+                        "default": false
+                      },
+                      "thinking_budget": {
+                        "type": "integer",
+                        "description": "Token budget for internal reasoning when extended thinking mode is enabled. Must be less than max_tokens_to_sample.",
+                        "format": "int32"
+                      },
+                      "reasoning_effort": {
+                        "type": "string",
+                        "description": "Effort level for internal reasoning when extended thinking mode is enabled, low, medium, or high.Only applicable to OpenAI providers."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {}
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {}
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "Result": {
+                    "value": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "  curl -X POST https://api.intelligence.io.solutions/api/r2r/v3/retrieval/completion \\\n     -H \"Authorization: Bearer $IOINTELLIGENCE_API_KEY\" \\\n     -H \"Content-Type: application/json\""
+            },
+            {
+              "language": "python",
+              "code": "from r2r import R2RClient\n\nclient = R2RClient()\n# when using auth, do client.login(...)\n\nresponse = client.completion(\n    messages=[\n        {\"role\": \"system\", \"content\": \"You are a helpful assistant.\"},\n        {\"role\": \"user\", \"content\": \"What is the capital of France?\"},\n        {\"role\": \"assistant\", \"content\": \"The capital of France is Paris.\"},\n        {\"role\": \"user\", \"content\": \"What about Italy?\"}\n    ],\n    generation_config={\n        \"model\": \"openai/gpt-4o-mini\",\n        \"temperature\": 0.7,\n        \"max_tokens\": 150,\n        \"stream\": False\n    }\n)\n"
+            }
+          ],
+          "samples-languages": [
+            "curl",
+            "python"
+          ]
+        }
+      }
+    }
+  }
+}

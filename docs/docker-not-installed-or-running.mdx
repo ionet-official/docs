@@ -1,0 +1,85 @@
+---
+title: "Docker Not Installed or Running"
+description: "This issue can occur if Docker is not installed or if the user is not added to the Docker group. Here's how to troubleshoot:"
+---
+
+1. **Check if Docker is installed.** Run the following command:
+
+   ```
+   docker info
+   ```
+
+   Sample output:
+
+   ```
+   Client:
+    Context: default
+    Debug mode: false
+    Servers:
+     default:
+       Host: localhost
+       Engine:
+         Version: 20.10.14
+         API version: 1.44
+         Go version: go1.17.15
+         Git commit: 8668127
+         Built: Thu Apr 1 06:02:55 2021
+         OS/Arch: linux/amd64
+         Experimental: false
+       Kernel: 5.15.0-52-generic
+       Operating System: Ubuntu 22.04.1 LTS
+       Total Memory: 31.8GiB
+       CPUs: 8
+   ```
+
+   If you see this output, **Docker is installed,** but the user may not be added to the Docker group.
+
+2. **Check if the user is in the Docker group.** Run the following command:
+
+   ```
+   grep -i docker /etc/group
+   ```
+
+   Sample output:
+
+   ```
+   docker:x:999:root,$USER1,$USER2,etc
+   ```
+
+   Verify if your username is listed. If not, add the user to the Docker group:
+
+3. **Add user to the Docker group:**
+
+   ```
+   sudo usermod -aG docker $USER
+   ```
+
+   Example:
+
+   ```
+   sudo usermod -aG docker Michael
+   ```
+
+4. **Verify the user is added.** Re-run the group check:
+
+   ```
+   grep -i docker /etc/group
+   ```
+
+   The output should now include your username, e.g.:
+
+   ```
+   docker:x:999:root,michael
+   ```
+
+5. **Reboot the server:**
+   ```
+   sudo reboot
+   ```
+
+6. Once logged back in, **restart Docker**:
+   ```
+   sudo systemctl restart docker
+   ```
+
+7. If no output is shown when running **docker info**, suggest downloading and [installing Docker properly](/docs/install-on-ubuntu).

@@ -1,0 +1,66 @@
+---
+title: "Architectural Layers"
+description: "The IO Portal's architecture is a multi-layered, cohesive structure that provides a seamless, secure, and efficient user experience. Each layer has a distinct role, working in tandem to ensure the system's optimal performance. The architecture is built upon modern technologies, ensuring scalability, reliability, and robustness."
+---
+
+<Frame>
+![](/images/docs/e965e2c-ionet-arch-diagram.png)
+</Frame>
+
+The io.net Portal's architecture is a multi-layered, cohesive structure that provides a seamless, secure, and efficient user experience. Each layer has a distinct role, working in tandem to ensure the system's optimal performance. The architecture is built upon modern technologies, ensuring scalability, reliability, and robustness.
+
+### User Interface
+
+This layer is the visual gateway for users. It comprises the Public website, Customers area, and GPU providers area (Workers). The design is intuitive and user-centric, ensuring easy navigation and interaction.
+
+> Tech Stack: ReactJS, Tailwind, web3.js, zustand.
+
+### Security Layer
+
+A pivotal layer ensuring the system's integrity and safety. It encompasses a Firewall for network protection, an Authentication Service for user validation, and a Logging Service for tracking activities.
+
+> Tech Stack: Firewall (pfSense, iptables), Authentication (OAuth, JWT), Logging Service (ELK Stack, Graylog).
+
+### API Layer
+
+Serving as the communication bridge, this layer has multiple facets: Public API for the website, Private APIs for Workers/GPU Providers and Customers, and Internal APIs for Cluster Management, Analytics, and Monitoring/Reporting.
+
+> Tech Stack: FastAPI, Python, GraphQL, RESTful services, gunicorn, solana.
+
+### Backend Layer
+
+The system's powerhouse. It manages Providers (Workers), Cluster/GPU operations, Customer interactions, Fault Monitoring, Analytics, Billing/Usage Monitoring, and Autoscaling.
+
+> Tech Stack: FastAPI, Python, Node.js, Flask, solana, IO-SDK (a fork of Ray 2.3.0), Pandas.
+
+### Database Layer
+
+The data repository of the system. It uses Main storage for structured data and Caching for temporary, frequently accessed data.
+
+> Tech Stack: Postgres (Main storage), Redis (Caching).
+
+### Message Broker/Task Layer
+
+This layer orchestrates asynchronous communications and task management, ensuring smooth data flow and efficient task execution.
+
+> Tech Stack: RabbitMQ (Message Broker), Celery (Task Management).
+
+### Infrastructure Layer
+
+The foundational layer. It houses the GPU Pool with hardware from our verified partners. Orchestration tools manage deployments, while Execution/ML Tasks handle computations and machine learning operations. Additionally, it provides Data Storage solutions. GPU performance is monitored using Nvidia-smi or NVIDIA DCGM.
+
+> Tech Stack:
+>
+> * GPU/CPU Pool
+> * Orchestration: Kubernetes, Prefect, Apache Airflow
+> * Execution/ML Tasks: Ray, Ludwig, Pytorch, Keras, TensorFlow, Pandas
+> * Data Storage: Amazon S3, Hadoop HDFS
+> * Containerization: Docker
+> * Monitoring: Grafana, Datadog, Prometheus, NVIDIA DCGM
+
+### IO-SDK: The Powerhouse Behind IO.NET
+
+IO-SDK is our specialized fork of Ray, a core technology driving IO.NET's capabilities. Embracing Ray's native parallelism, IO-SDK effortlessly parallelizes Python functions, enabling dynamic task execution. Its in-memory storage ensures rapid data sharing between tasks, eliminating serialization delays. The dynamic auto-scaling feature means IO-SDK can quickly adapt to computational demands. Moreover, it's not just limited to Python; its language versatility and integration capabilities with leading ML frameworks like PyTorch and TensorFlow make it a robust and flexible choice. Whether on a single machine or a vast cloud platform, IO-SDK ensures IO.NET's scalability and performance.
+
+> Together, these layers, powered by the mentioned tech stacks, form a robust and scalable architecture for the IO.NET Portal, ensuring it meets the demands of modern users.
+

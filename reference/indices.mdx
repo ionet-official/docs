@@ -1,0 +1,21 @@
+---
+title: "Overview"
+---
+
+An `Index` in R2R represents a vector index structure that optimizes similarity search operations across chunks. Indices are crucial for efficient retrieval in RAG applications, supporting various similarity measures and index types optimized for different use cases.
+
+Indices in R2R provide:
+
+* Fast similarity search capabilities
+* Multiple index method options (HNSW, IVF-Flat)
+* Configurable similarity measures
+* Concurrent index building
+* Performance optimization for vector operations
+
+## Available Endpoints
+
+| Method | Endpoint                                                                   | Description                            |
+| ------ | -------------------------------------------------------------------------- | -------------------------------------- |
+| GET    | [/indices](/reference/list-all-indices)                                         | List available indices with pagination |
+| GET    | [/indices/\{table_name}/\{index_name}](/reference/get-specific-index-details) | Get details of a specific index        |
+| DELETE | [/indices/\{table_name}/\{index_name}](/reference/delete-an-index)            | Delete an existing index               |

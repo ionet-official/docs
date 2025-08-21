@@ -1,0 +1,218 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO API",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.io.solutions/"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/enterprise/v1/io-cloud/caas/deployments": {
+      "get": {
+        "summary": "Track Deployments Overview",
+        "description": "View a list of all your active and past deployments.",
+        "operationId": "track-deployments-overview",
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "data": {
+                        "deployments": [
+                          {
+                            "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                            "status": "string",
+                            "name": "string",
+                            "completed_percent": 0,
+                            "hardware_quantity": 0,
+                            "brand_name": "string",
+                            "hardware_name": "string",
+                            "compute_minutes_served": 0,
+                            "compute_minutes_remaining": 0
+                          }
+                        ],
+                        "total": 0,
+                        "statuses": [
+                          "string"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "deployments": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                              },
+                              "status": {
+                                "type": "string",
+                                "example": "string"
+                              },
+                              "name": {
+                                "type": "string",
+                                "example": "string"
+                              },
+                              "completed_percent": {
+                                "type": "integer",
+                                "example": 0,
+                                "default": 0
+                              },
+                              "hardware_quantity": {
+                                "type": "integer",
+                                "example": 0,
+                                "default": 0
+                              },
+                              "brand_name": {
+                                "type": "string",
+                                "example": "string"
+                              },
+                              "hardware_name": {
+                                "type": "string",
+                                "example": "string"
+                              },
+                              "compute_minutes_served": {
+                                "type": "integer",
+                                "example": 0,
+                                "default": 0
+                              },
+                              "compute_minutes_remaining": {
+                                "type": "integer",
+                                "example": 0,
+                                "default": 0
+                              }
+                            }
+                          }
+                        },
+                        "total": {
+                          "type": "integer",
+                          "example": 0,
+                          "default": 0
+                        },
+                        "statuses": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "example": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "string"
+                  }
+                },
+                "schema": {
+                  "type": "string",
+                  "example": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "detail": [
+                        {
+                          "loc": [
+                            "string",
+                            0
+                          ],
+                          "msg": "string",
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "loc": {
+                            "type": "array"
+                          },
+                          "msg": {
+                            "type": "string",
+                            "example": "string"
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl https://api.io.solutions/enterprise/v1/io-cloud/caas/deployments \\\n  -H \"X-API-KEY: $IOCLOUD_API_KEY\" "
+            },
+            {
+              "language": "python",
+              "code": "import requests\n\nurl = \"https://api.io.solutions/enterprise/v1/io-cloud/caas/deployments\"\n\nheaders = {\n    \"X-API-KEY\": \"$IOCLOUD_API_KEY\"\n}\n\nresponse = requests.get(url, headers=headers)\n\nprint(response.status_code)\nprint(response.json())"
+            }
+          ],
+          "samples-languages": [
+            "curl",
+            "python"
+          ]
+        }
+      }
+    }
+  }
+}

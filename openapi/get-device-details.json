@@ -1,0 +1,336 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO API",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.io.solutions/"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/v1/io-explorer/devices/{device_id}/details": {
+      "get": {
+        "summary": "Device Details",
+        "description": "The Device Details endpoint returns insights about a specific device. This allows you to quickly view the device's status, aspects of connectivity, jobs, rewards earned, hire rate and more.",
+        "operationId": "get-device-details",
+        "parameters": [
+          {
+            "name": "device_id",
+            "in": "path",
+            "description": "The unique identifier for your device.",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "data": {
+                        "base_tier_name": "Ultra High Speed",
+                        "brand_icon": "https://mxtfdkppxyflmmglullf.supabase.co/storage/v1/object/public/icons/nvidia.svg?t=2023-09-05T21%3A52%3A29.736Z",
+                        "device_id": "599ef4af-7fe6-44b5-aba3-25899bde2ab6",
+                        "down_percentage": 0,
+                        "download_speed_mbps": 2775.1,
+                        "downtime_by_date": {
+                          "2023-09-11": {
+                            "downtime": 281.508,
+                            "note": "down for 0 days and 0 hours and 4 minutes"
+                          },
+                          "2023-09-12": {
+                            "downtime": 12193.385,
+                            "note": "down for 0 days and 3 hours and 23 minutes"
+                          }
+                        },
+                        "hardware_name": "RTX A6000",
+                        "hardware_quantity": 2,
+                        "iso2": "CA",
+                        "jobs": [
+                          {
+                            "compute_minutes_hired": 300,
+                            "compute_minutes_served": 0,
+                            "earned": 0,
+                            "end_time": "2023-09-12 00:00:00",
+                            "for": "e242cd76-9e65-4de1-b3ec-1cb8b002b38d",
+                            "slashed": 0,
+                            "start_time": "2023-09-12 00:00:00",
+                            "status": "pending",
+                            "total_hire_rate": 10.8,
+                            "uptime_percent": 100
+                          },
+                          {
+                            "compute_minutes_hired": 300,
+                            "compute_minutes_served": 0,
+                            "earned": 0,
+                            "end_time": "2023-09-12 00:00:00",
+                            "for": "b168e413-3014-457e-b139-8450371b47c6",
+                            "slashed": 0,
+                            "start_time": "2023-09-12 00:00:00",
+                            "status": "pending",
+                            "total_hire_rate": 10.8,
+                            "uptime_percent": 100
+                          }
+                        ],
+                        "location_icon": "https://mxtfdkppxyflmmglullf.supabase.co/storage/v1/object/public/icons/canada.svg?t=2023-09-05T21%3A52%3A29.736Z",
+                        "location_name": "Canada",
+                        "security_soc2": false,
+                        "upload_speed_mbps": 1972.54
+                      },
+                      "status": "succeeded"
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "base_tier_name": {
+                          "type": "string",
+                          "example": "Ultra High Speed"
+                        },
+                        "brand_icon": {
+                          "type": "string",
+                          "example": "https://mxtfdkppxyflmmglullf.supabase.co/storage/v1/object/public/icons/nvidia.svg?t=2023-09-05T21%3A52%3A29.736Z"
+                        },
+                        "device_id": {
+                          "type": "string",
+                          "example": "599ef4af-7fe6-44b5-aba3-25899bde2ab6"
+                        },
+                        "down_percentage": {
+                          "type": "integer",
+                          "example": 0,
+                          "default": 0
+                        },
+                        "download_speed_mbps": {
+                          "type": "number",
+                          "example": 2775.1,
+                          "default": 0
+                        },
+                        "downtime_by_date": {
+                          "type": "object",
+                          "properties": {
+                            "2023-09-11": {
+                              "type": "object",
+                              "properties": {
+                                "downtime": {
+                                  "type": "number",
+                                  "example": 281.508,
+                                  "default": 0
+                                },
+                                "note": {
+                                  "type": "string",
+                                  "example": "down for 0 days and 0 hours and 4 minutes"
+                                }
+                              }
+                            },
+                            "2023-09-12": {
+                              "type": "object",
+                              "properties": {
+                                "downtime": {
+                                  "type": "number",
+                                  "example": 12193.385,
+                                  "default": 0
+                                },
+                                "note": {
+                                  "type": "string",
+                                  "example": "down for 0 days and 3 hours and 23 minutes"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "hardware_name": {
+                          "type": "string",
+                          "example": "RTX A6000"
+                        },
+                        "hardware_quantity": {
+                          "type": "integer",
+                          "example": 2,
+                          "default": 0
+                        },
+                        "iso2": {
+                          "type": "string",
+                          "example": "CA"
+                        },
+                        "jobs": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "compute_minutes_hired": {
+                                "type": "integer",
+                                "example": 300,
+                                "default": 0
+                              },
+                              "compute_minutes_served": {
+                                "type": "integer",
+                                "example": 0,
+                                "default": 0
+                              },
+                              "earned": {
+                                "type": "integer",
+                                "example": 0,
+                                "default": 0
+                              },
+                              "end_time": {
+                                "type": "string",
+                                "example": "2023-09-12 00:00:00"
+                              },
+                              "for": {
+                                "type": "string",
+                                "example": "e242cd76-9e65-4de1-b3ec-1cb8b002b38d"
+                              },
+                              "slashed": {
+                                "type": "integer",
+                                "example": 0,
+                                "default": 0
+                              },
+                              "start_time": {
+                                "type": "string",
+                                "example": "2023-09-12 00:00:00"
+                              },
+                              "status": {
+                                "type": "string",
+                                "example": "pending"
+                              },
+                              "total_hire_rate": {
+                                "type": "number",
+                                "example": 10.8,
+                                "default": 0
+                              },
+                              "uptime_percent": {
+                                "type": "integer",
+                                "example": 100,
+                                "default": 0
+                              }
+                            }
+                          }
+                        },
+                        "location_icon": {
+                          "type": "string",
+                          "example": "https://mxtfdkppxyflmmglullf.supabase.co/storage/v1/object/public/icons/canada.svg?t=2023-09-05T21%3A52%3A29.736Z"
+                        },
+                        "location_name": {
+                          "type": "string",
+                          "example": "Canada"
+                        },
+                        "security_soc2": {
+                          "type": "boolean",
+                          "example": false,
+                          "default": true
+                        },
+                        "upload_speed_mbps": {
+                          "type": "number",
+                          "example": 1972.54,
+                          "default": 0
+                        }
+                      }
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "succeeded"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "Result": {
+                    "value": "Not found"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Validation Error": {
+                    "value": {
+                      "detail": [
+                        {
+                          "loc": [
+                            "string",
+                            0
+                          ],
+                          "msg": "string",
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "loc": {
+                            "type": "array"
+                          },
+                          "msg": {
+                            "type": "string",
+                            "example": "string"
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl -X GET \"https://api.io.solutions/v1/io-explorer/devices/{device_id}/details\" \n-H \"Token: {your_token}\""
+            }
+          ],
+          "samples-languages": [
+            "curl"
+          ]
+        }
+      }
+    }
+  }
+}

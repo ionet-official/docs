@@ -1,0 +1,129 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO Intelligence",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.intelligence.io.solutions"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/api/v1/models": {
+      "get": {
+        "summary": "Get Models List",
+        "description": "Get list of available models for Chat Completions API",
+        "operationId": "get-models-list",
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "{\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"id\": \"deepseek-ai/DeepSeek-R1\",\n      \"object\": \"model\",\n      \"created\": 1738563250,\n      \"owned_by\": \"io-intelligence\",\n      \"root\": null,\n      \"parent\": null,\n      \"max_model_len\": null,\n      \"permission\": [\n        {\n          \"id\": \"modelperm-5f0eee08ce82402aa3e9cfe58127b507\",\n          \"object\": \"model_permission\",\n          \"created\": 1738928714,\n          \"allow_create_engine\": false,\n          \"allow_sampling\": true,\n          \"allow_logprobs\": true,\n          \"allow_search_indices\": false,\n          \"allow_view\": true,\n          \"allow_fine_tuning\": false,\n          \"organization\": \"*\",\n          \"group\": null,\n          \"is_blocking\": false\n        }\n      ]\n    },\n    ...\n  ]\n}"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "Result": {
+                    "value": "string"
+                  }
+                },
+                "schema": {
+                  "type": "string",
+                  "example": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "detail": [
+                        {
+                          "loc": [
+                            "string",
+                            0
+                          ],
+                          "msg": "string",
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "loc": {
+                            "type": "array"
+                          },
+                          "msg": {
+                            "type": "string",
+                            "example": "string"
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl https://api.intelligence.io.solutions/api/v1/models \\\n  -H \"Authorization: Bearer $IOINTELLIGENCE_API_KEY\" "
+            },
+            {
+              "language": "python",
+              "code": "import requests\n\nurl = \"https://api.intelligence.io.solutions/api/v1/models\"\n\nheaders = {\n    \"accept\": \"application/json\",\n    \"Authorization\": \"Bearer $IOINTELLIGENCE_API_KEY\",  \n}\n\nresponse = requests.get(url, headers=headers)\n\nprint(response.text)"
+            }
+          ],
+          "samples-languages": [
+            "curl",
+            "python"
+          ]
+        }
+      }
+    }
+  }
+}
