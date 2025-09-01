@@ -35,6 +35,7 @@
                   "docs/io-tokenomics",
                   "docs/io-coin-allocation",
                   "docs/coin-restrictions",
+                  "docs/io-staking",
                   "docs/ionet-monthly-token-emission-schedule"
                 ]
               }
