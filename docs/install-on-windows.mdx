@@ -74,12 +74,12 @@ Follow the steps below to complete the prerequisites:
 ![](/images/docs/a3ae8239f7c4796ac196d0dce63d1c92a3c0a1105911602b4d492a3d17825902-Step7.jpg)
 </Frame>
 
-1. Download and Install Desktop Docker. You can find comprehensive instructions on how to install Docker for Windows in this [concise guide](/docs/install-docker-on-windows).
-2. Then Download and Setup CUDA. Please refer to the instructions on how to do this by [following the link](/docs/cuda-toolkit-optional).
-3. Afterward (if needed or if not done yet), you'll need to install or update the correct NVIDIA driver for your video card. You can find instructions on how to do this [here](/docs/install-nvidia-drivers-on-windows) .
+1. Download and Install Desktop <Tooltip tip="Docker - Docker is a platform that allows developersto develop, ship, and run applications in containers.Containers are lightweight, portable, and self-sufficient units that contain everything needed torun an application, including the code, runtimesystem tools, libraries, and settings. Docker providesa way to package and distribute applications alongwith their dependencies, making it easier to deployand manage software across different environments.">Docker</Tooltip>. You can find comprehensive instructions on how to install Docker for Windows in this [concise guide](/docs/install-docker-on-windows).
+2. Then Download and Setup <Tooltip tip="CUDA-The NVIDIA CUDA Toolkit provides ar development environment for creating high-of performance, GPU-accelerated applications. With it,tyou can develop, optimize, and deploy yourapplications on GPU-accelerated embeddedsystems, desktop workstations, enterprise datanl centers, cloud-based platforms, andVunSupercomputers. The toolkit includes GPU-accelerated libraries, debugging and optimizationtools, a C/C++ compiler, and a runtime library.">CUDA</Tooltip>. Please refer to the instructions on how to do this by [following the link](/docs/cuda-toolkit-optional).
+3. Afterward (if needed or if not done yet), you'll need to install or update the correct <Tooltip tip="NVIDIA driver - It's a software component thatallows your computer's operating system tocommunicate and interact with NVIDIA graphicsprocessing units (GPUs). It acts as a bridge betweenthe hardware and the operating system, facilitatingthe proper functioning and optimization of NVIDIAGPUs for tasks like graphics rendering, gaming, Alprocessing, and more.">NVIDIA driver</Tooltip> for your video card. You can find instructions on how to do this [here](/docs/install-nvidia-drivers-on-windows) .
 
 <Warning>
-When using SXM or NV Link, ensure that Fabric Manager is installed correctly and enabled. This will prevent initialization issues and ensure that all GPUs are functioning properly, thereby avoiding PoW verification failures.
+When using SXM or NV Link, ensure that Fabric Manager is installed correctly and enabled. This will prevent initialization issues and ensure that all <Tooltip tip="GPU - Graphics Processing Unit, is a specialcomputer chip that helps make images and videosappear on your screen faster. It's like a superchargedengine for handling visual tasks, such as gaming,watching videos, and designing graphics. Theyaccelerate the computational tasks involved intraining and running machine learning models.">GPU</Tooltip>s are functioning properly, thereby avoiding PoW verification failures.
 </Warning>
 
 ### 7. Download and Launch IO Binary
@@ -133,8 +133,7 @@ In this step, what you are required to do is:
 
 ### 8. Authorize Your New Device
 
-The IO Binary may prompt you to authorize your new device.
-
+The <Tooltip tip="IO Binary - It's a file that contains executableinstructions in a format that a computer can directly teexecute. It represents a software application in aform that the computer's processor can understandand run.">IO Binary</Tooltip> may prompt you to authorize your new device.
 <Info>
 Remember, you have about 3 minutes to complete the authorization of the device. If you miss it, you will need to rerun the code again.
 </Info>

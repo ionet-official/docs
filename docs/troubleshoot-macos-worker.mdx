@@ -5,7 +5,7 @@ description: "Here we've compiled essential use cases for working with Workers."
 
 ### Bad CPU Type in Executable Error
 
-If you come across an error message like "**bad CPU type in executable**," it's likely because you are trying to run software intended for an Intel processor on an Apple Silicon device. To resolve this issue, you'll need to install Rosetta 2, which enables support for Intel processors to operate within Docker on Apple Silicon devices.
+If you come across an error message like "**bad CPU type in executable**," it's likely because you are trying to run software intended for an Intel processor on an Apple Silicon device. To resolve this issue, you'll need to install <Tooltip tip="Rosetta 2 - It's a special software for Applecomputers with M1 chips that lets them run appsdesigned for older Intel-based Macs. It works behindthe scenes to translate the app's instructions so theycan work on the new hardware, allowing you to useyour favorite apps even if they haven't been updatedfor the new chips.">Rosetta 2</Tooltip>, which enables support for Intel processors to operate within <Tooltip tip="Docker - Docker is a platform that allows developersto develop, ship, and run applications in containers.Containers are lightweight, portable, and self-sufficient units that contain everything needed torun an application, including the code, runtimesystem tools, libraries, and settings. Docker providesa way to package and distribute applications alongwith their dependencies, making it easier to deployand manage software across different environments.">Docker</Tooltip> on Apple Silicon devices.
 
 <Frame>
 ![](/images/docs/4a32aae9cbd68b26055a5b9b77e61acf30e4af23669266ddc0c4f72a34defdf8-BadCPU.jpg)
