@@ -70,7 +70,6 @@
                       "docs/monitor-manage-clusters-copy",
                       "docs/deploy-containers",
                       "docs/deploy-ray-cluster",
-                      "docs/deploy-mega-ray-cluster",
                       "docs/deploy-bare-metal-cluster"
                     ]
                   },
