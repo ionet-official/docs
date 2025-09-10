@@ -5,29 +5,7 @@ description: "Your ML Workflow, One Click Away - Fast, Frictionless VM Infrastru
 
 **VM on Demand** - the easiest way to spin up fully-equipped virtual machines tailored for AI and ML workloads. Whether you're a data scientist, researcher, or solo builder, you can now launch GPU or CPU-powered VMs with pre-installed frameworks like PyTorch, and CUDA - no DevOps required.
 
-[block:embed]
-
-{
-
-  "html": "\<iframe class=\\"embedly-embed\\" src=\\"//cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fwww.youtube.com%2Fembed%2Fq_o6nQg40yU%3Ffeature%3Doembed&display_name=YouTube&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3Dq_o6nQg40yU&image=https%3A%2F%2Fi.ytimg.com%2Fvi%2Fq_o6nQg40yU%2Fhqdefault.jpg&type=text%2Fhtml&schema=youtube\\" width=\\"854\\" height=\\"480\\" scrolling=\\"no\\" title=\\"YouTube embed\\" frameborder=\\"0\\" allow=\\"autoplay; fullscreen; encrypted-media; picture-in-picture;\\" allowfullscreen=\\"true\\"\>\</iframe\>",
-
-  "url": "https://www.youtube.com/watch?v=q_o6nQg40yU",
-
-  "title": "Deploy a VM On-Demand Cluster on IO Cloud",
-
-  "favicon": "https://www.youtube.com/favicon.ico",
-
-  "image": "https://i.ytimg.com/vi/q_o6nQg40yU/hqdefault.jpg",
-
-  "provider": "[youtube.com](http://youtube.com)",
-
-  "href": "https://www.youtube.com/watch?v=q_o6nQg40yU",
-
-  "typeOfEmbed": "youtube"
-
-}
-
-[/block]
+<iframe width="100%" height="480" src="https://www.youtube.com/embed/q_o6nQg40yU" title="Deploy a VM On-Demand Cluster on IO Cloud" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen />
 
 With just a few clicks, you'll go from zero to a ready-to-code environment, without the usual cloud complexity. Here's how to get started:
 
@@ -37,420 +15,140 @@ With just a few clicks, you'll go from zero to a ready-to-code environment, with
 
 Start by selecting Virtual Machine from the cluster creation menu. This is your entry point to a customizable and dedicated compute environment.
 
-[block:image]
-
-{
-
-  "images": [
-
-    {
-
-      "image": [
-
-        "https://files.readme.io/d64dfd9386e8305758c7db1c37938a7498dd3530ba3cfd58aed5f910132a6c60-Containers1.jpg",
-
-        "",
-
-        ""
-
-      ],
-
-      "align": "center",
-
-      "sizing": "450px"
-
-    }
-
-  ]
-
-}
-
-[/block]
-
 ### 2. Select a Connectivity Tier
 
 Your data transfer needs matter. Choose the right network bandwidth:
 
-- \*\*Ultra High Speed\*\* - Perfect for model training, large datasets
-
-- \*\*High Speed\*\* - Great for collaboration, notebooks, APIs
-
-- \*\*Medium Speed\*\* - Works well for typical AI/ML dev cycles
-
-- \*\*Low Speed\*\* - Best for testing, learning, or budget-focused work
-
-[block:image]
-
-{
-
-  "images": [
-
-    {
-
-      "image": [
-
-        "https://files.readme.io/bec3c381cc76c418be073daf9dbbe97bfce03393fc9b8aa6871efaa570fd2de7-Containers2.jpg",
-
-        "",
-
-        ""
-
-      ],
-
-      "align": "center",
-
-      "sizing": "600px"
-
-    }
-
-  ]
-
-}
-
-[/block]
+- **Ultra High Speed** - Perfect for model training, large datasets
+- **High Speed** - Great for collaboration, notebooks, APIs
+- **Medium Speed** - Works well for typical AI/ML dev cycles
+- **Low Speed** - Best for testing, learning, or budget-focused work
 
 ### 3. Processor \+ Data Center Location
 
 Pick the physical location where your VM will live. Closer regions = lower latency.
 
 1. Choose a \*\*Processor Type \*\*(e.g., A100, EPYC)
-
-2. Then, select your preferred \*\*Location\*\* from the available regions (e.g., US-East, EU-West, Asia-Pacific)
+2. Then, select your preferred **Location** from the available regions (e.g., US-East, EU-West, Asia-Pacific)
 
 Deploying closer to your users or team means faster response times.
-
-[block:image]
-
-{
-
-  "images": [
-
-    {
-
-      "image": [
-
-        "https://files.readme.io/b27618b269d3ff217aeeb2fef3c61309835957e81b20a5f42f5776343580f8ba-Containers3.jpg",
-
-        null,
-
-        ""
-
-      ],
-
-      "align": "center",
-
-      "sizing": "600px"
-
-    }
-
-  ]
-
-}
-
-[/block]
 
 ### 4. Select Image & Add SSH Keys
 
 Choose Your VM Image:
 
-#### \*\*— General Purpose Image\*\*
+#### **— General Purpose Image**
 
-\> Ubuntu 24.04 64-bit, 3.5GB – includes CUDA Toolkit and drivers. Ideal for running your own stack from scratch.
+> Ubuntu 24.04 64-bit, 3.5GB – includes CUDA Toolkit and drivers. Ideal for running your own stack from scratch.
 
-#### \*\*— Data Science Image\*\* (Coming Soon)
+#### **— Data Science Image** (Coming Soon)
 
-\> The Data Science Image comes preloaded with a powerful GPU-accelerated environment for AI, machine learning, and analytics tasks. It includes:
+> The Data Science Image comes preloaded with a powerful GPU-accelerated environment for AI, machine learning, and analytics tasks. It includes:
+>
+> - **OS**: Ubuntu 24.04.2 LTS
+> - **Python**: 3.12
+> - **Conda:** 25.7.0
+> - **CUDA**: 12.1
+> - **RAPIDS:** 25.6.0
+>
+> **This image is ideal for:**
+>
+> - Building and training machine learning models
+> - Exploring large datasets with GPU acceleration
+> - Running distributed computing tasks using Ray
+> - Developing and testing AI workflows in Jupyter
+>
+> [View full image specification →](doc:data-science-image-full-specification)
 
-\>
+> 🚧 **Important:** Using Environment Variables in Entrypoints
+>
+> To avoid deployment failures:
+>
+> - **Always define environment variables** in the `env_variables` section instead of substituting them directly in the `entrypoint` or `args`.
+> - If you reference variables in the entrypoint, **``escape $ as $$``** so the container interprets them correctly.
+>
+> **Example:**
+>
+> ```json
+> "entrypoint": [
+>   "sh", "-c", "echo 'Variable value: $${TEST_VAR}' && sleep 3600"
+> ],
+> "env_variables": {
+>   "TEST_VAR": "This is a test"
+> }
+> ```
+>
+> - Correct: `$${TEST_VAR}` inside the container prints the variable value.
+> - Incorrect: `$TEST_VAR` may fail during deployment.
+> - Avoid passing variables via `args` or directly in the command; use `env_variables` instead.
 
-\> - \*\*OS\*\*: Ubuntu 24.04.2 LTS
-
-\> - \*\*Python\*\*: 3.12
-
-\> - \*\*Conda:\*\* 25.7.0
-
-\> - \*\*CUDA\*\*: 12.1
-
-\> - \*\*RAPIDS:\*\* 25.6.0
-
-\>
-
-\> \*\*This image is ideal for:\*\*
-
-\>
-
-\> - Building and training machine learning models
-
-\> - Exploring large datasets with GPU acceleration
-
-\> - Running distributed computing tasks using Ray
-
-\> - Developing and testing AI workflows in Jupyter
-
-\>
-
-\> [View full image specification →](doc:data-science-image-full-specification)
-
-\> 🚧 \*\*Important:\*\* Using Environment Variables in Entrypoints
-
-\> 
-
-\> To avoid deployment failures:
-
-\> 
-
-\> - \*\*Always define environment variables\*\* in the `env_variables` section instead of substituting them directly in the `entrypoint` or `args`.
-
-\> - If you reference variables in the entrypoint, \*\*escape `$` as `$$`\*\* so the container interprets them correctly.
-
-\> 
-
-\> \*\*Example:\*\*
-
-\> 
-
-\> \`\`\`json
-
-\> "entrypoint": [
-
-\>   "sh", "-c", "echo 'Variable value: \$\${TEST_VAR}' && sleep 3600"
-
-\> ],
-
-\> "env_variables": {
-
-\>   "TEST_VAR": "This is a test"
-
-\> }
-
-\> \`\`\`
-
-\> 
-
-\> - Correct: `$${TEST_VAR}` inside the container prints the variable value.  
-
-\> - Incorrect: `$TEST_VAR` may fail during deployment.  
-
-\> - Avoid passing variables via `args` or directly in the command; use `env_variables` instead.
-
-\> 🚧 Note for advanced users:
-
-\> 
-
-\> There is a known issue where Terraform variable interpolation `$`) can clash with environment variable substitution at the service layer. Escaping with `$$` prevents this conflict.
+> 🚧 Note for advanced users:
+>
+> There is a known issue where Terraform variable interpolation (`$`) can clash with environment variable substitution at the service layer. Escaping with `$$` prevents this conflict.
 
 #### Add Your SSH Key:
 
 Choose one of two ways to securely access your VM:
 
-- \*\*Manual Input\*\*  
-
-  Add a \*\*key name\*\* and your public \*\*SSH key\*\*.
-
-  [block:image]{"images":[{"image":["https://files.readme.io/2308922a0128f6cbd4ea3213a0735a8c1e45880109ef6a0e2d64084ce81e6346-Containers8.jpeg","",""],"align":"center","sizing":"600px"}]}[/block]
-
-- \*\*Fetch from GitHub\*\*  
-
-  Just enter your \*\*GitHub ID\*\* - we’ll pull your public key for you.
-
-[block:image]
-
-{
-
-  "images": [
-
-    {
-
-      "image": [
-
-        "https://files.readme.io/963ec4088c730e7056be3d538f1403070aa8450e9b2b45d012955d43c1b4e4a1-Containers4.jpg",
-
-        null,
-
-        ""
-
-      ],
-
-      "align": "center",
-
-      "sizing": "600px"
-
-    }
-
-  ]
-
-}
-
-[/block]
+- **Manual Input**\
+  Add a **key name** and your public **SSH key**.
 
 ### 5. Add Network Services (Optional)
 
 SSH is added by default. Want to expose other ports or services, here is how:
 
-1. Click “\*\*Add First Network Service\*\*”, and enter: Name, Port, Protocol (TCP/UDP), Whitelist IPs (who’s allowed in)
+1. Click “**Add First Network Service**”, and enter: Name, Port, Protocol (TCP/UDP), Whitelist IPs (who’s allowed in)
+2. Click "**Plus**" button to apply. This gives you control over custom APIs, inference endpoints, or webhooks.
 
-2. Click "\*\*Plus\*\*" button to apply. This gives you control over custom APIs, inference endpoints, or webhooks.
-
-[block:image]
-
-{
-
-  "images": [
-
-    {
-
-      "image": [
-
-        "https://files.readme.io/07db5f6b445399915bf32ca83def90a27b941ad84a2f45add8321dd4a79f887d-Containers5.jpg",
-
-        null,
-
-        ""
-
-      ],
-
-      "align": "center",
-
-      "sizing": "600px"
-
-    }
-
-  ]
-
-}
-
-[/block]
-
-#### Port Exposure on [io.net](http://io.net)
+#### Port Exposure on io.net
 
 When deploying containers, users need to expose ports in two places:
 
-1. \*\*Docker inside the VM\*\*  
+1. **Docker inside the VM**\
+   Specify the ports to expose when running the container:
 
-      Specify the ports to expose when running the container:
-
-   \`\`\`
-
+   ```
    docker run -d -p 8082:8082 your-image-name
-
-   \`\`\`
-
-2. \*\*[io.net](http://io.net) Network / Frontend Configuration\*\*  
-
+   ```
+2. **io.net Network / Frontend Configuration**\
    After VM deployment, the platform will provide external ports that map to your container ports. Users need to use these ports to access the services externally.
 
-\> 📘 \*\*Note:\*\*
+> 📘 **Note:**
+>
+> Local Docker port configuration is not automatically propagated to the external network. Both steps are necessary to make your services accessible from outside the VM.
 
-\> 
-
-\> Local Docker port configuration is not automatically propagated to the external network. Both steps are necessary to make your services accessible from outside the VM.
-
-\> ⚠️ \*\*Important\*\*
-
-\> 
-
-\> Network services (including port exposure) cannot be modified after the cluster is created.  
-
-\> Make sure to specify all required ports during cluster creation in the frontend, and also expose them in your Docker run command inside the VM.
+> ⚠️ **Important**
+>
+> Network services (including port exposure) cannot be modified after the cluster is created.\
+> Make sure to specify all required ports during cluster creation in the frontend, and also expose them in your Docker run command inside the VM.
 
 ### 6. Review Summary & Deploy
 
 In the final screen, double-check and customize:
 
 - Container Count
-
 - GPU/CPU Quantity
-
 - \*\*Runtime Duration \*\*- hourly, daily, or weekly (in hours)
-
-- \*\*Payment Method \*\*- select your preferred option from \*\*IO Coin\*\*, \*\*USDC\*\*, \*\*USD\*\*
+- \*\*Payment Method \*\*- select your preferred option from **IO Coin**, **USDC**, **USD**
 
 At the bottom, you’ll see your total estimated cost. When ready, click Deploy VM button - your VM will now begin provisioning.
-
-[block:image]
-
-{
-
-  "images": [
-
-    {
-
-      "image": [
-
-        "https://files.readme.io/e9729b80228371ad12d3291c6ca4ee8bac73ebb68998bd4befb650c1e50eae49-Containers6.jpg",
-
-        null,
-
-        ""
-
-      ],
-
-      "align": "center",
-
-      "sizing": "500px"
-
-    }
-
-  ]
-
-}
-
-[/block]
 
 ## View Your Cluster
 
 Once payment is processed and deployment finishes, you’ll see a live view of your VM cluster.
 
-Click \*\*Return to Clusters\*\* to monitor usage, pause or resume machines, or launch another VM.
+Click **Return to Clusters** to monitor usage, pause or resume machines, or launch another VM.
 
 Each cluster detail page gives you:
 
 - Real-time resource usage
-
 - SSH connection info
-
 - Lifecycle controls (pause/resume/terminate)
-
 - Billing insights
-
-[block:image]
-
-{
-
-  "images": [
-
-    {
-
-      "image": [
-
-        "https://files.readme.io/b07b6a406d5b32861a0527e7d329c8d0a41a860dc923c49b866f16cfaea3ff4c-Containers7.jpg",
-
-        "",
-
-        ""
-
-      ],
-
-      "align": "center"
-
-    }
-
-  ]
-
-}
-
-[/block]
 
 ### To start working with your VM:
 
-1. Find the SSH Access line on your VM Cluster page and \*\*copy it\*\*.
-
-   [block:image]{"images":[{"image":["https://files.readme.io/976bd9ae5745ecbb0f1eda4a89181650dc539794ca87dd7fc76d7c3f8cd7b91d-Containers7-2.jpg","",""],"align":"center","sizing":"500px"}]}[/block]
-
-2. Open your Terminal and \*\*paste the SSH command\*\*, then \*\*press Enter\*\*.
-
-3. You’ll be asked to confirm the connection - \*\*type yes\*\* and \*\*press Enter\*\*.
-
-   [block:image]{"images":[{"image":["https://files.readme.io/edfd1390324dc2fa45f13c8a40345dcb9672dd2e0d158e9107e401616062a69c-Containers8.jpg","",""],"align":"center","sizing":"500px"}]}[/block]
-
+1. Find the SSH Access line on your VM Cluster page and **copy it**.
+2. Open your Terminal and **paste the SSH command**, then **press Enter**.
+3. You’ll be asked to confirm the connection - **type yes** and **press Enter**.
 4. Once connected, you’ll see the welcome message and be ready to use your VM through the SSH terminal.

@@ -70,7 +70,7 @@
                       "docs/monitor-manage-clusters-copy",
                       "docs/deploy-containers",
                       "docs/deploy-ray-cluster",
-                      "docs/deploy-bare-metal-cluster"
+                      "docs/clouds/deploy-vm-on-demand"
                     ]
                   },
                   {
