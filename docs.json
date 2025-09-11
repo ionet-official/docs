@@ -21,6 +21,24 @@
         ]
       },
       {
+        "tab": "Cloud",
+        "pages": [
+           "docs/clouds/io-cloud",
+           "docs/clouds/start-using-io-cloud",
+            "docs/clouds/monitor-manage-clusters",
+            "docs/clouds/deploy-containers",
+            "docs/clouds/deploy-ray-cluster",
+            "docs/clouds/deploy-vm-on-demand",
+            "docs/clouds/data-science-image-full-specification",
+            "docs/clouds/run-jobs-on-clusters",
+            "docs/clouds/jupyter-notebook","docs/clouds/io-cloud-payments",
+            "docs/clouds/deploy-cluster-and-pay",
+            "docs/clouds/extending-your-cluster-and-pay",
+            "docs/clouds/io-credits"
+
+        ]
+      },
+      {
         "tab": "Guides",
         "groups": [
           {
@@ -57,39 +75,6 @@
                   "docs/announcements",
                   "docs/important-action-required-for-expired-refresh-tokens",
                   "docs/supplier-migration-guide-upgrading-to-m4-series-devices"
-                ]
-              },
-              {
-                "group": "IO Cloud",
-                "pages": [
-                  "docs/io-cloud",
-                  {
-                    "group": "Start Using IO Cloud",
-                    "pages": [
-                      "docs/clouds/start-using-io-cloud",
-                      "docs/clouds/monitor-manage-clusters",
-                      "docs/clouds/deploy-containers",
-                      "docs/clouds/deploy-ray-cluster",
-                      "docs/clouds/deploy-vm-on-demand",
-                      "docs/clouds/data-science-image-full-specification"
-                    ]
-                  },
-                  {
-                    "group": "Run Jobs on Clusters",
-                    "pages": [
-                      "docs/clouds/run-jobs-on-clusters",
-                      "docs/clouds/jupyter-notebook"
-                    ]
-                  },
-                  {
-                    "group": "IO Cloud Payments",
-                    "pages": [
-                      "docs/clouds/io-cloud-payments",
-                      "docs/clouds/deploy-cluster-and-pay",
-                      "docs/clouds/extending-your-cluster-and-pay",
-                      "docs/clouds/io-credits"
-                    ]
-                  }
                 ]
               },
               {
