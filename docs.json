@@ -77,17 +77,17 @@
                   {
                     "group": "Run Jobs on Clusters",
                     "pages": [
-                      "docs/run-jobs-on-clusters",
-                      "docs/jupyter-notebook"
+                      "docs/clouds/run-jobs-on-clusters",
+                      "docs/clouds/jupyter-notebook"
                     ]
                   },
                   {
                     "group": "IO Cloud Payments",
                     "pages": [
-                      "docs/io-cloud-payments",
-                      "docs/deploy-cluster-and-pay",
-                      "docs/extending-your-cluster-and-pay",
-                      "docs/io-credits"
+                      "docs/clouds/io-cloud-payments",
+                      "docs/clouds/deploy-cluster-and-pay",
+                      "docs/clouds/extending-your-cluster-and-pay",
+                      "docs/clouds/io-credits"
                     ]
                   }
                 ]

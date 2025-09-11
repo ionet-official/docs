@@ -4,24 +4,33 @@ description: "To troubleshoot connectivity tier issues, users can test network s
 ---
 
 1. Pull the Python 3.9 Slim container:
+
    ```
    docker pull python:3.9-slim
    ```
 2. Run the container:
+
    ```
    docker run -it --name speedtest-container python:3.9-slim /bin/bash
    ```
 3. Install the speedtest tool:
+
    ```
    pip install speedtest-cli
    ```
 4. Test the network speed:
+
    ```
    speedtest-cli
    ```
 
 <Frame>
-![](/images/docs/c253d1c75dd3b1539b73ff5dff611670c7b322ba8a1c05ffb80c46f44221db55-DockerIssue6.jpg)
+  <img
+    src="/images/docs/c253d1c75dd3b1539b73ff5dff611670c7b322ba8a1c05ffb80c46f44221db55-DockerIssue6.jpg"
+    alt=""
+    className="mx-auto"
+    style={{ width:"81%" }}
+  />
 </Frame>
 
 We recommend running similar speed tests periodically within your containers to monitor connectivity performance. You can also guide users on how to perform these tests at regular intervals or during specific instances for troubleshooting.

@@ -3,57 +3,57 @@ title: "Block Rewards"
 ---
 
 ## Table of Contents
+
 - [Block Rewards Dashboard](/docs/block-rewards-page#block-rewards-dashboard)
-    - [Key Features of the Dashboard](/docs/block-rewards-page#key-features)
-    - [Block Rewards Table](/docs/block-rewards-page#block-rewards-table)
+  - [Key Features of the Dashboard](/docs/block-rewards-page#key-features)
+  - [Block Rewards Table](/docs/block-rewards-page#block-rewards-table)
 - [Block Rewards View Page](/docs/block-rewards-page#view-page)
 - [Base Score Calculation](/docs/block-rewards-page#base-score-calculation)
 - [Exceptions & Special Cases](/docs/block-rewards-page#exceptions--special-cases)
-    - [Device Eligibility Rules & Updates](/docs/block-rewards-page#device-eligibility-rules--updates)
-    - [Wallet Requirement for Rewards](/docs/block-rewards-page#wallet-requirement-for-rewards)
+  - [Device Eligibility Rules & Updates](/docs/block-rewards-page#device-eligibility-rules--updates)
+  - [Wallet Requirement for Rewards](/docs/block-rewards-page#wallet-requirement-for-rewards)
 
 ## Block Rewards Dashboard
 
 The Block Rewards Dashboard offers a detailed overview of the rewards earned by devices contributing computational power to the IO.net ecosystem. This page helps you track their earnings, understand reward calculations, and monitor key performance metrics. Whether you are an individual worker or managing multiple devices, the dashboard provides full transparency on reward distribution.
 
-To view the Block Rewards tab, go to **io.net** > **IO Explorer** > **Block Rewards Tab**.
+To view the Block Rewards tab, go to **io.net** \> **IO Explorer** \> **Block Rewards Tab**.
 
 <Frame>
-![](/images/docs/93049e6ee17fd0d698c45a7b2a50730844d4cc982f504888dfef7ab0f2050409-Dashboard1.png)
+  ![](/images/docs/93049e6ee17fd0d698c45a7b2a50730844d4cc982f504888dfef7ab0f2050409-Dashboard1.png)
 </Frame>
 
- **Key Features**
+**Key Features**
 
 The Block Rewards Dashboard presents essential metrics and data points related to device earnings and overall network activity. Each feature provides critical insights into the network's devices' performance and efficiency.
 
-* **Total Coins Distributed (In \$IO Coins):** Shows the total amount of **$IO coins** allocated to all eligible workers since the start of the reward system.
-* **Today's Coins Distributed (In \$IO Coins):** Shows the total amount of **$IO coins** rewarded to workers within the current 24-hour period.
-* **Total Blocks Computed:** Indicates the number of computational blocks successfully processed within the IO.net network.
-* **Next Block Start Time:** Displays the scheduled start time for the next computational block.
-* **Total Unique Workers Paid:** Represents the total number of distinct workers that have received **$IO coin** rewards since the network began distributing payments.
-* **Today's Unique Workers Paid:** Represents the total number of distinct workers that have received \$IO coin rewards since the network began distributing payments.
+- **Total Coins Distributed (In \$IO Coins):** Shows the total amount of **\$IO coins** allocated to all eligible workers since the start of the reward system.
+- **Today's Coins Distributed (In \$IO Coins):** Shows the total amount of **\$IO coins** rewarded to workers within the current 24-hour period.
+- **Total Blocks Computed:** Indicates the number of computational blocks successfully processed within the IO.net network.
+- **Next Block Start Time:** Displays the scheduled start time for the next computational block.
+- **Total Unique Workers Paid:** Represents the total number of distinct workers that have received **\$IO coin** rewards since the network began distributing payments.
+- **Today's Unique Workers Paid:** Represents the total number of distinct workers that have received \$IO coin rewards since the network began distributing payments.
 
 <Frame>
-![](/images/docs/1e0a78ebc3e3f3144d17f20dec63bd7e85c3b6aea50b0523e4059d12a38f7771-Dashboard2.jpg)
+  ![](/images/docs/1e0a78ebc3e3f3144d17f20dec63bd7e85c3b6aea50b0523e4059d12a38f7771-Dashboard2.jpg)
 </Frame>
 
 **Block Rewards Table**
 
 The Block Rewards Table offers a structured breakdown of each block's reward details, allowing you to track real-time data and understand their earnings.
 
-| Field                 | Description |
-|------------------------|-------------|
-| **Status**            | The current state of the block. Possible statuses: **In Progress, Processing, Completed.** |
-| **Block ID**          | A unique identifier assigned to each processed block. |
-| **Processed Time**    | The exact time the block was completed and verified. |
-| **Total Rewards Emission** | The total amount of **$IO coins** distributed for the block. |
-| **Nominated Workers** | The number of devices that were nominated for Block Rewards. |
-| **Succeeded Workers** | The number of devices that met all requirements and successfully received rewards. |
-| **Failed Workers**    | The number of devices that did not meet **Proof-of-Work (POW)** or **Proof-of-Timelock (POTL)** requirements and thus did not receive rewards. |
-
+| Field                      | Description                                                                                                                                    |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Status**                 | The current state of the block. Possible statuses: **In Progress, Processing, Completed.**                                                     |
+| **Block ID**               | A unique identifier assigned to each processed block.                                                                                          |
+| **Processed Time**         | The exact time the block was completed and verified.                                                                                           |
+| **Total Rewards Emission** | The total amount of **\$IO coins** distributed for the block.                                                                                  |
+| **Nominated Workers**      | The number of devices that were nominated for Block Rewards.                                                                                   |
+| **Succeeded Workers**      | The number of devices that met all requirements and successfully received rewards.                                                             |
+| **Failed Workers**         | The number of devices that did not meet **Proof-of-Work (POW)** or **Proof-of-Timelock (POTL)** requirements and thus did not receive rewards. |
 
 <Frame>
-![](/images/docs/c9ab37d488e05875b77201c674765b11466467cb4d167026d204fbe6e6e790fd-Dashboard3.jpg)
+  ![](/images/docs/c9ab37d488e05875b77201c674765b11466467cb4d167026d204fbe6e6e790fd-Dashboard3.jpg)
 </Frame>
 
 ## View Page
@@ -61,27 +61,31 @@ The Block Rewards Table offers a structured breakdown of each block's reward det
 The **Block Rewards View Page** offers a detailed breakdown of reward calculations for individual workers and devices. Each entry includes specific performance metrics and reward status updates.
 
 <Frame>
-![](/images/docs/537a889949e9125f18fb5dba3006a1d8bbd1d38978c4eae374c797f05c4c0303-Dashboard4.jpg)
+  ![](/images/docs/537a889949e9125f18fb5dba3006a1d8bbd1d38978c4eae374c797f05c4c0303-Dashboard4.jpg)
 </Frame>
 
 ### Key Metrics
 
-| Field                   | Description |
-|--------------------------|-------------|
-| **Block Reward**         | Displays the reward status of a device. Status can be **Completed** (successful reward) or **Failed** (if the device does not meet **Proof-of-Work (POW)** and **Proof-of-Timelock (POTL)** requirements). |
-| **Block ID**             | A unique identifier assigned to each block in the blockchain. |
-| **Connectivity Tier**    | The assigned connectivity level of the worker. Customers select this when reserving a GPU/CPU. |
-| **Processor**            | The type of processor used (e.g., Nvidia L4 GPU). |
-| **Processor Quantity**   | The number of processors allocated to the worker. |
-| **POW (zkTFLOPs Proof)** | A computational task verifying the worker's performance. Not executed against hired workers. ([Learn more](doc:prof-of-compute)) |
-| **POTL (Proof of Timelock)** | Ensures the worker remains active for a set duration. May be executed against hired workers. |
-| **Device Base Score**    | A score based on hardware quality, quantity, and connectivity tier. Used to determine earnings. |
-| **Device Normalized Score** | Represents potential earnings, ensuring fairness across the network. Adjusted based on total emissions and device performance. |
-| **Rewarded Amount**      | Displays the IO Coin earned based on total device score. |
-
+| Field                        | Description                                                                                                                                                                                                |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Block Reward**             | Displays the reward status of a device. Status can be **Completed** (successful reward) or **Failed** (if the device does not meet **Proof-of-Work (POW)** and **Proof-of-Timelock (POTL)** requirements). |
+| **Block ID**                 | A unique identifier assigned to each block in the blockchain.                                                                                                                                              |
+| **Connectivity Tier**        | The assigned connectivity level of the worker. Customers select this when reserving a GPU/CPU.                                                                                                             |
+| **Processor**                | The type of processor used (e.g., Nvidia L4 GPU).                                                                                                                                                          |
+| **Processor Quantity**       | The number of processors allocated to the worker.                                                                                                                                                          |
+| **POW (zkTFLOPs Proof)**     | A computational task verifying the worker's performance. Not executed against hired workers. ([Learn more](doc:prof-of-compute))                                                                           |
+| **POTL (Proof of Timelock)** | Ensures the worker remains active for a set duration. May be executed against hired workers.                                                                                                               |
+| **Device Base Score**        | A score based on hardware quality, quantity, and connectivity tier. Used to determine earnings.                                                                                                            |
+| **Device Normalized Score**  | Represents potential earnings, ensuring fairness across the network. Adjusted based on total emissions and device performance.                                                                             |
+| **Rewarded Amount**          | Displays the IO Coin earned based on total device score.                                                                                                                                                   |
 
 <Frame>
-![](/images/docs/0cb663c27871259fa1ac6f43021f38bad8eb71fcacc3f02b6f38d59e96f94c21-Dashboard5.jpg)
+  <img
+    src="/images/docs/0cb663c27871259fa1ac6f43021f38bad8eb71fcacc3f02b6f38d59e96f94c21-Dashboard5.jpg"
+    alt=""
+    className="mx-auto"
+    style={{ width:"54%" }}
+  />
 </Frame>
 
 ## Base Score Calculation
@@ -93,13 +97,13 @@ The Device Base Score is determined using the following formula:
 + (2.0 _ hardware_multiplier _ processor_quantity)) _ 100 + (0.05 _ was_hired)) _ 10
 ```
 
-*⚠ This formula is subject to change by the IOG Foundation to optimize incentives within the IO.net ecosystem.*
+_⚠ This formula is subject to change by the IOG Foundation to optimize incentives within the IO.net ecosystem._
 
 **Example calculation:**
 
-* A GPU device with a base score of 8150
-* Total network GPU score: 115M
-* Normalized Score: (8150/115M) /* 8M = 569
+- A GPU device with a base score of 8150
+- Total network GPU score: 115M
+- Normalized Score: (8150/115M) /\* 8M = 569
 
 ### Exceptions & Special Cases
 
@@ -108,7 +112,12 @@ The Device Base Score is determined using the following formula:
 Head nodes must stay online to support jobs. Therefore, **Proof of Work (POW)** is not executed against them, but **Proof of Timelock (POTL)** is needed. If the head node meets the uptime requirements, it will receive rewards.
 
 <Frame>
-![](/images/docs/b33bbd7-ex_headnode.png)
+  <img
+    src="/images/docs/b33bbd7-ex_headnode.png"
+    alt=""
+    className="mx-auto"
+    style={{ width:"49%" }}
+  />
 </Frame>
 
 **Device Eligibility Rules & Updates**
@@ -117,17 +126,16 @@ To maintain fairness and align with evolving infrastructure needs, the following
 
 ##### Minimum Uptime Requirements:
 
-* Devices must meet a **minimum uptime (e.g., 3-5 hours)** to be eligible for Block Rewards.
-* After **Ignition Reward S3**, additional cooldown periods may be enforced.
+- Devices must meet a **minimum uptime (e.g., 3-5 hours)** to be eligible for Block Rewards.
+- After **Ignition Reward S3**, additional cooldown periods may be enforced.
 
 ##### Ineligible Devices:
 
-* **M3 devices** should have at least 16GB RAM for optimal performance.
+- **M3 devices** should have at least 16GB RAM for optimal performance.
 
 **Wallet Requirement for Rewards**
 
-* A valid SOL address is required to calculate Block Rewards.
-* Automated payouts are not yet enabled, so you should consider using a self-custodial wallet.
+- A valid SOL address is required to calculate Block Rewards.
+- Automated payouts are not yet enabled, so you should consider using a self-custodial wallet.
 
-***
-
+---
