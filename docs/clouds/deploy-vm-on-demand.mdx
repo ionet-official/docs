@@ -15,6 +15,14 @@ With just a few clicks, you'll go from zero to a ready-to-code environment, with
 
 Start by selecting Virtual Machine from the cluster creation menu. This is your entry point to a customizable and dedicated compute environment.
 
+<img
+  src="/images/docs/cloud_vm_on_demand/Containers1.jpg"
+  alt="Containers1 Jp"
+  title="Containers1 Jp"
+  className="mx-auto"
+  style={{ width:"47%" }}
+/>
+
 ### 2. Select a Connectivity Tier
 
 Your data transfer needs matter. Choose the right network bandwidth:
@@ -24,14 +32,30 @@ Your data transfer needs matter. Choose the right network bandwidth:
 - **Medium Speed** - Works well for typical AI/ML dev cycles
 - **Low Speed** - Best for testing, learning, or budget-focused work
 
+<img
+  src="/images/docs/cloud_vm_on_demand/Containers2.jpg"
+  alt="Containers2 Jp"
+  title="Containers2 Jp"
+  className="mx-auto"
+  style={{ width:"84%" }}
+/>
+
 ### 3. Processor \+ Data Center Location
 
 Pick the physical location where your VM will live. Closer regions = lower latency.
 
-1. Choose a \*\*Processor Type \*\*(e.g., A100, EPYC)
+1. Choose a **Processor Type** (e.g., A100, EPYC)
 2. Then, select your preferred **Location** from the available regions (e.g., US-East, EU-West, Asia-Pacific)
 
 Deploying closer to your users or team means faster response times.
+
+<img
+  src="/images/docs/cloud_vm_on_demand/Containers3.jpg"
+  alt="Containers3 Jp"
+  title="Containers3 Jp"
+  className="mx-auto"
+  style={{ width:"72%" }}
+/>
 
 ### 4. Select Image & Add SSH Keys
 
@@ -65,7 +89,7 @@ Choose Your VM Image:
 > To avoid deployment failures:
 >
 > - **Always define environment variables** in the `env_variables` section instead of substituting them directly in the `entrypoint` or `args`.
-> - If you reference variables in the entrypoint, **``escape $ as $$``** so the container interprets them correctly.
+> - If you reference variables in the entrypoint, **`escape $ as $$`** so the container interprets them correctly.
 >
 > **Example:**
 >
@@ -93,12 +117,40 @@ Choose one of two ways to securely access your VM:
 - **Manual Input**\
   Add a **key name** and your public **SSH key**.
 
+  <img
+    src="/images/docs/cloud_vm_on_demand/Containers7.jpg"
+    alt="Containers7 Jp"
+    title="Containers7 Jp"
+    className="mx-auto"
+    style={{ width:"83%" }}
+  />
+- **Fetch from GitHub**  
+
+  Just enter your **GitHub ID** - we’ll pull your public key for you.
+
+  <img
+    src="/images/docs/cloud_vm_on_demand/Containers4.jpg"
+    alt="Containers4 Jp"
+    title="Containers4 Jp"
+    className="mx-auto"
+    style={{ width:"67%" }}
+  />
+
 ### 5. Add Network Services (Optional)
 
 SSH is added by default. Want to expose other ports or services, here is how:
 
 1. Click “**Add First Network Service**”, and enter: Name, Port, Protocol (TCP/UDP), Whitelist IPs (who’s allowed in)
-2. Click "**Plus**" button to apply. This gives you control over custom APIs, inference endpoints, or webhooks.
+2. Click "**Plus**" button to apply. This gives you 
+3. control over custom APIs, inference endpoints, or webhooks.
+
+<img
+  src="/images/docs/cloud_vm_on_demand/Containers5.jpg"
+  alt="Containers5 Jp"
+  title="Containers5 Jp"
+  className="mx-auto"
+  style={{ width:"68%" }}
+/>
 
 #### Port Exposure on io.net
 
@@ -133,6 +185,14 @@ In the final screen, double-check and customize:
 
 At the bottom, you’ll see your total estimated cost. When ready, click Deploy VM button - your VM will now begin provisioning.
 
+<img
+  src="/images/docs/cloud_vm_on_demand/Containers6.jpg"
+  alt="Containers6 Jp"
+  title="Containers6 Jp"
+  className="mx-auto"
+  style={{ width:"62%" }}
+/>
+
 ## View Your Cluster
 
 Once payment is processed and deployment finishes, you’ll see a live view of your VM cluster.
@@ -146,9 +206,27 @@ Each cluster detail page gives you:
 - Lifecycle controls (pause/resume/terminate)
 - Billing insights
 
+![Containers8 Jp](/images/docs/cloud_vm_on_demand/Containers8.jpg)
+
 ### To start working with your VM:
 
 1. Find the SSH Access line on your VM Cluster page and **copy it**.
+
+   <img
+     src="/images/docs/cloud_vm_on_demand/Containers9.jpg"
+     alt="Containers9 Jp"
+     title="Containers9 Jp"
+     className="mx-auto"
+     style={{ width:"72%" }}
+   />
 2. Open your Terminal and **paste the SSH command**, then **press Enter**.
 3. You’ll be asked to confirm the connection - **type yes** and **press Enter**.
+
+   <img
+     src="/images/docs/cloud_vm_on_demand/Containers10.jpg"
+     alt="Containers10 Jp"
+     title="Containers10 Jp"
+     className="mx-auto"
+     style={{ width:"74%" }}
+   />
 4. Once connected, you’ll see the welcome message and be ready to use your VM through the SSH terminal.

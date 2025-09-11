@@ -66,11 +66,12 @@
                   {
                     "group": "Start Using IO Cloud",
                     "pages": [
-                      "docs/start-using-io-cloud",
-                      "docs/monitor-manage-clusters-copy",
-                      "docs/deploy-containers",
-                      "docs/deploy-ray-cluster",
-                      "docs/clouds/deploy-vm-on-demand"
+                      "docs/clouds/start-using-io-cloud",
+                      "docs/clouds/monitor-manage-clusters",
+                      "docs/clouds/deploy-containers",
+                      "docs/clouds/deploy-ray-cluster",
+                      "docs/clouds/deploy-vm-on-demand",
+                      "docs/clouds/data-science-image-full-specification"
                     ]
                   },
                   {

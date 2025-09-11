@@ -1,0 +1,33 @@
+---
+title: "Data Science VM Image Specification"
+---
+This document provides the full specification of the Data Science Image used in IO.NET cloud deployments. It includes the operating system, core dependencies, and package lists for both the Conda `rapids-25.6.0` environment and the base Python environment.
+
+## Base Information
+
+- **OS**: Ubuntu 24.04.1 LTS (Noble Numbat)  
+- **CUDA**: 12.1  
+- **RAPIDS**: 25.6.0  
+- **Python**: 3.12  
+- **Conda**: 25.7.0  
+
+## Package Lists
+
+The image comes with a preconfigured Conda environment (`rapids-25.6.0`) as well as a base Python environment.  
+To see the full package versions installed, run the following commands inside the image:
+
+### Conda environment (`rapids-25.6.0`)
+
+```bash
+conda run -n rapids-25.6.0 pip3 list
+```
+
+### Base Python environment
+
+```
+pip3 list
+```
+
+> 📘 **Note: **The package lists may change over time as the image is updated.
+> 
+> Users should always re-run the commands above to get the most up-to-date package versions.
