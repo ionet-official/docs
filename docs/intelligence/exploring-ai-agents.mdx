@@ -6,16 +6,21 @@ description: "AI Agents extend the functionality of AI Models by incorporating a
 To get started, navigate to the [AI Agents](https://id.io.net/ai/agents) section in your dashboard.
 
 <Frame>
-![](/images/docs/b0537ae0f9b88cd43219f6c68834b0ea6202fd621469791ae69238960dd2d27e-IO_Intellegence13.jpg)
+  <img
+    src="/images/docs/b0537ae0f9b88cd43219f6c68834b0ea6202fd621469791ae69238960dd2d27e-IO_Intellegence13.jpg"
+    alt=""
+    className="mx-auto"
+    style={{ width:"49%" }}
+  />
 </Frame>
 
 ### What you can do on the dashboard:
 
-* Use the **search field** to find a specific agent.
-* Browse **Trending AI Agents**, which are popular in our community.
+- Use the **search field** to find a specific agent.
+- Browse **Trending AI Agents**, which are popular in our community.
 
 <Frame>
-![](/images/docs/12c59a72d827c83c034a99e8f6cbfcdc726d44bd35e3505c591e259ceb6bf015-IO_Intellegence14.jpg)
+  ![](/images/docs/12c59a72d827c83c034a99e8f6cbfcdc726d44bd35e3505c591e259ceb6bf015-IO_Intellegence14.jpg)
 </Frame>
 
 ### Popular AI Agents
@@ -37,78 +42,81 @@ For a complete list, visit the [AI Agents section](https://id.io.net/ai/agents).
 To start configuring the required AI Agent, select and click on the desired AI Agent.
 
 <Frame>
-![](/images/docs/234719bed86b8665226f52d99fd5e9bd41d0dd65f3e5803c876b42b73c9d4494-IO_Intellegence15.jpg)
+  ![](/images/docs/234719bed86b8665226f52d99fd5e9bd41d0dd65f3e5803c876b42b73c9d4494-IO_Intellegence15.jpg)
 </Frame>
 
 A popup will appear with instructions on how to configure the selected Node. You have two options to install the AI Agent:
 
 1. Install via pip:
-
-   * Open the Terminal and run the following command:
+   - Open the Terminal and run the following command:
 
    <CodeGroup>
-     ```python Terminal
-     pip install --upgrade iointel
-     ```
+
+   ```python Terminal
+   pip install --upgrade iointel
+   ```
+
    </CodeGroup>
-
-   * Use this **Python example** to start using the selected AI Agent:
+   - Use this **Python example** to start using the selected AI Agent:
 
    <CodeGroup>
-     ```python python
-     from iointel import (
-         Agent,
-         Workflow
-     )
 
-     import os
-     import asyncio
+   ```python python
+   from iointel import (
+       Agent,
+       Workflow
+   )
+   
+   import os
+   import asyncio
+   
+   api_key = os.environ["OPENAI_API_KEY"]  # Replace with your actual IO.net API key
+   
+   text = """In the rapidly evolving landscape of artificial intelligence, the ability to condense vast amounts of information into concise and meaningful summaries is crucial. From research papers and business reports to legal documents and news articles, professionals across industries rely on summarization to extract key insights efficiently. Traditional summarization techniques often struggle with maintaining coherence and contextual relevance. However, advanced AI models now leverage natural language understanding to identify core ideas, eliminate redundancy, and generate human-like summaries. As organizations continue to deal with an ever-growing influx of data, the demand for intelligent summarization tools will only increase. Whether enhancing productivity, improving decision-making, or streamlining workflows, AI-powered summarization is set to become an indispensable asset in the digital age."""
+   
+   agent = Agent(
+       name="Summarize Agent",
+       instructions="You are an assistant specialized in summarization.",
+       model="meta-llama/Llama-3.3-70B-Instruct",
+       api_key=api_key,
+       base_url="https://api.intelligence.io.solutions/api/v1"
+   )
+   
+   workflow = Workflow(objective=text, client_mode=False)
+   
+   async def run_workflow():
+       results = (await workflow.summarize_text(max_words=50,agents=[agent]).run_tasks())["results"]
+       return results
+   
+   results = asyncio.run(run_workflow())
+   print(results)
+   ```
 
-     api_key = os.environ["OPENAI_API_KEY"]  # Replace with your actual IO.net API key
-
-     text = """In the rapidly evolving landscape of artificial intelligence, the ability to condense vast amounts of information into concise and meaningful summaries is crucial. From research papers and business reports to legal documents and news articles, professionals across industries rely on summarization to extract key insights efficiently. Traditional summarization techniques often struggle with maintaining coherence and contextual relevance. However, advanced AI models now leverage natural language understanding to identify core ideas, eliminate redundancy, and generate human-like summaries. As organizations continue to deal with an ever-growing influx of data, the demand for intelligent summarization tools will only increase. Whether enhancing productivity, improving decision-making, or streamlining workflows, AI-powered summarization is set to become an indispensable asset in the digital age."""
-
-     agent = Agent(
-         name="Summarize Agent",
-         instructions="You are an assistant specialized in summarization.",
-         model="meta-llama/Llama-3.3-70B-Instruct",
-         api_key=api_key,
-         base_url="https://api.intelligence.io.solutions/api/v1"
-     )
-
-     workflow = Workflow(objective=text, client_mode=False)
-
-     async def run_workflow():
-         results = (await workflow.summarize_text(max_words=50,agents=[agent]).run_tasks())["results"]
-         return results
-
-     results = asyncio.run(run_workflow())
-     print(results)
-     ```
    </CodeGroup>
 
    <Frame>
-   ![](/images/docs/5182d76c919c4dfe776e28bb9c998df71e0a6f4f62b7929be42ba78d5cc995be-Artboard.jpg)
+     ![](/images/docs/5182d76c919c4dfe776e28bb9c998df71e0a6f4f62b7929be42ba78d5cc995be-Artboard.jpg)
    </Frame>
-
 2. Install via cURL: Use this **cURL example** to start using the selected AI Agent:
 
    <CodeGroup>
-     ```curl curl
-     curl -X POST /
-       -H "Content-Type: application/json" /
-       -H "Authorization: Bearer io-v1-YOUR-DEV-API-KEY" /
-       --data '{
-         "text": "text to summarize",
-         "agent_names": ["summary_agent"],
-         "args": { "type": "summarize_text" }
-       }' /
-       https://api.intelligence.io.solutions/api/v1/workflows/run
-     ```
+
+   ```curl curl
+   curl -X POST /
+     -H "Content-Type: application/json" /
+     -H "Authorization: Bearer io-v1-YOUR-DEV-API-KEY" /
+     --data '{
+       "text": "text to summarize",
+       "agent_names": ["summary_agent"],
+       "args": { "type": "summarize_text" }
+     }' /
+     https://api.intelligence.io.solutions/api/v1/workflows/run
+   ```
+
    </CodeGroup>
 
    <Frame>
-   ![](/images/docs/03f1742dc2c8a1ad0a2866b3c0417b030b44ef9607d4b7315fc4ae6337f07202-Group_72.jpg)
+     ![](/images/docs/03f1742dc2c8a1ad0a2866b3c0417b030b44ef9607d4b7315fc4ae6337f07202-Group_72.jpg)
    </Frame>
 
 **Note:** Don't forget to replace `io-v1-YOUR-DEV-API-KEY` with your actual [API Key](https://ai.io.net/ai/api-keys).
@@ -116,6 +124,10 @@ A popup will appear with instructions on how to configure the selected Node. You
 ### Example using cURL request
 
 <Frame>
-![](/images/docs/6709446dddc14a3d8203cae7e56c5f390d0f1b46dfbcbbe58cf47688c1f3981d-agent-example.jpg)
+  <img
+    src="/images/docs/6709446dddc14a3d8203cae7e56c5f390d0f1b46dfbcbbe58cf47688c1f3981d-agent-example.jpg"
+    alt=""
+    className="mx-auto"
+    style={{ width:"81%" }}
+  />
 </Frame>
-
