@@ -122,71 +122,71 @@
           {
             "group": "IO Worker",
             "pages": [
-              "docs/io-worker",
-              "docs/intro",
-              "docs/quick-start-guide",
+              "docs/workers/io-worker",
+              "docs/workers/intro",
+              "docs/workers/quick-start-guide",
               {
                 "group": "Device Onboarding",
                 "pages": [
-                  "docs/device-onboarding",
-                  "docs/device-utilization-threshold",
-                  "docs/optimize-pcie-lane-configuration",
-                  "docs/supported-devices",
-                  "docs/proof-of-work"
+                  "docs/workers/device-onboarding",
+                  "docs/workers/device-utilization-threshold",
+                  "docs/workers/optimize-pcie-lane-configuration",
+                  "docs/workers/supported-devices",
+                  "docs/workers/proof-of-work"
                 ]
               },
               {
                 "group": "Rewards & Wallets",
                 "pages": [
-                  "docs/rewards-wallets",
-                  "docs/earnings-rewards",
-                  "docs/solana",
-                  "docs/aptos-wallet"
+                  "docs/workers/rewards-wallets",
+                  "docs/workers/earnings-rewards",
+                  "docs/workers/solana",
+                  "docs/workers/aptos-wallet"
                 ]
               },
               "docs/manage-and-monitor",
               {
                 "group": "MacOS: Install Worker",
                 "pages": [
-                  "docs/install-on-macos",
-                  "docs/troubleshoot-macos-worker",
-                  "docs/install-docker-on-macos",
-                  "docs/troubleshoot-docker-for-macs"
+                  "docs/workers/install-on-macos",
+                  "docs/workers/troubleshoot-macos-worker",
+                  "docs/workers/install-docker-on-macos",
+                  "docs/workers/troubleshoot-docker-for-macs"
                 ]
               },
               {
                 "group": "Windows: Install Worker",
                 "pages": [
-                  "docs/install-on-windows",
-                  "docs/troubleshoot-windows-worker",
-                  "docs/install-docker-on-windows",
-                  "docs/troubleshoot-docker-for-windows",
-                  "docs/cuda-toolkit-optional",
-                  "docs/install-nvidia-drivers-on-windows"
+                  "docs/workers/install-on-windows",
+                  "docs/workers/troubleshoot-windows-worker",
+                  "docs/workers/install-docker-on-windows",
+                  "docs/workers/troubleshoot-docker-for-windows",
+                  "docs/workers/cuda-toolkit-optional",
+                  "docs/workers/install-nvidia-drivers-on-windows"
                 ]
               },
               {
                 "group": "Ubuntu: Install Worker",
                 "pages": [
-                  "docs/install-on-ubuntu",
-                  "docs/ubuntu-install-docker",
-                  "docs/bare-metal-on-demand-supplier-process"
+                  "docs/workers/install-on-ubuntu",
+                  "docs/workers/ubuntu-install-docker",
+                  "docs/workers/bare-metal-on-demand-supplier-process"
                 ]
               },
               {
                 "group": "Troubleshoot Docker for Linux",
                 "pages": [
-                  "docs/troubleshoot-docker-for-linux",
-                  "docs/docker-not-installed-or-running",
-                  "docs/worker-disconnects-when-containers-are-running",
-                  "docs/connectivity-tier-not-displaying-correctly",
-                  "docs/waiting-for-io-containers-to-start",
-                  "docs/stop-restart-the-platform",
-                  "docs/additional-guides"
+                  "docs/workers/troubleshoot-docker-for-linux",
+                  "docs/workers/docker-not-installed-or-running",
+                  "docs/workers/worker-disconnects-when-containers-are-running",
+                  "docs/workers/connectivity-tier-not-displaying-correctly",
+                  "docs/workers/waiting-for-io-containers-to-start",
+                  "docs/workers/stop-restart-the-platform",
+                  "docs/workers/additional-guides"
                 ]
               },
-              "docs/install-on-hiveos",
-              "docs/troubleshoot-worker-general"
+              "docs/workers/install-on-hiveos",
+              "docs/workers/troubleshoot-worker-general"
             ]
           },
           {
