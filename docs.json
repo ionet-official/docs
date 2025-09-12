@@ -25,12 +25,11 @@
               {
                 "group": "IO Coin",
                 "pages": [
-                  "docs/io-coin",
-                  "docs/io-tokenomics",
-                  "docs/io-coin-allocation",
-                  "docs/coin-restrictions",
-                  "docs/io-staking",
-                  "docs/ionet-monthly-token-emission-schedule"
+                  "docs/coin/io-coin",
+                  "docs/coin/io-tokenomics",
+                  "docs/coin/io-coin-allocation",
+                  "docs/coin/coin-restrictions",
+                  "docs/coin/ionet-monthly-token-emission-schedule"
                 ]
               }
             ]
@@ -48,30 +47,30 @@
               {
                 "group": "Announcements",
                 "pages": [
-                  "docs/announcements",
-                  "docs/important-action-required-for-expired-refresh-tokens",
-                  "docs/supplier-migration-guide-upgrading-to-m4-series-devices"
+                  "docs/announcements/announcements",
+                  "docs/announcements/important-action-required-for-expired-refresh-tokens",
+                  "docs/announcements/supplier-migration-guide-upgrading-to-m4-series-devices"
                 ]
               },
               {
                 "group": "Block Rewards",
                 "pages": [
-                  "docs/block-rewards",
-                  "docs/monitor-block-rewards",
-                  "docs/proposed-device-block-reward-multiplier"
+                  "docs/block-rewards/block-rewards",
+                  "docs/block-rewards/monitor-block-rewards",
+                  "docs/block-rewards/proposed-device-block-reward-multiplier"
                 ]
               },
               "docs/glossary",
               {
                 "group": "BC8: Your Gateway to Immersive AI Media",
                 "pages": [
-                  "docs/bc8",
-                  "docs/getting-started-with-bc8",
-                  "docs/generating-your-first-ai-image",
-                  "docs/generating-a-video",
-                  "docs/explore-generated-ideas",
-                  "docs/settings-privacy",
-                  "docs/frequently-asked-questions"
+                  "docs/bc8/bc8",
+                  "docs/bc8/getting-started-with-bc8",
+                  "docs/bc8/generating-your-first-ai-image",
+                  "docs/bc8/generating-a-video",
+                  "docs/bc8/explore-generated-ideas",
+                  "docs/bc8/settings-privacy",
+                  "docs/bc8/frequently-asked-questions"
                 ]
               }
             ]
@@ -79,9 +78,9 @@
           {
             "group": "IO Architecture",
             "pages": [
-              "docs/io-architecture",
-              "docs/io-tunnels-1",
-              "docs/io-network"
+              "docs/architecture/io-architecture",
+              "docs/architecture/io-tunnels",
+              "docs/architecture/io-network"
             ]
           }
         ]
@@ -192,27 +191,27 @@
           {
             "group": "IO Staking",
             "pages": [
-              "docs/io-staking",
-              "docs/staking",
-              "docs/how-to-unstake",
+              "docs/staking/io-staking",
+              "docs/staking/staking",
+              "docs/staking/how-to-unstake",
               {
                 "group": "Device Owner Staking",
                 "pages": [
-                  "docs/device-owner-staking",
-                  "docs/solo-staked-devices",
-                  "docs/protecting-your-stake",
-                  "docs/create-a-co-staking-offer",
-                  "docs/unstaking-deleting-withdrawing"
+                  "docs/staking/device-owner-staking",
+                  "docs/staking/solo-staked-devices",
+                  "docs/staking/protecting-your-stake",
+                  "docs/staking/create-a-co-staking-offer",
+                  "docs/staking/unstaking-deleting-withdrawing"
                 ]
               },
               {
                 "group": "Collaborative Staking (Co-Staking)",
                 "pages": [
-                  "docs/3rd-party-staking",
-                  "docs/co-staking",
-                  "docs/view-co-staking-device",
-                  "docs/unstake-your-co-stake",
-                  "docs/device-reliability-score"
+                  "docs/staking/3rd-party-staking",
+                  "docs/staking/co-staking",
+                  "docs/staking/view-co-staking-device",
+                  "docs/staking/unstake-your-co-stake",
+                  "docs/staking/device-reliability-score"
                 ]
               }
             ]
@@ -220,23 +219,23 @@
           {
             "group": "IO Explorer",
             "pages": [
-              "docs/io-explorer",
-              "docs/homepage",
-              "docs/block-rewards-page",
-              "docs/network-map-page",
-              "docs/clusters-page",
-              "docs/workers-page",
-              "docs/inferences-page",
-              "docs/staking-dashboard",
-              "docs/tne-on-chain"
+              "docs/explorer/io-explorer",
+              "docs/explorer/homepage",
+              "docs/explorer/block-rewards-page",
+              "docs/explorer/network-map-page",
+              "docs/explorer/clusters-page",
+              "docs/explorer/workers-page",
+              "docs/explorer/inferences-page",
+              "docs/explorer/staking-dashboard",
+              "docs/explorer/tne-on-chain"
             ]
           },
           {
             "group": "IO ID",
             "pages": [
-              "docs/io-id",
-              "docs/manage-funds",
-              "docs/managing-your-wallets-in-io-id"
+              "docs/id/io-id",
+              "docs/id/manage-funds",
+              "docs/id/managing-your-wallets-in-io-id"
             ]
           }
         ]
