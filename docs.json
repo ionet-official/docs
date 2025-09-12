@@ -61,126 +61,6 @@
                   "docs/proposed-device-block-reward-multiplier"
                 ]
               },
-              {
-                "group": "IO Staking",
-                "pages": [
-                  "docs/io-staking",
-                  "docs/staking",
-                  "docs/how-to-unstake",
-                  {
-                    "group": "Device Owner Staking",
-                    "pages": [
-                      "docs/device-owner-staking",
-                      "docs/solo-staked-devices",
-                      "docs/protecting-your-stake",
-                      "docs/create-a-co-staking-offer",
-                      "docs/unstaking-deleting-withdrawing"
-                    ]
-                  },
-                  {
-                    "group": "Collaborative Staking (Co-Staking)",
-                    "pages": [
-                      "docs/3rd-party-staking",
-                      "docs/co-staking",
-                      "docs/view-co-staking-device",
-                      "docs/unstake-your-co-stake",
-                      "docs/device-reliability-score"
-                    ]
-                  }
-                ]
-              },
-              {
-                "group": "IO Worker",
-                "pages": [
-                  "docs/io-worker",
-                  "docs/intro",
-                  "docs/quick-start-guide",
-                  {
-                    "group": "Device Onboarding",
-                    "pages": [
-                      "docs/device-onboarding",
-                      "docs/device-utilization-threshold",
-                      "docs/optimize-pcie-lane-configuration",
-                      "docs/supported-devices",
-                      "docs/proof-of-work"
-                    ]
-                  },
-                  {
-                    "group": "Rewards & Wallets",
-                    "pages": [
-                      "docs/rewards-wallets",
-                      "docs/earnings-rewards",
-                      "docs/solana",
-                      "docs/aptos-wallet"
-                    ]
-                  },
-                  "docs/manage-and-monitor",
-                  {
-                    "group": "MacOS: Install Worker",
-                    "pages": [
-                      "docs/install-on-macos",
-                      "docs/troubleshoot-macos-worker",
-                      "docs/install-docker-on-macos",
-                      "docs/troubleshoot-docker-for-macs"
-                    ]
-                  },
-                  {
-                    "group": "Windows: Install Worker",
-                    "pages": [
-                      "docs/install-on-windows",
-                      "docs/troubleshoot-windows-worker",
-                      "docs/install-docker-on-windows",
-                      "docs/troubleshoot-docker-for-windows",
-                      "docs/cuda-toolkit-optional",
-                      "docs/install-nvidia-drivers-on-windows"
-                    ]
-                  },
-                  {
-                    "group": "Ubuntu: Install Worker",
-                    "pages": [
-                      "docs/install-on-ubuntu",
-                      "docs/ubuntu-install-docker",
-                      "docs/bare-metal-on-demand-supplier-process"
-                    ]
-                  },
-                  {
-                    "group": "Troubleshoot Docker for Linux",
-                    "pages": [
-                      "docs/troubleshoot-docker-for-linux",
-                      "docs/docker-not-installed-or-running",
-                      "docs/worker-disconnects-when-containers-are-running",
-                      "docs/connectivity-tier-not-displaying-correctly",
-                      "docs/waiting-for-io-containers-to-start",
-                      "docs/stop-restart-the-platform",
-                      "docs/additional-guides"
-                    ]
-                  },
-                  "docs/install-on-hiveos",
-                  "docs/troubleshoot-worker-general"
-                ]
-              },
-              {
-                "group": "IO Explorer",
-                "pages": [
-                  "docs/io-explorer",
-                  "docs/homepage",
-                  "docs/block-rewards-page",
-                  "docs/network-map-page",
-                  "docs/clusters-page",
-                  "docs/workers-page",
-                  "docs/inferences-page",
-                  "docs/staking-dashboard",
-                  "docs/tne-on-chain"
-                ]
-              },
-              {
-                "group": "IO ID",
-                "pages": [
-                  "docs/io-id",
-                  "docs/manage-funds",
-                  "docs/managing-your-wallets-in-io-id"
-                ]
-              },
               "docs/glossary",
               {
                 "group": "BC8: Your Gateway to Immersive AI Media",
@@ -234,6 +114,131 @@
             "docs/intelligence/agent-framework",
             "docs/intelligence/agentic-workflow",
             "docs/intelligence/training-model"
+        ]
+      },
+      {
+        "tab": "Community",
+        "groups": [
+          {
+            "group": "IO Worker",
+            "pages": [
+              "docs/io-worker",
+              "docs/intro",
+              "docs/quick-start-guide",
+              {
+                "group": "Device Onboarding",
+                "pages": [
+                  "docs/device-onboarding",
+                  "docs/device-utilization-threshold",
+                  "docs/optimize-pcie-lane-configuration",
+                  "docs/supported-devices",
+                  "docs/proof-of-work"
+                ]
+              },
+              {
+                "group": "Rewards & Wallets",
+                "pages": [
+                  "docs/rewards-wallets",
+                  "docs/earnings-rewards",
+                  "docs/solana",
+                  "docs/aptos-wallet"
+                ]
+              },
+              "docs/manage-and-monitor",
+              {
+                "group": "MacOS: Install Worker",
+                "pages": [
+                  "docs/install-on-macos",
+                  "docs/troubleshoot-macos-worker",
+                  "docs/install-docker-on-macos",
+                  "docs/troubleshoot-docker-for-macs"
+                ]
+              },
+              {
+                "group": "Windows: Install Worker",
+                "pages": [
+                  "docs/install-on-windows",
+                  "docs/troubleshoot-windows-worker",
+                  "docs/install-docker-on-windows",
+                  "docs/troubleshoot-docker-for-windows",
+                  "docs/cuda-toolkit-optional",
+                  "docs/install-nvidia-drivers-on-windows"
+                ]
+              },
+              {
+                "group": "Ubuntu: Install Worker",
+                "pages": [
+                  "docs/install-on-ubuntu",
+                  "docs/ubuntu-install-docker",
+                  "docs/bare-metal-on-demand-supplier-process"
+                ]
+              },
+              {
+                "group": "Troubleshoot Docker for Linux",
+                "pages": [
+                  "docs/troubleshoot-docker-for-linux",
+                  "docs/docker-not-installed-or-running",
+                  "docs/worker-disconnects-when-containers-are-running",
+                  "docs/connectivity-tier-not-displaying-correctly",
+                  "docs/waiting-for-io-containers-to-start",
+                  "docs/stop-restart-the-platform",
+                  "docs/additional-guides"
+                ]
+              },
+              "docs/install-on-hiveos",
+              "docs/troubleshoot-worker-general"
+            ]
+          },
+          {
+            "group": "IO Staking",
+            "pages": [
+              "docs/io-staking",
+              "docs/staking",
+              "docs/how-to-unstake",
+              {
+                "group": "Device Owner Staking",
+                "pages": [
+                  "docs/device-owner-staking",
+                  "docs/solo-staked-devices",
+                  "docs/protecting-your-stake",
+                  "docs/create-a-co-staking-offer",
+                  "docs/unstaking-deleting-withdrawing"
+                ]
+              },
+              {
+                "group": "Collaborative Staking (Co-Staking)",
+                "pages": [
+                  "docs/3rd-party-staking",
+                  "docs/co-staking",
+                  "docs/view-co-staking-device",
+                  "docs/unstake-your-co-stake",
+                  "docs/device-reliability-score"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "IO Explorer",
+            "pages": [
+              "docs/io-explorer",
+              "docs/homepage",
+              "docs/block-rewards-page",
+              "docs/network-map-page",
+              "docs/clusters-page",
+              "docs/workers-page",
+              "docs/inferences-page",
+              "docs/staking-dashboard",
+              "docs/tne-on-chain"
+            ]
+          },
+          {
+            "group": "IO ID",
+            "pages": [
+              "docs/io-id",
+              "docs/manage-funds",
+              "docs/managing-your-wallets-in-io-id"
+            ]
+          }
         ]
       },
       {
