@@ -15,12 +15,6 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Home",
-        "pages": [
-          "index"
-        ]
-      },
-      {
         "tab": "Guides",
         "groups": [
           {
