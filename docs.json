@@ -21,24 +21,6 @@
         ]
       },
       {
-        "tab": "Cloud",
-        "pages": [
-           "docs/clouds/io-cloud",
-           "docs/clouds/start-using-io-cloud",
-            "docs/clouds/monitor-manage-clusters",
-            "docs/clouds/deploy-containers",
-            "docs/clouds/deploy-ray-cluster",
-            "docs/clouds/deploy-vm-on-demand",
-            "docs/clouds/data-science-image-full-specification",
-            "docs/clouds/run-jobs-on-clusters",
-            "docs/clouds/jupyter-notebook","docs/clouds/io-cloud-payments",
-            "docs/clouds/deploy-cluster-and-pay",
-            "docs/clouds/extending-your-cluster-and-pay",
-            "docs/clouds/io-credits"
-
-        ]
-      },
-      {
         "tab": "Guides",
         "groups": [
           {
@@ -111,23 +93,6 @@
                       "docs/device-reliability-score"
                     ]
                   }
-                ]
-              },
-              {
-                "group": "IO Intelligence",
-                "pages": [
-                  "docs/io-intelligence",
-                  "docs/exploring-ai-models",
-                  "docs/exploring-ai-agents",
-                  "docs/retrieval-engine",
-                  {
-                    "group": "Agent Framework",
-                    "pages": [
-                      "docs/agent-framework",
-                      "docs/agentic-workflow"
-                    ]
-                  },
-                  "docs/training-model"
                 ]
               },
               {
@@ -245,6 +210,36 @@
               "docs/io-network"
             ]
           }
+        ]
+      },
+      {
+        "tab": "Cloud",
+        "pages": [
+           "docs/clouds/io-cloud",
+           "docs/clouds/start-using-io-cloud",
+            "docs/clouds/monitor-manage-clusters",
+            "docs/clouds/deploy-containers",
+            "docs/clouds/deploy-ray-cluster",
+            "docs/clouds/deploy-vm-on-demand",
+            "docs/clouds/data-science-image-full-specification",
+            "docs/clouds/run-jobs-on-clusters",
+            "docs/clouds/jupyter-notebook","docs/clouds/io-cloud-payments",
+            "docs/clouds/deploy-cluster-and-pay",
+            "docs/clouds/extending-your-cluster-and-pay",
+            "docs/clouds/io-credits"
+
+        ]
+      },
+      {
+        "tab": "Intelligence",
+        "pages": [
+            "docs/intelligence/io-intelligence",
+            "docs/intelligence/exploring-ai-models",
+            "docs/intelligence/exploring-ai-agents",
+            "docs/intelligence/retrieval-engine",
+            "docs/intelligence/agent-framework",
+            "docs/intelligence/agentic-workflow",
+            "docs/intelligence/training-model"
         ]
       },
       {
