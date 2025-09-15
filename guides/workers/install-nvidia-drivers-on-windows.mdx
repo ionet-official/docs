@@ -12,21 +12,33 @@ NVIDIA drivers are software packages that allow your computer's operating system
 Click the Start Menu icon in the popup Menu, type Terminal in the search field, then click **Terminal**.
 
 <Frame>
-![](/images/docs/ae154c4-Step9-2-2.jpeg)
+  <img
+    src="/images/docs/ae154c4-Step9-2-2.jpeg"
+    alt=""
+    className="mx-auto"
+    style={{ width:"63%" }}
+  />
 </Frame>
 
 ### 2. Verify That the Correct Drivers Are Installed
 
 <Frame>
-![](/images/docs/a998aa8-Step2.jpg)
+  <img
+    src="/images/docs/a998aa8-Step2.jpg"
+    alt=""
+    className="mx-auto"
+    style={{ width:"62%" }}
+  />
 </Frame>
 
-To check that you have the correct drivers, open a command line on your Windows PC (Windows key + R, type cmd) and type into it the following.
+To check that you have the correct drivers, open a command line on your Windows PC (Windows key \+ R, type cmd) and type into it the following.
 
 <CodeGroup>
-  ```Text Terminal Command
-  nvidia-smi
-  ```
+
+```Text Terminal Command
+nvidia-smi
+```
+
 </CodeGroup>
 
 If you encounter the following error message:
@@ -44,7 +56,7 @@ It means that you do not have NVIDIA drivers installed. To install them, follow 
 Choose your GPU's name, then click on search.
 
 <Frame>
-![](/images/docs/78d7e60-Step3.jpg)
+  ![](/images/docs/78d7e60-Step3.jpg)
 </Frame>
 
 ### 4. Download the Driver Installation File
@@ -52,11 +64,11 @@ Choose your GPU's name, then click on search.
 Click the **Download** button for the NVIDIA driver that matches your GPU and Windows version.
 
 <Info>
-Driver Version 552.44 is currently the most stable & tested driver.
+  Driver Version 552.44 is currently the most stable & tested driver.
 </Info>
 
 <Frame>
-![](/images/docs/0d857d5-Step4.jpg)
+  ![](/images/docs/0d857d5-Step4.jpg)
 </Frame>
 
 ### 5. Open the .Exe File and Proceed With the Installation Process
@@ -64,7 +76,12 @@ Driver Version 552.44 is currently the most stable & tested driver.
 Once the download is complete, start the installation, select the first option and click on "Agree and Continue."
 
 <Frame>
-![](/images/docs/bf1998b-Step5.jpg)
+  <img
+    src="/images/docs/bf1998b-Step5.jpg"
+    alt=""
+    className="mx-auto"
+    style={{ width:"67%" }}
+  />
 </Frame>
 
 ### 6. Reboot your computer
@@ -74,15 +91,22 @@ After the installation is complete, it's essential to reboot your computer. Rest
 ### 7. Verify the Installation Process
 
 <Frame>
-![](/images/docs/d83fe1a-Step6.jpg)
+  <img
+    src="/images/docs/d83fe1a-Step6.jpg"
+    alt=""
+    className="mx-auto"
+    style={{ width:"66%" }}
+  />
 </Frame>
 
 After your computer reboots, open Windows Terminal from the Start Menu and enter the following command:
 
 <CodeGroup>
-  ```Text Terminal Command
-  nvidia-smi
-  ```
+
+```Text Terminal Command
+nvidia-smi
+```
+
 </CodeGroup>
 
 You should see this outcome:
@@ -105,8 +129,8 @@ You should see this outcome:
 
 ### That’s It. You Have the Nvidia Drivers Installed and Ready.
 
-Now that CUDA Toolkit has been successfully installed and is running, you can proceed with [setting up the Worker](/docs/install-on-windows).
+Now that CUDA Toolkit has been successfully installed and is running, you can proceed with [setting up the Worker](/guides/workers/install-on-windows).
 
 <Info>
-Feel free to [check our knowledge base](https://support.io.net/en/support/home) for answers, and if you still need help, don’t hesitate to open a support ticket!
+  Feel free to [check our knowledge base](https://support.io.net/en/support/home) for answers, and if you still need help, don’t hesitate to open a support ticket\!
 </Info>
