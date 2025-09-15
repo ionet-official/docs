@@ -54,7 +54,7 @@ To keep your cluster active for longer, simply click **Extend Cluster**. You'll 
   alt="Monitor4 Pn"
   title="Monitor4 Pn"
   className="mx-auto"
-  style={{ width:"64%" }}
+  style={{ width:"52%" }}
 />
 
 ## Actions
@@ -82,72 +82,56 @@ To access your application, enter the **IDE Password**.
   Once your cluster's time expires, you'll lose access to the IDEs and the Ray Dashboard.
 </Warning>
 
-## Clusters Tab
+#### Archive a Cluster
 
-The **Clusters** tab provides you with a complete list of your active and inactive clusters.
+Once a cluster is complete, you can archive it. Click **Archive** at the bottom right to archive a cluster.
 
-<Frame>
-  ![](/images/docs/1de66a1-view_cluster_tab.png)
-</Frame>
-
-**Sort Clusters**
-
-You can sort clusters by clicking any of the options to the right of **Show All** (default): Running, Completed, Failed, and Destroyed. You can also search your clusters by keyword.
-
-<Frame>
-  <img
-    src="/images/docs/395f261-status.png"
-    alt=""
-    className="mx-auto"
-    style={{ width:"75%" }}
-  />
-</Frame>
-
-Click ....
-
-sfasf
-
-<Frame>
-  <img
-    src="/images/docs/3c226ec-dotdotdot.png"
-    alt=""
-    className="mx-auto"
-    style={{ width:"76%" }}
-  />
-</Frame>
+> 🚧 You can’t renew a cluster after it’s completed.
 
 ## Cluster Information
 
 Click on a cluster in the **Cluster** tab to view the details associated with the cluster. In the screenshot below, a completed cluster has been selected.
 
-## Actions
-
-A completed cluster provides the option to archive the cluster. Click **Archive** in the bottom right to archive this cluster.
-
-<Note>
-  You can't renew a cluster after it's completed.
-</Note>
-
 <Frame>
   ![](/images/docs/91fdfca-expire.png)
 </Frame>
 
-RIGHT SIDE OF UI
+## Monitor the following on the right:
 
-GO OVER ALL THE FIELDS
+| Action                     | Description                                                                                                         |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| **Compute Hours**          | Shows how long a single instance has been running and consuming resources. Includes “Served” and “Remaining” times. |
+| **Funds Used or Refunded** | The amount you've spent or had refunded for cluster operations.                                                     |
+| **Connectivity Tier**      | Your chosen level of connectivity for the cluster (download / upload speeds).                                       |
+| **Security Compliance**    | The selected security setting (e.g. end-to-end encryption).                                                         |
+| **Locations**              | Geographic location(s) where your GPUs are located.                                                                 |
 
 <Frame>
   <img
     src="/images/docs/6d81eee-cd.png"
     alt=""
     className="mx-auto"
-    style={{ width:"54%" }}
+    style={{ width:"45%" }}
   />
 </Frame>
 
-LEFT SIDE OF UI
+## Monitor the following on the left:
 
-WHAT DOES IT TELL YOU
+| Action          | Definition                                                                                                                                                                                                         |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **All Workers** | Allows you to filter the view by selecting different groups of workers. This option is currently set to show all workers in the cluster.                                                                           |
+| **[#] Workers** | Indicates that the dashboard currently shows four workers in the cluster that are active or relevant to the task being monitored. The panel below labels these workers as "IO Worker 1," "IO Worker 2," and so on. |
+| **[#] GPUs**    | Shows that there are 4 GPUs (Graphics Processing Units) in use across the cluster. Each worker seems to have one GPU assigned to it, as indicated by the details in each worker's panel.                           |
+| **Search**      | The search bar allows you to quickly find specific workers, GPUs, or tasks by searching based on keywords, worker names, device IDs, or other identifiers.                                                         |
+
+## Detailed information for each worker
+
+| Feature                              | Description                                                                                                                                                             |
+| ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Decentralized Network                | IO Cloud uses a network of computers (called "IO workers") to create powerful GPU clusters. This means you're not relying on a single company for your computing power. |
+| Self-healing                         | If one part of the cluster has issues, the others automatically take over, keeping your projects running smoothly.                                                      |
+| Easy to Use                          | You can easily run your AI projects using Python code, just like on any other cloud platform.                                                                           |
+| Built on Industry-leading Technology | IO Cloud is powered by the same technology used by OpenAI to train its powerful AI models, such as GPT-3 and GPT-4.                                                     |
 
 <Frame>
   <img
@@ -158,19 +142,19 @@ WHAT DOES IT TELL YOU
   />
 </Frame>
 
-CLICK IN TO A WORKER
+## Selecting a worker shows you the following
 
-SHOW THAT AND DISCUSS
+| Feature                         | Description                                                                                                                                                                                                                                                                                         |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Worker Name and Status          | Indicates the worker's status, such as **Completed**, **Running**, **Pending**, or **Failed**. A green dot signifies successful completion.                                                                                                                                                         |
+| Device ID                       | The unique identifier for the specific GPU device in the worker node.                                                                                                                                                                                                                               |
+| GPU Information                 | **GeForce RTX 3060 Ti** (GPU type): Each worker is equipped with an NVIDIA GeForce RTX 3060 Ti GPU. **x1**: Number of GPUs utilized (in this case, one unit). **Uptime in Cluster**: Displays uptime, showing that the worker has been fully operational without downtime for the monitored period. |
+| Activity Consistency Status Bar | A visual representation of the worker’s uptime, consisting of 10 white squares filled in to indicate 100% uptime.                                                                                                                                                                                   |
 
-The screenshot below represents a completed job.
-
-The Worker info allows you to investigate the quality of the worker - gives faith.
-
-<Frame>
-  <img
-    src="/images/docs/bd1b584-dev_info.png"
-    alt=""
-    className="mx-auto"
-    style={{ width:"74%" }}
-  />
-</Frame>
+<img
+  src="/images/docs/monitor_manage_clusters/monitor9.png"
+  alt="Monitor9 Pn"
+  title="Monitor9 Pn"
+  className="mx-auto"
+  style={{ width:"81%" }}
+/>

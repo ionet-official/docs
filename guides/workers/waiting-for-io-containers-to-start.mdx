@@ -24,14 +24,19 @@ description: "On Linux the above issue can be due to several reasons:"
    Else there might be some error similar to the following:
 
    <Frame>
-   ![](/images/docs/b20e0c8a98d9e63c35891572cd23469c5e9ccc677ee7c2b9b23554413ebb3b5b-DockerIssue2.jpg)
+     <img
+       src="/images/docs/b20e0c8a98d9e63c35891572cd23469c5e9ccc677ee7c2b9b23554413ebb3b5b-DockerIssue2.jpg"
+       alt=""
+       className="mx-auto"
+       style={{ width:"82%" }}
+     />
    </Frame>
-
 2. **Error Debugging:** If errors related to **nvidia-container-toolkit** are shown, it may not be installed or configured correctly.
 
 #### Commands to Check Nvidia-container-toolkit Installation:
 
 1. Check if Nvidia-container-toolkit is installed:
+
    ```
    nvidia-container-runtime --version
    dpkg -l | grep nvidia-container-toolkit
@@ -41,10 +46,12 @@ description: "On Linux the above issue can be due to several reasons:"
 #### Method 1: Configure daemon.json:
 
 1. Open the daemon.json file:
+
    ```
    sudo nano /etc/docker/daemon.json
    ```
 2. Paste the following:
+
    ```
    {
       "runtimes": {
@@ -57,10 +64,12 @@ description: "On Linux the above issue can be due to several reasons:"
    }
    ```
 3. Save and exit, then reboot the server:
+
    ```
    sudo reboot
    ```
 4. After reboot, restart Docker:
+
    ```
    sudo systemctl restart docker
    ```
@@ -77,6 +86,7 @@ sudo systemctl restart docker
 #### If Nvidia-container-toolkit is Not Installed:
 
 1. Install Nvidia-container-toolkit:
+
    ```
    curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg && /
    curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | /
@@ -84,10 +94,12 @@ sudo systemctl restart docker
    sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
    ```
 2. Enable experimental features:
+
    ```
    sudo sed -i -e '/experimental/ s/^#//g' /etc/apt/sources.list.d/nvidia-container-toolkit.list
    ```
 3. Update and install the toolkit:
+
    ```
    sudo apt-get update
    sudo apt-get install -y nvidia-container-toolkit
@@ -97,13 +109,12 @@ sudo systemctl restart docker
 
 #### Verify Nvidia-container-toolkit:
 
-1. Check if the toolkit is in the **$PATH**:
+1. Check if the toolkit is in the **\$PATH**:
 
    ```
    /usr/bin/nvidia-ctk --version
    echo $PATH
    ```
-
 2. Verify the runtime is configured:
 
    ```
@@ -113,7 +124,7 @@ sudo systemctl restart docker
    Sample output:
 
    <Frame>
-   ![](/images/docs/2db844b647732589a8c35320619060272498fdebdf2d0965fd7f8f1b68e85cc6-DockerIssue3.jpg)
+     ![](/images/docs/2db844b647732589a8c35320619060272498fdebdf2d0965fd7f8f1b68e85cc6-DockerIssue3.jpg)
    </Frame>
 
 #### Final GPU Test:

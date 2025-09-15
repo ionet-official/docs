@@ -18,15 +18,16 @@ Proof-of-Work is a cryptographic puzzle that requires significant computational 
 Our hourly PoW process runs in the background, causing minimal disruption to normal operations while continuously ensuring the integrity of our network. Suppliers can expect some load on their devices normally for no more than 15 mins per hour to complete the hourly Proof-of-Work authentication process.
 
 <Info>
-When you onboard your device into the io.net network, the device’s full capacity should be available to potential customers. If your device's computational capacity is compromised when connected to our platform, it might disqualify you from rewards and being hired. Please note that we expect resources including VRAM to be fully available while your device is made available on io.net.
+  When you onboard your device into the io.net network, the device’s full capacity should be available to potential customers. If your device's computational capacity is compromised when connected to our platform, it might disqualify you from rewards and being hired. Please note that we expect resources including VRAM to be fully available while your device is made available on io.net.
 </Info>
+
 ### The PoW Process
 
 There are three parts in this process:
 
-* **Binary Checker API:** This is a tool that helps us solve the puzzle. It checks if a solution meets the puzzle's requirements.
-* **Challenges API**: These are the puzzles themselves. It involves finding a number that fits a specific pattern, such as having a certain number of zeros at the beginning.
-* **Results Submission API**: Once we find a solution, we submit it to the system to check if it's correct.
+- **Binary Checker API:** This is a tool that helps us solve the puzzle. It checks if a solution meets the puzzle's requirements.
+- **Challenges API**: These are the puzzles themselves. It involves finding a number that fits a specific pattern, such as having a certain number of zeros at the beginning.
+- **Results Submission API**: Once we find a solution, we submit it to the system to check if it's correct.
 
 Here's how it works in simple steps:
 
@@ -47,19 +48,32 @@ There are two visible aspects of Proof of Work (PoW) in our system:
    Verified devices are indicated by a blue icon located underneath the name of your device:
 
    <Frame>
-   ![](/images/docs/8a91d5629ff97056ef80a9aa4c49a25f068ace0e8a44c4feee85b4f0bf3fc440-NotVerified.jpg)
+     <img
+       src="/images/docs/8a91d5629ff97056ef80a9aa4c49a25f068ace0e8a44c4feee85b4f0bf3fc440-NotVerified.jpg"
+       alt=""
+       className="mx-auto"
+       style={{ width:"60%" }}
+     />
    </Frame>
-
    Devices that are awaiting verification have a gray mark:
 
    <Frame>
-   ![](/images/docs/df74e13116c0c16daaa0390eafe3fb9ff84a4b9b9059548079b81bed315ecd51-NotVerifiedYet.jpg)
+     <img
+       src="/images/docs/df74e13116c0c16daaa0390eafe3fb9ff84a4b9b9059548079b81bed315ecd51-NotVerifiedYet.jpg"
+       alt=""
+       className="mx-auto"
+       style={{ width:"60%" }}
+     />
    </Frame>
-
    Verification Failed have a red label:
 
    <Frame>
-   ![](/images/docs/9361f3a9e96e697420f04a1c38092f1f6e854341ebae4cabcab6eb3f57646813-VerFailed.jpg)
+     <img
+       src="/images/docs/9361f3a9e96e697420f04a1c38092f1f6e854341ebae4cabcab6eb3f57646813-VerFailed.jpg"
+       alt=""
+       className="mx-auto"
+       style={{ width:"62%" }}
+     />
    </Frame>
 
 ### What Happens if Proof-of-Work Fails?
@@ -67,25 +81,29 @@ There are two visible aspects of Proof of Work (PoW) in our system:
 If Proof-of-Work fails on your device, you may find your device tagged **Verification Failed** and/or **Not Block Reward Ready.**
 
 <Frame>
-![](/images/docs/577cac763d88f4e1e94fd036b27fcbed43468457d4d368bc3cc73f33b8b03b29-pow.jpg)
+  <img
+    src="/images/docs/577cac763d88f4e1e94fd036b27fcbed43468457d4d368bc3cc73f33b8b03b29-pow.jpg"
+    alt=""
+    className="mx-auto"
+    style={{ width:"58%" }}
+  />
 </Frame>
 
 You can use our [`Proof-of-Work logs`](https://pow-logs.io.solutions/) to troubleshoot any potential issues by searching for your device ID to view any errors that occurred during the hourly Proof-of-Work challenges. Please download logs corresponding to where PoW failure took please and either use grep if you are familiar with command line tools (recommended) or use Microsoft Excel to search for your device ID.
 
 **Common errors you might encounter in the PoW log include:**
 
-* If you find an **empty list passed** error: This is often caused by a CUDA memory allocation error. Your device might be occupied by some other jobs, Please check and stop using the device for other purposes when it's available on the IO platform.
-* If you find a **wrong answer** error: Your device failed the PoW test. You may want to delete all containers, download the latest launcher, and restart the onboarding process following our documentation.
-* If you find a **timeout** error: Due to the inherent indeterminacy of PoW, there is a slight chance that your device might fail a PoW test even if it's correctly configured. Mostly likely, if you repeat the setup process, it will pass PoW.
+- If you find an **empty list passed** error: This is often caused by a CUDA memory allocation error. Your device might be occupied by some other jobs, Please check and stop using the device for other purposes when it's available on the IO platform.
+- If you find a **wrong answer** error: Your device failed the PoW test. You may want to delete all containers, download the latest launcher, and restart the onboarding process following our documentation.
+- If you find a **timeout** error: Due to the inherent indeterminacy of PoW, there is a slight chance that your device might fail a PoW test even if it's correctly configured. Mostly likely, if you repeat the setup process, it will pass PoW.
 
 **Common issue that can cause errors:**
 
-* If you run your devices on deprecated drivers or CUDA versions (in case of Nvidia Graphics cards).
-* If you have more than 3 GPUs in your setup, we recommend running your device on Linux because there are intermittent issues with multi-card setups on Windows platforms. PoW tests have a high probability of failing in this instance.
+- If you run your devices on deprecated drivers or CUDA versions (in case of Nvidia Graphics cards).
+- If you have more than 3 GPUs in your setup, we recommend running your device on Linux because there are intermittent issues with multi-card setups on Windows platforms. PoW tests have a high probability of failing in this instance.
 
-If you use Linux, you can run a self-check binary to troubleshoot your devices. A successful self-check does not guarantee that your device will pass PoW; however, your device is highly unlikely to pass PoW if self-check returns any errors. This binary also works on Windows WSL2: [https://github.com/ionet-official/io-net-official-setup-script/releases/](https://github.com/ionet-official/io-net-official-setup-script/releases/).
+If you use Linux, you can run a self-check binary to troubleshoot your devices. A successful self-check does not guarantee that your device will pass PoW; however, your device is highly unlikely to pass PoW if self-check returns any errors. This binary also works on Windows WSL2: https://github.com/ionet-official/io-net-official-setup-script/releases/.
 
 <Info>
-Encountering problems? Feel free to open a support ticket by logging into [your IO.Net account](https://worker.io.net) and submitting a ticket.
+  Encountering problems? Feel free to open a support ticket by logging into [your IO.Net account](https://worker.io.net) and submitting a ticket.
 </Info>
-
