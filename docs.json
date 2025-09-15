@@ -96,11 +96,12 @@
             "docs/clouds/deploy-vm-on-demand",
             "docs/clouds/data-science-image-full-specification",
             "docs/clouds/run-jobs-on-clusters",
-            "docs/clouds/jupyter-notebook","docs/clouds/io-cloud-payments",
+            "docs/clouds/jupyter-notebook",
+            "docs/payment/io-cloud-payments",
             "docs/clouds/deploy-cluster-and-pay",
             "docs/clouds/extending-your-cluster-and-pay",
-            "docs/clouds/io-credits"
-
+            "docs/payment/io-credits",
+            "docs/payment/stripe-payments-faq"
         ]
       },
       {
