@@ -23,11 +23,11 @@
     }
   ],
   "paths": {
-    "/enterprise/v1/io-cloud/caas/hardware/max-gpus-per-container": {
+    "/enterprise/v1/io-cloud/vmaas/deployments": {
       "get": {
-        "summary": "Check maximum GPUs per container",
-        "description": "Returns the maximum number of GPUs available per hardware type across all locations, helping to determine deployment limits by hardware.",
-        "operationId": "check-maximum-gpus-per-container",
+        "summary": "Get All Deployments",
+        "description": "Retrieve a list of all VMaaS deployments associated with the enterprise account, including their status, configuration, and metadata.",
+        "operationId": "get-all-deployments",
         "responses": {
           "200": {
             "description": "200",
@@ -37,16 +37,23 @@
                   "Result": {
                     "value": {
                       "data": {
-                        "hardware": [
+                        "deployments": [
                           {
-                            "max_gpus_per_container": 0,
-                            "available": 0,
-                            "hardware_id": 0,
-                            "hardware_name": "string",
-                            "brand_name": "string"
+                            "id": "dep_123456",
+                            "name": "My Deployment",
+                            "status": "running",
+                            "created_at": "2025-09-15T10:00:00Z",
+                            "region": "us-east-1",
+                            "configuration": {
+                              "cpu": 4,
+                              "memory": "16GB",
+                              "gpu": 1
+                            }
                           }
                         ],
-                        "total": 0
+                        "total": 1,
+                        "page": 1,
+                        "pageSize": 10
                       }
                     }
                   }
@@ -57,41 +64,63 @@
                     "data": {
                       "type": "object",
                       "properties": {
-                        "hardware": {
+                        "deployments": {
                           "type": "array",
                           "items": {
                             "type": "object",
                             "properties": {
-                              "max_gpus_per_container": {
-                                "type": "integer",
-                                "example": 0,
-                                "default": 0
-                              },
-                              "available": {
-                                "type": "integer",
-                                "example": 0,
-                                "default": 0
-                              },
-                              "hardware_id": {
-                                "type": "integer",
-                                "example": 0,
-                                "default": 0
-                              },
-                              "hardware_name": {
+                              "id": {
                                 "type": "string",
-                                "example": "string"
+                                "example": "dep_123456"
                               },
-                              "brand_name": {
+                              "name": {
                                 "type": "string",
-                                "example": "string"
+                                "example": "My Deployment"
+                              },
+                              "status": {
+                                "type": "string",
+                                "example": "running"
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2025-09-15T10:00:00Z"
+                              },
+                              "region": {
+                                "type": "string",
+                                "example": "us-east-1"
+                              },
+                              "configuration": {
+                                "type": "object",
+                                "properties": {
+                                  "cpu": {
+                                    "type": "integer",
+                                    "example": 4
+                                  },
+                                  "memory": {
+                                    "type": "string",
+                                    "example": "16GB"
+                                  },
+                                  "gpu": {
+                                    "type": "integer",
+                                    "example": 1
+                                  }
+                                }
                               }
                             }
                           }
                         },
                         "total": {
                           "type": "integer",
-                          "example": 0,
-                          "default": 0
+                          "example": 1
+                        },
+                        "page": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "pageSize": {
+                          "type": "integer",
+                          "example": 10
                         }
                       }
                     }
@@ -106,12 +135,12 @@
               "application/json": {
                 "examples": {
                   "Result": {
-                    "value": "string"
+                    "value": "No deployments found"
                   }
                 },
                 "schema": {
                   "type": "string",
-                  "example": "string"
+                  "example": "No deployments found"
                 }
               }
             }
@@ -119,18 +148,17 @@
           "422": {
             "description": "422",
             "content": {
-              "text/plain": {
+              "application/json": {
                 "examples": {
                   "Result": {
                     "value": {
                       "detail": [
                         {
                           "loc": [
-                            "string",
-                            0
+                            "page"
                           ],
-                          "msg": "string",
-                          "type": "string"
+                          "msg": "Invalid page number",
+                          "type": "validation_error"
                         }
                       ]
                     }
@@ -149,11 +177,11 @@
                           },
                           "msg": {
                             "type": "string",
-                            "example": "string"
+                            "example": "Invalid page number"
                           },
                           "type": {
                             "type": "string",
-                            "example": "string"
+                            "example": "validation_error"
                           }
                         }
                       }
@@ -169,11 +197,11 @@
           "code-samples": [
             {
               "language": "curl",
-              "code": "curl https://api.io.solutions/enterprise/v1/io-cloud/caas/hardware/max-gpus-per-container \\\n  -H \"X-API-KEY: $IOCLOUD_API_KEY\" "
+              "code": "curl https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deployments \\\n  -H \"X-API-KEY: $IOCLOUD_API_KEY\" "
             },
             {
               "language": "python",
-              "code": "import requests\n\nurl = \"https://api.io.solutions/enterprise/v1/io-cloud/caas/hardware/max-gpus-per-container\"\n\nheaders = {\n    \"X-API-KEY\": \"$IOCLOUD_API_KEY\"\n}\n\nresponse = requests.get(url, headers=headers)\n\nprint(response.status_code)\nprint(response.json())"
+              "code": "import requests\n\nurl = \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deployments\"\n\nheaders = {\n    \"X-API-KEY\": \"$IOCLOUD_API_KEY\"\n}\n\nresponse = requests.get(url, headers=headers)\n\nprint(response.status_code)\nprint(response.json())"
             }
           ],
           "samples-languages": [
