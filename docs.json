@@ -89,12 +89,17 @@
         "tab": "Cloud",
         "pages": [
            "docs/clouds/io-cloud",
-           "docs/clouds/start-using-io-cloud",
-            "docs/clouds/monitor-manage-clusters",
-            "docs/clouds/deploy-containers",
-            "docs/clouds/deploy-ray-cluster",
-            "docs/clouds/deploy-vm-on-demand",
-            "docs/clouds/data-science-image-full-specification",
+            {
+               "group": "Start Using IO Cloud",
+               "pages": [
+                    "docs/clouds/start-using-io-cloud",
+                    "docs/clouds/monitor-manage-clusters",
+                    "docs/clouds/deploy-containers",
+                    "docs/clouds/deploy-ray-cluster",
+                    "docs/clouds/deploy-vm-on-demand",
+                    "docs/clouds/data-science-image-full-specification"
+               ]
+            },
             "docs/clouds/run-jobs-on-clusters",
             "docs/clouds/jupyter-notebook",
             "docs/payment/io-cloud-payments",
