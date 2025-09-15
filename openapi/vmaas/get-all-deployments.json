@@ -2,189 +2,212 @@
   "openapi": "3.1.0",
   "info": {
     "title": "IO API",
-    "version": "1.0",
-    "description": "API for managing deployments on IO Cloud VMaaS"
+    "version": "1.0"
   },
   "servers": [
     {
-      "url": "https://api.io.solutions/enterprise/v1",
-      "description": "Production API server"
+      "url": "https://api.io.solutions/"
     }
   ],
-  "paths": {
-    "/io-cloud/vmaas/deployments": {
-      "get": {
-        "summary": "Get All Deployments",
-        "description": "Retrieve a list of all VMaaS deployments associated with the enterprise account, including their status, configuration, and metadata.",
-        "operationId": "getAllDeployments",
-        "security": [
-          {
-            "OAuth2": [ "read:deployments" ]
-          }
-        ],
-        "parameters": [
-          {
-            "name": "page",
-            "in": "query",
-            "description": "Page number for pagination (if supported)",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "default": 1
-            }
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "description": "Number of deployments to return per page",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 100,
-              "default": 10
-            }
-          },
-          {
-            "name": "status",
-            "in": "query",
-            "description": "Filter deployments by status (example: running, terminated, pending)",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response with list of deployments",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "deployments": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Deployment"
-                      }
-                    },
-                    "page": {
-                      "type": "integer",
-                      "description": "Current page number"
-                    },
-                    "pageSize": {
-                      "type": "integer",
-                      "description": "Number of items per page"
-                    },
-                    "totalCount": {
-                      "type": "integer",
-                      "description": "Total number of deployments"
-                    }
-                  },
-                  "required": ["deployments"]
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request (invalid parameters)",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized – Authentication required or invalid",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
       }
     }
   },
-  "components": {
-    "schemas": {
-      "Deployment": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "Deployment unique identifier"
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/enterprise/v1/io-cloud/vmaas/deployments": {
+      "get": {
+        "summary": "Get All Deployments",
+        "description": "Retrieve a list of all VMaaS deployments associated with the enterprise account, including their status, configuration, and metadata.",
+        "operationId": "get-all-deployments",
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "data": {
+                        "deployments": [
+                          {
+                            "id": "dep_123456",
+                            "name": "My Deployment",
+                            "status": "running",
+                            "created_at": "2025-09-15T10:00:00Z",
+                            "region": "us-east-1",
+                            "configuration": {
+                              "cpu": 4,
+                              "memory": "16GB",
+                              "gpu": 1
+                            }
+                          }
+                        ],
+                        "total": 1,
+                        "page": 1,
+                        "pageSize": 10
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "deployments": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "example": "dep_123456"
+                              },
+                              "name": {
+                                "type": "string",
+                                "example": "My Deployment"
+                              },
+                              "status": {
+                                "type": "string",
+                                "example": "running"
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2025-09-15T10:00:00Z"
+                              },
+                              "region": {
+                                "type": "string",
+                                "example": "us-east-1"
+                              },
+                              "configuration": {
+                                "type": "object",
+                                "properties": {
+                                  "cpu": {
+                                    "type": "integer",
+                                    "example": 4
+                                  },
+                                  "memory": {
+                                    "type": "string",
+                                    "example": "16GB"
+                                  },
+                                  "gpu": {
+                                    "type": "integer",
+                                    "example": 1
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "total": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "page": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "pageSize": {
+                          "type": "integer",
+                          "example": 10
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           },
-          "name": {
-            "type": "string",
-            "description": "Name of the deployment"
+          "404": {
+            "description": "404",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "No deployments found"
+                  }
+                },
+                "schema": {
+                  "type": "string",
+                  "example": "No deployments found"
+                }
+              }
+            }
           },
-          "status": {
-            "type": "string",
-            "description": "Current status of the deployment"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Timestamp when the deployment was created"
-          },
-          "region": {
-            "type": "string",
-            "description": "Region or location where deployment is running"
-          },
-          "configuration": {
-            "type": "object",
-            "description": "Configuration data for deployment (like machine type, GPU count, etc.)",
-            "properties": {
-              "cpu": { "type": "integer" },
-              "memory": { "type": "string" },
-              "gpu": { "type": "integer" }
+          "422": {
+            "description": "422",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "detail": [
+                        {
+                          "loc": [
+                            "page"
+                          ],
+                          "msg": "Invalid page number",
+                          "type": "validation_error"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "loc": {
+                            "type": "array"
+                          },
+                          "msg": {
+                            "type": "string",
+                            "example": "Invalid page number"
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "validation_error"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         },
-        "required": ["id", "status", "createdAt"]
-      },
-      "ErrorResponse": {
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "string",
-            "description": "Error message"
-          },
-          "code": {
-            "type": "integer",
-            "description": "HTTP status code"
-          }
-        },
-        "required": ["error","code"]
-      }
-    },
-    "securitySchemes": {
-      "OAuth2": {
-        "type": "oauth2",
-        "flows": {
-          "clientCredentials": {
-            "tokenUrl": "https://auth.io.net/oauth2/token",
-            "scopes": {
-              "read:deployments": "Read access to list deployments"
+        "deprecated": false,
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deployments \\\n  -H \"X-API-KEY: $IOCLOUD_API_KEY\" "
+            },
+            {
+              "language": "python",
+              "code": "import requests\n\nurl = \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deployments\"\n\nheaders = {\n    \"X-API-KEY\": \"$IOCLOUD_API_KEY\"\n}\n\nresponse = requests.get(url, headers=headers)\n\nprint(response.status_code)\nprint(response.json())"
             }
-          }
+          ],
+          "samples-languages": [
+            "curl",
+            "python"
+          ]
         }
       }
     }
