@@ -5,11 +5,11 @@ description: "The Workers page provides a public overview of all devices connect
 
 **Key Metrics Displayed:**
 
-* **Total GPUs** (hired and idle)
-* **Total CPUs** (hired and idle)
+- **Total GPUs** (hired and idle)
+- **Total CPUs** (hired and idle)
 
 <Frame>
-![](/images/docs/9afdcc45ac339d2595bc89923385c34e0f2be906029ee5f3ee0aa4dfd2679ed4-worker1.jpg)
+  ![](/images/docs/9afdcc45ac339d2595bc89923385c34e0f2be906029ee5f3ee0aa4dfd2679ed4-worker1.jpg)
 </Frame>
 
 ### Available Inventory
@@ -17,7 +17,7 @@ description: "The Workers page provides a public overview of all devices connect
 The page also highlights **available inventory**, which includes both active and passive GPU and CPU processors. You can click on a specific processor to view detailed statistics about its usage and performance.
 
 <Frame>
-![](/images/docs/72e7e493d9e87a224bc6dd521bbe27706de667176a3164a3884c2ab132b6e78d-worker2.jpg)
+  ![](/images/docs/72e7e493d9e87a224bc6dd521bbe27706de667176a3164a3884c2ab132b6e78d-worker2.jpg)
 </Frame>
 
 ## Workers List
@@ -26,14 +26,14 @@ The Workers List provides a transparent, real-time view of all connected devices
 
 **The table includes:**
 
-* **Worker Status** (active, idle, or under maintenance)
-* **Link to View Worker Details** (for in-depth metrics)
-* **Hire Status** (availability for compute tasks)
-* **Uptime Duration** (how long the worker has been active)
-* **Device Types & Quantities** (detailed breakdown within each cluster)
+- **Worker Status** (active, idle, or under maintenance)
+- **Link to View Worker Details** (for in-depth metrics)
+- **Hire Status** (availability for compute tasks)
+- **Uptime Duration** (how long the worker has been active)
+- **Device Types & Quantities** (detailed breakdown within each cluster)
 
 <Frame>
-![](/images/docs/e842fbd88d0b93d7a73ddb94120adc2a2c3a4d394824d485ef77babc3e8a1ccc-Step9.jpg)
+  ![](/images/docs/e842fbd88d0b93d7a73ddb94120adc2a2c3a4d394824d485ef77babc3e8a1ccc-Step9.jpg)
 </Frame>
 
 ## Worker Details
@@ -44,53 +44,60 @@ Users can access a detailed view of each device by selecting it from the Workers
 
 At the top of the Device Page, users can view:
 
-* **Block Rewards Nomination Eligibility Status**
-
-  * Default view shows only pass/fail status for each category.
-  * Users can expand the section to see detailed criteria for Block Rewards Nominations.
-
-* **Uptime Graph for the Last 30 Days**
-  * Easily track whether the device has experienced downtime or remained continuously active.
+- **Block Rewards Nomination Eligibility Status**
+  - Default view shows only pass/fail status for each category.
+  - Users can expand the section to see detailed criteria for Block Rewards Nominations.
+- **Uptime Graph for the Last 30 Days**
+  - Easily track whether the device has experienced downtime or remained continuously active.
 
 <Frame>
-![](/images/docs/6498c2004f6373ccaa15602d92bd8a6341ffaa95bb3ca0b8620620d750e9501f-worker3.jpg)
+  <img
+    src="/images/docs/6498c2004f6373ccaa15602d92bd8a6341ffaa95bb3ca0b8620620d750e9501f-worker3.jpg"
+    alt=""
+    className="mx-auto"
+    style={{ width:"90%" }}
+  />
 </Frame>
 
 ### Main Metrics Displayed:
 
 On the right-hand side of the page, users can find key performance indicators for the selected device:
 
-* **Uptime Percentage** (availability over time)
-* **Traffic Transmitted** (data usage and throughput)
-* **Connectivity Tier** (network performance classification)
-* **Security Compliance** (status of security protocols)
-* **Location** (geographic placement of the device)
+- **Uptime Percentage** (availability over time)
+- **Traffic Transmitted** (data usage and throughput)
+- **Connectivity Tier** (network performance classification)
+- **Security Compliance** (status of security protocols)
+- **Location** (geographic placement of the device)
 
 **Running Services:**
 
-* **IO Version Control Status** (software version management)
-* **IO Monitor Status** (device health monitoring)
-* **Ray.io Status** (distributed computing framework status)
+- **IO Version Control Status** (software version management)
+- **IO Monitor Status** (device health monitoring)
+- **Ray.io Status** (distributed computing framework status)
 
 This **Workers Page** enables users to efficiently track, manage, and assess decentralized compute resources in real-time.
 
 <Frame>
-![](/images/docs/3f2a6dc-step7_1.jpeg)
+  <img
+    src="/images/docs/3f2a6dc-step7_1.jpeg"
+    alt=""
+    className="mx-auto"
+    style={{ width:"68%" }}
+  />
 </Frame>
 
 The **Block Rewards** tab provides detailed information about all of the Block Rewards associated with a specific device:
 
-| Block               | Description                                                                                                                                                                   |
-|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Block Reward        | To the right of Block Reward, you see the status. In this instance, it's **Completed**. If the device fails to satisfy the POW and POTL requirements, **Failed** will appear. |
-| Block ID            | A unique identifier assigned to each block within a blockchain.                                                                                                               |
-| Connectivity Tier   | The Connectivity Tier that the worker qualifies for. This is an option when a customer reserves a GPU/CPU when they deploy a cluster.                                          |
-| Processor           | The processor type, GPU/CPU. In this example, it's a Nvidia L4 GPU.                                                                                                           |
-| Processor Quantity  | Number of processors available for the worker.                                                                                                                                |
-| POTL                | (Proof of Timelock) - Verifies the uptime for the worker. This can be executed against a hired worker.                                                                         |
-| POW                 | (zkTFLOPs Proof) Tasks the worker must solve to verify the worker. To learn more about POW, see [Proof of Work](/docs/proof-of-work). This is never executed against a hired worker. |
-| Device Base Score   | This score is based on hardware quantity, hardware multiplier, and the connectivity tier.                                                                                      |
-
+| Block              | Description                                                                                                                                                                          |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Block Reward       | To the right of Block Reward, you see the status. In this instance, it's **Completed**. If the device fails to satisfy the POW and POTL requirements, **Failed** will appear.        |
+| Block ID           | A unique identifier assigned to each block within a blockchain.                                                                                                                      |
+| Connectivity Tier  | The Connectivity Tier that the worker qualifies for. This is an option when a customer reserves a GPU/CPU when they deploy a cluster.                                                |
+| Processor          | The processor type, GPU/CPU. In this example, it's a Nvidia L4 GPU.                                                                                                                  |
+| Processor Quantity | Number of processors available for the worker.                                                                                                                                       |
+| POTL               | (Proof of Timelock) - Verifies the uptime for the worker. This can be executed against a hired worker.                                                                               |
+| POW                | (zkTFLOPs Proof) Tasks the worker must solve to verify the worker. To learn more about POW, see [Proof of Work](/docs/proof-of-work). This is never executed against a hired worker. |
+| Device Base Score  | This score is based on hardware quantity, hardware multiplier, and the connectivity tier.                                                                                            |
 
 See below for the base score calculation:
 
@@ -110,13 +117,10 @@ For example, if a GPU Device Base Score is 8150, the total GPU device score at t
 **Rewarded**- The amount of IO Coin the worker earned based on **Total Score**.
 
 <Frame>
-![](/images/docs/022f0d148e218cf8d6799c82221df00c5c411d6041c30737e85a3f4ad48ea2be-Step9.jpg)
+  <img
+    src="/images/docs/022f0d148e218cf8d6799c82221df00c5c411d6041c30737e85a3f4ad48ea2be-Step9.jpg"
+    alt=""
+    className="mx-auto"
+    style={{ width:"60%" }}
+  />
 </Frame>
-
-### What's Next?
-
-After reviewing the information on the Worker page, you can navigate to:
-
-* [Inferences Page](/docs/inferences-page)
-* Or you can learn how to [Add your first Worker](/docs/intro)
-
