@@ -101,12 +101,22 @@
                ]
             },
             "docs/clouds/run-jobs-on-clusters",
-            "docs/clouds/jupyter-notebook",
+            {
+               "group": "Run Jobs on Clusters",
+               "pages": [
+                     "docs/clouds/jupyter-notebook"
+               ]
+            },
             "docs/payment/io-cloud-payments",
-            "docs/clouds/deploy-cluster-and-pay",
-            "docs/clouds/extending-your-cluster-and-pay",
-            "docs/payment/io-credits",
-            "docs/payment/stripe-payments-faq"
+            {
+               "group": "IO Cloud Payments",
+               "pages": [
+                     "docs/clouds/deploy-cluster-and-pay",
+                    "docs/clouds/extending-your-cluster-and-pay",
+                    "docs/payment/io-credits",
+                    "docs/payment/stripe-payments-faq"
+               ]
+            }
         ]
       },
       {
