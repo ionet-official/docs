@@ -7,47 +7,65 @@ To access the dashboard, log into [io.net](http://io.net) and select **Manager C
 
 ## View Your Cluster
 
-After you pay and your cluster is successfully deployed, click **Return to Clusters**. The screenshot below is a detail page of your cluster. This cluster was hired and is active.
+To see all the details about your cluster, click on it in the **Cluster** tab.  The screenshot below highlights what you can expect to see in a hired, active cluster.
 
 <Frame>
   ![](/images/docs/2203d3f-image.png)
 </Frame>
 
-## Actions
+#### Clusters Tab
 
-The actions below can be completed if the cluster is currently running.
+The **Clusters** tab provides a quick overview of all your clusters, both active and inactive.
 
-**Terminate Cluster**
+#### Sort Clusters
+
+Use the sorting options to find the cluster you're looking for easily. Sort by status (**Running, Completed, Failed, Destroyed**) or search by keyword.
+
+<img
+  src="/images/docs/monitor_manage_clusters/monitor2.png"
+  alt="Monitor2 Pn"
+  title="Monitor2 Pn"
+  className="mx-auto"
+  style={{ width:"67%" }}
+/>
+
+## Cluster Management Actions
+
+These actions can be done if a cluster is currently running.
+
+#### Terminate Cluster
 
 Click **Terminate Cluster** in the bottom right to end your session.
 
-<Frame>
-  <img
-    src="/images/docs/d3ab660-fd1.png"
-    alt=""
-    className="mx-auto"
-    style={{ width:"57%" }}
-  />
-</Frame>
+<img
+  src="/images/docs/monitor_manage_clusters/monitor3.png"
+  alt="Monitor3 Pn"
+  title="Monitor3 Pn"
+  className="mx-auto"
+  style={{ width:"65%" }}
+/>
 
-**Extend Cluster**
+#### Extend Cluster
 
-Click **Extend Cluster** to increase the amount of time that your cluster is active. When you extend a cluster, you will be charged the same amount as the initial transaction.
+To keep your cluster active for longer, simply click **Extend Cluster**. You'll be charged the same amount as your original transaction.
 
-<Frame>
-  <img
-    src="/images/docs/ba5724c-cd1.png"
-    alt=""
-    className="mx-auto"
-    style={{ width:"64%" }}
-  />
-</Frame>
+<img
+  src="/images/docs/monitor_manage_clusters/monitor4.png"
+  alt="Monitor4 Pn"
+  title="Monitor4 Pn"
+  className="mx-auto"
+  style={{ width:"64%" }}
+/>
+
+## Actions
+
+A completed cluster provides the option to archive the cluster.  Click **Archive** in the bottom right to archive this cluster.
 
 **Run Jobs and Monitor Your Cluster**
 
-You can run jobs on your cluster using **Visual Studio** or **Jupyter Notebook**. The Ray Dashboard is used to manage and monitor your cluster and any jobs you run on the cluster.
+Ready to start working on your cluster? You can run your jobs using either Visual Studio or Jupyter Notebook. The Ray Dashboard lets you manage and monitor everything, including your cluster and running jobs.
 
-On the cluster detail page, copy the **IDE Password** and click **Jupyter Notebook**, **Visual Studio**, or **Ray Dashboard**.
+On your cluster's details page, grab the **IDE Password**, and then click on **Jupyter Notebook**, **Visual Studio**, or the **Ray Dashboard** to get started
 
 <Frame>
   <img
@@ -58,10 +76,10 @@ On the cluster detail page, copy the **IDE Password** and click **Jupyter Notebo
   />
 </Frame>
 
-Copy and enter your **IDE Password** in the password field for whichever application you select.
+To access your application, enter the **IDE Password**.
 
 <Warning>
-  After time expires for your cluster, you can no longer access the IDEs nor the Ray Dashboard.
+  Once your cluster's time expires, you'll lose access to the IDEs and the Ray Dashboard.
 </Warning>
 
 ## Clusters Tab

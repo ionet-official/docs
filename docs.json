@@ -20,16 +20,16 @@
           {
             "group": "Company",
             "pages": [
-              "docs/inception",
-              "docs/faq",
+              "guides/inception",
+              "guides/faq",
               {
                 "group": "IO Coin",
                 "pages": [
-                  "docs/coin/io-coin",
-                  "docs/coin/io-tokenomics",
-                  "docs/coin/io-coin-allocation",
-                  "docs/coin/coin-restrictions",
-                  "docs/coin/ionet-monthly-token-emission-schedule"
+                  "guides/coin/io-coin",
+                  "guides/coin/io-tokenomics",
+                  "guides/coin/io-coin-allocation",
+                  "guides/coin/coin-restrictions",
+                  "guides/coin/ionet-monthly-token-emission-schedule"
                 ]
               }
             ]
@@ -40,37 +40,37 @@
               {
                 "group": "Get Started",
                 "pages": [
-                  "docs/getting-started",
-                  "docs/loginsignup"
+                  "guides/getting-started",
+                  "guides/loginsignup"
                 ]
               },
               {
                 "group": "Announcements",
                 "pages": [
-                  "docs/announcements/announcements",
-                  "docs/announcements/important-action-required-for-expired-refresh-tokens",
-                  "docs/announcements/supplier-migration-guide-upgrading-to-m4-series-devices"
+                  "guides/announcements/announcements",
+                  "guides/announcements/important-action-required-for-expired-refresh-tokens",
+                  "guides/announcements/supplier-migration-guide-upgrading-to-m4-series-devices"
                 ]
               },
               {
                 "group": "Block Rewards",
                 "pages": [
-                  "docs/block-rewards/block-rewards",
-                  "docs/block-rewards/monitor-block-rewards",
-                  "docs/block-rewards/proposed-device-block-reward-multiplier"
+                  "guides/block-rewards/block-rewards",
+                  "guides/block-rewards/monitor-block-rewards",
+                  "guides/block-rewards/proposed-device-block-reward-multiplier"
                 ]
               },
-              "docs/glossary",
+              "guides/glossary",
               {
                 "group": "BC8: Your Gateway to Immersive AI Media",
                 "pages": [
-                  "docs/bc8/bc8",
-                  "docs/bc8/getting-started-with-bc8",
-                  "docs/bc8/generating-your-first-ai-image",
-                  "docs/bc8/generating-a-video",
-                  "docs/bc8/explore-generated-ideas",
-                  "docs/bc8/settings-privacy",
-                  "docs/bc8/frequently-asked-questions"
+                  "guides/bc8/bc8",
+                  "guides/bc8/getting-started-with-bc8",
+                  "guides/bc8/generating-your-first-ai-image",
+                  "guides/bc8/generating-a-video",
+                  "guides/bc8/explore-generated-ideas",
+                  "guides/bc8/settings-privacy",
+                  "guides/bc8/frequently-asked-questions"
                 ]
               }
             ]
@@ -78,9 +78,9 @@
           {
             "group": "IO Architecture",
             "pages": [
-              "docs/architecture/io-architecture",
-              "docs/architecture/io-tunnels",
-              "docs/architecture/io-network"
+              "guides/architecture/io-architecture",
+              "guides/architecture/io-tunnels",
+              "guides/architecture/io-network"
             ]
           }
         ]
@@ -88,33 +88,33 @@
       {
         "tab": "Cloud",
         "pages": [
-           "docs/clouds/io-cloud",
+           "guides/clouds/io-cloud",
             {
                "group": "Start Using IO Cloud",
                "pages": [
-                    "docs/clouds/start-using-io-cloud",
-                    "docs/clouds/monitor-manage-clusters",
-                    "docs/clouds/deploy-containers",
-                    "docs/clouds/deploy-ray-cluster",
-                    "docs/clouds/deploy-vm-on-demand",
-                    "docs/clouds/data-science-image-full-specification"
+                    "guides/clouds/start-using-io-cloud",
+                    "guides/clouds/monitor-manage-clusters",
+                    "guides/clouds/deploy-containers",
+                    "guides/clouds/deploy-ray-cluster",
+                    "guides/clouds/deploy-vm-on-demand",
+                    "guides/clouds/data-science-image-full-specification"
                ]
             },
             {
                "group": "Run Jobs on Clusters",
                "pages": [
-                     "docs/clouds/run-jobs-on-clusters",
-                     "docs/clouds/jupyter-notebook"
+                     "guides/clouds/run-jobs-on-clusters",
+                     "guides/clouds/jupyter-notebook"
                ]
             },
             {
                "group": "IO Cloud Payments",
                "pages": [
-                     "docs/payment/io-cloud-payments",
-                     "docs/clouds/deploy-cluster-and-pay",
-                    "docs/clouds/extending-your-cluster-and-pay",
-                    "docs/payment/io-credits",
-                    "docs/payment/stripe-payments-faq"
+                     "guides/payment/io-cloud-payments",
+                     "guides/payment/deploy-cluster-and-pay",
+                    "guides/payment/extending-your-cluster-and-pay",
+                    "guides/payment/io-credits",
+                    "guides/payment/stripe-payments-faq"
                ]
             }
         ]
@@ -122,13 +122,13 @@
       {
         "tab": "Intelligence",
         "pages": [
-            "docs/intelligence/io-intelligence",
-            "docs/intelligence/exploring-ai-models",
-            "docs/intelligence/exploring-ai-agents",
-            "docs/intelligence/retrieval-engine",
-            "docs/intelligence/agent-framework",
-            "docs/intelligence/agentic-workflow",
-            "docs/intelligence/training-model"
+            "guides/intelligence/io-intelligence",
+            "guides/intelligence/exploring-ai-models",
+            "guides/intelligence/exploring-ai-agents",
+            "guides/intelligence/retrieval-engine",
+            "guides/intelligence/agent-framework",
+            "guides/intelligence/agentic-workflow",
+            "guides/intelligence/training-model"
         ]
       },
       {
@@ -137,97 +137,97 @@
           {
             "group": "IO Worker",
             "pages": [
-              "docs/workers/io-worker",
-              "docs/workers/intro",
-              "docs/workers/quick-start-guide",
+              "guides/workers/io-worker",
+              "guides/workers/intro",
+              "guides/workers/quick-start-guide",
               {
                 "group": "Device Onboarding",
                 "pages": [
-                  "docs/workers/device-onboarding",
-                  "docs/workers/device-utilization-threshold",
-                  "docs/workers/optimize-pcie-lane-configuration",
-                  "docs/workers/supported-devices",
-                  "docs/workers/proof-of-work"
+                  "guides/workers/device-onboarding",
+                  "guides/workers/device-utilization-threshold",
+                  "guides/workers/optimize-pcie-lane-configuration",
+                  "guides/workers/supported-devices",
+                  "guides/workers/proof-of-work"
                 ]
               },
               {
                 "group": "Rewards & Wallets",
                 "pages": [
-                  "docs/workers/rewards-wallets",
-                  "docs/workers/earnings-rewards",
-                  "docs/workers/solana",
-                  "docs/workers/aptos-wallet"
+                  "guides/workers/rewards-wallets",
+                  "guides/workers/earnings-rewards",
+                  "guides/workers/solana",
+                  "guides/workers/aptos-wallet"
                 ]
               },
-              "docs/manage-and-monitor",
+              "guides/manage-and-monitor",
               {
                 "group": "MacOS: Install Worker",
                 "pages": [
-                  "docs/workers/install-on-macos",
-                  "docs/workers/troubleshoot-macos-worker",
-                  "docs/workers/install-docker-on-macos",
-                  "docs/workers/troubleshoot-docker-for-macs"
+                  "guides/workers/install-on-macos",
+                  "guides/workers/troubleshoot-macos-worker",
+                  "guides/workers/install-docker-on-macos",
+                  "guides/workers/troubleshoot-docker-for-macs"
                 ]
               },
               {
                 "group": "Windows: Install Worker",
                 "pages": [
-                  "docs/workers/install-on-windows",
-                  "docs/workers/troubleshoot-windows-worker",
-                  "docs/workers/install-docker-on-windows",
-                  "docs/workers/troubleshoot-docker-for-windows",
-                  "docs/workers/cuda-toolkit-optional",
-                  "docs/workers/install-nvidia-drivers-on-windows"
+                  "guides/workers/install-on-windows",
+                  "guides/workers/troubleshoot-windows-worker",
+                  "guides/workers/install-docker-on-windows",
+                  "guides/workers/troubleshoot-docker-for-windows",
+                  "guides/workers/cuda-toolkit-optional",
+                  "guides/workers/install-nvidia-drivers-on-windows"
                 ]
               },
               {
                 "group": "Ubuntu: Install Worker",
                 "pages": [
-                  "docs/workers/install-on-ubuntu",
-                  "docs/workers/ubuntu-install-docker",
-                  "docs/workers/bare-metal-on-demand-supplier-process"
+                  "guides/workers/install-on-ubuntu",
+                  "guides/workers/ubuntu-install-docker",
+                  "guides/workers/bare-metal-on-demand-supplier-process"
                 ]
               },
               {
                 "group": "Troubleshoot Docker for Linux",
                 "pages": [
-                  "docs/workers/troubleshoot-docker-for-linux",
-                  "docs/workers/docker-not-installed-or-running",
-                  "docs/workers/worker-disconnects-when-containers-are-running",
-                  "docs/workers/connectivity-tier-not-displaying-correctly",
-                  "docs/workers/waiting-for-io-containers-to-start",
-                  "docs/workers/stop-restart-the-platform",
-                  "docs/workers/additional-guides"
+                  "guides/workers/troubleshoot-docker-for-linux",
+                  "guides/workers/docker-not-installed-or-running",
+                  "guides/workers/worker-disconnects-when-containers-are-running",
+                  "guides/workers/connectivity-tier-not-displaying-correctly",
+                  "guides/workers/waiting-for-io-containers-to-start",
+                  "guides/workers/stop-restart-the-platform",
+                  "guides/workers/additional-guides"
                 ]
               },
-              "docs/workers/install-on-hiveos",
-              "docs/workers/troubleshoot-worker-general"
+              "guides/workers/install-on-hiveos",
+              "guides/workers/troubleshoot-worker-general"
             ]
           },
           {
             "group": "IO Staking",
             "pages": [
-              "docs/staking/io-staking",
-              "docs/staking/staking",
-              "docs/staking/how-to-unstake",
+              "guides/staking/io-staking",
+              "guides/staking/staking",
+              "guides/staking/how-to-unstake",
               {
                 "group": "Device Owner Staking",
                 "pages": [
-                  "docs/staking/device-owner-staking",
-                  "docs/staking/solo-staked-devices",
-                  "docs/staking/protecting-your-stake",
-                  "docs/staking/create-a-co-staking-offer",
-                  "docs/staking/unstaking-deleting-withdrawing"
+                  "guides/staking/device-owner-staking",
+                  "guides/staking/solo-staked-devices",
+                  "guides/staking/protecting-your-stake",
+                  "guides/staking/create-a-co-staking-offer",
+                  "guides/staking/unstaking-deleting-withdrawing"
                 ]
               },
               {
                 "group": "Collaborative Staking (Co-Staking)",
                 "pages": [
-                  "docs/staking/3rd-party-staking",
-                  "docs/staking/co-staking",
-                  "docs/staking/view-co-staking-device",
-                  "docs/staking/unstake-your-co-stake",
-                  "docs/staking/device-reliability-score"
+                  "guides/staking/3rd-party-staking",
+                  "guides/staking/co-staking",
+                  "guides/staking/view-co-staking-device",
+                  "guides/staking/unstake-your-co-stake",
+                  "guides/staking/device-reliability-score"
                 ]
               }
             ]
@@ -235,23 +235,23 @@
           {
             "group": "IO Explorer",
             "pages": [
-              "docs/explorer/io-explorer",
-              "docs/explorer/homepage",
-              "docs/explorer/block-rewards-page",
-              "docs/explorer/network-map-page",
-              "docs/explorer/clusters-page",
-              "docs/explorer/workers-page",
-              "docs/explorer/inferences-page",
-              "docs/explorer/staking-dashboard",
-              "docs/explorer/tne-on-chain"
+              "guides/explorer/io-explorer",
+              "guides/explorer/homepage",
+              "guides/explorer/block-rewards-page",
+              "guides/explorer/network-map-page",
+              "guides/explorer/clusters-page",
+              "guides/explorer/workers-page",
+              "guides/explorer/inferences-page",
+              "guides/explorer/staking-dashboard",
+              "guides/explorer/tne-on-chain"
             ]
           },
           {
             "group": "IO ID",
             "pages": [
-              "docs/id/io-id",
-              "docs/id/manage-funds",
-              "docs/id/managing-your-wallets-in-io-id"
+              "guides/id/io-id",
+              "guides/id/manage-funds",
+              "guides/id/managing-your-wallets-in-io-id"
             ]
           }
         ]
