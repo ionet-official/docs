@@ -476,6 +476,22 @@
                   "reference/extend-deployment-duration",
                   "reference/terminate-deployment"
                 ]
+              },
+              {
+                "group": "Get Started With VMaaS API",
+                "pages": [
+                  "reference/vmaas/get-started-with-vmaas-api",
+                  "reference/vmaas/get-all-deployments",
+                  "reference/vmaas/get-deployment-details-vmaas",
+                  "reference/vmaas/destroy-deployment",
+                  "reference/vmaas/get-deployment-vms",
+                  "reference/vmaas/get-vms-jobs-history",
+                  "reference/vmaas/get-max-gpu-count-per-vm",
+                  "reference/vmaas/get-available-vms",
+                  "reference/vmaas/get-deployment-price",
+                  "reference/vmaas/deploy-vms",
+                  "reference/vmaas/extend-cluster"
+                ]
               }
             ]
           }
