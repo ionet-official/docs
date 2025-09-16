@@ -1,0 +1,82 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO API",
+    "version": "1.0"
+  },
+  "paths": {
+    "/enterprise/v1/io-cloud/vmaas/hardware/max-gpus-per-vm": {
+      "get": {
+        "summary": "Get Max GPU Count per VM",
+        "description": "Return the maximum number of GPUs that can be allocated to a single VM instance.",
+        "operationId": "getMaxGpuCountPerVm",
+        "parameters": [
+          {
+            "name": "node_pool_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "nullable": true,
+              "default": null
+            },
+            "description": "Optional node pool identifier to filter GPU limits. Defaults to null."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful retrieval of max GPU count per VM",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "hardware": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "max_gpus_per_vm": { "type": "integer", "default": 0 },
+                              "available": { "type": "integer", "default": 0 },
+                              "hardware_id": { "type": "integer", "default": 0 },
+                              "hardware_name": { "type": "string" },
+                              "brand_name": { "type": "string" }
+                            }
+                          }
+                        },
+                        "total": { "type": "integer", "default": 0 }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Hardware or node pool not found"
+          },
+          "422": {
+            "description": "Validation error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "api_key": {
+        "type": "apiKey",
+        "name": "x-api-key",
+        "in": "header"
+      }
+    }
+  }
+}

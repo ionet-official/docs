@@ -1,0 +1,149 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO API",
+    "version": "1.0"
+  },
+  "paths": {
+    "/enterprise/v1/io-cloud/vmaas/price": {
+      "get": {
+        "summary": "Get Deployment Price",
+        "description": "Calculate or retrieve the pricing details for a deployment based on selected resources (CPUs, GPUs, memory, and duration).",
+        "operationId": "getDeploymentPrice",
+        "parameters": [
+          {
+            "name": "location_ids",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The location identifiers where the deployment is requested."
+          },
+          {
+            "name": "hardware_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "description": "The ID of the hardware to be used."
+          },
+          {
+            "name": "currency",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["usdc", "iocoin"]
+            },
+            "description": "Currency in which the price should be calculated. Available values: usdc, iocoin."
+          },
+          {
+            "name": "duration_hours",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "1",
+              "minimum": 1
+            },
+            "description": "The number of hours the deployment will run. Defaults to 1. Minimum is 1."
+          },
+          {
+            "name": "gpus_per_vm",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1,
+              "minimum": 1
+            },
+            "description": "Number of GPUs allocated per VM. Defaults to 1. Minimum is 1."
+          },
+          {
+            "name": "replica_count",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "description": "The number of VM replicas requested."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deployment price details calculated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "replica_count": { "type": "integer", "default": 0 },
+                        "gpus_per_vm": { "type": "integer", "default": 0 },
+                        "available_replica_count": {
+                          "type": "array",
+                          "items": { "type": "integer" }
+                        },
+                        "discount": { "type": "integer", "default": 0 },
+                        "ionet_fee": { "type": "integer", "default": 0 },
+                        "ionet_fee_percent": { "type": "integer", "default": 0 },
+                        "currency_conversion_fee": { "type": "integer", "default": 0 },
+                        "currency_conversion_fee_percent": { "type": "integer", "default": 0 },
+                        "total_cost_usdc": { "type": "integer", "default": 0 }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Successful Response",
+                    "value": {
+                      "data": {
+                        "replica_count": 0,
+                        "gpus_per_vm": 0,
+                        "available_replica_count": [0],
+                        "discount": 0,
+                        "ionet_fee": 0,
+                        "ionet_fee_percent": 0,
+                        "currency_conversion_fee": 0,
+                        "currency_conversion_fee_percent": 0,
+                        "total_cost_usdc": 0
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No pricing data available for the provided parameters"
+          },
+          "422": {
+            "description": "Validation error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "api_key": {
+        "type": "apiKey",
+        "name": "x-api-key",
+        "in": "header"
+      }
+    }
+  }
+}

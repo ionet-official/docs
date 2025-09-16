@@ -1,0 +1,112 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO API",
+    "version": "1.0"
+  },
+  "paths": {
+    "/enterprise/v1/io-cloud/vmaas/available-vms": {
+      "get": {
+        "summary": "Get Available VMs",
+        "description": "Retrieve a list of currently available VM types and configurations in the VMaaS cloud.",
+        "operationId": "getAvailableVms",
+        "parameters": [
+          {
+            "name": "hardware_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "description": "The hardware ID for which available VMs should be retrieved."
+          },
+          {
+            "name": "hardware_qty",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "default": 1
+            },
+            "description": "The quantity of the specified hardware to request. Defaults to 1."
+          },
+          {
+            "name": "node_pool_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "nullable": true,
+              "default": null
+            },
+            "description": "Optional node pool identifier to filter available VMs. Defaults to null."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of available VM types and configurations retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": { "type": "integer", "default": 0 },
+                          "iso2": { "type": "string" },
+                          "name": { "type": "string" },
+                          "available_replicas": { "type": "integer", "default": 0 }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Successful Response",
+                    "value": {
+                      "data": [
+                        {
+                          "id": 0,
+                          "iso2": "string",
+                          "name": "string",
+                          "available_replicas": 0
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No available VMs found for the provided parameters"
+          },
+          "422": {
+            "description": "Validation error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "api_key": {
+        "type": "apiKey",
+        "name": "x-api-key",
+        "in": "header"
+      }
+    }
+  }
+}

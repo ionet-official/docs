@@ -1,0 +1,141 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO API",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.io.solutions/"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/enterprise/v1/io-cloud/vmaas/deployment/{deployment_id}": {
+      "delete": {
+        "summary": "Destroy Deployment",
+        "description": "Terminate and remove an existing deployment. All VMs and resources allocated to the deployment will be released.\n\n**Charges Policy:**\n- The first hour is always non-refundable.\n- After the first hour, charges are calculated to the exact duration the cluster was active (not rounded to whole hours).\n- Any unused prepaid time is refunded proportionally.\n\nExample: If you pre-paid for 3 hours and delete the deployment after 1.2 hours, you are charged for 1.2 hours and refunded the remaining 1.8 hours.",
+        "operationId": "destroy-deployment",
+        "parameters": [
+          {
+            "name": "deployment_id",
+            "in": "path",
+            "required": true,
+            "description": "The unique ID of the deployment to be destroyed",
+            "schema": {
+              "type": "string",
+              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deployment successfully destroyed",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "string"
+                  }
+                },
+                "schema": {
+                  "type": "string",
+                  "example": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Deployment not found",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "Deployment not found"
+                  }
+                },
+                "schema": {
+                  "type": "string",
+                  "example": "Deployment not found"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable entity - invalid request",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "detail": [
+                        {
+                          "loc": ["string", 0],
+                          "msg": "string",
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "loc": {
+                            "type": "array"
+                          },
+                          "msg": {
+                            "type": "string",
+                            "example": "string"
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl -X DELETE \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deployment/{deployment_id}\" \\\n  -H \"X-API-KEY: $IOCLOUD_API_KEY\" \\\n  -H \"Content-Type: application/json\""
+            },
+            {
+              "language": "python",
+              "code": "import requests\n\nurl = \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deployment/{deployment_id}\"\n\nheaders = {\n    \"X-API-KEY\": \"$IOCLOUD_API_KEY\",\n    \"Content-Type\": \"application/json\"\n}\n\nresponse = requests.delete(url, headers=headers)\n\nprint(response.status_code)\nprint(response.json())"
+            }
+          ],
+          "samples-languages": [
+            "curl",
+            "python"
+          ]
+        }
+      }
+    }
+  }
+}
