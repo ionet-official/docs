@@ -28,6 +28,52 @@
         "summary": "Get All Deployments",
         "description": "Retrieve a list of all VMaaS deployments associated with the enterprise account, including their status, configuration, and metadata.",
         "operationId": "get-all-deployments",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "example": 1
+            },
+            "description": "Page number for paginated results."
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "example": 10
+            },
+            "description": "Number of deployments per page."
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["running", "stopped", "pending", "failed"],
+              "example": "running"
+            },
+            "description": "Filter deployments by status."
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["created_at", "-created_at", "name", "-name"],
+              "example": "-created_at"
+            },
+            "description": "Sort deployments by field (prefix with `-` for descending order)."
+          }
+        ],
         "responses": {
           "200": {
             "description": "200",
@@ -154,9 +200,7 @@
                     "value": {
                       "detail": [
                         {
-                          "loc": [
-                            "page"
-                          ],
+                          "loc": ["page"],
                           "msg": "Invalid page number",
                           "type": "validation_error"
                         }
@@ -197,17 +241,14 @@
           "code-samples": [
             {
               "language": "curl",
-              "code": "curl https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deployments \\\n  -H \"X-API-KEY: $IOCLOUD_API_KEY\" "
+              "code": "curl \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deployments?page=1&pageSize=10&status=running&sort=-created_at\" \\\n  -H \"X-API-KEY: $IOCLOUD_API_KEY\" "
             },
             {
               "language": "python",
-              "code": "import requests\n\nurl = \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deployments\"\n\nheaders = {\n    \"X-API-KEY\": \"$IOCLOUD_API_KEY\"\n}\n\nresponse = requests.get(url, headers=headers)\n\nprint(response.status_code)\nprint(response.json())"
+              "code": "import requests\n\nurl = \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deployments\"\n\nparams = {\n    \"page\": 1,\n    \"pageSize\": 10,\n    \"status\": \"running\",\n    \"sort\": \"-created_at\"\n}\n\nheaders = {\n    \"X-API-KEY\": \"$IOCLOUD_API_KEY\"\n}\n\nresponse = requests.get(url, headers=headers, params=params)\n\nprint(response.status_code)\nprint(response.json())"
             }
           ],
-          "samples-languages": [
-            "curl",
-            "python"
-          ]
+          "samples-languages": ["curl", "python"]
         }
       }
     }
