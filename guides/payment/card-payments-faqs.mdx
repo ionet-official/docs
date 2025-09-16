@@ -1,16 +1,16 @@
 ---
-title: "Stripe Payments FAQ"
-description: "Description of your new file."
+title: "Card Payments FAQs"
+description: "This page answers common questions about using Stripe (Fiat payments) and Credits when purchasing compute or IO Credits."
 ---
 
-You can now use Fiat (via Stripe) to purchase both Compute and IO Credits. This FAQ explains how the payment flow works using Fiat, what options are available, and how Credits are involved.
+This page answers common questions about using Card (Fiat) payments when purchasing compute or IO Credits.
 
 ## General Payment Logic
 
 **Users can pay for compute in two ways:**
 
 - **IO Credits** — internal platform credits.
-- **Fiat via Stripe** — credit/debit cards and other Stripe-supported payment methods.
+- **Fiat via Stripe** — credit/debit cards payment methods.
 
 **Minimum amounts:**
 
@@ -19,11 +19,11 @@ You can now use Fiat (via Stripe) to purchase both Compute and IO Credits. This 
 
 ## FAQ
 
-### 1. Can I use Fiat (Stripe) to pay for compute?
+### Q. Can I use Fiat (Stripe) to pay for compute?
 
 Yes. You can now pay for compute directly using Fiat through Stripe. Minimum amount: **\$0.50**
 
-If the amount paid is more than the total cost (cluster cost \+ provider fee) **the remaining balance is added to IO Credits.**
+If the cluster cost is **lower than the \$0.50 minimum card payment**, Stripe will still charge \$0.50, and **the remaining balance is automatically added to your IO Credits**.
 
 <img
   src="/images/docs/stripe-faq/stripe-1.jpg"
@@ -46,7 +46,7 @@ Stripe will show line items like:
   style={{ width:"50%" }}
 />
 
-### 2. Can I use Fiat to purchase IO Credits?
+### Q. Can I use Fiat to purchase IO Credits?
 
 Yes. You can purchase IO Credits using either Crypto (USDC) or Fiat (Stripe). Minimum amount: **\$1.00**.
 
@@ -73,7 +73,7 @@ Stripe payment page will show line items:
 
 After successful payment, credits are added to the user’s IO Credits balance.
 
-### 3. What happens if I already have enough credits?
+### Q. What happens if I already have enough credits?
 
 If your existing IO Credits balance is enough to cover the compute cost then **Fiat (card) payment is disabled**
 
@@ -87,7 +87,7 @@ A message will appear: `You have sufficient credits to purchase compute. Please 
   style={{ width:"73%" }}
 />
 
-### 4. Can I extend my compute using Fiat?
+### Q. Can I extend my compute using Fiat?
 
 Yes. You can extend your compute using Fiat (Stripe). It works the same as initial compute purchase. Minimum fiat amount: **\$0.50**
 
@@ -109,7 +109,7 @@ Any leftover amount (after cluster cost \+ provider fee) is **automatically adde
   style={{ width:"53%" }}
 />
 
-### 5. How are fees displayed during payment?
+### Q. How are fees displayed during payment?
 
 When paying through Stripe, you will see:
 
@@ -118,3 +118,21 @@ When paying through Stripe, you will see:
 - **Total Amount**
 
 This breakdown makes the payment fully transparent.
+
+### Q. Can I pay with my local currency?
+
+Yes. If your local currency is supported by Stripe, you should be able to pay using it.  
+
+Stripe will automatically handle currency conversion to USD during checkout.  
+
+The final amount charged may vary slightly based on exchange rates and your bank’s conversion fees.
+
+### Q. Why am I purchasing credits when I pay by card?
+
+Even when you pay directly by card (Fiat), the system works by first adding the equivalent amount as **IO Credits **to your account and then using those credits to pay for your compute clusters.  
+
+This happens automatically in the background, so you might see a small remaining balance added as credits if the cluster cost is less than the minimum card payment amount.
+
+<Info>
+  Tip: You can place these two questions after your existing “Can I use Fiat (Stripe) to pay for compute?” section so the flow stays logical. 
+</Info>
