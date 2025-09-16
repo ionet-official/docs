@@ -462,19 +462,19 @@
               {
                 "group": "Get Started With CaaS API",
                 "pages": [
-                  "reference/get-started-with-caas-api",
-                  "reference/check-maximum-gpus-per-container",
-                  "reference/check-available-replicas-per-location",
-                  "reference/price-estimation",
-                  "reference/deploy-a-container",
-                  "reference/track-deployments-overview",
-                  "reference/get-deployment-details",
-                  "reference/list-deployment-containers",
-                  "reference/container-job-details",
-                  "reference/container-logs",
-                  "reference/update-deployment-configuration",
-                  "reference/extend-deployment-duration",
-                  "reference/terminate-deployment"
+                  "reference/caas/get-started-with-caas-api",
+                  "reference/caas/check-maximum-gpus-per-container",
+                  "reference/caas/check-available-replicas-per-location",
+                  "reference/caas/price-estimation",
+                  "reference/caas/deploy-a-container",
+                  "reference/caas/track-deployments-overview",
+                  "reference/caas/get-deployment-details",
+                  "reference/caas/list-deployment-containers",
+                  "reference/caas/container-job-details",
+                  "reference/caas/container-logs",
+                  "reference/caas/update-deployment-configuration",
+                  "reference/caas/extend-deployment-duration",
+                  "reference/caas/terminate-deployment"
                 ]
               },
               {
