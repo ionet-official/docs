@@ -15,62 +15,42 @@
             "name": "location_ids",
             "in": "query",
             "required": true,
-            "schema": {
-              "type": "string"
-            },
+            "schema": { "type": "string" },
             "description": "The location identifiers where the deployment is requested."
           },
           {
             "name": "hardware_id",
             "in": "query",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            },
+            "schema": { "type": "integer", "format": "int32" },
             "description": "The ID of the hardware to be used."
           },
           {
             "name": "currency",
             "in": "query",
             "required": true,
-            "schema": {
-              "type": "string",
-              "enum": ["usdc", "iocoin"]
-            },
+            "schema": { "type": "string", "enum": ["usdc", "iocoin"] },
             "description": "Currency in which the price should be calculated. Available values: usdc, iocoin."
           },
           {
             "name": "duration_hours",
             "in": "query",
             "required": true,
-            "schema": {
-              "type": "string",
-              "default": "1",
-              "minimum": 1
-            },
+            "schema": { "type": "string", "default": "1", "minimum": 1 },
             "description": "The number of hours the deployment will run. Defaults to 1. Minimum is 1."
           },
           {
             "name": "gpus_per_vm",
             "in": "query",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 1,
-              "minimum": 1
-            },
+            "schema": { "type": "integer", "format": "int32", "default": 1, "minimum": 1 },
             "description": "Number of GPUs allocated per VM. Defaults to 1. Minimum is 1."
           },
           {
             "name": "replica_count",
             "in": "query",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            },
+            "schema": { "type": "integer", "format": "int32" },
             "description": "The number of VM replicas requested."
           }
         ],
@@ -87,10 +67,7 @@
                       "properties": {
                         "replica_count": { "type": "integer", "default": 0 },
                         "gpus_per_vm": { "type": "integer", "default": 0 },
-                        "available_replica_count": {
-                          "type": "array",
-                          "items": { "type": "integer" }
-                        },
+                        "available_replica_count": { "type": "array", "items": { "type": "integer" } },
                         "discount": { "type": "integer", "default": 0 },
                         "ionet_fee": { "type": "integer", "default": 0 },
                         "ionet_fee_percent": { "type": "integer", "default": 0 },
@@ -122,16 +99,14 @@
               }
             }
           },
-          "404": {
-            "description": "No pricing data available for the provided parameters"
-          },
-          "422": {
-            "description": "Validation error"
-          }
+          "404": { "description": "No pricing data available for the provided parameters" },
+          "422": { "description": "Validation error" }
         },
-        "security": [
+        "security": [{ "api_key": [] }],
+        "x-code-samples": [
           {
-            "api_key": []
+            "lang": "cURL",
+            "source": "curl -X GET \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/price?location_ids=us-east-1&hardware_id=101&currency=usdc&duration_hours=4&gpus_per_vm=2&replica_count=3\" \\\n  -H \"x-api-key: $IOCLOUD_API_KEY\" \\\n  -H \"Content-Type: application/json\""
           }
         ]
       }
@@ -139,11 +114,7 @@
   },
   "components": {
     "securitySchemes": {
-      "api_key": {
-        "type": "apiKey",
-        "name": "x-api-key",
-        "in": "header"
-      }
+      "api_key": { "type": "apiKey", "name": "x-api-key", "in": "header" }
     }
   }
 }

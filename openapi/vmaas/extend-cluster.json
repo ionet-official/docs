@@ -15,9 +15,7 @@
             "name": "deployment_id",
             "in": "path",
             "required": true,
-            "schema": {
-              "type": "string"
-            },
+            "schema": { "type": "string" },
             "description": "Unique ID of the deployment to extend"
           }
         ],
@@ -35,6 +33,12 @@
                   }
                 },
                 "required": ["duration_hours"]
+              },
+              "examples": {
+                "extendExample": {
+                  "summary": "Extend Deployment Example",
+                  "value": { "duration_hours": 1 }
+                }
               }
             }
           }
@@ -76,14 +80,8 @@
                         "brand_name": { "type": "string", "example": "NVIDIA" },
                         "compute_minutes_served": { "type": "integer", "example": 0 },
                         "compute_minutes_remaining": { "type": "integer", "example": 0 },
-                        "ssh_keys": {
-                          "type": "object",
-                          "additionalProperties": { "type": "string" }
-                        },
-                        "github_ids": {
-                          "type": "array",
-                          "items": { "type": "string", "example": "github_user_1" }
-                        }
+                        "ssh_keys": { "type": "object", "additionalProperties": { "type": "string" } },
+                        "github_ids": { "type": "array", "items": { "type": "string", "example": "github_user_1" } }
                       }
                     }
                   }
@@ -91,16 +89,14 @@
               }
             }
           },
-          "404": {
-            "description": "Deployment not found"
-          },
-          "422": {
-            "description": "Validation error"
-          }
+          "404": { "description": "Deployment not found" },
+          "422": { "description": "Validation error" }
         },
-        "security": [
+        "security": [{ "api_key": [] }],
+        "x-code-samples": [
           {
-            "api_key": []
+            "lang": "cURL",
+            "source": "curl -X POST \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deployment/{deployment_id}/extend\" \\\n  -H \"x-api-key: $IOCLOUD_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"duration_hours\": 1\n  }'"
           }
         ]
       }
@@ -108,11 +104,7 @@
   },
   "components": {
     "securitySchemes": {
-      "api_key": {
-        "type": "apiKey",
-        "name": "x-api-key",
-        "in": "header"
-      }
+      "api_key": { "type": "apiKey", "name": "x-api-key", "in": "header" }
     }
   }
 }

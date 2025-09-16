@@ -85,16 +85,16 @@
               }
             }
           },
-          "404": {
-            "description": "No available VMs found for the provided parameters"
-          },
-          "422": {
-            "description": "Validation error"
-          }
+          "404": { "description": "No available VMs found for the provided parameters" },
+          "422": { "description": "Validation error" }
         },
         "security": [
+          { "api_key": [] }
+        ],
+        "x-code-samples": [
           {
-            "api_key": []
+            "lang": "cURL",
+            "source": "curl -X GET \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/available-vms?hardware_id=101&hardware_qty=2&node_pool_id=pool-123\" \\\n  -H \"x-api-key: $IOCLOUD_API_KEY\" \\\n  -H \"Content-Type: application/json\""
           }
         ]
       }

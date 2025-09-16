@@ -17,80 +17,19 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "resource_private_name": {
-                    "type": "string",
-                    "description": "Name assigned to the deployment."
-                  },
-                  "node_pool_id": {
-                    "type": "string",
-                    "description": "ID of the node pool for the deployment."
-                  },
-                  "duration_hours": {
-                    "type": "integer",
-                    "description": "The duration (in hours) for which the deployment should run.",
-                    "default": 1,
-                    "minimum": 1
-                  },
-                  "gpus_per_vm": {
-                    "type": "integer",
-                    "description": "Number of GPUs allocated per VM.",
-                    "default": 1,
-                    "minimum": 1
-                  },
-                  "hardware_id": {
-                    "type": "integer",
-                    "description": "ID of the hardware to use."
-                  },
-                  "location_ids": {
-                    "type": "array",
-                    "items": { "type": "integer" },
-                    "description": "List of location IDs for deployment."
-                  },
-                  "vms_qty": {
-                    "type": "integer",
-                    "description": "Number of VMs to deploy."
-                  },
-                  "ssh_keys": {
-                    "type": "object",
-                    "additionalProperties": {
-                      "type": "string"
-                    },
-                    "description": "SSH keys to be injected into the VMs."
-                  },
-                  "github_ids": {
-                    "type": "array",
-                    "items": { "type": "string" },
-                    "description": "GitHub IDs for authorized access."
-                  },
-                  "vm_image_type": {
-                    "type": "string",
-                    "description": "Type of VM image to use (e.g., general, custom)."
-                  },
-                  "network_services": {
-                    "type": "object",
-                    "additionalProperties": {
-                      "type": "object",
-                      "properties": {
-                        "port": { "type": "integer" },
-                        "protocol": { "type": "string" },
-                        "whitelist": {
-                          "type": "array",
-                          "items": { "type": "string" }
-                        }
-                      }
-                    },
-                    "description": "Network services configuration (ports, protocols, and whitelists)."
-                  }
+                  "resource_private_name": { "type": "string", "description": "Name assigned to the deployment." },
+                  "node_pool_id": { "type": "string", "description": "ID of the node pool for the deployment." },
+                  "duration_hours": { "type": "integer", "description": "The duration (in hours) for which the deployment should run.", "default": 1, "minimum": 1 },
+                  "gpus_per_vm": { "type": "integer", "description": "Number of GPUs allocated per VM.", "default": 1, "minimum": 1 },
+                  "hardware_id": { "type": "integer", "description": "ID of the hardware to use." },
+                  "location_ids": { "type": "array", "items": { "type": "integer" }, "description": "List of location IDs for deployment." },
+                  "vms_qty": { "type": "integer", "description": "Number of VMs to deploy." },
+                  "ssh_keys": { "type": "object", "additionalProperties": { "type": "string" }, "description": "SSH keys to be injected into the VMs." },
+                  "github_ids": { "type": "array", "items": { "type": "string" }, "description": "GitHub IDs for authorized access." },
+                  "vm_image_type": { "type": "string", "description": "Type of VM image to use (e.g., general, custom)." },
+                  "network_services": { "type": "object", "additionalProperties": { "type": "object", "properties": { "port": { "type": "integer" }, "protocol": { "type": "string" }, "whitelist": { "type": "array", "items": { "type": "string" } } } }, "description": "Network services configuration (ports, protocols, and whitelists)." }
                 },
-                "required": [
-                  "resource_private_name",
-                  "node_pool_id",
-                  "duration_hours",
-                  "gpus_per_vm",
-                  "hardware_id",
-                  "location_ids",
-                  "vms_qty"
-                ]
+                "required": ["resource_private_name","node_pool_id","duration_hours","gpus_per_vm","hardware_id","location_ids","vms_qty"]
               },
               "examples": {
                 "deployExample": {
@@ -101,25 +40,17 @@
                     "duration_hours": 4,
                     "gpus_per_vm": 2,
                     "hardware_id": 101,
-                    "location_ids": [1, 2],
+                    "location_ids": [1,2],
                     "vms_qty": 3,
                     "ssh_keys": {
                       "key1": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC...",
                       "key2": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD..."
                     },
-                    "github_ids": ["github_user_1", "github_user_2"],
+                    "github_ids": ["github_user_1","github_user_2"],
                     "vm_image_type": "general",
                     "network_services": {
-                      "service1": {
-                        "port": 22,
-                        "protocol": "tcp",
-                        "whitelist": ["0.0.0.0/0"]
-                      },
-                      "service2": {
-                        "port": 80,
-                        "protocol": "tcp",
-                        "whitelist": ["0.0.0.0/0"]
-                      }
+                      "service1": { "port": 22, "protocol": "tcp", "whitelist": ["0.0.0.0/0"] },
+                      "service2": { "port": 80, "protocol": "tcp", "whitelist": ["0.0.0.0/0"] }
                     }
                   }
                 }
@@ -132,28 +63,21 @@
             "description": "Deployment created successfully",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "string"
-                },
+                "schema": { "type": "string" },
                 "examples": {
-                  "success": {
-                    "summary": "Successful Response",
-                    "value": "string"
-                  }
+                  "success": { "summary": "Successful Response", "value": "string" }
                 }
               }
             }
           },
-          "404": {
-            "description": "Deployment not found or location/hardware unavailable"
-          },
-          "422": {
-            "description": "Validation error"
-          }
+          "404": { "description": "Deployment not found or location/hardware unavailable" },
+          "422": { "description": "Validation error" }
         },
-        "security": [
+        "security": [{ "api_key": [] }],
+        "x-code-samples": [
           {
-            "api_key": []
+            "lang": "cURL",
+            "source": "curl -X POST \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deploy\" \\\n  -H \"x-api-key: $IOCLOUD_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"resource_private_name\": \"example-deployment\",\n    \"node_pool_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n    \"duration_hours\": 4,\n    \"gpus_per_vm\": 2,\n    \"hardware_id\": 101,\n    \"location_ids\": [1, 2],\n    \"vms_qty\": 3,\n    \"ssh_keys\": {\n      \"key1\": \"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC...\",\n      \"key2\": \"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD...\"\n    },\n    \"github_ids\": [\"github_user_1\", \"github_user_2\"],\n    \"vm_image_type\": \"general\",\n    \"network_services\": {\n      \"service1\": {\"port\": 22, \"protocol\": \"tcp\", \"whitelist\": [\"0.0.0.0/0\"]},\n      \"service2\": {\"port\": 80, \"protocol\": \"tcp\", \"whitelist\": [\"0.0.0.0/0\"]}\n    }\n  }'"
           }
         ]
       }
@@ -161,11 +85,7 @@
   },
   "components": {
     "securitySchemes": {
-      "api_key": {
-        "type": "apiKey",
-        "name": "x-api-key",
-        "in": "header"
-      }
+      "api_key": { "type": "apiKey", "name": "x-api-key", "in": "header" }
     }
   }
 }
