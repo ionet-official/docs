@@ -48,7 +48,53 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "data": { "type": "object" }
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "total": { "type": "integer", "default": 0 },
+                        "workers": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "device_id": { "type": "string" },
+                              "vm_id": { "type": "string" },
+                              "hardware": { "type": "string" },
+                              "brand_name": { "type": "string" },
+                              "created_at": { "type": "string", "format": "date-time" },
+                              "uptime_percent": { "type": "integer", "default": 0 },
+                              "gpus_per_vm": { "type": "integer", "default": 0 },
+                              "status": { "type": "string" },
+                              "vm_events": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "time": { "type": "string", "format": "date-time" },
+                                    "message": { "type": "string" }
+                                  }
+                                }
+                              },
+                              "network_services": {
+                                "type": "object",
+                                "additionalProperties": {
+                                  "type": "object",
+                                  "properties": {
+                                    "port": { "type": "integer" },
+                                    "protocol": { "type": "string" },
+                                    "whitelist": { "type": "array", "items": { "type": "string" } },
+                                    "public_port": { "type": "integer" },
+                                    "public_ip": { "type": "string" },
+                                    "srv_record": { "type": "string" }
+                                  }
+                                }
+                              },
+                              "ssh_access": { "type": "string" }
+                            }
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               }
@@ -57,20 +103,15 @@
           "404": { "description": "Deployment or container not found" },
           "422": { "description": "Validation error" }
         },
-        "security": [{ "api_key": [] }],
-        "x-readme": {
-          "code-samples": [
-            {
-              "language": "curl",
-              "code": "curl -X GET \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deployment/{deployment_id}/vms-jobs/{container_id}?page=0&page_size=20\" \\\n  -H \"x-api-key: $IOCLOUD_API_KEY\" \\\n  -H \"Content-Type: application/json\""
-            },
-            {
-              "language": "python",
-              "code": "import requests\n\nurl = \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deployment/{deployment_id}/vms-jobs/{container_id}?page=0&page_size=20\"\nheaders = {\"x-api-key\": \"$IOCLOUD_API_KEY\", \"Content-Type\": \"application/json\"}\nresponse = requests.get(url, headers=headers)\nprint(response.status_code)\nprint(response.json())"
-            }
-          ],
-          "samples-languages": ["curl", "python"]
-        }
+        "security": [
+          { "api_key": [] }
+        ],
+        "x-code-samples": [
+          {
+            "lang": "cURL",
+            "source": "curl -X GET \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deployment/{deployment_id}/vms-jobs/{container_id}?page=0&page_size=20\" \\\n  -H \"x-api-key: $IOCLOUD_API_KEY\" \\\n  -H \"Content-Type: application/json\""
+          }
+        ]
       }
     }
   },
