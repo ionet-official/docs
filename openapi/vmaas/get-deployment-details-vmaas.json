@@ -12,8 +12,9 @@
   "components": {
     "securitySchemes": {
       "sec0": {
-        "type": "oauth2",
-        "flows": {}
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key"
       }
     }
   },
@@ -23,30 +24,62 @@
     }
   ],
   "paths": {
-    "/enterprise/v1/io-cloud/caas/hardware/max-gpus-per-container": {
+    "/enterprise/v1/io-cloud/vmaas/deployment/{deployment_id}": {
       "get": {
-        "summary": "Check maximum GPUs per container",
-        "description": "Returns the maximum number of GPUs available per hardware type across all locations, helping to determine deployment limits by hardware.",
-        "operationId": "check-maximum-gpus-per-container",
+        "summary": "Get Deployment Details",
+        "description": "Fetch detailed information about a specific deployment by its ID, including cluster specifications, runtime status, and associated resources.",
+        "operationId": "get-deployment-details-vmaas",
+        "parameters": [
+          {
+            "name": "deployment_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+            },
+            "description": "Unique identifier of the deployment"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "Successful response with deployment details",
             "content": {
               "application/json": {
                 "examples": {
                   "Result": {
                     "value": {
                       "data": {
-                        "hardware": [
+                        "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                        "status": "running",
+                        "created_at": "2025-08-26T09:29:52.183Z",
+                        "started_at": "2025-08-26T09:29:52.183Z",
+                        "finished_at": "2025-08-26T09:29:52.183Z",
+                        "amount_paid": 0,
+                        "completed_percent": 0,
+                        "total_gpus": 0,
+                        "gpus_per_vm": 0,
+                        "total_vms": 0,
+                        "hardware_name": "NVIDIA RTX 3090",
+                        "hardware_id": 123,
+                        "locations": [
                           {
-                            "max_gpus_per_container": 0,
-                            "available": 0,
-                            "hardware_id": 0,
-                            "hardware_name": "string",
-                            "brand_name": "string"
+                            "id": 1,
+                            "iso2": "US",
+                            "name": "United States"
                           }
                         ],
-                        "total": 0
+                        "brand_name": "NVIDIA",
+                        "compute_minutes_served": 120,
+                        "compute_minutes_remaining": 60,
+                        "ssh_keys": {
+                          "key1": "ssh-rsa AAAAB3...",
+                          "key2": "ssh-rsa BBBCC3..."
+                        },
+                        "github_ids": [
+                          "octocat",
+                          "developer123"
+                        ]
                       }
                     }
                   }
@@ -57,41 +90,114 @@
                     "data": {
                       "type": "object",
                       "properties": {
-                        "hardware": {
+                        "id": {
+                          "type": "string",
+                          "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                        },
+                        "status": {
+                          "type": "string",
+                          "example": "running"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2025-08-26T09:29:52.183Z"
+                        },
+                        "started_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2025-08-26T09:29:52.183Z"
+                        },
+                        "finished_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2025-08-26T09:29:52.183Z"
+                        },
+                        "amount_paid": {
+                          "type": "integer",
+                          "default": 0,
+                          "example": 100
+                        },
+                        "completed_percent": {
+                          "type": "integer",
+                          "default": 0,
+                          "example": 75
+                        },
+                        "total_gpus": {
+                          "type": "integer",
+                          "default": 0,
+                          "example": 8
+                        },
+                        "gpus_per_vm": {
+                          "type": "integer",
+                          "default": 0,
+                          "example": 2
+                        },
+                        "total_vms": {
+                          "type": "integer",
+                          "default": 0,
+                          "example": 4
+                        },
+                        "hardware_name": {
+                          "type": "string",
+                          "example": "NVIDIA RTX 3090"
+                        },
+                        "hardware_id": {
+                          "type": "integer",
+                          "default": 0,
+                          "example": 123
+                        },
+                        "locations": {
                           "type": "array",
                           "items": {
                             "type": "object",
                             "properties": {
-                              "max_gpus_per_container": {
+                              "id": {
                                 "type": "integer",
-                                "example": 0,
-                                "default": 0
+                                "default": 0,
+                                "example": 1
                               },
-                              "available": {
-                                "type": "integer",
-                                "example": 0,
-                                "default": 0
-                              },
-                              "hardware_id": {
-                                "type": "integer",
-                                "example": 0,
-                                "default": 0
-                              },
-                              "hardware_name": {
+                              "iso2": {
                                 "type": "string",
-                                "example": "string"
+                                "example": "US"
                               },
-                              "brand_name": {
+                              "name": {
                                 "type": "string",
-                                "example": "string"
+                                "example": "United States"
                               }
                             }
                           }
                         },
-                        "total": {
+                        "brand_name": {
+                          "type": "string",
+                          "example": "NVIDIA"
+                        },
+                        "compute_minutes_served": {
                           "type": "integer",
-                          "example": 0,
-                          "default": 0
+                          "default": 0,
+                          "example": 120
+                        },
+                        "compute_minutes_remaining": {
+                          "type": "integer",
+                          "default": 0,
+                          "example": 60
+                        },
+                        "ssh_keys": {
+                          "type": "object",
+                          "additionalProperties": {
+                            "type": "string"
+                          },
+                          "example": {
+                            "key1": "ssh-rsa AAAAB3...",
+                            "key2": "ssh-rsa BBBCC3..."
+                          }
+                        },
+                        "github_ids": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "example": ["octocat", "developer123"]
                         }
                       }
                     }
@@ -101,41 +207,20 @@
             }
           },
           "404": {
-            "description": "404",
+            "description": "Deployment not found",
             "content": {
               "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": "string"
-                  }
-                },
                 "schema": {
                   "type": "string",
-                  "example": "string"
+                  "example": "Deployment not found"
                 }
               }
             }
           },
           "422": {
-            "description": "422",
+            "description": "Validation error",
             "content": {
-              "text/plain": {
-                "examples": {
-                  "Result": {
-                    "value": {
-                      "detail": [
-                        {
-                          "loc": [
-                            "string",
-                            0
-                          ],
-                          "msg": "string",
-                          "type": "string"
-                        }
-                      ]
-                    }
-                  }
-                },
+              "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
@@ -145,15 +230,16 @@
                         "type": "object",
                         "properties": {
                           "loc": {
-                            "type": "array"
+                            "type": "array",
+                            "items": {
+                              "type": ["string", "integer"]
+                            }
                           },
                           "msg": {
-                            "type": "string",
-                            "example": "string"
+                            "type": "string"
                           },
                           "type": {
-                            "type": "string",
-                            "example": "string"
+                            "type": "string"
                           }
                         }
                       }
@@ -164,16 +250,15 @@
             }
           }
         },
-        "deprecated": false,
         "x-readme": {
           "code-samples": [
             {
               "language": "curl",
-              "code": "curl https://api.io.solutions/enterprise/v1/io-cloud/caas/hardware/max-gpus-per-container \\\n  -H \"X-API-KEY: $IOCLOUD_API_KEY\" "
+              "code": "curl -X GET \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deployment/{deployment_id}\" \\\n  -H \"x-api-key: $IOCLOUD_API_KEY\" \\\n  -H \"Content-Type: application/json\""
             },
             {
               "language": "python",
-              "code": "import requests\n\nurl = \"https://api.io.solutions/enterprise/v1/io-cloud/caas/hardware/max-gpus-per-container\"\n\nheaders = {\n    \"X-API-KEY\": \"$IOCLOUD_API_KEY\"\n}\n\nresponse = requests.get(url, headers=headers)\n\nprint(response.status_code)\nprint(response.json())"
+              "code": "import requests\n\nurl = \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deployment/{deployment_id}\"\nheaders = {\n    \"x-api-key\": \"$IOCLOUD_API_KEY\",\n    \"Content-Type\": \"application/json\"\n}\nresponse = requests.get(url, headers=headers)\nprint(response.status_code)\nprint(response.json())"
             }
           ],
           "samples-languages": [
