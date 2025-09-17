@@ -283,21 +283,21 @@
               {
                 "group": "Getting Started with AI Models API",
                 "pages": [
-                  "reference/get-started-with-io-intelligence-api",
-                  "reference/uploading-images",
-                  "reference/get-models-list",
-                  "reference/create-chat-completion",
-                  "reference/get-embedding-models-list",
-                  "reference/create-embedding"
+                  "reference/ai-models/get-started-with-io-intelligence-api",
+                  "reference/ai-models/uploading-images",
+                  "reference/ai-models/get-models-list",
+                  "reference/ai-models/create-chat-completion",
+                  "reference/ai-models/get-embedding-models-list",
+                  "reference/ai-models/create-embedding"
                 ]
               },
               {
                 "group": "Getting Started with AI Agents API",
                 "pages": [
-                  "reference/getting-started-with-api-agents",
-                  "reference/get-agents-list",
-                  "reference/workflows-schema",
-                  "reference/workflows-run"
+                  "reference/ai-agents/getting-started-with-api-agents",
+                  "reference/ai-agents/get-agents-list",
+                  "reference/ai-agents/workflows-schema",
+                  "reference/ai-agents/workflows-run"
                 ]
               }
             ]
