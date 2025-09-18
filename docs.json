@@ -129,8 +129,7 @@
             "guides/intelligence/retrieval-engine",
             "guides/intelligence/agent-framework",
             "guides/intelligence/agentic-workflow",
-            "guides/intelligence/training-as-a-service",
-            "guides/intelligence/using-our-docs-in-context7-mcp"
+            "guides/intelligence/training-as-a-service"
         ]
       },
       {
@@ -459,7 +458,7 @@
             ]
           },
           {
-            "group": "IO CLOUDS",
+            "group": "IO Cloud",
             "pages": [
               {
                 "group": "Get Started With CaaS API",
