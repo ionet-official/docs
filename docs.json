@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "",
+  "name": "io.net",
   "colors": {
     "primary": "#6b6b6b",
     "light": "#6b6b6b",
@@ -18,10 +18,10 @@
         "tab": "Core Concepts",
         "groups": [
           {
-            "group": "Company",
+            "group": "IO Overview",
             "pages": [
               "guides/inception",
-              "guides/faq",
+              
               {
                 "group": "IO Coin",
                 "pages": [
@@ -72,7 +72,8 @@
                   "guides/bc8/settings-privacy",
                   "guides/bc8/frequently-asked-questions"
                 ]
-              }
+              },
+              "guides/faq"
             ]
           },
           {
