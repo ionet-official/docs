@@ -11,6 +11,8 @@ With IO Intelligence’s [Training as a Service (TaaS)](https://ai.io.net/ai/tra
 
 Built for builders, researchers, developers, and businesses, TaaS gives you greater control over how your AI learns and adapts. With support for advanced techniques such as PPO, DPO, and reward modeling, you can move beyond traditional fine-tuning and experiment at the cutting edge of machine learning.
 
+<iframe className="w-full aspect-video rounded-xl" src="https://www.youtube.com/embed/TivZctC8MNs" title="Training as a Service with IO Intelligence" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen />
+
 ## Getting Started
 
 To begin training your model:
@@ -39,32 +41,32 @@ The Training Model form is designed to guide you through the setup process, step
 
 Pick how your model should learn. You can choose from a variety of advanced methods:
 
-- **Supervised Fine-Tuning** Teach your model using labeled datasets for task-specific learning.
-- **Reward Modeling** Train your model to assign scores to generated responses.
-- **Proximal Policy Optimization (PPO)** Use reinforcement learning with reward feedback.
-- **Direct Preference Optimization (DPO)** Optimize the model directly using ranked preferences.
-- **Controlled Tuning Optimization** _(Experimental)_ Apply KL-regularized tuning for fine-grained control.
+- **Supervised Fine-Tuning**: Teach your model using labeled datasets for task-specific learning.
+- **Reward Modeling:** Train your model to assign scores to generated responses.
+- **Proximal Policy Optimization (PPO):** Use reinforcement learning with reward feedback.
+- **Direct Preference Optimization (DPO):** Optimize the model directly using ranked preferences.
+- **Controlled Tuning Optimization** _(Experimental):_ Apply KL-regularized tuning for fine-grained control.
 
 <Frame>
   ![](/images/docs/e57aa8c3c7c52a70659857d7a78ad7f93f6227b6868707ef7e294cf2373d27e2-Trainin_Model-10.jpg)
 </Frame>
 
-### 2. Choose a Base Model
+### 2. Select a Base Model
 
-You can either select a **pre-integrated** model from our library or bring your own model from **Hugging Face**.
+You can select a **pre-integrated** model from our library or bring your own model from **Hugging Face**.
 
-**Option A: Use a Preloaded Model** Choose from popular base models in the dropdown list - e.g., LLaMA, Mistral, Falcon, GPT-Neo, etc.
+**Option A - Use a Preloaded Model**: Choose from popular base models in the dropdown list - e.g., LLaMA, Mistral, Falcon, GPT-Neo, etc.
 
 <Frame>
   ![](/images/docs/e048f51554b5712d12977ab3570551fcc76ba789d6bab82e5f91dd0d3017bfed-Trainin_Model-11.jpg)
 </Frame>
 
-**Option B: Link a Hugging Face Model**
+**Option B - Link a Hugging Face Model:**
 
 1. Paste your Hugging Face model repo link in the field.
-2. Click **Test** button.
-3. If it's got the connection, you’ll see: "Successfully tested."
-4. If the repository is **private** or **invalid**, a prompt will appear requesting your **Hugging Face Token**, with the following message: _“The repo is private or does not exist. Provide an HF Token.”_ [How to get your Hugging Face Token](https://huggingface.co/docs/hub/en/security-tokens)
+2. Click the **Test** button.
+3. If the connection is successful, you will see: "_Successfully tested._"
+4. If the repository is **private** or **invalid**, a prompt will appear requesting your **Hugging Face Token**, with the following message: _“The repo is private or does not exist. Provide an HF Token.”_ For more information, refer to [How to get your Hugging Face Token](https://huggingface.co/docs/hub/en/security-tokens).
 
 <Frame>
   ![](/images/docs/8552d9154cb96ece70a90d68bcc8c0ccff5b700b2e39976e4845b57d753a83a6-Trainin_Model-11-2.jpg)
@@ -72,7 +74,7 @@ You can either select a **pre-integrated** model from our library or bring your 
 
 ### 3. Select a Dataset
 
-Choose training data from a **curated list** or bring your own dataset from Hugging Face.
+Choose training data from a **curated list** or bring your own custom dataset.
 
 **Option A - Use a Built-in Dataset**: Select from our list of available datasets using the dropdown.
 
@@ -86,31 +88,29 @@ Choose training data from a **curated list** or bring your own dataset from Hugg
   ![Dataset Options](/images/docs/io-intelligence/TaaS/TaaS_SelectDataset.png)
 </Frame>
 
-### 4. Submit Training Request
+### 4. Choose a Training Style
 
-Once all fields are completed, click the Request Training button. A popup will appear requesting:
+Depending on your goal, you can select between **Simple Creating** and **Advanced Creating** when training a model.
 
-- **Use Case** - describe how you plan to use the trained model.
-- **Preferred Contact Method** - specify how you'd like to be contacted (Email, Telegram, Discord, etc.).
+**Option A - Simple Creating**: Uses default settings for a quick and straightforward setup. Best if you want to get started fast without managing technical details.
 
-Then, click the **Submit** button to send your request. Once it’s **approved**, the support team will notify you when the training has started.
+**Option B - Advanced Creating**: Offers full flexibility and control. Choose this if your goal is to customize every aspect of how your model learns, from hyperparameters to optimization strategies.
 
 <Frame>
-  <img
-    src="/images/docs/5b703eace6cf4d10bfcfda76444d19e974525cb7141aab3dbf0dd650ffa3383c-Trainin_Model-13.jpeg"
-    alt=""
-    className="mx-auto"
-    style={{ width:"59%" }}
-  />
+  ![Training Style Options](/images/docs/io-intelligence/TaaS/TaaS_SelectTrainingStyle.png)
 </Frame>
 
-## Training Model Dashboard
+### 5. Start Training
 
-Once you have a model ready for testing, go to the Training Model section in your dashboard to monitor everything in one place. Here’s what you’ll see:
+After completing all fields, click **Start Training** to begin.
+
+## Training Dashboard
+
+The following sections can be viewed in the Training Dashboard.
 
 #### Your Current Plan
 
-At the top of the page, you’ll find your current plan details. You’ll also see a button to **Upgrade Your Plan** if you need more training runs or faster processing.
+At the top of the page, you can view your current plan details. To increase your training runs or access faster processing, click the **Upgrade** button.
 
 <Frame>
   <img
@@ -123,24 +123,24 @@ At the top of the page, you’ll find your current plan details. You’ll also s
 
 #### Your Training Jobs
 
-Below your plan, there’s a Training Jobs Table where you can view and manage all your model training requests. Each row shows key details: Job ID, Base Model, User Tag, Type, Status, Run Time
+Below your plan, there is a **Training Jobs** table where you can view and manage all your model training requests. Each row shows key details such as, _Job ID_, _Base Model_, _Type_, _Status_, and _Run Time._
 
-Click on any job to open the detailed view and see how it’s progressing.
+Click on any job to open the detailed view and see how it is progressing.
 
 <Frame>
-  ![](/images/docs/4f0fda9968761cb43fc7a17703b30601651be53607e1d82c6841401f85f5306a-Trainin_Model-4.jpeg)
+  ![Your Training Jobs table](/images/docs/io-intelligence/TaaS/TaaS_YourTrainingJobs.png)
 </Frame>
 
-## Job Details Page
+## Job Details
 
-Click on a job from the dashboard to open its Job Details Page. This page provides everything you need to track and manage your model training in real time.
+Click on a job from the dashboard to open its Job Details. This screen provides everything you need to track and manage your model training in real time.
 
-At the top of the page, you’ll find:
+At the top of the page are the following options and indicators:
 
-- **Download Model** – Once the job is complete, you can download the final model.
-- **Abort Training** – Stop the job manually if needed.
-- **Time Remaining** – How much time is left for the training to finish.
-- **Time Passed** – How long the job has been running.
+- **Download Model** – Available once the job is complete, to download the final model.
+- **Abort Training** – Manually stop the job if necessary.
+- **Time Remaining** – Displays how much time is left for training to finish.
+- **Time Passed** – Shows how long the job has been running.
 
 <Frame>
   ![](/images/docs/6273b5b8b8470fe6464fa2c18e916d95a362cc655b24c1c6f34465e92cef8052-Trainin_Model-5.png)
@@ -148,13 +148,11 @@ At the top of the page, you’ll find:
 
 ### Training Metrics (Charts)
 
-Track your model’s learning performance in real time. Use the dropdown menu to switch between different visualizations, such as:
+Track your model’s learning performance in real time.
 
 - **Loss Chart** – Shows how training loss decreases over time.
-- **Accuracy** – Indicates how well your model is predicting.
-- **Number of Predictions** – Tracks how much data the model has processed.
 
-These visual tools help you understand if your model is learning effectively - or needs adjustment.
+This visual tool allows you to understand if your model is learning effectively - or if it needs adjustments.
 
 <Frame>
   ![](/images/docs/b8f13767747274e13e4b3181fb13e9b3af03f142959486a57dde18251eec4742-Trainin_Model-6.jpg)
@@ -162,16 +160,16 @@ These visual tools help you understand if your model is learning effectively - o
 
 ### Training Details
 
-Here’s a quick summary of all the key information about your training job:
+A summary of the key information for the training job is provided as follows:
 
-- **Status** – Created, Deploying, Deploy Failed, Training Failed, Training, or Completed
+- **Status** – Created, Deploying, Deploy Failed, Training Failed, Training, or Completed.
 - **Date Created**
 - **Model Name**
 - **Training Method**
 - **Base Model Used**
 - **Dataset Used**
-- **User Tag** (your custom label or identifier)
-- **End Date** (if completed or aborted)
+- **User Tag** - Custom label or identifier.
+- **End Date** - If completed or aborted.
 
 <Frame>
   ![](/images/docs/7b3448dcffb21f3fa78a20022fb591b792549f0196dec1a5eb09e55b7127d878-Trainin_Model-7.jpg)
@@ -179,23 +177,10 @@ Here’s a quick summary of all the key information about your training job:
 
 ### Training Logs
 
-Training Logs help users understand what’s happening behind the scenes during the model training process. Here, you’ll find a detailed list of steps, events, and status updates throughout the job’s lifecycle — especially useful for debugging, monitoring, or maintaining transparency.
+Training Logs provide visibility into what occurs behind the scenes during the model training process. They contain a detailed list of steps, events, and status updates throughout the job’s lifecycle, making them especially useful for debugging, monitoring, or maintaining transparency.
 
-If you need to **download the logs**, click the **Download Logs** button to save them locally for review or record-keeping.
+To download the logs, select the **Download Logs** button to save them locally for review or record-keeping.
 
 <Frame>
   ![](/images/docs/959697a437df64529dd8de1d4c318ec71bb41bf8cbb697a08714e18f259f216e-Trainin_Model-8_2.jpg)
-</Frame>
-
-### Checkpoints
-
-As your model trains, it automatically saves checkpoints - snapshots of its progress. This way, you can:
-
-- See how performance changes at each checkpoint
-- Test a checkpoint to preview the model at different stages
-
-Each checkpoint includes: Checkpoint, Step, Accuracy, Predictions, Loss Action
-
-<Frame>
-  ![](/images/docs/669dfc428e8fe364bf5cdc1c3436859d68d4292fb53928eaa1fb3618b2d6b564-Trainin_Model-8.jpg)
 </Frame>
