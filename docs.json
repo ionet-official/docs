@@ -322,7 +322,7 @@
               {
                 "group": "Documents",
                 "pages": [
-                  "reference/documents",
+                  "reference/rag/documents",
                   "reference/rag/documents/list-all-documents",
                   "reference/rag/documents/upload-and-ingest-a-document",
                   "reference/rag/documents/replace-document-metadata",
@@ -343,36 +343,36 @@
               {
                 "group": "Graphs",
                 "pages": [
-                  "reference/graphs",
-                  "reference/get-graph-overview",
-                  "reference/get-graph-data-for-a-collection",
-                  "reference/pull-and-rebuild-graph",
+                  "reference/rag/graphs",
+                  "reference/rag/graphs/get-graph-overview",
+                  "reference/rag/graphs/get-graph-data-for-a-collection",
+                  "reference/rag/graphs/pull-and-rebuild-graph",
                   {
                     "group": "Entities",
                     "pages": [
-                      "reference/entities",
-                      "reference/list-graph-entities",
-                      "reference/add-new-entities",
-                      "reference/get-single-entity-details"
+                      "reference/rag/graphs/entities",
+                      "reference/rag/graphs/entities/list-graph-entities",
+                      "reference/rag/graphs/entities/add-new-entities",
+                      "reference/rag/graphs/entities/get-single-entity-details"
                     ]
                   },
                   {
                     "group": "Relationships",
                     "pages": [
-                      "reference/relationships",
-                      "reference/get-graph-relationships",
-                      "reference/get-relationship-details"
+                      "reference/rag/graphs/relationships",
+                      "reference/rag/graphs/relationships/get-graph-relationships",
+                      "reference/rag/graphs/relationships/get-relationship-details"
                     ]
                   },
                   {
                     "group": "Communities",
                     "pages": [
-                      "reference/communities",
-                      "reference/list-communities",
-                      "reference/build-graph-communities",
-                      "reference/get-community-details",
-                      "reference/update-a-community",
-                      "reference/delete-a-community"
+                      "reference/rag/graphs/communities",
+                      "reference/rag/graphs/communities/list-communities",
+                      "reference/rag/graphs/communities/build-graph-communities",
+                      "reference/rag/graphs/communities/get-community-details",
+                      "reference/rag/graphs/communities/update-a-community",
+                      "reference/rag/graphs/communities/delete-a-community"
                     ]
                   }
                 ]
@@ -380,79 +380,79 @@
               {
                 "group": "Indices",
                 "pages": [
-                  "reference/indices",
-                  "reference/list-all-indices",
-                  "reference/get-specific-index-details",
-                  "reference/delete-an-index"
+                  "reference/rag/indices",
+                  "reference/rag/indices/list-all-indices",
+                  "reference/rag/indices/get-specific-index-details",
+                  "reference/rag/indices/delete-an-index"
                 ]
               },
               {
                 "group": "Users",
                 "pages": [
-                  "reference/users",
-                  "reference/get-current-user",
-                  "reference/get-user-by-id",
-                  "reference/get-user-limits",
-                  "reference/list-users-collections",
-                  "reference/add-collection-to-user",
-                  "reference/delete-user-from-collection"
+                  "reference/rag/users",
+                  "reference/rag/users/get-current-user",
+                  "reference/rag/users/get-user-by-id",
+                  "reference/rag/users/get-user-limits",
+                  "reference/rag/users/list-users-collections",
+                  "reference/rag/users/add-collection-to-user",
+                  "reference/rag/users/delete-user-from-collection"
                 ]
               },
               {
                 "group": "Collections",
                 "pages": [
-                  "reference/collections",
-                  "reference/list-collections",
-                  "reference/create-a-new-collection",
-                  "reference/get-collection-by-id",
-                  "reference/update-collection",
-                  "reference/delete-collection",
-                  "reference/list-documents-in-collection",
-                  "reference/add-document-to-collection",
-                  "reference/remove-document-from-collection",
-                  "reference/list-users-in-a-collection",
-                  "reference/add-user-to-collection",
-                  "reference/remove-user-from-collection",
-                  "reference/trigger-extraction-for-a-collection",
-                  "reference/get-collection-by-name"
+                  "reference/rag/collections",
+                  "reference/rag/collections/list-collections",
+                  "reference/rag/collections/create-a-new-collection",
+                  "reference/rag/collections/get-collection-by-id",
+                  "reference/rag/collections/update-collection",
+                  "reference/rag/collections/delete-collection",
+                  "reference/rag/collections/list-documents-in-collection",
+                  "reference/rag/collections/add-document-to-collection",
+                  "reference/rag/collections/remove-document-from-collection",
+                  "reference/rag/collections/list-users-in-a-collection",
+                  "reference/rag/collections/add-user-to-collection",
+                  "reference/rag/collections/remove-user-from-collection",
+                  "reference/rag/collections/trigger-extraction-for-a-collection",
+                  "reference/rag/collections/get-collection-by-name"
                 ]
               },
               {
                 "group": "Conversations",
                 "pages": [
-                  "reference/conversations",
-                  "reference/list-conversations",
-                  "reference/create-a-new-conversation",
-                  "reference/get-conversation-details",
-                  "reference/update-conversation",
-                  "reference/delete-a-conversation",
-                  "reference/add-a-message-to-a-conversation",
-                  "reference/update-a-message"
+                  "reference/rag/conversations",
+                  "reference/rag/conversations/list-conversations",
+                  "reference/rag/conversations/create-a-new-conversation",
+                  "reference/rag/conversations/get-conversation-details",
+                  "reference/rag/conversations/update-conversation",
+                  "reference/rag/conversations/delete-a-conversation",
+                  "reference/rag/conversations/add-a-message-to-a-conversation",
+                  "reference/rag/conversations/update-a-message"
                 ]
               },
               {
                 "group": "Prompts",
                 "pages": [
-                  "reference/prompts",
-                  "reference/list-all-prompts"
+                  "reference/rag/prompts",
+                  "reference/rag/prompts/list-all-prompts"
                 ]
               },
               {
                 "group": "Chunks",
                 "pages": [
-                  "reference/chunks",
-                  "reference/search-chunks",
-                  "reference/get-chunk-by-id",
-                  "reference/update-chunk",
-                  "reference/delete-chunk",
-                  "reference/list-chunks"
+                  "reference/rag/chunks",
+                  "reference/rag/chunks/search-chunks",
+                  "reference/rag/chunks/get-chunk-by-id",
+                  "reference/rag/chunks/update-chunk",
+                  "reference/rag/chunks/delete-chunk",
+                  "reference/rag/chunks/list-chunks"
                 ]
               },
               {
                 "group": "System",
                 "pages": [
-                  "reference/system",
-                  "reference/health-check"
+                  "reference/rag/system",
+                  "reference/rag/system/health-check"
                 ]
               }
             ]
