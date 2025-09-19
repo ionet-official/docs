@@ -306,38 +306,38 @@
           {
             "group": "RAG API",
             "pages": [
-              "reference/getting-started-with-the-rag-api",
+              "reference/rag/getting-started-with-the-rag-api",
               {
                 "group": "Retrieval",
                 "pages": [
-                  "reference/retrieval",
-                  "reference/streaming-retrieval-api",
-                  "reference/semantic-search",
-                  "reference/retrieve-and-generate-rag",
-                  "reference/agent-based-query-resolution",
-                  "reference/prompt-based-completion",
-                  "reference/generate-embedding"
+                  "reference/rag/retrieval",
+                  "reference/rag/retrieval/streaming-retrieval-api",
+                  "reference/rag/retrieval/semantic-search",
+                  "reference/rag/retrieval/retrieve-and-generate-rag",
+                  "reference/rag/retrieval/agent-based-query-resolution",
+                  "reference/rag/retrieval/prompt-based-completion",
+                  "reference/rag/retrieval/generate-embedding"
                 ]
               },
               {
                 "group": "Documents",
                 "pages": [
                   "reference/documents",
-                  "reference/list-all-documents",
-                  "reference/upload-and-ingest-a-document",
-                  "reference/replace-document-metadata",
-                  "reference/update-document-metadata-partial",
-                  "reference/download-documents-as-zip",
-                  "reference/get-document-by-id",
-                  "reference/delete-document-by-id",
-                  "reference/get-document-chunks",
-                  "reference/download-original-file",
-                  "reference/delete-documents-by-filter",
-                  "reference/extract-entities",
-                  "reference/deduplicate-document",
-                  "reference/get-extracted-entities",
-                  "reference/get-relationships",
-                  "reference/search-documents"
+                  "reference/rag/documents/list-all-documents",
+                  "reference/rag/documents/upload-and-ingest-a-document",
+                  "reference/rag/documents/replace-document-metadata",
+                  "reference/rag/documents/update-document-metadata-partial",
+                  "reference/rag/documents/download-documents-as-zip",
+                  "reference/rag/documents/get-document-by-id",
+                  "reference/rag/documents/delete-document-by-id",
+                  "reference/rag/documents/get-document-chunks",
+                  "reference/rag/documents/download-original-file",
+                  "reference/rag/documents/delete-documents-by-filter",
+                  "reference/rag/documents/extract-entities",
+                  "reference/rag/documents/deduplicate-document",
+                  "reference/rag/documents/get-extracted-entities",
+                  "reference/rag/documents/get-relationships",
+                  "reference/rag/documents/search-documents"
                 ]
               },
               {
