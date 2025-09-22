@@ -55,26 +55,40 @@ Pick how your model should learn. You can choose from a variety of advanced meth
 
 You can select a **pre-integrated** model from our library or bring your own model from **Hugging Face**.
 
-**Option A - Use a Preloaded Model**: Choose from popular base models in the dropdown list - e.g., LLaMA, Mistral, Falcon, GPT-Neo, etc.
+<Tabs>
+  <Tab title="Option A - Use a Preloaded Model">
+    Choose from popular base models in the dropdown list - e.g., LLaMA, Mistral, Falcon, GPT-Neo, etc.
 
-<Frame>
-  ![](/images/docs/e048f51554b5712d12977ab3570551fcc76ba789d6bab82e5f91dd0d3017bfed-Trainin_Model-11.jpg)
-</Frame>
+    <Frame>
+      ![TaaS Choose Preloaded Model](/images/docs/io-intelligence/TaaS/TaaS_SelectModel_ChooseModel.png)
+    </Frame>
+  </Tab>
+  <Tab title="Option B - Link a Hugging Face Model">
+    You can bring your own model from **Hugging Face** by following these steps:
 
-**Option B - Link a Hugging Face Model:**
+    1. Paste your Hugging Face model repo link in the field.
+    2. Click the **Test** button.
+    3. If the connection is successful, you will see: “_Successfully tested._”
+    4. If the repository is **private** or **invalid**, a prompt will appear requesting your **Hugging Face Token**, with the following message: _“The repo is private or does not exist. Provide an HF Token.”_. For more information, refer to [**How to get your Hugging Face Token**](https://huggingface.co/docs/hub/en/security-tokens).
 
-1. Paste your Hugging Face model repo link in the field.
-2. Click the **Test** button.
-3. If the connection is successful, you will see: "_Successfully tested._"
-4. If the repository is **private** or **invalid**, a prompt will appear requesting your **Hugging Face Token**, with the following message: _“The repo is private or does not exist. Provide an HF Token.”_ For more information, refer to [How to get your Hugging Face Token](https://huggingface.co/docs/hub/en/security-tokens).
-
-<Frame>
-  ![](/images/docs/8552d9154cb96ece70a90d68bcc8c0ccff5b700b2e39976e4845b57d753a83a6-Trainin_Model-11-2.jpg)
-</Frame>
+    <Frame>
+      ![TaaS Select Model - Import from Hugging Face Link](/images/docs/io-intelligence/TaaS/TaaS_SelectModel_HuggingFaceLink.png)
+    </Frame>
+  </Tab>
+</Tabs>
 
 ### 3. Select a Dataset
 
 Choose training data from a **curated list** or bring your own custom dataset.
+
+<Tabs>
+  <Tab title="Option A - Use a Built-in Dataset">
+    Select a dataset from our list using the dropdown menu.
+  </Tab>
+  <Tab title="Tab">
+    Set up your dataset by completing the configuration fields.
+  </Tab>
+</Tabs>
 
 **Option A - Use a Built-in Dataset**: Select from our list of available datasets using the dropdown.
 
@@ -84,21 +98,51 @@ Choose training data from a **curated list** or bring your own custom dataset.
   Refer to the documentation link provided on top of the Configuration section for more details.
 </Tip>
 
-<Frame>
-  ![Dataset Options](/images/docs/io-intelligence/TaaS/TaaS_SelectDataset.png)
-</Frame>
-
 ### 4. Choose a Training Style
 
 Depending on your goal, you can select between **Simple Creating** and **Advanced Creating** when training a model.
 
-**Option A - Simple Creating**: Uses default settings for a quick and straightforward setup. Best if you want to get started fast without managing technical details.
+<Tabs>
+  <Tab title="Option A - Simple Creating">
+    Uses default settings for a quick and straightforward setup. Best if you want to get started fast without managing technical details.
 
-**Option B - Advanced Creating**: Offers full flexibility and control. Choose this if your goal is to customize every aspect of how your model learns, from hyperparameters to optimization strategies.
+    <Frame>
+      ![TaaS Simple Traing Style](/images/docs/io-intelligence/TaaS/TaaS_SimpleTraingStyle.png)
+    </Frame>
+  </Tab>
+  <Tab title="Option B - Advanced Creating">
+    Offers full flexibility and control. Select this option if your goal is to customize every aspect of how your model learns, from hyperparameters to optimization strategies.
 
-<Frame>
-  ![Training Style Options](/images/docs/io-intelligence/TaaS/TaaS_SelectTrainingStyle.png)
-</Frame>
+    <Frame>
+      ![Training Style Options](/images/docs/io-intelligence/TaaS/TaaS_SelectTrainingStyle.png)
+    </Frame>
+    **<u>Available configurations:</u>**
+
+    <AccordionGroup>
+      <Accordion title="Basic Configurations">
+        
+      </Accordion>
+      <Accordion title="Extra Configurations">
+        
+      </Accordion>
+      <Accordion title="Freeze Tuning Configurations">
+        
+      </Accordion>
+      <Accordion title="LoRa Configurations">
+        
+      </Accordion>
+      <Accordion title="GaLore Configuration">
+        
+      </Accordion>
+      <Accordion title="Apollo Configuration">
+        
+      </Accordion>
+      <Accordion title="BAdam Configuration">
+        
+      </Accordion>
+    </AccordionGroup>
+  </Tab>
+</Tabs>
 
 ### 5. Start Training
 
