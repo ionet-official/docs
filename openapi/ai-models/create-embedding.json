@@ -95,12 +95,39 @@
               "application/json": {
                 "examples": {
                   "Result": {
-                    "value": "{\n  \"id\": \"0194e037-96b9-a92c-5f0b-ac43152g2679\",\n  \"object\": \"list\",\n  \"created\": 1738928526,\n  \"model\": \"mixedbread-ai/mxbai-embed-large-v1\",\n  \"data\": [\n    {\n      \"index\": 0,\n      \"object\": \"embedding\",\n      \"embedding\": [\n        -0.017547607421875,\n        -0.10943603515625,\n        -0.40771484375,\n        0.308837890625,\n        ...\n        -0.161376953125,\n        0.42041015625,\n        0.39404296875\n      ]\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 12,\n    \"total_tokens\": 12,\n    \"completion_tokens\": 0,\n    \"prompt_tokens_details\": null\n  }\n}"
+                    "value": {
+                      "id": "0194e037-96b9-a92c-5f0b-ac43152g2679",
+                      "object": "list",
+                      "created": 1738928526,
+                      "model": "mixedbread-ai/mxbai-embed-large-v1",
+                      "data": [
+                        {
+                          "index": 0,
+                          "object": "embedding",
+                          "embedding": [
+                            -0.017547607421875,
+                            -0.10943603515625,
+                            -0.40771484375,
+                            0.308837890625,
+                            "...",
+                            -0.161376953125,
+                            0.42041015625,
+                            0.39404296875
+                          ]
+                        }
+                      ],
+                      "usage": {
+                        "prompt_tokens": 12,
+                        "total_tokens": 12,
+                        "completion_tokens": 0,
+                        "prompt_tokens_details": null
+                      }
+                    }
                   }
                 }
               }
             }
-          },
+          }
           "404": {
             "description": "404",
             "content": {
