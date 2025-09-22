@@ -10,11 +10,11 @@ To manage relationships extracted from a document, you can use the following end
 
 | Method | Endpoint                                                 | Description                                        |
 | ------ | -------------------------------------------------------- | -------------------------------------------------- |
-| `GET`  | [/documents/\{id}/relationship](/reference/get-relationships) | List *Relationships* identified within a document. |
+| `GET`  | [/documents/\{id}/relationship](/reference/rag-graphs-relationships/get-relationships) | List *Relationships* identified within a document. |
 
 Once entities are added to a graph using the “/graphs/\{id}/\{object_type}/add” endpoint, you can manage them using the following endpoints:
 
 | Method | Endpoint                                                      | Description                    |
 | ------ | ------------------------------------------------------------- | ------------------------------ |
-| GET    | [/graphs/\{id}/relationships](/reference/get-graph-relationships)  | Get relationships for a graph  |
-| GET    | [/graphs/\{id}/relationships/\{id}](/reference/get-relationship-details) | Get a relationship for a graph |
+| GET    | [/graphs/\{id}/relationships](/reference/rag-graphs-relationships/get-graph-relationships)  | Get relationships for a graph  |
+| GET    | [/graphs/\{id}/relationships/\{id}](/reference/rag-graphs-relationships/get-relationship-details) | Get a relationship for a graph |

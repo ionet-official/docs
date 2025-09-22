@@ -35,12 +35,39 @@
               "application/json": {
                 "examples": {
                   "Result": {
-                    "value": "{\n    \"agents\": {\n        \"summary_agent\": {\n          \"name\": \"Summary Agent\",\n          \"description\": \"An expert in distilling large volumes of text into concise, meaningful summaries. Whether condensing reports, extracting key points from articles, or generating executive briefs, this agent ensures that critical information is delivered efficiently.\",\n          \"persona\": null,\n          \"metadata\": {\n            \"image_url\": null,\n            \"tags\": [\n              \"text\"\n            ]\n          }\n        },\n        \"sentiment_analysis_agent\": {\n          \"name\": \"Sentiment Analysis Agent\",\n          \"description\": \"A neutral and analytical evaluator of emotions embedded in text, this agent determines sentiment with precision—be it positive, negative, or neutral. Ideal for brand monitoring, customer feedback analysis, and social media insights, it provides an unbiased pulse on public opinion.\",\n          \"persona\": null,\n          \"metadata\": {\n            \"image_url\": null,\n            \"tags\": [\n              \"text\"\n            ]\n          }\n        },\n        ...\n    }\n}"
+                    "value": {
+                      "agents": {
+                        "summary_agent": {
+                          "name": "Summary Agent",
+                          "description": "An expert in distilling large volumes of text into concise, meaningful summaries. Whether condensing reports, extracting key points from articles, or generating executive briefs, this agent ensures that critical information is delivered efficiently.",
+                          "persona": null,
+                          "metadata": {
+                            "image_url": null,
+                            "tags": [
+                              "text"
+                            ]
+                          }
+                        },
+                        "sentiment_analysis_agent": {
+                          "name": "Sentiment Analysis Agent",
+                          "description": "A neutral and analytical evaluator of emotions embedded in text, this agent determines sentiment with precision—be it positive, negative, or neutral. Ideal for brand monitoring, customer feedback analysis, and social media insights, it provides an unbiased pulse on public opinion.",
+                          "persona": null,
+                          "metadata": {
+                            "image_url": null,
+                            "tags": [
+                              "text"
+                            ]
+                          }
+                        },
+                        "..."
+                      }
+                    }
                   }
                 }
               }
             }
-          },
+          }
+
           "404": {
             "description": "404",
             "content": {
