@@ -34,16 +34,16 @@ Key features of Graphs in R2R:
 
 | Method                          | Endpoint                                                            | Description               |
 | ------------------------------- | ------------------------------------------------------------------- | ------------------------- |
-| GET                             | [/graphs/](/reference/get-graph-overview)                                | Get graph overview        |
-| POST                            | [/graphs/\{collection_id}/pull](/reference/pull-and-rebuild-graph)      | Sync documents with graph |
-| POST                            | [/graphs/\{collection_id}/](/reference/get-graph-data-for-a-collection) | Get graph details         |
+| GET                             | [/graphs/](/reference/rag/graphs/get-graph-overview)                                | Get graph overview        |
+| POST                            | [/graphs/\{collection_id}/pull](/reference/rag/graphs/pull-and-rebuild-graph)      | Sync documents with graph |
+| POST                            | [/graphs/\{collection_id}/](/reference/rag/graphs/get-graph-data-for-a-collection) | Get graph details         |
 
 ## Entity Management
 
 | Method | Endpoint                                                                            | Description                               |
 | ------ | ----------------------------------------------------------------------------------- | ----------------------------------------- |
-| GET    | [/graphs/\{collection_id}/entities](/reference/list-graph-entities)                     | List entities (/[r2r-docs.sciphi.ai]/[1]) |
-| POST   | [/graphs/\{collection_id}/entities](/reference/add-new-entities)                        | Create entity                             |
-| GET    | [/graphs/\{collection_id}/entities/\{entity_id}](/reference/get-single-entity-details) | Get entity details                        |
+| GET    | [/graphs/\{collection_id}/entities](/reference/rag/graphs/list-graph-entities)                     | List entities (/[r2r-docs.sciphi.ai]/[1]) |
+| POST   | [/graphs/\{collection_id}/entities](/reference/rag/graphs/add-new-entities)                        | Create entity                             |
+| GET    | [/graphs/\{collection_id}/entities/\{entity_id}](/reference/rag/graphs/get-single-entity-details) | Get entity details                        |
 
 Similar CRUD endpoints exist by mapping `/entities` above to for relationships (`/relationships`) and communities (`/communities`).
