@@ -18,26 +18,26 @@
         "tab": "Core Concepts",
         "groups": [
           {
-            "group": "IO Overview",
+            "group": "Before you Begin",
             "pages": [
-              "guides/inception",
-              
-              {
-                "group": "IO Coin",
-                "pages": [
-                  "guides/coin/io-coin",
-                  "guides/coin/io-tokenomics",
-                  "guides/coin/io-coin-allocation",
-                  "guides/coin/coin-restrictions",
-                  "guides/coin/ionet-monthly-token-emission-schedule"
-                ]
-              }
-            ]
-          },
-          {
-            "group": "Products",
-            "pages": [
-              {
+                {
+              "group": "IO Overview",
+              "pages": [
+                "guides/inception",
+                
+                {
+                  "group": "IO Coin",
+                  "pages": [
+                    "guides/coin/io-coin",
+                    "guides/coin/io-tokenomics",
+                    "guides/coin/io-coin-allocation",
+                    "guides/coin/coin-restrictions",
+                    "guides/coin/ionet-monthly-token-emission-schedule"
+                  ]
+                }
+              ]
+            },
+            {
                 "group": "Get Started",
                 "pages": [
                   "guides/getting-started",
@@ -45,13 +45,19 @@
                 ]
               },
               {
-                "group": "Announcements",
+                "group": "Latest Updates",
                 "pages": [
                   "guides/announcements/announcements",
                   "guides/announcements/important-action-required-for-expired-refresh-tokens",
                   "guides/announcements/supplier-migration-guide-upgrading-to-m4-series-devices"
                 ]
-              },
+              }
+
+            ]},
+
+          {
+            "group": "IO Ecosystem",
+            "pages": [
               {
                 "group": "Block Rewards",
                 "pages": [
@@ -60,7 +66,6 @@
                   "guides/block-rewards/proposed-device-block-reward-multiplier"
                 ]
               },
-              "guides/glossary",
               {
                 "group": "BC8: Your Gateway to Immersive AI Media",
                 "pages": [
@@ -72,8 +77,7 @@
                   "guides/bc8/settings-privacy",
                   "guides/bc8/frequently-asked-questions"
                 ]
-              },
-              "guides/faq"
+              }
             ]
           },
           {
@@ -83,7 +87,9 @@
               "guides/architecture/io-tunnels",
               "guides/architecture/io-network"
             ]
-          }
+          },
+            "guides/glossary",
+            "guides/faq"
         ]
       },
       {
