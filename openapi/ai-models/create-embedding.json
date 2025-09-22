@@ -90,44 +90,64 @@
         },
         "responses": {
           "200": {
-            "description": "200",
+            "description": "Successful Response",
             "content": {
               "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": {
-                      "id": "0194e037-96b9-a92c-5f0b-ac43152g2679",
-                      "object": "list",
-                      "created": 1738928526,
-                      "model": "mixedbread-ai/mxbai-embed-large-v1",
-                      "data": [
-                        {
-                          "index": 0,
-                          "object": "embedding",
-                          "embedding": [
-                            -0.017547607421875,
-                            -0.10943603515625,
-                            -0.40771484375,
-                            0.308837890625,
-                            "...",
-                            -0.161376953125,
-                            0.42041015625,
-                            0.39404296875
-                          ]
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string", "example": "0194e037-96b9-a92c-5f0b-ac43152g2679" },
+                    "object": { "type": "string", "example": "list" },
+                    "created": { "type": "integer", "example": 1738928526 },
+                    "model": { "type": "string", "example": "mixedbread-ai/mxbai-embed-large-v1" },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "index": { "type": "integer", "example": 0 },
+                          "object": { "type": "string", "example": "embedding" },
+                          "embedding": {
+                            "type": "array",
+                            "items": { "type": "number" },
+                            "example": [-0.0175, -0.1094, -0.4077, 0.3088, -0.1613, 0.4204, 0.3940]
+                          }
                         }
-                      ],
-                      "usage": {
-                        "prompt_tokens": 12,
-                        "total_tokens": 12,
-                        "completion_tokens": 0,
-                        "prompt_tokens_details": null
+                      }
+                    },
+                    "usage": {
+                      "type": "object",
+                      "properties": {
+                        "prompt_tokens": { "type": "integer", "example": 12 },
+                        "total_tokens": { "type": "integer", "example": 12 },
+                        "completion_tokens": { "type": "integer", "example": 0 },
+                        "prompt_tokens_details": { "type": ["object", "null"], "example": null }
                       }
                     }
+                  }
+                },
+                "example": {
+                  "id": "0194e037-96b9-a92c-5f0b-ac43152g2679",
+                  "object": "list",
+                  "created": 1738928526,
+                  "model": "mixedbread-ai/mxbai-embed-large-v1",
+                  "data": [
+                    {
+                      "index": 0,
+                      "object": "embedding",
+                      "embedding": [-0.0175, -0.1094, -0.4077, 0.3088, -0.1613, 0.4204, 0.3940]
+                    }
+                  ],
+                  "usage": {
+                    "prompt_tokens": 12,
+                    "total_tokens": 12,
+                    "completion_tokens": 0,
+                    "prompt_tokens_details": null
                   }
                 }
               }
             }
-          }
+          },
           "404": {
             "description": "404",
             "content": {
