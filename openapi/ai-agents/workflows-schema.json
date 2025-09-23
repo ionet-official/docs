@@ -9,111 +9,91 @@
       "url": "https://api.intelligence.io.solutions"
     }
   ],
-  "components": {
-    "securitySchemes": {
-      "BearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
-      }
-    },
-    "schemas": {
-      "ClassificationArgs": {
-        "type": "object",
-        "properties": {
-          "classify_by": {
-            "type": "array",
-            "items": { "type": "string" },
-            "title": "Classify By"
-          }
-        },
-        "required": ["classify_by"]
-      },
-      "CustomArgs": {
-        "type": "object",
-        "properties": {
-          "name": { "type": "string", "description": "Unique name/ID for the custom workflow step." },
-          "objective": { "type": "string", "description": "Primary objective or text prompt for the workflow." },
-          "instructions": { "type": "string", "description": "Optional instructions to be passed along." },
-          "context": { "type": "object", "description": "Additional context or parameters." }
-        },
-        "required": ["name", "objective", "instructions"]
-      },
-      "ExtractEntitiesArgs": { "type": "object", "properties": {} },
-      "ModerationArgs": {
-        "type": "object",
-        "properties": { "threshold": { "type": "number" } },
-        "required": ["threshold"]
-      },
-      "ReasoningArgs": { "type": "object", "properties": {} },
-      "SentimentArgs": { "type": "object", "properties": {} },
-      "SummarizeArgs": {
-        "type": "object",
-        "properties": { "max_words": { "type": "integer", "default": 100 } }
-      },
-      "TranslateArgs": {
-        "type": "object",
-        "properties": { "target_language": { "type": "string" } },
-        "required": ["target_language"]
-      },
-      "TextRequest": {
-        "type": "object",
-        "properties": {
-          "text": { "type": "string" },
-          "args": {
-            "anyOf": [
-              { "$ref": "#/components/schemas/ClassificationArgs" },
-              { "$ref": "#/components/schemas/CustomArgs" },
-              { "$ref": "#/components/schemas/ExtractEntitiesArgs" },
-              { "$ref": "#/components/schemas/ModerationArgs" },
-              { "$ref": "#/components/schemas/ReasoningArgs" },
-              { "$ref": "#/components/schemas/SentimentArgs" },
-              { "$ref": "#/components/schemas/SummarizeArgs" },
-              { "$ref": "#/components/schemas/TranslateArgs" }
-            ],
-            "nullable": true
-          },
-          "agent_names": { "type": "array", "items": { "type": "string" } }
-        },
-        "required": ["text", "agent_names"]
-      }
-    }
-  },
   "paths": {
     "/api/v1/workflows/schema": {
       "get": {
         "summary": "Workflows Schema",
         "description": "Get list of available models for Embeddings API",
-        "security": [{ "BearerAuth": [] }],
+        "operationId": "workflows-schema",
         "responses": {
           "200": {
-            "description": "Successful response",
+            "description": "Success",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/TextRequest" },
-                "examples": {
-                  "full_example": {
-                    "value": {
-                      "$defs": {
+                "schema": {
+                  "type": "object",
+                  "required": ["text", "agent_names"],
+                  "properties": {
+                    "$defs": {
+                      "type": "object",
+                      "properties": {
                         "ClassificationArgs": {
-                          "classify_by": ["category1", "category2"]
+                          "type": "object",
+                          "required": ["classify_by"],
+                          "properties": {
+                            "classify_by": {
+                              "type": "array",
+                              "items": { "type": "string" }
+                            }
+                          }
                         },
                         "CustomArgs": {
-                          "name": "custom_step",
-                          "objective": "Analyze sentiment",
-                          "instructions": "Please follow the rules",
-                          "context": {}
+                          "type": "object",
+                          "required": ["name", "objective", "instructions"],
+                          "properties": {
+                            "name": { "type": "string" },
+                            "objective": { "type": "string" },
+                            "instructions": { "type": "string" },
+                            "context": { "type": "string" }
+                          }
                         },
-                        "ExtractEntitiesArgs": {},
-                        "ModerationArgs": { "threshold": 0.5 },
-                        "ReasoningArgs": {},
-                        "SentimentArgs": {},
-                        "SummarizeArgs": { "max_words": 100 },
-                        "TranslateArgs": { "target_language": "fr" }
-                      },
-                      "text": "Example text",
-                      "args": null,
-                      "agent_names": ["agent1", "agent2"]
+                        "ExtractEntitiesArgs": { "type": "object" },
+                        "ModerationArgs": {
+                          "type": "object",
+                          "required": ["threshold"],
+                          "properties": {
+                            "threshold": { "type": "string" }
+                          }
+                        },
+                        "ReasoningArgs": { "type": "object" },
+                        "SentimentArgs": { "type": "object" },
+                        "SummarizeArgs": {
+                          "type": "object",
+                          "properties": {
+                            "max_words": { "type": "integer", "default": 0 }
+                          }
+                        },
+                        "TranslateArgs": {
+                          "type": "object",
+                          "required": ["target_language"],
+                          "properties": {
+                            "target_language": { "type": "string" }
+                          }
+                        }
+                      }
+                    },
+                    "text": { "type": "string" },
+                    "args": {
+                      "anyOf": [
+                        {
+                          "oneOf": [
+                            { "$ref": "#/$defs/ReasoningArgs" },
+                            { "$ref": "#/$defs/SummarizeArgs" },
+                            { "$ref": "#/$defs/SentimentArgs" },
+                            { "$ref": "#/$defs/ExtractEntitiesArgs" },
+                            { "$ref": "#/$defs/TranslateArgs" },
+                            { "$ref": "#/$defs/ClassificationArgs" },
+                            { "$ref": "#/$defs/ModerationArgs" },
+                            { "$ref": "#/$defs/CustomArgs" }
+                          ]
+                        },
+                        { "type": "null" }
+                      ],
+                      "default": null
+                    },
+                    "agent_names": {
+                      "type": "array",
+                      "items": { "type": "string" }
                     }
                   }
                 }
@@ -121,29 +101,7 @@
             }
           },
           "404": { "description": "Not Found" },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "detail": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "loc": { "type": "array", "items": { "type": "string" } },
-                          "msg": { "type": "string" },
-                          "type": { "type": "string" }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
+          "422": { "description": "Validation Error" }
         }
       }
     }
