@@ -1,4 +1,13 @@
 {
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Workflow API",
+    "version": "1.0",
+    "description": "⚠️ **Beta Notice**: This project is in rapid development and may not be stable for production use."
+  },
+  "servers": [
+    { "url": "https://api.example.com" }
+  ],
   "paths": {
     "/v1/workflows/schema": {
       "get": {
@@ -10,33 +19,21 @@
             "name": "token",
             "in": "header",
             "required": false,
-            "schema": {
-              "type": "string",
-              "description": "JWT token",
-              "title": "Token"
-            },
+            "schema": { "type": "string" },
             "description": "JWT token"
           },
           {
             "name": "Authorization",
             "in": "header",
             "required": false,
-            "schema": {
-              "type": "string",
-              "description": "io.net provided API Key",
-              "title": "Authorization"
-            },
+            "schema": { "type": "string" },
             "description": "io.net provided API Key"
           },
           {
             "name": "x-api-key",
             "in": "header",
             "required": false,
-            "schema": {
-              "type": "string",
-              "description": "API key set by an SDK client",
-              "title": "X-Api-Key"
-            },
+            "schema": { "type": "string" },
             "description": "API key set by an SDK client"
           }
         ],
@@ -45,19 +42,49 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "workflow_name": { "type": "string", "example": "Example Workflow" },
+                    "description": { "type": "string", "example": "This workflow summarizes text" },
+                    "args": {
+                      "type": "object",
+                      "properties": {
+                        "type": { "type": "string", "example": "summarize_text" },
+                        "max_words": { "type": "integer", "example": 100 }
+                      }
+                    },
+                    "agent_names": {
+                      "type": "array",
+                      "items": { "type": "string" },
+                      "example": ["agent1", "agent2"]
+                    }
+                  },
+                  "required": ["workflow_name", "agent_names"]
+                }
               }
             }
           },
-          "404": {
-            "description": "Not found"
-          },
-          "422": {
+          "404": { "description": "Not found", "content": { "text/plain": { "example": "Not found" } } },
+          "422": { 
             "description": "Validation Error",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "loc": { "type": "array", "items": { "type": "string" } },
+                          "msg": { "type": "string", "example": "field required" },
+                          "type": { "type": "string", "example": "value_error.missing" }
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
