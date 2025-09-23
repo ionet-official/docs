@@ -20,61 +20,48 @@
     "schemas": {
       "ClassificationArgs": {
         "type": "object",
-        "title": "ClassificationArgs",
-        "required": ["classify_by"],
         "properties": {
           "classify_by": {
             "type": "array",
             "items": { "type": "string" },
             "title": "Classify By"
           }
-        }
+        },
+        "required": ["classify_by"]
       },
       "CustomArgs": {
         "type": "object",
-        "title": "CustomArgs",
-        "required": ["name", "objective", "instructions"],
         "properties": {
-          "name": { "type": "string", "title": "Name", "description": "Unique name/ID for the custom workflow step." },
-          "objective": { "type": "string", "title": "Objective", "description": "Primary objective or text prompt for the workflow." },
-          "instructions": { "type": "string", "title": "Instructions", "description": "Optional instructions to be passed along." },
-          "context": { "type": "object", "title": "Context", "description": "Additional context or parameters." }
-        }
+          "name": { "type": "string", "description": "Unique name/ID for the custom workflow step." },
+          "objective": { "type": "string", "description": "Primary objective or text prompt for the workflow." },
+          "instructions": { "type": "string", "description": "Optional instructions to be passed along." },
+          "context": { "type": "object", "description": "Additional context or parameters." }
+        },
+        "required": ["name", "objective", "instructions"]
       },
-      "ExtractEntitiesArgs": { "type": "object", "title": "ExtractEntitiesArgs", "properties": {} },
+      "ExtractEntitiesArgs": { "type": "object", "properties": {} },
       "ModerationArgs": {
         "type": "object",
-        "title": "ModerationArgs",
-        "required": ["threshold"],
-        "properties": {
-          "threshold": { "type": "number", "title": "Threshold" }
-        }
+        "properties": { "threshold": { "type": "number" } },
+        "required": ["threshold"]
       },
-      "ReasoningArgs": { "type": "object", "title": "ReasoningArgs", "properties": {} },
-      "SentimentArgs": { "type": "object", "title": "SentimentArgs", "properties": {} },
+      "ReasoningArgs": { "type": "object", "properties": {} },
+      "SentimentArgs": { "type": "object", "properties": {} },
       "SummarizeArgs": {
         "type": "object",
-        "title": "SummarizeArgs",
-        "properties": {
-          "max_words": { "type": "integer", "title": "Max Words", "default": 100 }
-        }
+        "properties": { "max_words": { "type": "integer", "default": 100 } }
       },
       "TranslateArgs": {
         "type": "object",
-        "title": "TranslateArgs",
-        "required": ["target_language"],
-        "properties": {
-          "target_language": { "type": "string", "title": "Target Language" }
-        }
+        "properties": { "target_language": { "type": "string" } },
+        "required": ["target_language"]
       },
       "TextRequest": {
         "type": "object",
-        "title": "TextRequest",
-        "required": ["text", "agent_names"],
         "properties": {
-          "text": { "type": "string", "title": "Text" },
+          "text": { "type": "string" },
           "args": {
-            "oneOf": [
+            "anyOf": [
               { "$ref": "#/components/schemas/ClassificationArgs" },
               { "$ref": "#/components/schemas/CustomArgs" },
               { "$ref": "#/components/schemas/ExtractEntitiesArgs" },
@@ -84,11 +71,11 @@
               { "$ref": "#/components/schemas/SummarizeArgs" },
               { "$ref": "#/components/schemas/TranslateArgs" }
             ],
-            "nullable": true,
-            "title": "Args"
+            "nullable": true
           },
-          "agent_names": { "type": "array", "items": { "type": "string" }, "title": "Agent Names" }
-        }
+          "agent_names": { "type": "array", "items": { "type": "string" } }
+        },
+        "required": ["text", "agent_names"]
       }
     }
   },
@@ -97,7 +84,6 @@
       "get": {
         "summary": "Workflows Schema",
         "description": "Get list of available models for Embeddings API",
-        "operationId": "workflows-schema",
         "security": [{ "BearerAuth": [] }],
         "responses": {
           "200": {
@@ -106,8 +92,25 @@
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/TextRequest" },
                 "examples": {
-                  "example": {
+                  "full_example": {
                     "value": {
+                      "$defs": {
+                        "ClassificationArgs": {
+                          "classify_by": ["category1", "category2"]
+                        },
+                        "CustomArgs": {
+                          "name": "custom_step",
+                          "objective": "Analyze sentiment",
+                          "instructions": "Please follow the rules",
+                          "context": {}
+                        },
+                        "ExtractEntitiesArgs": {},
+                        "ModerationArgs": { "threshold": 0.5 },
+                        "ReasoningArgs": {},
+                        "SentimentArgs": {},
+                        "SummarizeArgs": { "max_words": 100 },
+                        "TranslateArgs": { "target_language": "fr" }
+                      },
                       "text": "Example text",
                       "args": null,
                       "agent_names": ["agent1", "agent2"]
