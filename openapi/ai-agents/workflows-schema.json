@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Workflow API Minimal",
+    "title": "Workflow API Skeleton",
     "version": "1.0",
-    "description": "⚠️ Beta Notice: This is the simplest working example for Mintlify."
+    "description": "⚠️ Beta Notice: Minimal working skeleton for Mintlify. All complex fields removed."
   },
   "servers": [
     { "url": "https://api.example.com" }
@@ -11,8 +11,8 @@
   "paths": {
     "/v1/workflows/schema": {
       "get": {
-        "summary": "Get available workflows",
-        "operationId": "getWorkflowsMinimal",
+        "summary": "Get workflow schema (minimal skeleton)",
+        "operationId": "getWorkflowsSkeleton",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -21,10 +21,34 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "text": { "type": "string", "example": "Example text" },
-                    "agent_name": { "type": "string", "example": "agent1" }
+                    "text": {
+                      "type": "string",
+                      "example": "Example workflow text"
+                    },
+                    "agent_name": {
+                      "type": "string",
+                      "example": "agent1"
+                    }
                   },
                   "required": ["text", "agent_name"]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "text/plain": { "example": "Not found" }
+            }
+          },
+          "422": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": [
+                    { "loc": ["body","text"], "msg": "field required", "type": "value_error.missing" }
+                  ]
                 }
               }
             }
