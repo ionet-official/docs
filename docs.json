@@ -276,10 +276,10 @@
         ]
       },
       {
-        "tab": "API Reference",
+        "tab": "API References",
         "groups": [
           {
-            "group": "IO API",
+            "group": "IO Explorer",
             "pages": [
               {
                 "group": "Get Started With IO Explorer API",
