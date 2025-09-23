@@ -3,7 +3,7 @@
   "info": {
     "title": "Workflow API",
     "version": "1.0",
-    "description": "⚠️ **Beta Notice**: This project is in rapid development and may not be stable for production use."
+    "description": "⚠️ Beta Notice: This is a minimal working example."
   },
   "servers": [
     { "url": "https://api.example.com" }
@@ -11,123 +11,24 @@
   "paths": {
     "/v1/workflows/schema": {
       "get": {
-        "summary": "Get available workflow schemas",
-        "description": "Returns the schema of available workflows including classification, summarization, translation, and other tasks.",
-        "operationId": "getWorkflowsSchema",
-        "parameters": [
-          { "name": "token", "in": "header", "schema": { "type": "string" }, "description": "JWT token" },
-          { "name": "Authorization", "in": "header", "schema": { "type": "string" }, "description": "io.net API Key" },
-          { "name": "x-api-key", "in": "header", "schema": { "type": "string" }, "description": "SDK API Key" }
-        ],
+        "summary": "Get available workflows",
+        "operationId": "getWorkflows",
         "responses": {
           "200": {
-            "description": "Successfully retrieved workflow schema",
+            "description": "Successful response",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "text": {
-                      "type": "string",
-                      "description": "Text input for processing"
-                    },
-                    "args": {
-                      "anyOf": [
-                        {
-                          "type": "object",
-                          "description": "Classification arguments",
-                          "properties": {
-                            "classify_by": {
-                              "type": "array",
-                              "items": { "type": "string" },
-                              "description": "List of categories to classify by"
-                            }
-                          },
-                          "required": ["classify_by"]
-                        },
-                        {
-                          "type": "object",
-                          "description": "Custom workflow arguments",
-                          "properties": {
-                            "name": { "type": "string", "description": "Unique name/ID for the custom workflow step" },
-                            "objective": { "type": "string", "description": "Primary objective or text prompt" },
-                            "instructions": { "type": "string", "description": "Optional instructions for the workflow" },
-                            "context": { "type": "object", "description": "Additional context or parameters" }
-                          },
-                          "required": ["name","objective","instructions"]
-                        },
-                        {
-                          "type": "object",
-                          "description": "Extract entities arguments",
-                          "properties": {}
-                        },
-                        {
-                          "type": "object",
-                          "description": "Moderation arguments",
-                          "properties": { "threshold": { "type": "number", "description": "Moderation threshold" } },
-                          "required": ["threshold"]
-                        },
-                        {
-                          "type": "object",
-                          "description": "Reasoning arguments",
-                          "properties": {}
-                        },
-                        {
-                          "type": "object",
-                          "description": "Sentiment analysis arguments",
-                          "properties": {}
-                        },
-                        {
-                          "type": "object",
-                          "description": "Summarization arguments",
-                          "properties": { "max_words": { "type": "integer", "default": 100, "description": "Maximum words in summary" } }
-                        },
-                        {
-                          "type": "object",
-                          "description": "Translation arguments",
-                          "properties": { "target_language": { "type": "string", "description": "Target language for translation" } },
-                          "required": ["target_language"]
-                        },
-                        {
-                          "type": "object",
-                          "description": "Persona configuration",
-                          "properties": {
-                            "name": { "type": "string", "nullable": true },
-                            "age": { "type": "integer", "nullable": true },
-                            "role": { "type": "string", "nullable": true },
-                            "style": { "type": "string", "nullable": true },
-                            "domain_knowledge": { "type": "array", "items": { "type": "string" } }
-                          }
-                        }
-                      ],
-                      "nullable": true,
-                      "description": "Workflow-specific arguments or null"
-                    },
+                    "text": { "type": "string", "example": "Example text" },
                     "agent_names": {
                       "type": "array",
                       "items": { "type": "string" },
-                      "description": "Names of agents to execute the workflow"
+                      "example": ["agent1", "agent2"]
                     }
                   },
-                  "required": ["text","agent_names"]
-                },
-                "example": {
-                  "text": "Example workflow text",
-                  "args": null,
-                  "agent_names": ["agent1","agent2"]
-                }
-              }
-            }
-          },
-          "404": { "description": "Schema not found", "content": { "text/plain": { "example": "Not found" } } },
-          "422": {
-            "description": "Validation error",
-            "content": {
-              "application/json": {
-                "example": {
-                  "detail": [
-                    { "loc": ["body","text"], "msg": "field required", "type": "value_error.missing" }
-                  ]
+                  "required": ["text", "agent_names"]
                 }
               }
             }
