@@ -12,47 +12,6 @@
   ],
   "paths": {
     "/workflows/schema": {
-      "post": {
-        "summary": "Execute Workflow with Schema",
-        "operationId": "executeWorkflowSchema",
-        "tags": ["Workflows"],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TextRequest"
-              },
-              "example": {
-                "text": "Analyze this input text for sentiment and summarize.",
-                "agent_names": ["default-agent"],
-                "args": {
-                  "type": "summarize_text",
-                  "max_words": 50
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Workflow execution result",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "description": "Dynamic response depending on workflow type."
-                }
-              }
-            }
-          }
-        }
-      },
       "get": {
         "summary": "Get Workflows Schema",
         "operationId": "getWorkflowsSchema",
@@ -74,6 +33,47 @@
             }
           }
         }
+      },
+      "post": {
+        "summary": "Execute Workflow",
+        "operationId": "executeWorkflow",
+        "tags": ["Workflows"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TextRequest"
+              },
+              "example": {
+                "text": "Translate this text to French.",
+                "agent_names": ["default-agent"],
+                "args": {
+                  "type": "translate_text",
+                  "target_language": "fr"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Workflow execution result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Dynamic response depending on workflow type."
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
@@ -86,144 +86,146 @@
       }
     },
     "schemas": {
-      "ClassificationArgs": {
-        "type": "object",
-        "title": "ClassificationArgs",
-        "required": ["classify_by"],
-        "properties": {
-          "classify_by": {
-            "type": "array",
-            "title": "Classify By",
-            "items": {
-              "type": "string"
-            }
-          }
-        }
-      },
-      "CustomArgs": {
-        "type": "object",
-        "title": "CustomArgs",
-        "required": ["name", "objective", "instructions"],
-        "properties": {
-          "name": {
-            "type": "string",
-            "title": "Name",
-            "description": "Unique name/ID for the custom workflow step."
-          },
-          "objective": {
-            "type": "string",
-            "title": "Objective",
-            "description": "Primary objective or text prompt for the workflow."
-          },
-          "instructions": {
-            "type": "string",
-            "title": "Instructions",
-            "description": "Optional instructions to be passed along."
-          },
-          "context": {
-            "type": "object",
-            "title": "Context",
-            "description": "Additional context or parameters."
-          }
-        }
-      },
-      "ExtractEntitiesArgs": {
-        "type": "object",
-        "title": "ExtractEntitiesArgs",
-        "properties": {}
-      },
-      "ModerationArgs": {
-        "type": "object",
-        "title": "ModerationArgs",
-        "required": ["threshold"],
-        "properties": {
-          "threshold": {
-            "type": "number",
-            "title": "Threshold"
-          }
-        }
-      },
-      "ReasoningArgs": {
-        "type": "object",
-        "title": "ReasoningArgs",
-        "properties": {}
-      },
-      "SentimentArgs": {
-        "type": "object",
-        "title": "SentimentArgs",
-        "properties": {}
-      },
-      "SummarizeArgs": {
-        "type": "object",
-        "title": "SummarizeArgs",
-        "properties": {
-          "max_words": {
-            "type": "integer",
-            "title": "Max Words",
-            "default": 100
-          }
-        }
-      },
-      "TranslateArgs": {
-        "type": "object",
-        "title": "TranslateArgs",
-        "required": ["target_language"],
-        "properties": {
-          "target_language": {
-            "type": "string",
-            "title": "Target Language"
-          }
-        }
-      },
       "TextRequest": {
-        "type": "object",
-        "title": "TextRequest",
-        "required": ["text", "agent_names"],
+        "$defs": {
+          "ClassificationArgs": {
+            "properties": {
+              "classify_by": {
+                "items": {
+                  "type": "string"
+                },
+                "title": "Classify By",
+                "type": "array"
+              }
+            },
+            "required": ["classify_by"],
+            "title": "ClassificationArgs",
+            "type": "object"
+          },
+          "CustomArgs": {
+            "properties": {
+              "name": {
+                "description": "Unique name/ID for the custom workflow step.",
+                "title": "Name",
+                "type": "string"
+              },
+              "objective": {
+                "description": "Primary objective or text prompt for the workflow.",
+                "title": "Objective",
+                "type": "string"
+              },
+              "instructions": {
+                "description": "Optional instructions to be passed along.",
+                "title": "Instructions",
+                "type": "string"
+              },
+              "context": {
+                "description": "Additional context or parameters.",
+                "title": "Context",
+                "type": "object"
+              }
+            },
+            "required": ["name", "objective", "instructions"],
+            "title": "CustomArgs",
+            "type": "object"
+          },
+          "ExtractEntitiesArgs": {
+            "properties": {},
+            "title": "ExtractEntitiesArgs",
+            "type": "object"
+          },
+          "ModerationArgs": {
+            "properties": {
+              "threshold": {
+                "title": "Threshold",
+                "type": "number"
+              }
+            },
+            "required": ["threshold"],
+            "title": "ModerationArgs",
+            "type": "object"
+          },
+          "ReasoningArgs": {
+            "properties": {},
+            "title": "ReasoningArgs",
+            "type": "object"
+          },
+          "SentimentArgs": {
+            "properties": {},
+            "title": "SentimentArgs",
+            "type": "object"
+          },
+          "SummarizeArgs": {
+            "properties": {
+              "max_words": {
+                "default": 100,
+                "title": "Max Words",
+                "type": "integer"
+              }
+            },
+            "title": "SummarizeArgs",
+            "type": "object"
+          },
+          "TranslateArgs": {
+            "properties": {
+              "target_language": {
+                "title": "Target Language",
+                "type": "string"
+              }
+            },
+            "required": ["target_language"],
+            "title": "TranslateArgs",
+            "type": "object"
+          }
+        },
         "properties": {
           "text": {
-            "type": "string",
-            "title": "Text"
+            "title": "Text",
+            "type": "string"
           },
           "args": {
-            "title": "Args",
-            "default": null,
             "anyOf": [
               {
                 "discriminator": {
-                  "propertyName": "type",
                   "mapping": {
-                    "classify": "#/components/schemas/ClassificationArgs",
-                    "custom": "#/components/schemas/CustomArgs",
-                    "extract_categorized_entities": "#/components/schemas/ExtractEntitiesArgs",
-                    "moderation": "#/components/schemas/ModerationArgs",
-                    "sentiment": "#/components/schemas/SentimentArgs",
-                    "solve_with_reasoning": "#/components/schemas/ReasoningArgs",
-                    "summarize_text": "#/components/schemas/SummarizeArgs",
-                    "translate_text": "#/components/schemas/TranslateArgs"
-                  }
+                    "classify": "#/$defs/ClassificationArgs",
+                    "custom": "#/$defs/CustomArgs",
+                    "extract_categorized_entities": "#/$defs/ExtractEntitiesArgs",
+                    "moderation": "#/$defs/ModerationArgs",
+                    "sentiment": "#/$defs/SentimentArgs",
+                    "solve_with_reasoning": "#/$defs/ReasoningArgs",
+                    "summarize_text": "#/$defs/SummarizeArgs",
+                    "translate_text": "#/$defs/TranslateArgs"
+                  },
+                  "propertyName": "type"
                 },
                 "oneOf": [
-                  { "$ref": "#/components/schemas/ReasoningArgs" },
-                  { "$ref": "#/components/schemas/SummarizeArgs" },
-                  { "$ref": "#/components/schemas/SentimentArgs" },
-                  { "$ref": "#/components/schemas/ExtractEntitiesArgs" },
-                  { "$ref": "#/components/schemas/TranslateArgs" },
-                  { "$ref": "#/components/schemas/ClassificationArgs" },
-                  { "$ref": "#/components/schemas/ModerationArgs" },
-                  { "$ref": "#/components/schemas/CustomArgs" }
+                  { "$ref": "#/$defs/ReasoningArgs" },
+                  { "$ref": "#/$defs/SummarizeArgs" },
+                  { "$ref": "#/$defs/SentimentArgs" },
+                  { "$ref": "#/$defs/ExtractEntitiesArgs" },
+                  { "$ref": "#/$defs/TranslateArgs" },
+                  { "$ref": "#/$defs/ClassificationArgs" },
+                  { "$ref": "#/$defs/ModerationArgs" },
+                  { "$ref": "#/$defs/CustomArgs" }
                 ]
               },
               { "type": "null" }
-            ]
+            ],
+            "default": null,
+            "title": "Args"
           },
           "agent_names": {
-            "type": "array",
-            "title": "Agent Names",
             "items": {
               "type": "string"
-            }
+            },
+            "title": "Agent Names",
+            "type": "array"
           }
-        }
+        },
+        "required": ["text", "agent_names"],
+        "title": "TextRequest",
+        "type": "object"
       }
     }
   }
