@@ -134,9 +134,14 @@
             "group": "Getting Started with IO Intelligence",
             "pages": [
             "guides/intelligence/exploring-ai-models",
-            "guides/intelligence/exploring-ai-agents",
+              {
+                "group": "Agents",
+                "pages": [
+                  "guides/intelligence/exploring-ai-agents",
+                  "guides/intelligence/agent-framework"
+                ]
+              },
             "guides/intelligence/retrieval-engine",
-            "guides/intelligence/agent-framework",
             "guides/intelligence/agentic-workflow",
             "guides/intelligence/training-as-a-service"   
             ]
