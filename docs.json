@@ -129,10 +129,10 @@
       {
         "tab": "Intelligence",
         "pages": [
+          "guides/intelligence/io-intelligence",
           {
             "group": "Getting Started with IO Intelligence",
             "pages": [
-              "guides/intelligence/io-intelligence",
             "guides/intelligence/exploring-ai-models",
             "guides/intelligence/exploring-ai-agents",
             "guides/intelligence/retrieval-engine",
