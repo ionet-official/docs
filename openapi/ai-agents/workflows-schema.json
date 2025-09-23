@@ -1,54 +1,63 @@
 {
-  "openapi": "3.0.3",
-  "info": {
-    "title": "Workflow API Skeleton",
-    "version": "1.0",
-    "description": "⚠️ Beta Notice: Minimal working skeleton for Mintlify. All complex fields removed."
-  },
-  "servers": [
-    { "url": "https://api.example.com" }
-  ],
   "paths": {
     "/v1/workflows/schema": {
       "get": {
-        "summary": "Get workflow schema (minimal skeleton)",
-        "operationId": "getWorkflowsSkeleton",
+        "tags": ["agents"],
+        "summary": "Get Default Workflows",
+        "operationId": "get_default_workflows_v1_workflows_schema_get",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Successful response",
+            "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "text": {
-                      "type": "string",
-                      "example": "Example workflow text"
-                    },
-                    "agent_name": {
-                      "type": "string",
-                      "example": "agent1"
-                    }
-                  },
-                  "required": ["text", "agent_name"]
-                }
+                "schema": {}
               }
             }
           },
           "404": {
-            "description": "Not found",
-            "content": {
-              "text/plain": { "example": "Not found" }
-            }
+            "description": "Not found"
           },
           "422": {
-            "description": "Validation error",
+            "description": "Validation Error",
             "content": {
               "application/json": {
-                "example": {
-                  "detail": [
-                    { "loc": ["body","text"], "msg": "field required", "type": "value_error.missing" }
-                  ]
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }
