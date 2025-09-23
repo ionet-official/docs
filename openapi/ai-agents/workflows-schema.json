@@ -2,8 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Workflow API",
-    "version": "1.0",
-    "description": "⚠️ **Beta Notice**: Beta, may not be stable."
+    "version": "1.0"
   },
   "servers": [
     { "url": "https://api.example.com" }
