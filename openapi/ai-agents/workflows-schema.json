@@ -8,9 +8,7 @@
   "paths": {
     "/v1/workflows/schema": {
       "get": {
-        "tags": [
-          "agents"
-        ],
+        "tags": ["agents"],
         "summary": "Get Default Workflows",
         "operationId": "get_default_workflows_v1_workflows_schema_get",
         "parameters": [
@@ -18,33 +16,21 @@
             "name": "token",
             "in": "header",
             "required": false,
-            "schema": {
-              "type": "string",
-              "description": "JWT token",
-              "title": "Token"
-            },
+            "schema": { "type": "string", "title": "Token", "description": "JWT token" },
             "description": "JWT token"
           },
           {
             "name": "Authorization",
             "in": "header",
             "required": false,
-            "schema": {
-              "type": "string",
-              "description": "io.net provided API Key",
-              "title": "Authorization"
-            },
+            "schema": { "type": "string", "title": "Authorization", "description": "io.net provided API Key" },
             "description": "io.net provided API Key"
           },
           {
             "name": "x-api-key",
             "in": "header",
             "required": false,
-            "schema": {
-              "type": "string",
-              "description": "API key set by an SDK client",
-              "title": "X-Api-Key"
-            },
+            "schema": { "type": "string", "title": "X-Api-Key", "description": "API key set by an SDK client" },
             "description": "API key set by an SDK client"
           }
         ],
@@ -57,16 +43,12 @@
               }
             }
           },
-          "404": {
-            "description": "Not found"
-          },
+          "404": { "description": "Not found" },
           "422": {
             "description": "Validation Error",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
               }
             }
           }
@@ -81,34 +63,62 @@
         "properties": {
           "detail": {
             "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ValidationError"
-            }
+            "items": { "$ref": "#/components/schemas/ValidationError" }
           }
         }
       },
       "ValidationError": {
         "type": "object",
         "properties": {
-          "loc": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "msg": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          }
+          "loc": { "type": "array", "items": { "type": "string" } },
+          "msg": { "type": "string" },
+          "type": { "type": "string" }
         },
-        "required": [
-          "loc",
-          "msg",
-          "type"
-        ]
-      }
+        "required": ["loc", "msg", "type"]
+      },
+      "ClassificationArgs": {
+        "type": "object",
+        "title": "ClassificationArgs",
+        "properties": {
+          "classify_by": { "type": "array", "items": { "type": "string" }, "title": "Classify By" }
+        },
+        "required": ["classify_by"]
+      },
+      "CustomArgs": {
+        "type": "object",
+        "title": "CustomArgs",
+        "properties": {
+          "name": { "type": "string", "title": "Name", "description": "Unique name/ID for the custom workflow step." },
+          "objective": { "type": "string", "title": "Objective", "description": "Primary objective or text prompt for the workflow." },
+          "instructions": { "type": "string", "title": "Instructions", "description": "Optional instructions to be passed along." },
+          "context": { "type": "object", "title": "Context", "description": "Additional context or parameters." }
+        },
+        "required": ["name","objective","instructions"]
+      },
+      "ExtractEntitiesArgs": { "type": "object", "title": "ExtractEntitiesArgs", "properties": {} },
+      "ModerationArgs": {
+        "type": "object",
+        "title": "ModerationArgs",
+        "properties": { "threshold": { "type": "number", "title": "Threshold" } },
+        "required": ["threshold"]
+      },
+      "PersonaConfig": {
+        "type": "object",
+        "title": "PersonaConfig",
+        "description": "A configuration object that describes an agent's persona or character.",
+        "properties": {
+          "name": { "anyOf":[{"type":"string"},{"type":"null"}], "default": null, "description": "If the persona has a specific name or nickname.", "title":"Name" },
+          "age": { "anyOf":[{"type":"integer","minimum":1},{"type":"null"}], "default": null, "description": "Approximate age of the persona (if relevant).", "title":"Age" },
+          "role": { "anyOf":[{"type":"string"},{"type":"null"}], "default": null, "description": "General role or type, e.g. 'a brave knight', 'a friendly teacher', etc.", "title":"Role" },
+          "style": { "anyOf":[{"type":"string"},{"type":"null"}], "default": null, "description": "A short description of the agent's style or demeanor.", "title":"Style" },
+          "domain_knowledge": { "type":"array","items":{"type":"string"}, "description":"List of domains or special areas of expertise the agent has.","title":"Domain Knowledge" }
+          /* Остальные свойства PersonaConfig можно добавить аналогично */
+        }
+      },
+      "ReasoningArgs": { "type": "object", "title": "ReasoningArgs", "properties": {} },
+      "SentimentArgs": { "type": "object", "title": "SentimentArgs", "properties": {} },
+      "SummarizeArgs": { "type": "object", "title": "SummarizeArgs", "properties": { "max_words": { "type": "integer", "default": 100, "title": "Max Words" } } },
+      "TranslateArgs": { "type": "object", "title": "TranslateArgs", "properties": { "target_language": { "type": "string", "title": "Target Language" } }, "required": ["target_language"] }
     }
   }
 }
