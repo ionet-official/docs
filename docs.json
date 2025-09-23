@@ -97,7 +97,7 @@
         "pages": [
            "guides/clouds/io-cloud",
             {
-               "group": "Start Using IO Cloud",
+               "group": "Getting Started with IO Cloud",
                "pages": [
                     "guides/clouds/start-using-io-cloud",
                     "guides/clouds/monitor-manage-clusters",
@@ -129,13 +129,19 @@
       {
         "tab": "Intelligence",
         "pages": [
-            "guides/intelligence/io-intelligence",
+          {
+            "group": "Getting Started with IO Intelligence",
+            "pages": [
+              "guides/intelligence/io-intelligence",
             "guides/intelligence/exploring-ai-models",
             "guides/intelligence/exploring-ai-agents",
             "guides/intelligence/retrieval-engine",
             "guides/intelligence/agent-framework",
             "guides/intelligence/agentic-workflow",
-            "guides/intelligence/training-as-a-service"
+            "guides/intelligence/training-as-a-service"   
+            ]
+          }
+            
         ]
       },
       {
