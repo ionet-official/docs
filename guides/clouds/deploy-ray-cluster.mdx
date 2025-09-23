@@ -9,7 +9,8 @@ IO Cloud customers can load their io.net account prior to deploying clusters, or
 
 To learn more about the types of payments we offer and step-by-step guides, see [IO Cloud Payments](/guides/payment/io-cloud-payments).
 
-<iframe width="100%" height="480" src="https://www.youtube.com/embed/opWBPu98iR4" title="Deploy Ray Cluster on IO Cloud" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="100%" height="480" src="https://www.youtube.com/embed/opWBPu98iR4" title="Deploy Ray Cluster on IO Cloud" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen />
+
 ## Configure Cluster
 
 ### 1. Create Cluster
@@ -17,19 +18,29 @@ To learn more about the types of payments we offer and step-by-step guides, see 
 Select Ray from the Cluster menu.
 
 <Frame>
-![](/images/docs/7be3fe5c51a8696d5933b951897f4b8bee94387cce8aa1d73c2bd54df2b793e9-Ray1.jpg)
+  <img
+    src="/images/docs/7be3fe5c51a8696d5933b951897f4b8bee94387cce8aa1d73c2bd54df2b793e9-Ray1.jpg"
+    alt=""
+    className="mx-auto"
+    style={{ width:"49%" }}
+  />
 </Frame>
 
 ### 2. Select Cluster Type
 
 Select the cluster type that meets the scope of your project.
 
-* **General** - This option works well for prototyping or general E2E workloads.
-* **Inference** - Choose if you require production-ready clusters for low-latency inference and heavy workloads.
-* **Train** - Choose if you require production-ready clusters for machine learning models, training, and fine-tuning.
+- **General** - This option works well for prototyping or general E2E workloads.
+- **Inference** - Choose if you require production-ready clusters for low-latency inference and heavy workloads.
+- **Train** - Choose if you require production-ready clusters for machine learning models, training, and fine-tuning.
 
 <Frame>
-![](/images/docs/c35726eb588c50a0ed8ba435617b98b29b97096e364fc861a5da644eb22d2a9b-Bitmap2.jpeg)
+  <img
+    src="/images/docs/c35726eb588c50a0ed8ba435617b98b29b97096e364fc861a5da644eb22d2a9b-Bitmap2.jpeg"
+    alt=""
+    className="mx-auto"
+    style={{ width:"68%" }}
+  />
 </Frame>
 
 ### 3. Rename Cluster
@@ -37,7 +48,12 @@ Select the cluster type that meets the scope of your project.
 Click the pencil icon to the right of the name to rename your cluster. In the screenshot below, the icon is highlighted in the blue box. Provide a unique name for your cluster.
 
 <Frame>
-![](/images/docs/eb660e1-rename.png)
+  <img
+    src="/images/docs/eb660e1-rename.png"
+    alt=""
+    className="mx-auto"
+    style={{ width:"75%" }}
+  />
 </Frame>
 
 Click **Next Step**.
@@ -46,11 +62,16 @@ Click **Next Step**.
 
 Select the level and type of security for your cluster.
 
-* **E2E Encrypted** - A method of secure communication that prevents bad actors from accessing data while it's transferred. It restricts data access to the sender and recipient. All data traffic between GPUs is encrypted.
-* **SOC2/HIPAA** - (Coming Soon) A framework for managing and securing data related to technology and cloud computing services. All data traffic between GPUs is encrypted.
+- **E2E Encrypted** - A method of secure communication that prevents bad actors from accessing data while it's transferred. It restricts data access to the sender and recipient. All data traffic between GPUs is encrypted.
+- **SOC2/HIPAA** - (Coming Soon) A framework for managing and securing data related to technology and cloud computing services. All data traffic between GPUs is encrypted.
 
 <Frame>
-![](/images/docs/8a79ab3-sec_com.png)
+  <img
+    src="/images/docs/8a79ab3-sec_com.png"
+    alt=""
+    className="mx-auto"
+    style={{ width:"78%" }}
+  />
 </Frame>
 
 Click **Next Step**.
@@ -60,11 +81,16 @@ Click **Next Step**.
 To select a location for our GPUs, enter a country name in the Search field or browse the country list (screenshot below is truncated). You can select multiple locations. Residents of countries with strict data residency can use this option to meet those requirements.
 
 <Info>
-One reason to select a specific location is to reduce latency. If you're located in USA and select USA for location, then your clients can get results more quickly if, for example, your GPUs are inferencing.
+  One reason to select a specific location is to reduce latency. If you're located in USA and select USA for location, then your clients can get results more quickly if, for example, your GPUs are inferencing.
 </Info>
 
 <Frame>
-![](/images/docs/23f3bce-ray_location.png)
+  <img
+    src="/images/docs/23f3bce-ray_location.png"
+    alt=""
+    className="mx-auto"
+    style={{ width:"71%" }}
+  />
 </Frame>
 
 Click **Next Step**.
@@ -73,13 +99,18 @@ Click **Next Step**.
 
 Select the connectivity speed for your project.
 
-* **Ultra High Speed** - Download 1600 MB/s / 1200 MB/s Upload
-* **High Speed** - Download 800 MB/s / 600 MB/s Upload
-* **Medium** - Download 400 MB/s / 300 MB/s Upload
-* **Low Speed** - Download 100 MB/s / 10 MB/s Upload
+- **Ultra High Speed** - Download 1600 MB/s / 1200 MB/s Upload
+- **High Speed** - Download 800 MB/s / 600 MB/s Upload
+- **Medium** - Download 400 MB/s / 300 MB/s Upload
+- **Low Speed** - Download 100 MB/s / 10 MB/s Upload
 
 <Frame>
-![](/images/docs/2991dc1-connect_ray.png)
+  <img
+    src="/images/docs/2991dc1-connect_ray.png"
+    alt=""
+    className="mx-auto"
+    style={{ width:"78%" }}
+  />
 </Frame>
 
 Click **Next Step**.
@@ -88,11 +119,16 @@ Click **Next Step**.
 
 Select the type of computing your project requires, **GPU** or **CPU**.
 
-* If you select GPU, also select NVIDIA and browse for the model that satisfies your requirements.
-* If you select CPU, you can choose between Apple of AMD CPUs.
+- If you select GPU, also select NVIDIA and browse for the model that satisfies your requirements.
+- If you select CPU, you can choose between Apple of AMD CPUs.
 
 <Frame>
-![](/images/docs/2507166-ray_clus_select.png)
+  <img
+    src="/images/docs/2507166-ray_clus_select.png"
+    alt=""
+    className="mx-auto"
+    style={{ width:"75%" }}
+  />
 </Frame>
 
 Click **Next Step**.
@@ -101,14 +137,19 @@ Click **Next Step**.
 
 Ray is the only selection for now. We will release additional cluster base images soon such as:
 
-* IOG
-* <Tooltip tip="Ludwig – Ludwig is an open-source, declarative deep learning model building framework developed by Uber AI Labs. It aims to provide a simple and flexible way to train and test deep learning models without requiring extensive knowledge of machine learning or deep learning frameworks. Ludwig enables users to build and deploy deep learning models for a variety of tasks, including natural language processing (NLP), computer vision, time series forecasting, and more.">Ludwig</Tooltip>
-* <Tooltip tip="PyTorch FSDP – PyTorch FSDP stands for PyTorch Fully Sharded Data Parallelism. It's a distributed training technique designed to efficiently train large deep learning models across multiple GPUs or even across multiple machines. FSDP achieves this by sharding (splitting) the model parameters and activations across multiple devices, allowing for parallel computation during training.">Pytorch FSDP</Tooltip>
-* <Tooltip tip="Unreal Engine 5 – Unreal Engine 5 (UE5) is a powerful and popular real-time 3D creation platform primarily used for developing video games, architectural visualizations, virtual reality (VR) experiences, and more. Machine learning algorithms for computer vision can be used to enhance augmented reality (AR) or mixed reality (MR) experiences created with Unreal Engine 5. For example, object recognition and tracking algorithms can enable more realistic interactions between virtual and real-world objects in AR applications.">Unreal Engine 5</Tooltip>
-* <Tooltip tip="Unity Streaming – Unity Render Streaming is a technology that brings Unity's powerful rendering capabilities to web browsers, allowing users to experience high-quality graphics directly in their browser without additional software installations.">Unity Streaming</Tooltip>
+- IOG
+- Ludwig
+- Pytorch FSDP
+- Unreal Engine 5
+- Unity Streaming
 
 <Frame>
-![](/images/docs/67a82eda17320fe5cd529db6bc82da5071188c4aa556096236702b858512991d-Bitmap.jpg)
+  <img
+    src="/images/docs/67a82eda17320fe5cd529db6bc82da5071188c4aa556096236702b858512991d-Bitmap.jpg"
+    alt=""
+    className="mx-auto"
+    style={{ width:"77%" }}
+  />
 </Frame>
 
 Click **Next Step**.
@@ -118,7 +159,12 @@ Click **Next Step**.
 All clusters include a preconfigured master node. These nodes are selected by io.net from reliable and security compliant data centers.
 
 <Frame>
-![](/images/docs/78bc942-ray_ms_config.png)
+  <img
+    src="/images/docs/78bc942-ray_ms_config.png"
+    alt=""
+    className="mx-auto"
+    style={{ width:"76%" }}
+  />
 </Frame>
 
 Click **Next Step**.
@@ -133,7 +179,12 @@ On the Summary page, the choices you made in the process are displayed. You must
 4. Click **Deploy Cluster**.
 
 <Frame>
-![](/images/docs/3142dc3-fees1.png)
+  <img
+    src="/images/docs/3142dc3-fees1.png"
+    alt=""
+    className="mx-auto"
+    style={{ width:"66%" }}
+  />
 </Frame>
 
 ### View Cluster
@@ -141,12 +192,11 @@ On the Summary page, the choices you made in the process are displayed. You must
 After payment is processed you can view your cluster loading.
 
 <Frame>
-![](/images/docs/b30fc8f-Cluster_load.png)
+  ![](/images/docs/b30fc8f-Cluster_load.png)
 </Frame>
 
 Click **Return to Clusters** after your cluster is successfully deployed. The screenshot below is a detail page of your cluster.
 
 <Frame>
-![](/images/docs/72c4867-view_cluster2.png)
+  ![](/images/docs/72c4867-view_cluster2.png)
 </Frame>
-
