@@ -2,7 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Workflow API",
-    "version": "1.0"
+    "version": "1.0",
+    "description": "⚠️ **Beta Notice**: This project is in rapid development and may not be stable for production use."
   },
   "servers": [
     { "url": "https://api.example.com" }
@@ -14,54 +15,104 @@
         "summary": "Get Default Workflows",
         "operationId": "get_default_workflows",
         "parameters": [
-          { "name": "token", "in": "header", "schema": { "type": "string" } },
-          { "name": "Authorization", "in": "header", "schema": { "type": "string" } },
-          { "name": "x-api-key", "in": "header", "schema": { "type": "string" } }
+          { "name": "token", "in": "header", "schema": { "type": "string" }, "description": "JWT token" },
+          { "name": "Authorization", "in": "header", "schema": { "type": "string" }, "description": "io.net API Key" },
+          { "name": "x-api-key", "in": "header", "schema": { "type": "string" }, "description": "SDK API Key" }
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "Successful response",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": { "type": "string", "example": "ok" }
-                  }
+                  "$ref": "#/components/schemas/WorkflowResponse"
                 }
               }
             }
           },
           "404": { "description": "Not found" },
-          "422": { "description": "Validation error" }
+          "422": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
         }
       }
     }
   },
   "components": {
     "schemas": {
-      "ClassificationArgs": {
+      "WorkflowResponse": {
         "type": "object",
         "properties": {
-          "classify_by": { "type": "array", "items": { "type": "string" } }
+          "classification_args": { "$ref": "#/components/schemas/ClassificationArgs" },
+          "custom_args": { "$ref": "#/components/schemas/CustomArgs" },
+          "moderation_args": { "$ref": "#/components/schemas/ModerationArgs" },
+          "persona": { "$ref": "#/components/schemas/PersonaConfig" }
         },
-        "required": ["classify_by"]
+        "example": {
+          "classification_args": { "classify_by": ["topic", "sentiment"] },
+          "custom_args": {
+            "name": "custom_step_1",
+            "objective": "Summarize text",
+            "instructions": "Keep it under 100 words",
+            "context": { "language": "en" }
+          },
+          "moderation_args": { "threshold": 0.7 },
+          "persona": { "name": "Alice", "age": 30, "role": "friendly teacher", "style": "formal" }
+        }
+      },
+      "ClassificationArgs": {
+        "type": "object",
+        "required": ["classify_by"],
+        "properties": {
+          "classify_by": { "type": "array", "items": { "type": "string" }, "example": ["topic"] }
+        }
       },
       "CustomArgs": {
         "type": "object",
+        "required": ["name","objective","instructions"],
         "properties": {
-          "name": { "type": "string" },
-          "objective": { "type": "string" },
-          "instructions": { "type": "string" }
-        },
-        "required": ["name","objective","instructions"]
+          "name": { "type": "string", "example": "custom_step_1" },
+          "objective": { "type": "string", "example": "Summarize text" },
+          "instructions": { "type": "string", "example": "Keep it under 100 words" },
+          "context": { "type": "object", "example": { "language": "en" } }
+        }
+      },
+      "ModerationArgs": {
+        "type": "object",
+        "required": ["threshold"],
+        "properties": { "threshold": { "type": "number", "example": 0.7 } }
       },
       "PersonaConfig": {
         "type": "object",
         "properties": {
-          "name": { "type": "string", "nullable": true },
-          "age": { "type": "integer", "nullable": true }
+          "name": { "type": "string", "nullable": true, "example": "Alice" },
+          "age": { "type": "integer", "nullable": true, "example": 30 },
+          "role": { "type": "string", "nullable": true, "example": "friendly teacher" },
+          "style": { "type": "string", "nullable": true, "example": "formal" }
         }
+      },
+      "HTTPValidationError": {
+        "type": "object",
+        "properties": {
+          "detail": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ValidationError" }
+          }
+        }
+      },
+      "ValidationError": {
+        "type": "object",
+        "properties": {
+          "loc": { "type": "array", "items": { "type": "string" } },
+          "msg": { "type": "string" },
+          "type": { "type": "string" }
+        },
+        "required": ["loc","msg","type"]
       }
     }
   }
