@@ -1,20 +1,24 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "IO Intelligence API",
-    "version": "1.0"
+    "title": "Workflow API",
+    "version": "1.0",
+    "description": "⚠️ **Beta Notice**: This project is in rapid development and may not be stable for production use."
   },
   "servers": [
-    {
-      "url": "https://api.intelligence.io.solutions"
-    }
+    { "url": "https://api.example.com" }
   ],
   "paths": {
-    "/api/v1/workflows/schema": {
+    "/v1/workflows/schema": {
       "get": {
-        "summary": "Get available workflow schemas for the Embeddings API",
-        "description": "This endpoint returns the schema of available workflows including classification, summarization, translation, and other tasks.",
+        "summary": "Get available workflow schemas",
+        "description": "Returns the schema of available workflows including classification, summarization, translation, and other tasks.",
         "operationId": "getWorkflowsSchema",
+        "parameters": [
+          { "name": "token", "in": "header", "schema": { "type": "string" }, "description": "JWT token" },
+          { "name": "Authorization", "in": "header", "schema": { "type": "string" }, "description": "io.net API Key" },
+          { "name": "x-api-key", "in": "header", "schema": { "type": "string" }, "description": "SDK API Key" }
+        ],
         "responses": {
           "200": {
             "description": "Successfully retrieved workflow schema",
@@ -50,7 +54,7 @@
                             "instructions": { "type": "string", "description": "Optional instructions for the workflow" },
                             "context": { "type": "object", "description": "Additional context or parameters" }
                           },
-                          "required": ["name", "objective", "instructions"]
+                          "required": ["name","objective","instructions"]
                         },
                         {
                           "type": "object",
@@ -60,9 +64,7 @@
                         {
                           "type": "object",
                           "description": "Moderation arguments",
-                          "properties": {
-                            "threshold": { "type": "number", "description": "Moderation threshold" }
-                          },
+                          "properties": { "threshold": { "type": "number", "description": "Moderation threshold" } },
                           "required": ["threshold"]
                         },
                         {
@@ -78,17 +80,24 @@
                         {
                           "type": "object",
                           "description": "Summarization arguments",
-                          "properties": {
-                            "max_words": { "type": "integer", "default": 100, "description": "Maximum words in summary" }
-                          }
+                          "properties": { "max_words": { "type": "integer", "default": 100, "description": "Maximum words in summary" } }
                         },
                         {
                           "type": "object",
                           "description": "Translation arguments",
-                          "properties": {
-                            "target_language": { "type": "string", "description": "Target language for translation" }
-                          },
+                          "properties": { "target_language": { "type": "string", "description": "Target language for translation" } },
                           "required": ["target_language"]
+                        },
+                        {
+                          "type": "object",
+                          "description": "Persona configuration",
+                          "properties": {
+                            "name": { "type": "string", "nullable": true },
+                            "age": { "type": "integer", "nullable": true },
+                            "role": { "type": "string", "nullable": true },
+                            "style": { "type": "string", "nullable": true },
+                            "domain_knowledge": { "type": "array", "items": { "type": "string" } }
+                          }
                         }
                       ],
                       "nullable": true,
@@ -100,28 +109,24 @@
                       "description": "Names of agents to execute the workflow"
                     }
                   },
-                  "required": ["text", "agent_names"],
-                  "title": "TextRequest"
+                  "required": ["text","agent_names"]
                 },
                 "example": {
-                  "text": "Example text",
+                  "text": "Example workflow text",
                   "args": null,
-                  "agent_names": ["agent1", "agent2"]
+                  "agent_names": ["agent1","agent2"]
                 }
               }
             }
           },
-          "404": {
-            "description": "Schema not found",
-            "content": { "text/plain": { "example": "Not found" } }
-          },
+          "404": { "description": "Schema not found", "content": { "text/plain": { "example": "Not found" } } },
           "422": {
             "description": "Validation error",
             "content": {
               "application/json": {
                 "example": {
                   "detail": [
-                    { "loc": ["body", "text"], "msg": "field required", "type": "value_error.missing" }
+                    { "loc": ["body","text"], "msg": "field required", "type": "value_error.missing" }
                   ]
                 }
               }
