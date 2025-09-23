@@ -54,11 +54,7 @@
               }
 
             ]},
-
           {
-            "group": "IO Ecosystem",
-            "pages": [
-              {
                 "group": "Block Rewards",
                 "pages": [
                   "guides/block-rewards/block-rewards",
@@ -66,6 +62,10 @@
                   "guides/block-rewards/proposed-device-block-reward-multiplier"
                 ]
               },
+
+          {
+            "group": "IO Ecosystem",
+            "pages": [
               {
                 "group": "BC8: Your Gateway to Immersive AI Media",
                 "pages": [
