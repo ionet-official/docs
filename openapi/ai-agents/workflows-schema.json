@@ -1,74 +1,71 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "IO Intelligence Workflows API",
+    "title": "Workflow API",
     "version": "1.0.0",
-    "description": "OpenAPI specification for the Workflows Schema endpoint."
+    "description": "⚠️ **Beta Notice**: This project is in rapid development and may not be stable for production use."
   },
-  "servers": [
-    {
-      "url": "https://api.intelligence.io.solutions/api/v1"
-    }
-  ],
   "paths": {
-    "/workflows/schema": {
+    "/v1/workflows/schema": {
       "get": {
-        "summary": "Get Workflows Schema",
-        "operationId": "getWorkflowsSchema",
-        "tags": ["Workflows"],
-        "security": [
+        "tags": [
+          "agents"
+        ],
+        "summary": "Get Default Workflows",
+        "operationId": "get_default_workflows_v1_workflows_schema_get",
+        "parameters": [
           {
-            "bearerAuth": []
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
           }
         ],
         "responses": {
           "200": {
-            "description": "Workflow schema definition",
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TextRequest"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Execute Workflow",
-        "operationId": "executeWorkflow",
-        "tags": ["Workflows"],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TextRequest"
-              },
-              "example": {
-                "text": "Translate this text to French.",
-                "agent_names": ["default-agent"],
-                "args": {
-                  "type": "translate_text",
-                  "target_language": "fr"
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Workflow execution result",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "description": "Dynamic response depending on workflow type."
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }
@@ -78,154 +75,39 @@
     }
   },
   "components": {
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
-      }
-    },
     "schemas": {
-      "TextRequest": {
-        "$defs": {
-          "ClassificationArgs": {
-            "properties": {
-              "classify_by": {
-                "items": {
-                  "type": "string"
-                },
-                "title": "Classify By",
-                "type": "array"
-              }
-            },
-            "required": ["classify_by"],
-            "title": "ClassificationArgs",
-            "type": "object"
-          },
-          "CustomArgs": {
-            "properties": {
-              "name": {
-                "description": "Unique name/ID for the custom workflow step.",
-                "title": "Name",
-                "type": "string"
-              },
-              "objective": {
-                "description": "Primary objective or text prompt for the workflow.",
-                "title": "Objective",
-                "type": "string"
-              },
-              "instructions": {
-                "description": "Optional instructions to be passed along.",
-                "title": "Instructions",
-                "type": "string"
-              },
-              "context": {
-                "description": "Additional context or parameters.",
-                "title": "Context",
-                "type": "object"
-              }
-            },
-            "required": ["name", "objective", "instructions"],
-            "title": "CustomArgs",
-            "type": "object"
-          },
-          "ExtractEntitiesArgs": {
-            "properties": {},
-            "title": "ExtractEntitiesArgs",
-            "type": "object"
-          },
-          "ModerationArgs": {
-            "properties": {
-              "threshold": {
-                "title": "Threshold",
-                "type": "number"
-              }
-            },
-            "required": ["threshold"],
-            "title": "ModerationArgs",
-            "type": "object"
-          },
-          "ReasoningArgs": {
-            "properties": {},
-            "title": "ReasoningArgs",
-            "type": "object"
-          },
-          "SentimentArgs": {
-            "properties": {},
-            "title": "SentimentArgs",
-            "type": "object"
-          },
-          "SummarizeArgs": {
-            "properties": {
-              "max_words": {
-                "default": 100,
-                "title": "Max Words",
-                "type": "integer"
-              }
-            },
-            "title": "SummarizeArgs",
-            "type": "object"
-          },
-          "TranslateArgs": {
-            "properties": {
-              "target_language": {
-                "title": "Target Language",
-                "type": "string"
-              }
-            },
-            "required": ["target_language"],
-            "title": "TranslateArgs",
-            "type": "object"
-          }
-        },
+      "HTTPValidationError": {
+        "type": "object",
         "properties": {
-          "text": {
-            "title": "Text",
-            "type": "string"
-          },
-          "args": {
-            "anyOf": [
-              {
-                "discriminator": {
-                  "mapping": {
-                    "classify": "#/$defs/ClassificationArgs",
-                    "custom": "#/$defs/CustomArgs",
-                    "extract_categorized_entities": "#/$defs/ExtractEntitiesArgs",
-                    "moderation": "#/$defs/ModerationArgs",
-                    "sentiment": "#/$defs/SentimentArgs",
-                    "solve_with_reasoning": "#/$defs/ReasoningArgs",
-                    "summarize_text": "#/$defs/SummarizeArgs",
-                    "translate_text": "#/$defs/TranslateArgs"
-                  },
-                  "propertyName": "type"
-                },
-                "oneOf": [
-                  { "$ref": "#/$defs/ReasoningArgs" },
-                  { "$ref": "#/$defs/SummarizeArgs" },
-                  { "$ref": "#/$defs/SentimentArgs" },
-                  { "$ref": "#/$defs/ExtractEntitiesArgs" },
-                  { "$ref": "#/$defs/TranslateArgs" },
-                  { "$ref": "#/$defs/ClassificationArgs" },
-                  { "$ref": "#/$defs/ModerationArgs" },
-                  { "$ref": "#/$defs/CustomArgs" }
-                ]
-              },
-              { "type": "null" }
-            ],
-            "default": null,
-            "title": "Args"
-          },
-          "agent_names": {
+          "detail": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
+          }
+        }
+      },
+      "ValidationError": {
+        "type": "object",
+        "properties": {
+          "loc": {
+            "type": "array",
             "items": {
               "type": "string"
-            },
-            "title": "Agent Names",
-            "type": "array"
+            }
+          },
+          "msg": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
           }
         },
-        "required": ["text", "agent_names"],
-        "title": "TextRequest",
-        "type": "object"
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ]
       }
     }
   }
