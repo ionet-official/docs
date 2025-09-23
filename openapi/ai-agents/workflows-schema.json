@@ -1,10 +1,15 @@
 {
-  "openapi": "3.0.3",
+  "openapi": "3.1.0",
   "info": {
     "title": "Workflow API",
-    "version": "1.0.0",
+    "version": "1.0",
     "description": "⚠️ **Beta Notice**: This project is in rapid development and may not be stable for production use."
   },
+  "servers": [
+    {
+      "url": "https://api.example.com"
+    }
+  ],
   "paths": {
     "/v1/workflows/schema": {
       "get": {
@@ -16,21 +21,21 @@
             "name": "token",
             "in": "header",
             "required": false,
-            "schema": { "type": "string", "title": "Token", "description": "JWT token" },
+            "schema": { "type": "string" },
             "description": "JWT token"
           },
           {
             "name": "Authorization",
             "in": "header",
             "required": false,
-            "schema": { "type": "string", "title": "Authorization", "description": "io.net provided API Key" },
+            "schema": { "type": "string" },
             "description": "io.net provided API Key"
           },
           {
             "name": "x-api-key",
             "in": "header",
             "required": false,
-            "schema": { "type": "string", "title": "X-Api-Key", "description": "API key set by an SDK client" },
+            "schema": { "type": "string" },
             "description": "API key set by an SDK client"
           }
         ],
@@ -78,47 +83,46 @@
       },
       "ClassificationArgs": {
         "type": "object",
-        "title": "ClassificationArgs",
+        "required": ["classify_by"],
         "properties": {
-          "classify_by": { "type": "array", "items": { "type": "string" }, "title": "Classify By" }
-        },
-        "required": ["classify_by"]
+          "classify_by": {
+            "type": "array",
+            "items": { "type": "string" },
+            "title": "Classify By"
+          }
+        }
       },
       "CustomArgs": {
         "type": "object",
-        "title": "CustomArgs",
+        "required": ["name","objective","instructions"],
         "properties": {
-          "name": { "type": "string", "title": "Name", "description": "Unique name/ID for the custom workflow step." },
-          "objective": { "type": "string", "title": "Objective", "description": "Primary objective or text prompt for the workflow." },
-          "instructions": { "type": "string", "title": "Instructions", "description": "Optional instructions to be passed along." },
-          "context": { "type": "object", "title": "Context", "description": "Additional context or parameters." }
-        },
-        "required": ["name","objective","instructions"]
+          "name": { "type": "string", "description": "Unique name/ID for the custom workflow step." },
+          "objective": { "type": "string", "description": "Primary objective or text prompt for the workflow." },
+          "instructions": { "type": "string", "description": "Optional instructions to be passed along." },
+          "context": { "type": "object", "description": "Additional context or parameters." }
+        }
       },
-      "ExtractEntitiesArgs": { "type": "object", "title": "ExtractEntitiesArgs", "properties": {} },
+      "ExtractEntitiesArgs": { "type": "object", "properties": {} },
       "ModerationArgs": {
         "type": "object",
-        "title": "ModerationArgs",
-        "properties": { "threshold": { "type": "number", "title": "Threshold" } },
-        "required": ["threshold"]
+        "required": ["threshold"],
+        "properties": { "threshold": { "type": "number", "title": "Threshold" } }
       },
       "PersonaConfig": {
         "type": "object",
-        "title": "PersonaConfig",
         "description": "A configuration object that describes an agent's persona or character.",
         "properties": {
-          "name": { "anyOf":[{"type":"string"},{"type":"null"}], "default": null, "description": "If the persona has a specific name or nickname.", "title":"Name" },
-          "age": { "anyOf":[{"type":"integer","minimum":1},{"type":"null"}], "default": null, "description": "Approximate age of the persona (if relevant).", "title":"Age" },
-          "role": { "anyOf":[{"type":"string"},{"type":"null"}], "default": null, "description": "General role or type, e.g. 'a brave knight', 'a friendly teacher', etc.", "title":"Role" },
-          "style": { "anyOf":[{"type":"string"},{"type":"null"}], "default": null, "description": "A short description of the agent's style or demeanor.", "title":"Style" },
-          "domain_knowledge": { "type":"array","items":{"type":"string"}, "description":"List of domains or special areas of expertise the agent has.","title":"Domain Knowledge" }
-          /* Остальные свойства PersonaConfig можно добавить аналогично */
+          "name": { "type": "string", "nullable": true, "description": "If the persona has a specific name or nickname." },
+          "age": { "type": "integer", "minimum": 1, "nullable": true, "description": "Approximate age of the persona (if relevant)." },
+          "role": { "type": "string", "nullable": true, "description": "General role or type, e.g. 'a brave knight', 'a friendly teacher', etc." },
+          "style": { "type": "string", "nullable": true, "description": "A short description of the agent's style or demeanor." },
+          "domain_knowledge": { "type": "array", "items": { "type": "string" }, "description": "List of domains or special areas of expertise the agent has." }
         }
       },
-      "ReasoningArgs": { "type": "object", "title": "ReasoningArgs", "properties": {} },
-      "SentimentArgs": { "type": "object", "title": "SentimentArgs", "properties": {} },
-      "SummarizeArgs": { "type": "object", "title": "SummarizeArgs", "properties": { "max_words": { "type": "integer", "default": 100, "title": "Max Words" } } },
-      "TranslateArgs": { "type": "object", "title": "TranslateArgs", "properties": { "target_language": { "type": "string", "title": "Target Language" } }, "required": ["target_language"] }
+      "ReasoningArgs": { "type": "object", "properties": {} },
+      "SentimentArgs": { "type": "object", "properties": {} },
+      "SummarizeArgs": { "type": "object", "properties": { "max_words": { "type": "integer", "default": 100 } } },
+      "TranslateArgs": { "type": "object", "required": ["target_language"], "properties": { "target_language": { "type": "string" } } }
     }
   }
 }
