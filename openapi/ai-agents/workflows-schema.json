@@ -3,126 +3,67 @@
   "info": {
     "title": "Workflow API",
     "version": "1.0",
-    "description": "⚠️ **Beta Notice**: This project is in rapid development and may not be stable for production use."
+    "description": "⚠️ **Beta Notice**: Beta, may not be stable."
   },
   "servers": [
-    {
-      "url": "https://api.example.com"
-    }
+    { "url": "https://api.example.com" }
   ],
   "paths": {
     "/v1/workflows/schema": {
       "get": {
         "tags": ["agents"],
         "summary": "Get Default Workflows",
-        "operationId": "get_default_workflows_v1_workflows_schema_get",
+        "operationId": "get_default_workflows",
         "parameters": [
-          {
-            "name": "token",
-            "in": "header",
-            "required": false,
-            "schema": { "type": "string" },
-            "description": "JWT token"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "required": false,
-            "schema": { "type": "string" },
-            "description": "io.net provided API Key"
-          },
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": false,
-            "schema": { "type": "string" },
-            "description": "API key set by an SDK client"
-          }
+          { "name": "token", "in": "header", "schema": { "type": "string" } },
+          { "name": "Authorization", "in": "header", "schema": { "type": "string" } },
+          { "name": "x-api-key", "in": "header", "schema": { "type": "string" } }
         ],
         "responses": {
           "200": {
-            "description": "Successful Response",
+            "description": "Success",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "ok" }
+                  }
+                }
               }
             }
           },
           "404": { "description": "Not found" },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
-              }
-            }
-          }
+          "422": { "description": "Validation error" }
         }
       }
     }
   },
   "components": {
     "schemas": {
-      "HTTPValidationError": {
-        "type": "object",
-        "properties": {
-          "detail": {
-            "type": "array",
-            "items": { "$ref": "#/components/schemas/ValidationError" }
-          }
-        }
-      },
-      "ValidationError": {
-        "type": "object",
-        "properties": {
-          "loc": { "type": "array", "items": { "type": "string" } },
-          "msg": { "type": "string" },
-          "type": { "type": "string" }
-        },
-        "required": ["loc", "msg", "type"]
-      },
       "ClassificationArgs": {
         "type": "object",
-        "required": ["classify_by"],
         "properties": {
-          "classify_by": {
-            "type": "array",
-            "items": { "type": "string" },
-            "title": "Classify By"
-          }
-        }
+          "classify_by": { "type": "array", "items": { "type": "string" } }
+        },
+        "required": ["classify_by"]
       },
       "CustomArgs": {
         "type": "object",
-        "required": ["name","objective","instructions"],
         "properties": {
-          "name": { "type": "string", "description": "Unique name/ID for the custom workflow step." },
-          "objective": { "type": "string", "description": "Primary objective or text prompt for the workflow." },
-          "instructions": { "type": "string", "description": "Optional instructions to be passed along." },
-          "context": { "type": "object", "description": "Additional context or parameters." }
-        }
-      },
-      "ExtractEntitiesArgs": { "type": "object", "properties": {} },
-      "ModerationArgs": {
-        "type": "object",
-        "required": ["threshold"],
-        "properties": { "threshold": { "type": "number", "title": "Threshold" } }
+          "name": { "type": "string" },
+          "objective": { "type": "string" },
+          "instructions": { "type": "string" }
+        },
+        "required": ["name","objective","instructions"]
       },
       "PersonaConfig": {
         "type": "object",
-        "description": "A configuration object that describes an agent's persona or character.",
         "properties": {
-          "name": { "type": "string", "nullable": true, "description": "If the persona has a specific name or nickname." },
-          "age": { "type": "integer", "minimum": 1, "nullable": true, "description": "Approximate age of the persona (if relevant)." },
-          "role": { "type": "string", "nullable": true, "description": "General role or type, e.g. 'a brave knight', 'a friendly teacher', etc." },
-          "style": { "type": "string", "nullable": true, "description": "A short description of the agent's style or demeanor." },
-          "domain_knowledge": { "type": "array", "items": { "type": "string" }, "description": "List of domains or special areas of expertise the agent has." }
+          "name": { "type": "string", "nullable": true },
+          "age": { "type": "integer", "nullable": true }
         }
-      },
-      "ReasoningArgs": { "type": "object", "properties": {} },
-      "SentimentArgs": { "type": "object", "properties": {} },
-      "SummarizeArgs": { "type": "object", "properties": { "max_words": { "type": "integer", "default": 100 } } },
-      "TranslateArgs": { "type": "object", "required": ["target_language"], "properties": { "target_language": { "type": "string" } } }
+      }
     }
   }
 }
