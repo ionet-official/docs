@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Workflow API",
+    "title": "Workflow API Minimal",
     "version": "1.0",
-    "description": "⚠️ Beta Notice: This is a minimal working example."
+    "description": "⚠️ Beta Notice: This is the simplest working example for Mintlify."
   },
   "servers": [
     { "url": "https://api.example.com" }
@@ -12,7 +12,7 @@
     "/v1/workflows/schema": {
       "get": {
         "summary": "Get available workflows",
-        "operationId": "getWorkflows",
+        "operationId": "getWorkflowsMinimal",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -22,13 +22,9 @@
                   "type": "object",
                   "properties": {
                     "text": { "type": "string", "example": "Example text" },
-                    "agent_names": {
-                      "type": "array",
-                      "items": { "type": "string" },
-                      "example": ["agent1", "agent2"]
-                    }
+                    "agent_name": { "type": "string", "example": "agent1" }
                   },
-                  "required": ["text", "agent_names"]
+                  "required": ["text", "agent_name"]
                 }
               }
             }
