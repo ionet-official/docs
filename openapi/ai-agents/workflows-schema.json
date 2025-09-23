@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "IO Intelligence",
+    "title": "IO Intelligence API",
     "version": "1.0"
   },
   "servers": [
@@ -13,97 +13,132 @@
     "/api/v1/workflows/schema": {
       "get": {
         "summary": "Workflows Schema",
-        "description": "Get list of available models for Embeddings API",
+        "description": "Get the schema of available workflow arguments for various tasks",
         "operationId": "workflows-schema",
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "Successfully retrieved workflow schema",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "required": ["text", "agent_names"],
-                  "properties": {
-                    "$defs": {
-                      "type": "object",
-                      "properties": {
-                        "ClassificationArgs": {
-                          "type": "object",
-                          "required": ["classify_by"],
-                          "properties": {
-                            "classify_by": {
-                              "type": "array",
-                              "items": { "type": "string" }
-                            }
-                          }
-                        },
-                        "CustomArgs": {
-                          "type": "object",
-                          "required": ["name", "objective", "instructions"],
-                          "properties": {
-                            "name": { "type": "string" },
-                            "objective": { "type": "string" },
-                            "instructions": { "type": "string" },
-                            "context": { "type": "string" }
-                          }
-                        },
-                        "ExtractEntitiesArgs": { "type": "object" },
-                        "ModerationArgs": {
-                          "type": "object",
-                          "required": ["threshold"],
-                          "properties": {
-                            "threshold": { "type": "string" }
-                          }
-                        },
-                        "ReasoningArgs": { "type": "object" },
-                        "SentimentArgs": { "type": "object" },
-                        "SummarizeArgs": {
-                          "type": "object",
-                          "properties": {
-                            "max_words": { "type": "integer", "default": 0 }
-                          }
-                        },
-                        "TranslateArgs": {
-                          "type": "object",
-                          "required": ["target_language"],
-                          "properties": {
-                            "target_language": { "type": "string" }
-                          }
-                        }
-                      }
-                    },
-                    "text": { "type": "string" },
-                    "args": {
-                      "anyOf": [
-                        {
-                          "oneOf": [
-                            { "$ref": "#/$defs/ReasoningArgs" },
-                            { "$ref": "#/$defs/SummarizeArgs" },
-                            { "$ref": "#/$defs/SentimentArgs" },
-                            { "$ref": "#/$defs/ExtractEntitiesArgs" },
-                            { "$ref": "#/$defs/TranslateArgs" },
-                            { "$ref": "#/$defs/ClassificationArgs" },
-                            { "$ref": "#/$defs/ModerationArgs" },
-                            { "$ref": "#/$defs/CustomArgs" }
-                          ]
-                        },
-                        { "type": "null" }
-                      ],
-                      "default": null
-                    },
-                    "agent_names": {
-                      "type": "array",
-                      "items": { "type": "string" }
+                  "$ref": "#/$defs/TextRequest"
+                },
+                "examples": {
+                  "Example": {
+                    "value": {
+                      "text": "Example text",
+                      "args": null,
+                      "agent_names": ["agent1", "agent2"]
                     }
                   }
                 }
               }
             }
           },
-          "404": { "description": "Not Found" },
-          "422": { "description": "Validation Error" }
+          "404": {
+            "description": "Schema not found",
+            "content": {
+              "text/plain": {
+                "example": "Not found"
+              }
+            }
+          },
+          "422": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": [
+                    { "loc": ["body", "text"], "msg": "field required", "type": "value_error.missing" }
+                  ]
+                }
+              }
+            }
+          }
         }
       }
+    }
+  },
+  "$defs": {
+    "ClassificationArgs": {
+      "type": "object",
+      "title": "ClassificationArgs",
+      "properties": {
+        "classify_by": { "type": "array", "items": { "type": "string" }, "title": "Classify By" }
+      },
+      "required": ["classify_by"]
+    },
+    "CustomArgs": {
+      "type": "object",
+      "title": "CustomArgs",
+      "properties": {
+        "name": { "type": "string", "title": "Name", "description": "Unique name/ID for the custom workflow step." },
+        "objective": { "type": "string", "title": "Objective", "description": "Primary objective or text prompt for the workflow." },
+        "instructions": { "type": "string", "title": "Instructions", "description": "Optional instructions to be passed along." },
+        "context": { "type": "object", "title": "Context", "description": "Additional context or parameters." }
+      },
+      "required": ["name", "objective", "instructions"]
+    },
+    "ExtractEntitiesArgs": { "type": "object", "title": "ExtractEntitiesArgs", "properties": {} },
+    "ModerationArgs": {
+      "type": "object",
+      "title": "ModerationArgs",
+      "properties": { "threshold": { "type": "number", "title": "Threshold" } },
+      "required": ["threshold"]
+    },
+    "ReasoningArgs": { "type": "object", "title": "ReasoningArgs", "properties": {} },
+    "SentimentArgs": { "type": "object", "title": "SentimentArgs", "properties": {} },
+    "SummarizeArgs": {
+      "type": "object",
+      "title": "SummarizeArgs",
+      "properties": { "max_words": { "type": "integer", "title": "Max Words", "default": 100 } }
+    },
+    "TranslateArgs": {
+      "type": "object",
+      "title": "TranslateArgs",
+      "properties": { "target_language": { "type": "string", "title": "Target Language" } },
+      "required": ["target_language"]
+    },
+    "TextRequest": {
+      "type": "object",
+      "title": "TextRequest",
+      "properties": {
+        "text": { "type": "string", "title": "Text" },
+        "args": {
+          "title": "Args",
+          "anyOf": [
+            {
+              "discriminator": {
+                "propertyName": "type",
+                "mapping": {
+                  "classify": "#/$defs/ClassificationArgs",
+                  "custom": "#/$defs/CustomArgs",
+                  "extract_categorized_entities": "#/$defs/ExtractEntitiesArgs",
+                  "moderation": "#/$defs/ModerationArgs",
+                  "sentiment": "#/$defs/SentimentArgs",
+                  "solve_with_reasoning": "#/$defs/ReasoningArgs",
+                  "summarize_text": "#/$defs/SummarizeArgs",
+                  "translate_text": "#/$defs/TranslateArgs"
+                }
+              },
+              "oneOf": [
+                { "$ref": "#/$defs/ReasoningArgs" },
+                { "$ref": "#/$defs/SummarizeArgs" },
+                { "$ref": "#/$defs/SentimentArgs" },
+                { "$ref": "#/$defs/ExtractEntitiesArgs" },
+                { "$ref": "#/$defs/TranslateArgs" },
+                { "$ref": "#/$defs/ClassificationArgs" },
+                { "$ref": "#/$defs/ModerationArgs" },
+                { "$ref": "#/$defs/CustomArgs" }
+              ]
+            },
+            { "type": "null" }
+          ],
+          "default": null
+        },
+        "agent_names": { "type": "array", "items": { "type": "string" }, "title": "Agent Names" }
+      },
+      "required": ["text", "agent_names"]
     }
   }
 }
