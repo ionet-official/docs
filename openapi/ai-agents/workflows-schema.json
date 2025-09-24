@@ -2,7 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "IO Intelligence",
-    "version": "1.0"
+    "version": "1.0",
+    "description": "⚠️ Beta Notice: This project is in rapid development and may not be stable for production use."
   },
   "servers": [
     {
