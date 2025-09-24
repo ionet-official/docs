@@ -5,28 +5,108 @@
     "version": "1.0"
   },
   "servers": [
-    { "url": "https://api.intelligence.io.solutions" }
+    {
+      "url": "https://api.intelligence.io.solutions"
+    }
   ],
   "components": {
     "securitySchemes": {
-      "sec0": { "type": "oauth2", "flows": {} }
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "ClassificationArgs": {
+        "type": "object",
+        "title": "ClassificationArgs",
+        "required": ["classify_by"],
+        "properties": {
+          "classify_by": {
+            "type": "array",
+            "items": { "type": "string" },
+            "title": "Classify By"
+          }
+        }
+      },
+      "CustomArgs": {
+        "type": "object",
+        "title": "CustomArgs",
+        "required": ["name", "objective", "instructions"],
+        "properties": {
+          "name": { "type": "string", "title": "Name", "description": "Unique name/ID for the custom workflow step." },
+          "objective": { "type": "string", "title": "Objective", "description": "Primary objective or text prompt for the workflow." },
+          "instructions": { "type": "string", "title": "Instructions", "description": "Optional instructions to be passed along." },
+          "context": { "type": "object", "title": "Context", "description": "Additional context or parameters." }
+        }
+      },
+      "ExtractEntitiesArgs": { "type": "object", "title": "ExtractEntitiesArgs", "properties": {} },
+      "ModerationArgs": {
+        "type": "object",
+        "title": "ModerationArgs",
+        "required": ["threshold"],
+        "properties": {
+          "threshold": { "type": "number", "title": "Threshold" }
+        }
+      },
+      "ReasoningArgs": { "type": "object", "title": "ReasoningArgs", "properties": {} },
+      "SentimentArgs": { "type": "object", "title": "SentimentArgs", "properties": {} },
+      "SummarizeArgs": {
+        "type": "object",
+        "title": "SummarizeArgs",
+        "properties": {
+          "max_words": { "type": "integer", "title": "Max Words", "default": 100 }
+        }
+      },
+      "TranslateArgs": {
+        "type": "object",
+        "title": "TranslateArgs",
+        "required": ["target_language"],
+        "properties": {
+          "target_language": { "type": "string", "title": "Target Language" }
+        }
+      },
+      "TextRequest": {
+        "type": "object",
+        "title": "TextRequest",
+        "required": ["text", "agent_names"],
+        "properties": {
+          "text": { "type": "string", "title": "Text" },
+          "args": {
+            "oneOf": [
+              { "$ref": "#/components/schemas/ClassificationArgs" },
+              { "$ref": "#/components/schemas/CustomArgs" },
+              { "$ref": "#/components/schemas/ExtractEntitiesArgs" },
+              { "$ref": "#/components/schemas/ModerationArgs" },
+              { "$ref": "#/components/schemas/ReasoningArgs" },
+              { "$ref": "#/components/schemas/SentimentArgs" },
+              { "$ref": "#/components/schemas/SummarizeArgs" },
+              { "$ref": "#/components/schemas/TranslateArgs" }
+            ],
+            "nullable": true,
+            "title": "Args"
+          },
+          "agent_names": { "type": "array", "items": { "type": "string" }, "title": "Agent Names" }
+        }
+      }
     }
   },
-  "security": [{ "sec0": [] }],
   "paths": {
     "/api/v1/workflows/schema": {
       "get": {
         "summary": "Workflows Schema",
         "description": "Get list of available models for Embeddings API",
         "operationId": "workflows-schema",
+        "security": [{ "BearerAuth": [] }],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "Successful response",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/TextRequest" },
                 "examples": {
-                  "Result": {
+                  "example": {
                     "value": {
                       "text": "Example text",
                       "args": null,
