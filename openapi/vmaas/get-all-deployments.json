@@ -1,256 +1,226 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "IO API",
-    "version": "1.0"
+    "title": "VMaaS",
+    "description": "Retrieve a list of all VMaaS deployments associated with the enterprise account, including their status, configuration, and metadata.",
+    "version": "1.0.0-oas3.1"
   },
-  "servers": [
-    {
-      "url": "https://api.io.solutions/"
-    }
-  ],
-  "components": {
-    "securitySchemes": {
-      "sec0": {
-        "type": "oauth2",
-        "flows": {}
-      }
-    }
-  },
-  "security": [
-    {
-      "sec0": []
-    }
-  ],
   "paths": {
     "/enterprise/v1/io-cloud/vmaas/deployments": {
       "get": {
+        "tags": [
+          "enterprise-io-cloud-vmaas"
+        ],
         "summary": "Get All Deployments",
-        "description": "Retrieve a list of all VMaaS deployments associated with the enterprise account, including their status, configuration, and metadata.",
-        "operationId": "get-all-deployments",
+        "operationId": "get_all_deployments_enterprise_v1_io_cloud_vmaas_deployments_get",
         "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "allOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "running",
+                    "completed",
+                    "failed",
+                    "deployment requested",
+                    "termination requested",
+                    "destroyed"
+                  ],
+                  "title": "VMaaSResourceStatus"
+                }
+              ],
+              "title": "Status"
+            }
+          },
           {
             "name": "page",
             "in": "query",
             "required": false,
             "schema": {
               "type": "integer",
-              "default": 1,
-              "example": 1
-            },
-            "description": "Page number for paginated results."
+              "default": 0,
+              "title": "Page"
+            }
           },
           {
-            "name": "pageSize",
+            "name": "page_size",
             "in": "query",
             "required": false,
             "schema": {
               "type": "integer",
+              "maximum": 100,
+              "min": 1,
               "default": 10,
-              "example": 10
-            },
-            "description": "Number of deployments per page."
+              "title": "Page Size"
+            }
           },
           {
-            "name": "status",
-            "in": "query",
+            "name": "x-api-key",
+            "in": "header",
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["running", "stopped", "pending", "failed"],
-              "example": "running"
+              "description": "io.net provided API Key",
+              "title": "X-Api-Key"
             },
-            "description": "Filter deployments by status."
-          },
-          {
-            "name": "sort",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "enum": ["created_at", "-created_at", "name", "-name"],
-              "example": "-created_at"
-            },
-            "description": "Sort deployments by field (prefix with `-` for descending order)."
+            "description": "io.net provided API Key"
           }
         ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "Successful Response",
             "content": {
               "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": {
-                      "data": {
-                        "deployments": [
-                          {
-                            "id": "dep_123456",
-                            "name": "My Deployment",
-                            "status": "running",
-                            "created_at": "2025-09-15T10:00:00Z",
-                            "region": "us-east-1",
-                            "configuration": {
-                              "cpu": 4,
-                              "memory": "16GB",
-                              "gpu": 1
-                            }
-                          }
-                        ],
-                        "total": 1,
-                        "page": 1,
-                        "pageSize": 10
-                      }
-                    }
-                  }
-                },
                 "schema": {
-                  "type": "object",
                   "properties": {
                     "data": {
-                      "type": "object",
                       "properties": {
                         "deployments": {
-                          "type": "array",
                           "items": {
-                            "type": "object",
                             "properties": {
                               "id": {
                                 "type": "string",
-                                "example": "dep_123456"
-                              },
-                              "name": {
-                                "type": "string",
-                                "example": "My Deployment"
+                                "format": "uuid",
+                                "title": "Id"
                               },
                               "status": {
                                 "type": "string",
-                                "example": "running"
+                                "title": "Status"
                               },
-                              "created_at": {
+                              "name": {
                                 "type": "string",
-                                "format": "date-time",
-                                "example": "2025-09-15T10:00:00Z"
+                                "title": "Name"
                               },
-                              "region": {
+                              "completed_percent": {
+                                "type": "number",
+                                "title": "Completed Percent"
+                              },
+                              "hardware_quantity": {
+                                "type": "integer",
+                                "title": "Hardware Quantity"
+                              },
+                              "brand_name": {
                                 "type": "string",
-                                "example": "us-east-1"
+                                "title": "Brand Name"
                               },
-                              "configuration": {
-                                "type": "object",
-                                "properties": {
-                                  "cpu": {
-                                    "type": "integer",
-                                    "example": 4
-                                  },
-                                  "memory": {
-                                    "type": "string",
-                                    "example": "16GB"
-                                  },
-                                  "gpu": {
-                                    "type": "integer",
-                                    "example": 1
-                                  }
-                                }
+                              "hardware_name": {
+                                "type": "string",
+                                "title": "Hardware Name"
+                              },
+                              "compute_minutes_served": {
+                                "type": "integer",
+                                "title": "Compute Minutes Served"
+                              },
+                              "compute_minutes_remaining": {
+                                "type": "integer",
+                                "title": "Compute Minutes Remaining"
                               }
-                            }
-                          }
+                            },
+                            "type": "object",
+                            "required": [
+                              "id",
+                              "status",
+                              "name",
+                              "completed_percent",
+                              "hardware_quantity",
+                              "brand_name",
+                              "hardware_name",
+                              "compute_minutes_served",
+                              "compute_minutes_remaining"
+                            ],
+                            "title": "DeploymentData"
+                          },
+                          "type": "array",
+                          "title": "Deployments"
                         },
                         "total": {
                           "type": "integer",
-                          "example": 1
+                          "title": "Total"
                         },
-                        "page": {
-                          "type": "integer",
-                          "example": 1
-                        },
-                        "pageSize": {
-                          "type": "integer",
-                          "example": 10
+                        "statuses": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "type": "array",
+                          "title": "Statuses"
                         }
-                      }
+                      },
+                      "type": "object",
+                      "required": [
+                        "deployments",
+                        "total",
+                        "statuses"
+                      ],
+                      "title": "DeploymentsData"
                     }
-                  }
+                  },
+                  "type": "object",
+                  "required": [
+                    "data"
+                  ],
+                  "title": "GetDeploymentsData"
                 }
               }
             }
           },
           "404": {
-            "description": "404",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": "No deployments found"
-                  }
-                },
-                "schema": {
-                  "type": "string",
-                  "example": "No deployments found"
-                }
-              }
-            }
+            "description": "Not found"
           },
           "422": {
-            "description": "422",
+            "description": "Validation Error",
             "content": {
               "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": {
-                      "detail": [
-                        {
-                          "loc": ["page"],
-                          "msg": "Invalid page number",
-                          "type": "validation_error"
-                        }
-                      ]
-                    }
-                  }
-                },
                 "schema": {
-                  "type": "object",
                   "properties": {
                     "detail": {
-                      "type": "array",
                       "items": {
-                        "type": "object",
                         "properties": {
                           "loc": {
-                            "type": "array"
+                            "items": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "integer"
+                                }
+                              ]
+                            },
+                            "type": "array",
+                            "title": "Location"
                           },
                           "msg": {
                             "type": "string",
-                            "example": "Invalid page number"
+                            "title": "Message"
                           },
                           "type": {
                             "type": "string",
-                            "example": "validation_error"
+                            "title": "Error Type"
                           }
-                        }
-                      }
+                        },
+                        "type": "object",
+                        "required": [
+                          "loc",
+                          "msg",
+                          "type"
+                        ],
+                        "title": "ValidationError"
+                      },
+                      "type": "array",
+                      "title": "Detail"
                     }
-                  }
+                  },
+                  "type": "object",
+                  "title": "HTTPValidationError"
                 }
               }
             }
           }
-        },
-        "deprecated": false,
-        "x-readme": {
-          "code-samples": [
-            {
-              "language": "curl",
-              "code": "curl \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deployments?page=1&pageSize=10&status=running&sort=-created_at\" \\\n  -H \"X-API-KEY: $IOCLOUD_API_KEY\" "
-            },
-            {
-              "language": "python",
-              "code": "import requests\n\nurl = \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deployments\"\n\nparams = {\n    \"page\": 1,\n    \"pageSize\": 10,\n    \"status\": \"running\",\n    \"sort\": \"-created_at\"\n}\n\nheaders = {\n    \"X-API-KEY\": \"$IOCLOUD_API_KEY\"\n}\n\nresponse = requests.get(url, headers=headers, params=params)\n\nprint(response.status_code)\nprint(response.json())"
-            }
-          ],
-          "samples-languages": ["curl", "python"]
         }
       }
     }
   }
-}
