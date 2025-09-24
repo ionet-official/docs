@@ -1,16 +1,10 @@
 {
-  "openapi": "3.0.3",
+  "openapi": "3.1.0",
   "info": {
     "title": "Workflow API",
-    "description": "⚠️ **Beta Notice**: This project is in rapid development and may not be stable for production use.",
-    "version": "1.0.0"
+    "version": "3.1.0",
+    "description": "⚠️ **Beta Notice**: This project is in rapid development and may not be stable for production use."
   },
-  "servers": [
-    {
-      "url": "https://api.intelligence.io.solutions",
-      "description": "SwaggerHub API Auto Mocking"
-    }
-  ],
   "paths": {
     "/v1/workflows/schema": {
       "get": {
@@ -23,35 +17,35 @@
           {
             "name": "token",
             "in": "header",
-            "description": "JWT token",
             "required": false,
             "schema": {
-              "title": "Token",
               "type": "string",
-              "description": "JWT token"
-            }
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
           },
           {
             "name": "Authorization",
             "in": "header",
-            "description": "io.net provided API Key",
             "required": false,
             "schema": {
-              "title": "Authorization",
               "type": "string",
-              "description": "io.net provided API Key"
-            }
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
           },
           {
             "name": "x-api-key",
             "in": "header",
-            "description": "API key set by an SDK client",
             "required": false,
             "schema": {
-              "title": "X-Api-Key",
               "type": "string",
-              "description": "API key set by an SDK client"
-            }
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
           }
         ],
         "responses": {
@@ -71,7 +65,34 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "loc": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "msg": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "loc",
+                          "msg",
+                          "type"
+                        ]
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -88,17 +109,31 @@
           "detail": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ValidationError"
+              "type": "object",
+              "properties": {
+                "loc": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "loc",
+                "msg",
+                "type"
+              ]
             }
           }
         }
       },
       "ValidationError": {
-        "required": [
-          "loc",
-          "msg",
-          "type"
-        ],
         "type": "object",
         "properties": {
           "loc": {
@@ -113,8 +148,19 @@
           "type": {
             "type": "string"
           }
-        }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ]
       }
     }
-  }
+  },
+  "servers": [
+    {
+      "description": "SwaggerHub API Auto Mocking",
+      "url": "https://virtserver.swaggerhub.com/andreik-52a/Intellegence/1.0.0"
+    }
+  ]
 }
