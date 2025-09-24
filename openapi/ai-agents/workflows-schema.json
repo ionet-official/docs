@@ -1,121 +1,159 @@
 {
-  "openapi": "3.0.3",
+  "openapi": "3.1.0",
   "info": {
-    "title": "Workflows schema",
-    "description": "Developer API to be used by external parties",
-    "version": "1.0.0"
+    "title": "IO Intelligence",
+    "version": "1.0",
+    "description": "⚠️ **Beta Notice**: This project is in rapid development and may not be stable for production use."
+
   },
   "servers": [
     {
-      "url": "/api"
+      "url": "https://api.intelligence.io.solutions"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
     }
   ],
   "paths": {
     "/v1/workflows/schema": {
       "get": {
-        "tags": ["agents"],
-        "summary": "Get Default Workflows",
-        "operationId": "get_default_workflows_v1_workflows_schema_get",
-        "parameters": [
-          {
-            "name": "token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "JWT token"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "io.net provided API Key"
-          },
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "API key set by an SDK client"
-          }
-        ],
+        "summary": "Workflow Schema",
+        "description": "Get list of available models for Embeddings API",
+        "operationId": "workflows-schema",
         "responses": {
           "200": {
-            "description": "Successful Response",
+            "description": "200",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object"
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "object": "list",
+                      "data": [
+                        {
+                          "id": "deepseek-ai/DeepSeek-R1",
+                          "object": "model",
+                          "created": 1738563250,
+                          "owned_by": "io-intelligence",
+                          "root": null,
+                          "parent": null,
+                          "max_model_len": null,
+                          "permission": [
+                            {
+                              "id": "modelperm-5f0eee08ce82402aa3e9cfe58127b507",
+                              "object": "model_permission",
+                              "created": 1738928714,
+                              "allow_create_engine": false,
+                              "allow_sampling": true,
+                              "allow_logprobs": true,
+                              "allow_search_indices": false,
+                              "allow_view": true,
+                              "allow_fine_tuning": false,
+                              "organization": "*",
+                              "group": null,
+                              "is_blocking": false
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
                 }
               }
             }
           },
           "404": {
-            "description": "Not found"
+            "description": "404",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "Result": {
+                    "value": "string"
+                  }
+                },
+                "schema": {
+                  "type": "string",
+                  "example": "string"
+                }
+              }
+            }
           },
           "422": {
-            "description": "Validation Error",
+            "description": "422",
             "content": {
-              "application/json": {
+              "text/plain": {
+                "examples": {
+                  "Result": {
+                    "value": {
+                      "detail": [
+                        {
+                          "loc": [
+                            "string",
+                            0
+                          ],
+                          "msg": "string",
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  }
+                },
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "loc": {
+                            "type": "array"
+                          },
+                          "msg": {
+                            "type": "string",
+                            "example": "string"
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
           }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl https://api.intelligence.io.solutions/api/v1/models \\\n  -H \"Authorization: Bearer $IOINTELLIGENCE_API_KEY\" "
+            },
+            {
+              "language": "python",
+              "code": "import requests\n\nurl = \"https://api.intelligence.io.solutions/api/v1/models\"\n\nheaders = {\n    \"accept\": \"application/json\",\n    \"Authorization\": \"Bearer $IOINTELLIGENCE_API_KEY\",  \n}\n\nresponse = requests.get(url, headers=headers)\n\nprint(response.text)"
+            }
+          ],
+          "samples-languages": [
+            "curl",
+            "python"
+          ]
         }
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "ValidationError": {
-        "type": "object",
-        "required": ["loc", "msg", "type"],
-        "properties": {
-          "loc": {
-            "type": "array",
-            "title": "Location",
-            "items": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "integer"
-                }
-              ]
-            }
-          },
-          "msg": {
-            "type": "string",
-            "title": "Message"
-          },
-          "type": {
-            "type": "string",
-            "title": "Error Type"
-          }
-        },
-        "title": "ValidationError"
-      },
-      "HTTPValidationError": {
-        "type": "object",
-        "properties": {
-          "detail": {
-            "type": "array",
-            "title": "Detail",
-            "items": {
-              "$ref": "#/components/schemas/ValidationError"
-            }
-          }
-        },
-        "title": "HTTPValidationError"
       }
     }
   }
