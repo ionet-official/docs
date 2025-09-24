@@ -4,6 +4,24 @@
     "title": "IO.NET VMaaS API",
     "version": "1.0"
   },
+  "servers": [
+    {
+      "url": "https://api.io.solutions/"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
   "paths": {
     "/enterprise/v1/io-cloud/vmaas/deployments": {
       "get": {
@@ -11,8 +29,8 @@
           "enterprise-io-cloud-vmaas"
         ],
         "summary": "Get All Deployments",
-         "description": "Retrieve a list of all VMaaS deployments associated with the enterprise account, including their status, configuration, and metadata.",
-        "operationId": "get_all_deployments_enterprise_v1_io_cloud_vmaas_deployments_get",
+        "description": "Retrieve a list of all VMaaS deployments associated with the enterprise account, including their status, configuration, and metadata.",
+        "operationId": "get-all-deployments",
         "parameters": [
           {
             "name": "status",
