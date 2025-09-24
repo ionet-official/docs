@@ -1,5 +1,5 @@
 {
-  "openapi": "3.0.3",
+  "openapi": "3.1.0",
   "info": {
     "title": "IO Intelligence",
     "version": "1.0"
@@ -15,80 +15,6 @@
         "type": "http",
         "scheme": "bearer",
         "bearerFormat": "JWT"
-      }
-    },
-    "schemas": {
-      "ClassificationArgs": {
-        "type": "object",
-        "title": "ClassificationArgs",
-        "required": ["classify_by"],
-        "properties": {
-          "classify_by": {
-            "type": "array",
-            "items": { "type": "string" },
-            "title": "Classify By"
-          }
-        }
-      },
-      "CustomArgs": {
-        "type": "object",
-        "title": "CustomArgs",
-        "required": ["name", "objective", "instructions"],
-        "properties": {
-          "name": { "type": "string", "title": "Name", "description": "Unique name/ID for the custom workflow step." },
-          "objective": { "type": "string", "title": "Objective", "description": "Primary objective or text prompt for the workflow." },
-          "instructions": { "type": "string", "title": "Instructions", "description": "Optional instructions to be passed along." },
-          "context": { "type": "object", "title": "Context", "description": "Additional context or parameters." }
-        }
-      },
-      "ExtractEntitiesArgs": { "type": "object", "title": "ExtractEntitiesArgs", "properties": {} },
-      "ModerationArgs": {
-        "type": "object",
-        "title": "ModerationArgs",
-        "required": ["threshold"],
-        "properties": {
-          "threshold": { "type": "number", "title": "Threshold" }
-        }
-      },
-      "ReasoningArgs": { "type": "object", "title": "ReasoningArgs", "properties": {} },
-      "SentimentArgs": { "type": "object", "title": "SentimentArgs", "properties": {} },
-      "SummarizeArgs": {
-        "type": "object",
-        "title": "SummarizeArgs",
-        "properties": {
-          "max_words": { "type": "integer", "title": "Max Words", "default": 100 }
-        }
-      },
-      "TranslateArgs": {
-        "type": "object",
-        "title": "TranslateArgs",
-        "required": ["target_language"],
-        "properties": {
-          "target_language": { "type": "string", "title": "Target Language" }
-        }
-      },
-      "TextRequest": {
-        "type": "object",
-        "title": "TextRequest",
-        "required": ["text", "agent_names"],
-        "properties": {
-          "text": { "type": "string", "title": "Text" },
-          "args": {
-            "oneOf": [
-              { "$ref": "#/components/schemas/ClassificationArgs" },
-              { "$ref": "#/components/schemas/CustomArgs" },
-              { "$ref": "#/components/schemas/ExtractEntitiesArgs" },
-              { "$ref": "#/components/schemas/ModerationArgs" },
-              { "$ref": "#/components/schemas/ReasoningArgs" },
-              { "$ref": "#/components/schemas/SentimentArgs" },
-              { "$ref": "#/components/schemas/SummarizeArgs" },
-              { "$ref": "#/components/schemas/TranslateArgs" }
-            ],
-            "nullable": true,
-            "title": "Args"
-          },
-          "agent_names": { "type": "array", "items": { "type": "string" }, "title": "Agent Names" }
-        }
       }
     }
   },
@@ -107,11 +33,7 @@
                 "schema": { "$ref": "#/components/schemas/TextRequest" },
                 "examples": {
                   "example": {
-                    "value": {
-                      "text": "Example text",
-                      "args": null,
-                      "agent_names": ["agent1", "agent2"]
-                    }
+                    "value": "string"
                   }
                 }
               }
