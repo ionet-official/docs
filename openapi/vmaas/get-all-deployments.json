@@ -1,9 +1,8 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "VMaaS",
-    "description": "Retrieve a list of all VMaaS deployments associated with the enterprise account, including their status, configuration, and metadata.",
-    "version": "1.0.0-oas3.1"
+    "title": "IO.NET VMaaS API",
+    "version": "1.0"
   },
   "paths": {
     "/enterprise/v1/io-cloud/vmaas/deployments": {
@@ -12,6 +11,7 @@
           "enterprise-io-cloud-vmaas"
         ],
         "summary": "Get All Deployments",
+         "description": "Retrieve a list of all VMaaS deployments associated with the enterprise account, including their status, configuration, and metadata.",
         "operationId": "get_all_deployments_enterprise_v1_io_cloud_vmaas_deployments_get",
         "parameters": [
           {
