@@ -1,12 +1,33 @@
 {
-  "openapi": "3.0.0",
+  "openapi": "3.1.0",
   "info": {
-    "title": "IO.NET VMaaS API",
-    "version": "1.0.0"
+    "title": "IO API",
+    "version": "1.0"
   },
+  "servers": [
+    {
+      "url": "https://api.io.solutions/"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
   "paths": {
     "/enterprise/v1/io-cloud/vmaas/deployment/{deployment_id}/extend": {
       "post": {
+        "tags": [
+          "enterprise-io-cloud-vmaas"
+        ],
         "summary": "Extend Cluster",
         "description": "Extend the lifetime or capacity of an existing deployment by adding more resources or increasing its duration.",
         "operationId": "extendCluster",
@@ -15,8 +36,22 @@
             "name": "deployment_id",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" },
-            "description": "Unique ID of the deployment to extend"
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Deployment Id"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "X-Api-Key"
+            },
+            "description": "io.net provided API Key"
           }
         ],
         "requestBody": {
@@ -24,87 +59,252 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
                 "properties": {
                   "duration_hours": {
                     "type": "integer",
-                    "example": 1,
-                    "description": "Number of hours to extend the deployment"
+                    "exclusiveMinimum": 0,
+                    "title": "Duration Hours"
                   }
                 },
-                "required": ["duration_hours"]
-              },
-              "examples": {
-                "extendExample": {
-                  "summary": "Extend Deployment Example",
-                  "value": { "duration_hours": 1 }
-                }
+                "type": "object",
+                "required": [
+                  "duration_hours"
+                ],
+                "title": "ExtendCluster"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Successful response with updated deployment details",
+            "description": "Successful Response",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
                   "properties": {
                     "data": {
-                      "type": "object",
                       "properties": {
-                        "id": { "type": "string", "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6" },
-                        "status": { "type": "string", "example": "active" },
-                        "created_at": { "type": "string", "format": "date-time" },
-                        "started_at": { "type": "string", "format": "date-time" },
-                        "finished_at": { "type": "string", "format": "date-time" },
-                        "amount_paid": { "type": "integer", "example": 0 },
-                        "completed_percent": { "type": "integer", "example": 0 },
-                        "total_gpus": { "type": "integer", "example": 0 },
-                        "gpus_per_vm": { "type": "integer", "example": 0 },
-                        "total_vms": { "type": "integer", "example": 0 },
-                        "hardware_name": { "type": "string", "example": "NVIDIA A100" },
-                        "hardware_id": { "type": "integer", "example": 101 },
-                        "locations": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "id": { "type": "integer", "example": 0 },
-                              "iso2": { "type": "string", "example": "US" },
-                              "name": { "type": "string", "example": "US-East" }
-                            }
-                          }
+                        "id": {
+                          "type": "string",
+                          "format": "uuid",
+                          "title": "Id"
                         },
-                        "brand_name": { "type": "string", "example": "NVIDIA" },
-                        "compute_minutes_served": { "type": "integer", "example": 0 },
-                        "compute_minutes_remaining": { "type": "integer", "example": 0 },
-                        "ssh_keys": { "type": "object", "additionalProperties": { "type": "string" } },
-                        "github_ids": { "type": "array", "items": { "type": "string", "example": "github_user_1" } }
-                      }
+                        "status": {
+                          "type": "string",
+                          "title": "Status"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "title": "Created At"
+                        },
+                        "started_at": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "title": "Started At"
+                        },
+                        "finished_at": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "title": "Finished At"
+                        },
+                        "amount_paid": {
+                          "type": "number",
+                          "title": "Amount Paid"
+                        },
+                        "completed_percent": {
+                          "type": "number",
+                          "title": "Completed Percent"
+                        },
+                        "total_gpus": {
+                          "type": "integer",
+                          "title": "Total Gpus"
+                        },
+                        "gpus_per_vm": {
+                          "type": "integer",
+                          "title": "Gpus Per Vm"
+                        },
+                        "total_vms": {
+                          "type": "integer",
+                          "title": "Total Vms"
+                        },
+                        "hardware_name": {
+                          "type": "string",
+                          "title": "Hardware Name"
+                        },
+                        "hardware_id": {
+                          "type": "integer",
+                          "title": "Hardware Id"
+                        },
+                        "locations": {
+                          "items": {
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "title": "Id"
+                              },
+                              "iso2": {
+                                "type": "string",
+                                "title": "Iso2"
+                              },
+                              "name": {
+                                "type": "string",
+                                "title": "Name"
+                              }
+                            },
+                            "type": "object",
+                            "required": [
+                              "id",
+                              "iso2",
+                              "name"
+                            ],
+                            "title": "LocationData"
+                          },
+                          "type": "array",
+                          "title": "Locations"
+                        },
+                        "brand_name": {
+                          "type": "string",
+                          "title": "Brand Name"
+                        },
+                        "compute_minutes_served": {
+                          "type": "integer",
+                          "title": "Compute Minutes Served"
+                        },
+                        "compute_minutes_remaining": {
+                          "type": "integer",
+                          "title": "Compute Minutes Remaining"
+                        },
+                        "ssh_keys": {
+                          "additionalProperties": {
+                            "type": "string"
+                          },
+                          "type": "object",
+                          "title": "Ssh Keys"
+                        },
+                        "github_ids": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "type": "array",
+                          "title": "Github Ids"
+                        }
+                      },
+                      "type": "object",
+                      "required": [
+                        "id",
+                        "status",
+                        "created_at",
+                        "started_at",
+                        "finished_at",
+                        "amount_paid",
+                        "completed_percent",
+                        "total_gpus",
+                        "gpus_per_vm",
+                        "total_vms",
+                        "hardware_name",
+                        "hardware_id",
+                        "locations",
+                        "brand_name",
+                        "compute_minutes_served",
+                        "compute_minutes_remaining",
+                        "ssh_keys",
+                        "github_ids"
+                      ],
+                      "title": "DeploymentDetails"
                     }
-                  }
+                  },
+                  "type": "object",
+                  "required": [
+                    "data"
+                  ],
+                  "title": "GetDeploymentDetails"
                 }
               }
             }
           },
-          "404": { "description": "Deployment not found" },
-          "422": { "description": "Validation error" }
-        },
-        "security": [{ "api_key": [] }],
-        "x-code-samples": [
-          {
-            "lang": "cURL",
-            "source": "curl -X POST \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deployment/{deployment_id}/extend\" \\\n  -H \"x-api-key: $IOCLOUD_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"duration_hours\": 1\n  }'"
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "detail": {
+                      "items": {
+                        "properties": {
+                          "loc": {
+                            "items": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "integer"
+                                }
+                              ]
+                            },
+                            "type": "array",
+                            "title": "Location"
+                          },
+                          "msg": {
+                            "type": "string",
+                            "title": "Message"
+                          },
+                          "type": {
+                            "type": "string",
+                            "title": "Error Type"
+                          }
+                        },
+                        "type": "object",
+                        "required": [
+                          "loc",
+                          "msg",
+                          "type"
+                        ],
+                        "title": "ValidationError"
+                      },
+                      "type": "array",
+                      "title": "Detail"
+                    }
+                  },
+                  "type": "object",
+                  "title": "HTTPValidationError"
+                }
+              }
+            }
           }
-        ]
+        },
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl -X POST \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deployment/{deployment_id}/extend\" \\\n  -H \"x-api-key: $IOCLOUD_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"duration_hours\": 1\n  }'"
+            },
+            {
+              "language": "python",
+              "code": "import requests\nimport json\n\nurl = \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deployment/{deployment_id}/extend\"\nheaders = {\n    \"x-api-key\": \"$IOCLOUD_API_KEY\",\n    \"Content-Type\": \"application/json\"\n}\ndata = {\n    \"duration_hours\": 1\n}\n\nresponse = requests.post(url, headers=headers, data=json.dumps(data))\nprint(response.status_code)\nprint(response.json())"
+            }
+          ],
+          "samples-languages": ["curl", "python"]
+        }
       }
-    }
-  },
-  "components": {
-    "securitySchemes": {
-      "api_key": { "type": "apiKey", "name": "x-api-key", "in": "header" }
     }
   }
 }
