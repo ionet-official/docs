@@ -104,7 +104,10 @@
                     "guides/clouds/deploy-containers",
                     "guides/clouds/deploy-ray-cluster",
                     "guides/clouds/deploy-vm-on-demand",
-                    "guides/clouds/data-science-image-full-specification"
+                    "guides/clouds/data-science-image-full-specification",
+                    "guides/clouds/deploy-kubernetes-cluster",
+                    "guides/clouds/kubernetes-ingress-setup"
+                 
                ]
             },
             {

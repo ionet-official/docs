@@ -1,7 +1,9 @@
 ---
-title: "Exposing Applications with Ingress on IO.net Kubernetes"
+title: "Kubernetes Ingress Setup"
 ---
+
 This guide explains how to expose your applications to the internet on IO.net Kubernetes clusters using an ingress controller. It covers two common deployment options, DNS automation with ExternalDNS, and SSL certificate management with cert-manager.
+
 ## Prerequisites
 
 - `kubectl` access to your IO.net Kubernetes cluster
@@ -19,9 +21,10 @@ This guide explains how to expose your applications to the internet on IO.net Ku
 | High Availability | Requires manual IP management | Built-in with multiple nodes   |
 | Resource Usage    | Configurable                  | Fixed per node                 |
 | Best For          | Large-scale applications      | Simple deployments, edge cases |
+
 ## Option 1: Ingress Controller as Deployment with Service IPs
 
-The ingress controller runs as a scalable Deployment exposed via a Service with assigned public IPs.  
+The ingress controller runs as a scalable Deployment exposed via a Service with assigned public IPs.\
 Traffic is automatically balanced across ingress pods.
 
 ```
@@ -47,10 +50,11 @@ Ingress controller routes to applications
 ### Setup Steps
 
 #### 1. Install NGINX Ingress Controller as Deployment:
+
 > ⚠️ The Pod Security Admission plugin is automatically enabled in every io.net Kubernetes cluster to enforce Pod Security Standards and improve cluster security by default.
-> 
+>
 > You can override the Pod Security Admission configuration at the namespace level. This is useful for workloads such as ingress controllers or monitoring solutions that require more relaxed security settings.
-> 
+>
 > However, the recommended approach is to adjust your applications to run securely using a proper podSecurityContext.
 
 ```bash
@@ -71,18 +75,19 @@ helm upgrade --install nginx-ingress ingress-nginx/ingress-nginx \
 ```
 
 > ⚠️ Use `nodeSelector` and `tolerations` if you only want ingress on specific nodes.
-> 
+>
 > `--set 'controller.tolerations[0].operator=Exists'`
-> 
+>
 > `--set 'controller.nodeSelector.node-role\.kubernetes\.io/hostname='`
-> 
+>
 > Use affinity to ensure that pod replicas are scheduled on different nodes:
-> 
+>
 > `--set 'controller.affinity.podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution[0].labelSelector.matchLabels.app\.kubernetes\.io/name=ingress-nginx'`
-> 
+>
 > `--set 'controller.affinity.podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution[0].topologyKey=kubernetes.io/hostname'`
 
 #### 2. Edit the Service to assign public IPs:
+
 #### 
 
 ```bash
@@ -100,9 +105,10 @@ kubectl patch svc nginx-ingress-ingress-nginx-controller --type=merge -p "{
 #### 3. Update your DNS to point your domain to these EXTERNAL-IPs (`kubectl get svc -n ingress-nginx`), or follow the ExternalDNS guide below.
 
 #### 4. Deploy applications with Ingress resources for routing.
+
 ## Option 2: Ingress Controller as DaemonSet (Direct on Every Node)
 
-The ingress controller runs on every cluster node and listens directly on ports **80/443**  
+The ingress controller runs on every cluster node and listens directly on ports **80/443**\
 of each node's public IP. Your domain can point to multiple node IPs.
 
 ```
@@ -124,12 +130,13 @@ DNS round robin → node public IPs
 | Can combine with an external load balancer for smarter distribution. | Scaling fixed to one ingress pod per node.                    |
 
 ### Step Setup
+
 #### 1. Install NGINX Ingress Controller as DaemonSet:
 
 > ⚠️ The Pod Security Admission plugin is automatically enabled in every io.net Kubernetes cluster to enforce Pod Security Standards and improve cluster security by default.
-> 
+>
 > You can override the Pod Security Admission configuration at the namespace level. This is useful for workloads such as ingress controllers or monitoring solutions that require more relaxed security settings.
-> 
+>
 > However, the recommended approach is to adjust your applications to run securely using a proper podSecurityContext.
 
 ```bash
@@ -153,17 +160,18 @@ helm upgrade --install nginx-ingress ingress-nginx/ingress-nginx \
 ```
 
 > ⚠️ Using `hostNetwork=true` reserves ports 80/443 on every node. Use `nodeSelector` and `tolerations` if you only want ingress on specific nodes.
-> 
+>
 > `--set 'controller.tolerations[0].operator=Exists'`
-> 
+>
 > `--set 'controller.nodeSelector.node-role\.kubernetes\.io/hostname='`
 
 #### 2: Point your domain to the public IPs of all nodes, or follow the ExternalDNS guide below.
 
 #### 3: Deploy applications with Ingress resources for routing.
+
 ## ExternalDNS Deployment
 
-ExternalDNS automatically manages DNS records for all applications routed through your ingress controller.  
+ExternalDNS automatically manages DNS records for all applications routed through your ingress controller.\
 It works with both Deployment and DaemonSet ingress setups.
 
 #### 1. Deploy ExternalDNS
@@ -191,6 +199,7 @@ helm upgrade --install external-dns external-dns/external-dns \
 ```
 
 #### 2: Annotate the Ingress Controller Service
+
 #### 
 
 ```bash
@@ -210,6 +219,7 @@ kubectl annotate svc nginx-ingress-ingress-nginx-controller \
 ## SSL/TLS Certificate Management
 
 ### cert-manager with Let's Encrypt (Recommended)
+
 ### 
 
 ```bash
@@ -278,6 +288,7 @@ kubectl expose pod hello-world \
 ```
 
 #### 3. Create an Ingress resource with HTTPS
+
 #### 
 
 ```yaml
@@ -333,6 +344,7 @@ kubectl describe ingress hello-ingress -n hello
 ### Common Issues and Solutions
 
 #### DNS Not Resolving
+
 #### 
 
 ```bash
