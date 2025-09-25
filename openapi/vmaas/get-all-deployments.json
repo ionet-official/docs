@@ -237,6 +237,19 @@
                 }
               }
             }
+          },
+          "x-readme": {
+            "code-samples": [
+              {
+                "language": "curl",
+                "code": "curl -X POST \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deploy?page=0&page_size=10&status=running\" \\\n  -H \"x-api-key: $IOCLOUD_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"name\": \"example-deployment\",\n    \"hardware_quantity\": 2,\n    \"hardware_name\": \"NVIDIA-A100\",\n    \"brand_name\": \"NVIDIA\"\n  }'"
+              },
+              {
+                "language": "python",
+                "code": "import requests\n\nurl = \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deploy\"\nparams = {\n    \"page\": 0,\n    \"page_size\": 10,\n    \"status\": \"running\"\n}\nheaders = {\n    \"x-api-key\": \"$IOCLOUD_API_KEY\",\n    \"Content-Type\": \"application/json\"\n}\npayload = {\n    \"name\": \"example-deployment\",\n    \"hardware_quantity\": 2,\n    \"hardware_name\": \"NVIDIA-A100\",\n    \"brand_name\": \"NVIDIA\"\n}\nresponse = requests.post(url, headers=headers, params=params, json=payload)\nprint(response.status_code)\nprint(response.json())"
+              }
+            ],
+            "samples-languages": ["curl", "python"]
           }
         }
       }
