@@ -4,24 +4,20 @@
     "title": "IO Intelligence",
     "version": "1.0"
   },
-  "servers": [
+ "servers": [
     {
       "url": "https://api.intelligence.io.solutions"
     }
   ],
   "components": {
     "securitySchemes": {
-      "sec0": {
-        "type": "oauth2",
-        "flows": {}
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   },
-  "security": [
-    {
-      "sec0": []
-    }
-  ],
   "paths": {
      "/v1/workflows/schema": {
       "get": {
