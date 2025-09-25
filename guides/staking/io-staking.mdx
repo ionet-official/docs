@@ -4,17 +4,21 @@ description: "At IO.net, we're committed to building a robust, secure, and decen
 sidebarTitle: "Overview"
 ---
 
+<Frame>
+  ![STAKING Pn](/images/docs/header-images/STAKING.png)
+</Frame>
+
 <Info>
-The content of this doc is subject to change depending on successful contract auditing.
+  The content of this doc is subject to change depending on successful contract auditing.
 </Info>
 
 ### Why Staking?
 
 Staking is a crucial component of our network security and efficiency. Requiring suppliers to stake \$IO allows us to:
 
-* Encourage long-term commitment to our platform.
-* Create an incentive for good behavior.
-* Establish a mechanism to discourage and penalize malicious actions.
+- Encourage long-term commitment to our platform.
+- Create an incentive for good behavior.
+- Establish a mechanism to discourage and penalize malicious actions.
 
 ### How It Works
 
@@ -25,9 +29,9 @@ To participate in our network and receive block rewards, GPU and CPU suppliers m
 The staking requirement is displayed in the UI. The formula for the total is explained below.
 
 1. Base requirement (minimum stake per card) X = \$IO 200.
-2. If the multiplier per GPU on the device is less or equal to 1, the per GPU stake is 1 /* X. The minimum staking remains \$IO 200.
-3. If the multiplier per GPU on the device is greater than 1, then the multiplier value is represented by M. The per GPU stake on this device is M /* X. (Device Earning Multiplier /* Minimum Stake)
-4. If there are multiple (N) GPUs on the device, the total device stake value is M /* N /* X.
+2. If the multiplier per GPU on the device is less or equal to 1, the per GPU stake is 1 /\* X. The minimum staking remains \$IO 200.
+3. If the multiplier per GPU on the device is greater than 1, then the multiplier value is represented by M. The per GPU stake on this device is M /\* X. (Device Earning Multiplier /\* Minimum Stake)
+4. If there are multiple (N) GPUs on the device, the total device stake value is M /\* N /\* X.
 
 ```
 minimum_stake_required = base_requirement_per_card * max(1, earning_multiplier)
@@ -35,8 +39,8 @@ minimum_stake_required = base_requirement_per_card * max(1, earning_multiplier)
 
 **Examples**
 
-1. If there are eight (8) H100 GPUs (earning multiplier=10) on device A. The minimum staking requirement value is `$IO 200`. Then the amount required to stake on device A is 8 * 10 * 200 = 16,000 `$IO`.
-2. If there are four (4) 4070s GPUs (earning multiplier=0.25) on device B. The minimum staking requirement value is `$IO 200`. Then the amount required to stake on device BCD is 4 /* 1/* 200 = 800 `$IO`.
+1. If there are eight (8) H100 GPUs (earning multiplier=10) on device A. The minimum staking requirement value is `$IO 200`. Then the amount required to stake on device A is 8 \* 10 \* 200 = 16,000 `$IO`.
+2. If there are four (4) 4070s GPUs (earning multiplier=0.25) on device B. The minimum staking requirement value is `$IO 200`. Then the amount required to stake on device BCD is 4 /\* 1/\* 200 = 800 `$IO`.
 
 **Rewards**
 
@@ -49,7 +53,7 @@ When a supplier decides to unstake their `$IO`, a 14-day cooldown period is init
 The action of unstaking is irreversible. You can not restake to your device until the cooldown period ends. You must withdraw the coins after the cooldown period to stake to the same device again.
 
 <Info>
-When you unstake and withdraw your IO Coins, always use the wallet used in the initial stake.
+  When you unstake and withdraw your IO Coins, always use the wallet used in the initial stake.
 </Info>
 
 **Security**
@@ -63,7 +67,7 @@ Slashed `$IO` is subject to a one month reconsideration process. If you notice y
 To participate in the staking program, ensure you have the required amount of `$IO` and follow our simple staking process in the IO.net platform.
 
 <Info>
-In Phase I, only device owners can stake to their own devices. We plan to add features for non-node operators to also stake \$IO and earn rewards in Phase II.
+  In Phase I, only device owners can stake to their own devices. We plan to add features for non-node operators to also stake \$IO and earn rewards in Phase II.
 </Info>
 
 We're excited to launch this staking program and look forward to growing our network together. For more detailed information or assistance, please refer to our comprehensive documentation or contact our support team. Join us in shaping the future of decentralised computing with IO.net.
@@ -74,4 +78,3 @@ We're excited to launch this staking program and look forward to growing our net
 2. **Phase**: Staking for **non-workers is coming soon.**
 
 For more details on earning multipliers, Block Rewards, and the minimum staking requirements, please refer to our public documentation: [Proposed calibration in earning multiplier and the simulated impact on Block Rewards](/guides/block-rewards/proposed-device-block-reward-multiplier).
-
