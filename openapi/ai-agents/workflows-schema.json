@@ -31,7 +31,6 @@
             "description": "Successful response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/TextRequest" },
                 "examples": {
                   "example": {
                     "value": "string"
