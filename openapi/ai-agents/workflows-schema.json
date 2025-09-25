@@ -2,9 +2,10 @@
   "openapi": "3.1.0",
   "info": {
     "title": "IO Intelligence",
-    "version": "1.0"
+    "version": "1.0",
+    "description": "⚠️ Beta Notice: This project is in rapid development and may not be stable for production use."
   },
- "servers": [
+  "servers": [
     {
       "url": "https://api.intelligence.io.solutions"
     }
@@ -19,26 +20,27 @@
     }
   },
   "paths": {
-     "/v1/workflows/schema": {
+    "/api/v1/workflows/schema": {
       "get": {
-        "tags": [
-          "agents"
-        ],
-         "summary": "Workflows Schema",
-        "description": "Get list of available models for Embeddings API\n ⚠️ Beta Notice: This project is in rapid development and may not be stable for production use.",
+        "summary": "Workflows Schema",
+        "description": "Get list of available models for Embeddings API",
         "operationId": "workflows-schema",
+        "security": [{ "BearerAuth": [] }],
         "responses": {
           "200": {
-            "description": "Successful Response",
+            "description": "Successful response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": { "$ref": "#/components/schemas/TextRequest" },
+                "examples": {
+                  "example": {
+                    "value": "string"
+                  }
+                }
               }
             }
           },
-          "404": {
-            "description": "Not found"
-          },
+          "404": { "description": "Not Found" },
           "422": {
             "description": "Validation Error",
             "content": {
@@ -62,21 +64,7 @@
               }
             }
           }
-        },
-        "x-readme": {
-          "code-samples": [
-            {
-              "language": "curl",
-              "code": "curl https://api.intelligence.io.solutions/api/v1/workflows/schema \\\n  -H \"Authorization: Bearer $IOINTELLIGENCE_API_KEY\""
-            },
-            {
-              "language": "python",
-              "code": "import requests\n\nurl = \"https://api.intelligence.io.solutions/api/v1/workflows/schema\"\nheaders = {\n    \"Authorization\": \"Bearer $IOINTELLIGENCE_API_KEY\"\n}\n\nresponse = requests.get(url, headers=headers)\nprint(response.status_code)\nprint(response.json())"
-            }
-          ],
-          "samples-languages": ["curl", "python"]
         }
-
       }
     }
   }
