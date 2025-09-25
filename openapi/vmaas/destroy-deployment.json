@@ -29,7 +29,7 @@
           "enterprise-io-cloud-vmaas"
         ],
         "summary": "Destroy Deployment",
-        "description": "Terminate and remove an existing deployment. All VMs and resources allocated to the deployment will be released.\n\n**Charges Policy:**\n- The first hour is always non-refundable.\n- After the first hour, charges are calculated to the exact duration the cluster was active (not rounded to whole hours).\n- Any unused prepaid time is refunded proportionally.\n\nExample: If you pre-paid for 3 hours and delete the deployment after 1.2 hours, you are charged for 1.2 hours and refunded the remaining 1.8 hours.",
+        "description": "Terminate and remove an existing deployment. All VMs and resources allocated to the deployment will be released.\n\n**Note, when deleting a deployment, charges are handled as follows:**\n- The first hour is always non-refundable.\n- After the first hour, charges are calculated to the exact duration the cluster was active (not rounded to whole hours).\n- Any unused prepaid time is refunded proportionally.\n\nExample: If you pre-paid for 3 hours and delete the deployment after 1.2 hours, you are charged for 1.2 hours and refunded the remaining 1.8 hours.",
         "operationId": "destroy-deployment",
         "parameters": [
           {
