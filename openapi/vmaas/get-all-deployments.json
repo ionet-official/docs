@@ -237,8 +237,9 @@
                 }
               }
             }
-          },
-          "x-readme": {
+          }
+        },
+        "x-readme": {
             "code-samples": [
               {
                 "language": "curl",
@@ -251,8 +252,7 @@
             ],
             "samples-languages": ["curl", "python"]
           }
-        }
-      }
+       }
     }
   }
 }
