@@ -4,9 +4,30 @@
     "title": "IO API",
     "version": "1.0"
   },
+  "servers": [
+    {
+      "url": "https://api.io.solutions/"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
   "paths": {
-    "/enterprise/v1/io-cloud/vmaas/hardware/max-gpus-per-vm": {
+     "/enterprise/v1/io-cloud/vmaas/hardware/max-gpus-per-vm": {
       "get": {
+        "tags": [
+          "enterprise-io-cloud-vmaas"
+        ],
         "summary": "Get Max GPU Count per VM",
         "description": "Return the maximum number of GPUs that can be allocated to a single VM instance.",
         "operationId": "getMaxGpuCountPerVm",
@@ -16,66 +37,170 @@
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Node Pool Id"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
               "type": "string",
-              "nullable": true,
-              "default": null
+              "description": "io.net provided API Key",
+              "title": "X-Api-Key"
             },
-            "description": "Optional node pool identifier to filter GPU limits. Defaults to null."
+            "description": "io.net provided API Key"
           }
         ],
         "responses": {
           "200": {
-            "description": "Successful retrieval of max GPU count per VM",
+            "description": "Successful Response",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
                   "properties": {
                     "data": {
-                      "type": "object",
                       "properties": {
                         "hardware": {
-                          "type": "array",
                           "items": {
-                            "type": "object",
                             "properties": {
-                              "max_gpus_per_vm": { "type": "integer", "default": 0 },
-                              "available": { "type": "integer", "default": 0 },
-                              "hardware_id": { "type": "integer", "default": 0 },
-                              "hardware_name": { "type": "string" },
-                              "brand_name": { "type": "string" }
-                            }
-                          }
+                              "max_gpus_per_vm": {
+                                "type": "integer",
+                                "title": "Max Gpus Per Vm"
+                              },
+                              "available": {
+                                "type": "integer",
+                                "title": "Available"
+                              },
+                              "hardware_id": {
+                                "type": "integer",
+                                "title": "Hardware Id"
+                              },
+                              "hardware_name": {
+                                "type": "string",
+                                "title": "Hardware Name"
+                              },
+                              "brand_name": {
+                                "type": "string",
+                                "title": "Brand Name"
+                              },
+                              "price": {
+                                "type": "number",
+                                "title": "Price"
+                              }
+                            },
+                            "type": "object",
+                            "required": [
+                              "max_gpus_per_vm",
+                              "available",
+                              "hardware_id",
+                              "hardware_name",
+                              "brand_name",
+                              "price"
+                            ],
+                            "title": "HardwareInfo"
+                          },
+                          "type": "array",
+                          "title": "Hardware"
                         },
-                        "total": { "type": "integer", "default": 0 }
-                      }
+                        "total": {
+                          "type": "integer",
+                          "title": "Total"
+                        }
+                      },
+                      "type": "object",
+                      "required": [
+                        "hardware",
+                        "total"
+                      ],
+                      "title": "MaxGpuPerReplicaData"
                     }
-                  }
+                  },
+                  "type": "object",
+                  "required": [
+                    "data"
+                  ],
+                  "title": "GetMaxGpuCountPerReplicaResponse"
                 }
               }
             }
           },
-          "404": { "description": "Hardware or node pool not found" },
-          "422": { "description": "Validation error" }
-        },
-        "security": [
-          { "api_key": [] }
-        ],
-        "x-code-samples": [
-          {
-            "lang": "cURL",
-            "source": "curl -X GET \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/hardware/max-gpus-per-vm?node_pool_id=pool-123\" \\\n  -H \"x-api-key: $IOCLOUD_API_KEY\" \\\n  -H \"Content-Type: application/json\""
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "detail": {
+                      "items": {
+                        "properties": {
+                          "loc": {
+                            "items": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "integer"
+                                }
+                              ]
+                            },
+                            "type": "array",
+                            "title": "Location"
+                          },
+                          "msg": {
+                            "type": "string",
+                            "title": "Message"
+                          },
+                          "type": {
+                            "type": "string",
+                            "title": "Error Type"
+                          }
+                        },
+                        "type": "object",
+                        "required": [
+                          "loc",
+                          "msg",
+                          "type"
+                        ],
+                        "title": "ValidationError"
+                      },
+                      "type": "array",
+                      "title": "Detail"
+                    }
+                  },
+                  "type": "object",
+                  "title": "HTTPValidationError"
+                }
+              }
+            }
           }
-        ]
-      }
-    }
-  },
-  "components": {
-    "securitySchemes": {
-      "api_key": {
-        "type": "apiKey",
-        "name": "x-api-key",
-        "in": "header"
+        },
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl -X GET \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/hardware/max-gpus-per-vm?node_pool_id=pool-123\" \\\n  -H \"x-api-key: $IOCLOUD_API_KEY\" \\\n  -H \"Content-Type: application/json\""
+            },
+            {
+              "language": "python",
+              "code": "import requests\n\nurl = \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/hardware/max-gpus-per-vm?node_pool_id=pool-123\"\nheaders = {\n    \"x-api-key\": \"$IOCLOUD_API_KEY\",\n    \"Content-Type\": \"application/json\"\n}\nresponse = requests.get(url, headers=headers)\nprint(response.status_code)\nprint(response.json())"
+            }
+          ],
+          "samples-languages": ["curl", "python"]
+        }
       }
     }
   }

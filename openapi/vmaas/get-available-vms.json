@@ -4,9 +4,30 @@
     "title": "IO API",
     "version": "1.0"
   },
+  "servers": [
+    {
+      "url": "https://api.io.solutions/"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
   "paths": {
     "/enterprise/v1/io-cloud/vmaas/available-vms": {
       "get": {
+        "tags": [
+          "enterprise-io-cloud-vmaas"
+        ],
         "summary": "Get Available VMs",
         "description": "Retrieve a list of currently available VM types and configurations in the VMaaS cloud.",
         "operationId": "getAvailableVms",
@@ -17,9 +38,8 @@
             "required": true,
             "schema": {
               "type": "integer",
-              "format": "int32"
-            },
-            "description": "The hardware ID for which available VMs should be retrieved."
+              "title": "Hardware Id"
+            }
           },
           {
             "name": "hardware_qty",
@@ -27,85 +47,155 @@
             "required": true,
             "schema": {
               "type": "integer",
-              "format": "int32",
               "minimum": 1,
-              "default": 1
-            },
-            "description": "The quantity of the specified hardware to request. Defaults to 1."
+              "title": "Hardware Qty"
+            }
           },
           {
             "name": "node_pool_id",
             "in": "query",
             "required": false,
             "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Node Pool Id"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
               "type": "string",
-              "nullable": true,
-              "default": null
+              "description": "io.net provided API Key",
+              "title": "X-Api-Key"
             },
-            "description": "Optional node pool identifier to filter available VMs. Defaults to null."
+            "description": "io.net provided API Key"
           }
         ],
         "responses": {
           "200": {
-            "description": "List of available VM types and configurations retrieved successfully",
+            "description": "Successful Response",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
                   "properties": {
                     "data": {
-                      "type": "array",
                       "items": {
-                        "type": "object",
                         "properties": {
-                          "id": { "type": "integer", "default": 0 },
-                          "iso2": { "type": "string" },
-                          "name": { "type": "string" },
-                          "available_replicas": { "type": "integer", "default": 0 }
-                        }
-                      }
+                          "id": {
+                            "type": "integer",
+                            "title": "Id"
+                          },
+                          "iso2": {
+                            "type": "string",
+                            "title": "Iso2"
+                          },
+                          "name": {
+                            "type": "string",
+                            "title": "Name"
+                          },
+                          "available_replicas": {
+                            "type": "integer",
+                            "title": "Available Replicas"
+                          }
+                        },
+                        "type": "object",
+                        "required": [
+                          "id",
+                          "iso2",
+                          "name",
+                          "available_replicas"
+                        ],
+                        "title": "ReplicasPerLocation"
+                      },
+                      "type": "array",
+                      "title": "Data"
                     }
-                  }
-                },
-                "examples": {
-                  "success": {
-                    "summary": "Successful Response",
-                    "value": {
-                      "data": [
-                        {
-                          "id": 0,
-                          "iso2": "string",
-                          "name": "string",
-                          "available_replicas": 0
-                        }
-                      ]
-                    }
-                  }
+                  },
+                  "type": "object",
+                  "required": [
+                    "data"
+                  ],
+                  "title": "GetAvailableReplicasPerLocationResponse"
                 }
               }
             }
           },
-          "404": { "description": "No available VMs found for the provided parameters" },
-          "422": { "description": "Validation error" }
-        },
-        "security": [
-          { "api_key": [] }
-        ],
-        "x-code-samples": [
-          {
-            "lang": "cURL",
-            "source": "curl -X GET \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/available-vms?hardware_id=101&hardware_qty=2&node_pool_id=pool-123\" \\\n  -H \"x-api-key: $IOCLOUD_API_KEY\" \\\n  -H \"Content-Type: application/json\""
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "detail": {
+                      "items": {
+                        "properties": {
+                          "loc": {
+                            "items": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "integer"
+                                }
+                              ]
+                            },
+                            "type": "array",
+                            "title": "Location"
+                          },
+                          "msg": {
+                            "type": "string",
+                            "title": "Message"
+                          },
+                          "type": {
+                            "type": "string",
+                            "title": "Error Type"
+                          }
+                        },
+                        "type": "object",
+                        "required": [
+                          "loc",
+                          "msg",
+                          "type"
+                        ],
+                        "title": "ValidationError"
+                      },
+                      "type": "array",
+                      "title": "Detail"
+                    }
+                  },
+                  "type": "object",
+                  "title": "HTTPValidationError"
+                }
+              }
+            }
           }
-        ]
-      }
-    }
-  },
-  "components": {
-    "securitySchemes": {
-      "api_key": {
-        "type": "apiKey",
-        "name": "x-api-key",
-        "in": "header"
+        },
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl -X GET \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/available-vms?hardware_id=101&hardware_qty=2&node_pool_id=pool-123\" \\\n  -H \"x-api-key: $IOCLOUD_API_KEY\" \\\n  -H \"Content-Type: application/json\""
+            },
+            {
+              "language": "python",
+              "code": "import requests\n\nurl = \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/available-vms?hardware_id=101&hardware_qty=2&node_pool_id=pool-123\"\nheaders = {\n    \"x-api-key\": \"$IOCLOUD_API_KEY\",\n    \"Content-Type\": \"application/json\"\n}\nresponse = requests.get(url, headers=headers)\nprint(response.status_code)\nprint(response.json())"
+            }
+          ],
+          "samples-languages": ["curl", "python"]
+        }
       }
     }
   }
