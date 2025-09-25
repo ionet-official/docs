@@ -4,88 +4,271 @@
     "title": "IO API",
     "version": "1.0"
   },
+  "servers": [
+    {
+      "url": "https://api.io.solutions/"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
   "paths": {
     "/enterprise/v1/io-cloud/vmaas/deploy": {
       "post": {
+        "tags": [
+          "enterprise-io-cloud-vmaas"
+        ],
         "summary": "Deploy VMs",
         "description": "Create and launch a new deployment of VMs with the specified configuration (cluster size, hardware, region, etc.).",
         "operationId": "deployVMs",
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "X-Api-Key"
+            },
+            "description": "io.net provided API Key"
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
                 "properties": {
-                  "resource_private_name": { "type": "string", "description": "Name assigned to the deployment." },
-                  "node_pool_id": { "type": "string", "description": "ID of the node pool for the deployment." },
-                  "duration_hours": { "type": "integer", "description": "The duration (in hours) for which the deployment should run.", "default": 1, "minimum": 1 },
-                  "gpus_per_vm": { "type": "integer", "description": "Number of GPUs allocated per VM.", "default": 1, "minimum": 1 },
-                  "hardware_id": { "type": "integer", "description": "ID of the hardware to use." },
-                  "location_ids": { "type": "array", "items": { "type": "integer" }, "description": "List of location IDs for deployment." },
-                  "vms_qty": { "type": "integer", "description": "Number of VMs to deploy." },
-                  "ssh_keys": { "type": "object", "additionalProperties": { "type": "string" }, "description": "SSH keys to be injected into the VMs." },
-                  "github_ids": { "type": "array", "items": { "type": "string" }, "description": "GitHub IDs for authorized access." },
-                  "vm_image_type": { "type": "string", "description": "Type of VM image to use (e.g., general, custom)." },
-                  "network_services": { "type": "object", "additionalProperties": { "type": "object", "properties": { "port": { "type": "integer" }, "protocol": { "type": "string" }, "whitelist": { "type": "array", "items": { "type": "string" } } } }, "description": "Network services configuration (ports, protocols, and whitelists)." }
-                },
-                "required": ["resource_private_name","node_pool_id","duration_hours","gpus_per_vm","hardware_id","location_ids","vms_qty"]
-              },
-              "examples": {
-                "deployExample": {
-                  "summary": "Example Deployment Request",
-                  "value": {
-                    "resource_private_name": "example-deployment",
-                    "node_pool_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-                    "duration_hours": 4,
-                    "gpus_per_vm": 2,
-                    "hardware_id": 101,
-                    "location_ids": [1,2],
-                    "vms_qty": 3,
-                    "ssh_keys": {
-                      "key1": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC...",
-                      "key2": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD..."
+                  "resource_private_name": {
+                    "type": "string",
+                    "title": "Resource Private Name"
+                  },
+                  "node_pool_id": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "title": "Node Pool Id",
+                    "description": "ID of private node pool. Can't be used if location_ids are provided."
+                  },
+                  "duration_hours": {
+                    "type": "integer",
+                    "maximum": 8760,
+                    "exclusiveMinimum": 0,
+                    "title": "Duration Hours"
+                  },
+                  "gpus_per_vm": {
+                    "type": "integer",
+                    "maximum": 8,
+                    "minimum": 1,
+                    "title": "Gpus Per Vm"
+                  },
+                  "hardware_id": {
+                    "type": "integer",
+                    "title": "Hardware Id"
+                  },
+                  "location_ids": {
+                    "items": {
+                      "type": "integer"
                     },
-                    "github_ids": ["github_user_1","github_user_2"],
-                    "vm_image_type": "general",
-                    "network_services": {
-                      "service1": { "port": 22, "protocol": "tcp", "whitelist": ["0.0.0.0/0"] },
-                      "service2": { "port": 80, "protocol": "tcp", "whitelist": ["0.0.0.0/0"] }
-                    }
+                    "type": "array",
+                    "maxItems": 1,
+                    "minItems": 1,
+                    "title": "Location Ids",
+                    "description": "Only single locations is supported for now"
+                  },
+                  "vms_qty": {
+                    "type": "integer",
+                    "title": "Vms Qty"
+                  },
+                  "ssh_keys": {
+                    "anyOf": [
+                      {
+                        "additionalProperties": {
+                          "type": "string"
+                        },
+                        "type": "object"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "title": "Ssh Keys"
+                  },
+                  "github_ids": {
+                    "anyOf": [
+                      {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "title": "Github Ids"
+                  },
+                  "vm_image_type": {
+                    "allOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "general",
+                          "datascience"
+                        ],
+                        "title": "VmImageType"
+                      }
+                    ],
+                    "default": "general"
+                  },
+                  "network_services": {
+                    "additionalProperties": {
+                      "properties": {
+                        "port": {
+                          "type": "integer",
+                          "maximum": 65535,
+                          "minimum": 1,
+                          "title": "Port"
+                        },
+                        "protocol": {
+                          "type": "string",
+                          "enum": [
+                            "tcp",
+                            "udp"
+                          ],
+                          "title": "NetworkProtocol"
+                        },
+                        "whitelist": {
+                          "items": {
+                            "type": "string",
+                            "format": "ipvanynetwork"
+                          },
+                          "type": "array",
+                          "minItems": 1,
+                          "title": "Whitelist",
+                          "description": "List of IP networks to allow access from. 0.0.0.0/0 for whitelisting all the IPs"
+                        }
+                      },
+                      "type": "object",
+                      "required": [
+                        "port",
+                        "protocol",
+                        "whitelist"
+                      ],
+                      "title": "NetworkService"
+                    },
+                    "type": "object",
+                    "title": "Network Services"
                   }
-                }
+                },
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                  "resource_private_name",
+                  "duration_hours",
+                  "gpus_per_vm",
+                  "hardware_id",
+                  "vms_qty"
+                ],
+                "title": "VMaasDeployRequest"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Deployment created successfully",
+            "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { "type": "string" },
-                "examples": {
-                  "success": { "summary": "Successful Response", "value": "string" }
-                }
+                "schema": {}
               }
             }
           },
-          "404": { "description": "Deployment not found or location/hardware unavailable" },
-          "422": { "description": "Validation error" }
-        },
-        "security": [{ "api_key": [] }],
-        "x-code-samples": [
-          {
-            "lang": "cURL",
-            "source": "curl -X POST \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deploy\" \\\n  -H \"x-api-key: $IOCLOUD_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"resource_private_name\": \"example-deployment\",\n    \"node_pool_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n    \"duration_hours\": 4,\n    \"gpus_per_vm\": 2,\n    \"hardware_id\": 101,\n    \"location_ids\": [1, 2],\n    \"vms_qty\": 3,\n    \"ssh_keys\": {\n      \"key1\": \"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC...\",\n      \"key2\": \"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD...\"\n    },\n    \"github_ids\": [\"github_user_1\", \"github_user_2\"],\n    \"vm_image_type\": \"general\",\n    \"network_services\": {\n      \"service1\": {\"port\": 22, \"protocol\": \"tcp\", \"whitelist\": [\"0.0.0.0/0\"]},\n      \"service2\": {\"port\": 80, \"protocol\": \"tcp\", \"whitelist\": [\"0.0.0.0/0\"]}\n    }\n  }'"
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "detail": {
+                      "items": {
+                        "properties": {
+                          "loc": {
+                            "items": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "integer"
+                                }
+                              ]
+                            },
+                            "type": "array",
+                            "title": "Location"
+                          },
+                          "msg": {
+                            "type": "string",
+                            "title": "Message"
+                          },
+                          "type": {
+                            "type": "string",
+                            "title": "Error Type"
+                          }
+                        },
+                        "type": "object",
+                        "required": [
+                          "loc",
+                          "msg",
+                          "type"
+                        ],
+                        "title": "ValidationError"
+                      },
+                      "type": "array",
+                      "title": "Detail"
+                    }
+                  },
+                  "type": "object",
+                  "title": "HTTPValidationError"
+                }
+              }
+            }
           }
-        ]
+        },
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl -X POST \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deploy\" \\\n  -H \"x-api-key: $IOCLOUD_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"resource_private_name\": \"example-deployment\",\n    \"node_pool_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n    \"duration_hours\": 4,\n    \"gpus_per_vm\": 2,\n    \"hardware_id\": 101,\n    \"location_ids\": [1, 2],\n    \"vms_qty\": 3,\n    \"ssh_keys\": {\n      \"key1\": \"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC...\",\n      \"key2\": \"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD...\"\n    },\n    \"github_ids\": [\"github_user_1\", \"github_user_2\"],\n    \"vm_image_type\": \"general\",\n    \"network_services\": {\n      \"service1\": {\n        \"port\": 22,\n        \"protocol\": \"tcp\",\n        \"whitelist\": [\"0.0.0.0/0\"]\n      },\n      \"service2\": {\n        \"port\": 80,\n        \"protocol\": \"tcp\",\n        \"whitelist\": [\"0.0.0.0/0\"]\n      }\n    }\n  }'"
+            },
+            {
+              "language": "python",
+              "code": "import requests\nimport json\n\nurl = \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deploy\"\nheaders = {\n    \"x-api-key\": \"$IOCLOUD_API_KEY\",\n    \"Content-Type\": \"application/json\"\n}\ndata = {\n    \"resource_private_name\": \"example-deployment\",\n    \"node_pool_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n    \"duration_hours\": 4,\n    \"gpus_per_vm\": 2,\n    \"hardware_id\": 101,\n    \"location_ids\": [1, 2],\n    \"vms_qty\": 3,\n    \"ssh_keys\": {\n        \"key1\": \"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC...\",\n        \"key2\": \"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD...\"\n    },\n    \"github_ids\": [\"github_user_1\", \"github_user_2\"],\n    \"vm_image_type\": \"general\",\n    \"network_services\": {\n        \"service1\": {\"port\": 22, \"protocol\": \"tcp\", \"whitelist\": [\"0.0.0.0/0\"]},\n        \"service2\": {\"port\": 80, \"protocol\": \"tcp\", \"whitelist\": [\"0.0.0.0/0\"]}\n    }\n}\n\nresponse = requests.post(url, headers=headers, data=json.dumps(data))\nprint(response.status_code)\nprint(response.json())"
+            }
+          ],
+          "samples-languages": ["curl", "python"]
+        }
       }
-    }
-  },
-  "components": {
-    "securitySchemes": {
-      "api_key": { "type": "apiKey", "name": "x-api-key", "in": "header" }
     }
   }
 }
