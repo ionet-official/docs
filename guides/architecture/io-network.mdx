@@ -1,36 +1,36 @@
 ---
 title: "IO Network"
-description: "In this document, we will explore the concepts of mesh VPN networks and how we leverage their benefits to improve performance and reliability in the io.net protocol."
+description: "This article explores the concepts of mesh VPN networks and how we leverage their benefits to improve performance and reliability in the io.net protocol."
 ---
 
-IO Network is a cutting-edge networking backend that utilizes a secured mesh VPN to allow ultra-low latency communication between the antMiners nodes 'workers'.
+**IO Network** is a cutting-edge networking backend that utilizes a secured mesh VPN to allow ultra-low latency communication between the antMiners nodes or 'workers'.
 
 <Frame>
-![](/images/docs/5bd43f5-cluster.png)
+  ![](/images/docs/5bd43f5-cluster.png)
 </Frame>
 
 ### Understanding Mesh VPN Networks
 
-A mesh VPN network is a type of virtual private network (VPN) that connects nodes in a non-hierarchical, decentralized manner. Unlike traditional hub-and-spoke VPN architectures, which rely on a central concentrator or gateway, mesh VPN networks allow each node to connect directly to every other node in the network. This structure ensures data packets can travel along multiple paths, increasing redundancy, fault tolerance, and better load distribution.
+A _Mesh VPN network_ is a type of virtual private network (VPN) that connects nodes in a non-hierarchical, decentralized manner. Unlike traditional hub-and-spoke VPN architectures, which rely on a central concentrator or gateway, mesh VPN networks allow each node to connect directly to every other node in the network. This structure ensures data packets can travel along multiple paths, increasing redundancy, fault tolerance, and better load distribution.
 
 <Frame caption="Mesh VPN">
-  <img src="/images/docs/c03fca9-2_1.png" />
+  ![](/images/docs/c03fca9-2_1.png)
 </Frame>
 
 <Frame caption="Hub-and-spoke VPN ( legacy - slow )">
-  <img src="/images/docs/8cb54a4-3_1.png" />
+  ![](/images/docs/8cb54a4-3_1.png)
 </Frame>
 
-#### Advantages of mesh VPN networks include:
+#### Advantages of _Mesh VPN networks_:
 
-1. **Robust**: Mesh networks are resilient to individual node failures, as there are multiple paths for data to travel. This redundancy ensures the network remains operational when one or more nodes experience issues.
+1. **Robust**: Mesh networks are resilient to individual node failures, as there are multiple paths for data to travel. This redundancy ensures that the network remains operational when one or more nodes experience issues.
 2. **Scalability**: Adding new nodes to a mesh network does not significantly impact the overall network performance, making it easy to expand the network as needed.
-3. **Low Latency**: By connecting nodes directly, mesh networks reduce the number of hops needed for data to travel between nodes. This reduction in latency enhances the performance of real-time applications and distributed computing.
+3. **Low Latency**: By connecting nodes directly, mesh networks reduce the number of _hops_ needed for data to travel between nodes. This reduction in latency enhances the performance of real-time applications and distributed computing.
 4. **Optimized Load Distribution**: Mesh networks distribute traffic more evenly across nodes, preventing bottlenecks and ensuring optimal performance.
 
-### Implementation of io.net Network
+### Implementation of the _io.net Network_
 
-We built an io.net network that creates an efficient, resilient, scalable networking backend. By adopting mesh networking principles, io.net delivers several benefits to its users:
+We built an io.net network that creates an efficient, resilient, and scalable networking backend. By adopting mesh networking principles, io.net delivers the following benefits to its users:
 
 1. **Enhanced Performance**: io.net's mesh network architecture minimizes latency by allowing data to travel along the most efficient paths, optimizing application performance and user experience.
 2. **Improved Resilience**: The decentralized nature of io.net's mesh network ensures that it remains operational even when individual nodes fail. This resilience translates to increased reliability and uptime for users.
@@ -47,8 +47,7 @@ The decentralized nature of mesh VPN networks contributes to their security and 
 
 ### Network Access Control and Monitoring
 
-Next for io.net Network is:
+Next for io.net Network includes:
 
-1. **Access Control Lists (ACLs)**: Nodes should define and enforce ACLs to restrict communication between specific nodes or groups of nodes, ensuring that sensitive data is only accessible to authorized parties and only available during the time they are hired for a specific cluster.
-2. **Regular Auditing and Logging**: To maintain security and compliance, the io.net mesh VPN should be configured to allow us to perform regular audits and maintain logs of network activities, enabling administrators to identify and address potential vulnerabilities or breaches.
-
+1. **Access Control Lists (ACLs)**: Nodes must define and enforce ACLs to restrict communication between specific nodes or groups of nodes, ensuring that sensitive data is only accessible to authorized parties and only available during the time they are hired for a specific cluster.
+2. **Regular Auditing and Logging**: To maintain security and compliance, the io.net mesh VPN must be configured to allow us to perform regular audits and maintain logs of network activities, enabling administrators to identify and address potential vulnerabilities or breaches.
