@@ -120,14 +120,7 @@
                     }
                ]
             },
-            {
-               "group": "Run Jobs on Clusters",
-               "pages": [
-                     "guides/clouds/run-jobs-on-clusters",
-                     "guides/clouds/jupyter-notebook"
-               ]
-            },
-            {
+          {
                "group": "IO Cloud Payments",
                "pages": [
                      "guides/payment/io-cloud-payments",
@@ -136,7 +129,15 @@
                     "guides/payment/io-credits",
                     "guides/payment/card-payments-faqs"
                ]
+            },
+            {
+               "group": "Run Jobs on Clusters",
+               "pages": [
+                     "guides/clouds/run-jobs-on-clusters",
+                     "guides/clouds/jupyter-notebook"
+               ]
             }
+            
         ]
       },
       {
