@@ -109,13 +109,8 @@
                      {
                       "group": "Kubernetes",
                       "pages": [
-                        {
-                          "group": "Kubernetes",
-                          "pages": [
-                            "guides/clouds/deploy-kubernetes-cluster",
-                            "guides/clouds/kubernetes-ingress-setup"
-                          ]
-                        }
+                        "guides/clouds/deploy-kubernetes-cluster",
+                        "guides/clouds/kubernetes-ingress-setup"
                       ]
                     }
                ]
