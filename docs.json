@@ -269,13 +269,13 @@
             "pages": [
               "guides/explorer/io-explorer",
               "guides/explorer/homepage",
-              "guides/explorer/block-rewards-page",
-              "guides/explorer/network-map-page",
-              "guides/explorer/clusters-page",
               "guides/explorer/workers-page",
+              "guides/explorer/tne-on-chain",
               "guides/explorer/inferences-page",
+              "guides/explorer/clusters-page",
               "guides/explorer/staking-dashboard",
-              "guides/explorer/tne-on-chain"
+              "guides/explorer/block-rewards-page",
+              "guides/explorer/network-map-page"
             ]
           },
           {
