@@ -104,9 +104,14 @@
                     "guides/clouds/deploy-containers",
                     "guides/clouds/deploy-ray-cluster",
                     "guides/clouds/deploy-bare-metal-cluster",
-                    "guides/clouds/deploy-vm-on-demand",
-                    "guides/clouds/data-science-image-full-specification",
-                     {
+                    {
+                      "group": "VM on Demand",
+                      "pages": [
+                        "guides/clouds/deploy-vm-on-demand",
+                        "guides/clouds/data-science-image-full-specification"
+                      ]
+                    },
+                    {
                       "group": "Kubernetes",
                       "pages": [
                         "guides/clouds/deploy-kubernetes-cluster",
