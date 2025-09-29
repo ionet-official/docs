@@ -331,11 +331,9 @@
                   "reference/ai-agents/workflows-schema",
                   "reference/ai-agents/workflows-run"
                 ]
-              }
-            ]
-          },
-          {
-            "group": "RAG API",
+              },
+                        {
+            "group": "Getting Started with RAG API",
             "pages": [
               "reference/rag/getting-started-with-the-rag-api",
               {
@@ -486,6 +484,8 @@
                   "reference/rag/system/health-check"
                 ]
               }
+            ]
+          }
             ]
           },
           {
