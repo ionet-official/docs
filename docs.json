@@ -106,9 +106,18 @@
                     "guides/clouds/deploy-bare-metal-cluster",
                     "guides/clouds/deploy-vm-on-demand",
                     "guides/clouds/data-science-image-full-specification",
-                    "guides/clouds/deploy-kubernetes-cluster",
-                    "guides/clouds/kubernetes-ingress-setup"
-                 
+                     {
+                      "group": "Kubernetes",
+                      "pages": [
+                        {
+                          "group": "Kubernetes",
+                          "pages": [
+                            "guides/clouds/deploy-kubernetes-cluster",
+                            "guides/clouds/kubernetes-ingress-setup"
+                          ]
+                        }
+                      ]
+                    }
                ]
             },
             {
