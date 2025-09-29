@@ -103,6 +103,7 @@
                     "guides/clouds/monitor-manage-clusters",
                     "guides/clouds/deploy-containers",
                     "guides/clouds/deploy-ray-cluster",
+                    "guides/clouds/deploy-bare-metal-cluster",
                     "guides/clouds/deploy-vm-on-demand",
                     "guides/clouds/data-science-image-full-specification",
                     "guides/clouds/deploy-kubernetes-cluster",
