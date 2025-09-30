@@ -1,3 +1,60 @@
 ---
 openapi: "/openapi/rag-retrieval/agent-based-query-resolution.json POST /api/r2r/v3/retrieval/agent"
+title: "RAG-powered Conversational Agent"
+description: "Engage with an intelligent agent for information retrieval, analysis, and research."
 ---
+
+This endpoint offers two operating modes:
+
+- **RAG mode**: Standard retrieval-augmented generation for answering questions based on knowledge base
+- **Research mode**: Advanced capabilities for deep analysis, reasoning, and computation
+
+## **RAG Mode (Default)**
+
+The RAG mode provides fast, knowledge-based responses using:
+
+- Semantic and hybrid search capabilities
+- Document-level and chunk-level content retrieval
+- Optional web search integration
+- Source citation and evidence-based responses
+
+## **Research Mode**
+
+The Research mode builds on RAG capabilities and adds:
+
+- A dedicated reasoning system for complex problem-solving
+- Critique capabilities to identify potential biases or logical fallacies
+- Python execution for computational analysis
+- Multi-step reasoning for deeper exploration of topics
+
+## **Available Tools**
+
+### **RAG Tools:**
+
+- `search_file_knowledge`: Semantic/hybrid search on your ingested documents
+- `search_file_descriptions`: Search over file-level metadata
+- `content`: Fetch entire documents or chunk structures
+- `web_search`: Query external search APIs for up-to-date information
+- `web_scrape`: Scrape and extract content from specific web pages
+
+### **Research Tools:**
+
+- `rag`: Leverage the underlying RAG agent for information retrieval
+- `reasoning`: Call a dedicated model for complex analytical thinking
+- `critique`: Analyze conversation history to identify flaws and biases
+- `python_executor`: Execute Python code for complex calculations and analysis
+
+## **Streaming Output**
+
+When streaming is enabled, the agent produces different event types:
+
+- `thinking`: Shows the model’s step-by-step reasoning (when extended_thinking=true)
+- `tool_cal`: Shows when the agent invokes a tool
+- `tool_result`: Shows the result of a tool call
+- `citation`: Indicates when a citation is added to the response
+- `message`: Streams partial tokens of the response
+- `final_answer`: Contains the complete generated answer and structured citations
+
+## **Conversations**
+
+Maintain context across multiple turns by including `conversation_id` in each request. After your first call, store the returned `conversation_id` and include it in subsequent calls. If no conversation name has already been set for the conversation, the system will automatically assign one.

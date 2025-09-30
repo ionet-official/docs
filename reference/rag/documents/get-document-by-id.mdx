@@ -1,3 +1,9 @@
 ---
 openapi: "/openapi/rag-documents/get-document-by-id.json GET /api/r2r/v3/documents/{id}"
+title: "Retrieve a document"
+description: "Retrieves detailed information about a specific document by its ID."
 ---
+
+This endpoint returns the document’s metadata, status, and system information. It does not return the document’s content - use the `/documents/{id}/download` endpoint for that.
+
+Users can only retrieve documents they own or have access to through collections. Superusers can retrieve any document.

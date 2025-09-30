@@ -1,3 +1,61 @@
 ---
 openapi: "/openapi/rag-retrieval/semantic-search.json POST /api/r2r/v3/retrieval/search"
+title: "Search R2R"
+description: "Perform a search query against vector and/or graph-based databases."
 ---
+
+**Search Modes:**
+
+- `basic`: Defaults to semantic search. Simple and easy to use.
+- `advanced`: Combines semantic search with full-text search for more comprehensive results.
+- `custom`: Complete control over how search is performed. Provide a full `SearchSettings` object.
+
+**Filters**: Apply filters directly inside `search_settings.filters.` For example:
+
+```
+{
+"filters": {"document_id": {"$eq": "e43864f5-a36f-548e-aacd-6f8d48b30c7f"}}
+}
+```
+
+Supported operators: `$eq`, `$neq`, `$gt`, `$gte`, `$lt`, `$lte`, `$like`, `$ilike`, `$in`, `$nin`.
+
+**Hybrid Search:** Enable hybrid search by setting `use_hybrid_search`: `true` in search_settings. This combines semantic search with keyword-based search for improved results. Configure with `hybrid_settings`:
+
+```
+{
+"use_hybrid_search": true,
+"hybrid_settings": {
+    "full_text_weight": 1.0,
+    "semantic_weight": 5.0,
+    "full_text_limit": 200,
+    "rrf_k": 50
+}
+}
+```
+
+**Graph-Enhanced Search**: Knowledge graph integration is enabled by default. Control with `graph_search_settings`:
+
+```
+{
+"graph_search_settings": {
+    "use_graph_search": true,
+    "kg_search_type": "local"
+}
+}
+```
+
+**Advanced Filtering:** Use complex filters to narrow down results by metadata fields or document properties:
+
+```
+{
+"filters": {
+    "$and":[
+        {"document_type": {"$eq": "pdf"}},
+        {"metadata.year": {"$gt": 2020}}
+    ]
+}
+}
+```
+
+**Results**: The response includes vector search results and optional graph search results. Each result contains the matched text, document ID, and relevance score.

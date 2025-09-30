@@ -1,3 +1,7 @@
 ---
 openapi: "/openapi/rag-documents/delete-document-by-id.json DELETE /api/r2r/v3/documents/{id}"
+title: "Delete a document"
+description: "Delete a specific document. All chunks corresponding to the document are deleted, and all other references to the document are removed."
 ---
+
+**NOTE**: Deletions do not yet impact the knowledge graph or other derived data. This feature is planned for a future release.

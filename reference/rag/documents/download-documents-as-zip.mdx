@@ -1,3 +1,13 @@
 ---
 openapi: "/openapi/rag-documents/download-documents-as-zip.json GET /api/r2r/v3/documents/download_zip"
+title: "Export multiple documents as zip"
+description: "Export multiple documents as a zip file. Documents can be filtered by IDs and/or date range."
 ---
+
+The endpoint allows downloading:
+
+- Specific documents by providing their IDs
+- Documents within a date range
+- All accessible documents if no filters are provided
+
+Files are streamed as a zip archive to handle potentially large downloads efficiently.

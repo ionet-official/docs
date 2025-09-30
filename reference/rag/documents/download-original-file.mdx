@@ -1,3 +1,9 @@
 ---
 openapi: "/openapi/rag-documents/download-original-file.json GET /api/r2r/v3/documents/{id}/download"
+title: "Download document content"
+description: "Downloads the original file content of a document."
 ---
+
+For uploaded files, returns the original file with its proper MIME type. For text-only documents, returns the content as plain text.
+
+Users can only download documents they own or have access to through collections.

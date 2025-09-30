@@ -1,3 +1,60 @@
 ---
 openapi: "/openapi/rag-retrieval/retrieve-and-generate-rag.json POST /api/r2r/v3/retrieval/rag"
+title: "RAG Query"
+description: "Execute a RAG (Retrieval-Augmented Generation) query."
 ---
+
+Execute a RAG (Retrieval-Augmented Generation) query.
+
+This endpoint combines search results with language model generation to produce accurate, contextually-relevant responses based on your document corpus.
+
+**Features:**
+
+- Combines vector search, optional knowledge graph integration, and LLM generation
+- Automatically cites sources with unique citation identifiers
+- Supports both streaming and non-streaming responses
+- Compatible with various LLM providers (OpenAI, Anthropic, etc.)
+- Web search integration for up-to-date information
+
+**Search Configuration:** All search parameters from the search endpoint apply here, including filters, hybrid search, and graph-enhanced search.
+
+**Generation Configuration:** Fine-tune the language model’s behavior with `rag_generation_config`:
+
+```
+{
+    "model": "openai/gpt-4o-mini",  // Model to use
+    "temperature": 0.7,              // Control randomness (0-1)
+    "max_tokens": 1500,              // Maximum output length
+    "stream": true                   // Enable token streaming
+}
+```
+
+**Model Support:**
+
+- OpenAI models (default)
+- Anthropic Claude models (requires ANTHROPIC_API_KEY)
+- Local models via Ollama
+- Any provider supported by LiteLLM
+
+**Streaming Responses:** When `stream: true` is set, the endpoint returns Server-Sent Events with the following types:
+
+- `search_results`: Initial search results from your documents
+- `message`: Partial tokens as they’re generated
+- `citation`: Citation metadata when sources are referenced
+- `final_answer`: Complete answer with structured citations
+
+**Example Response:**
+
+```
+{
+"generated_answer": "DeepSeek-R1 is a model that demonstrates impressive performance...[1]",
+"search_results": { ... },
+"citations": [
+    {
+        "id": "cit.123456",
+        "object": "citation",
+        "payload": { ... }
+    }
+]
+}
+```
