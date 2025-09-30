@@ -1,3 +1,37 @@
 ---
 openapi: "/openapi/caas/container-logs.json GET /enterprise/v1/io-cloud/caas/deployment/{deployment_id}/log/{container_id}"
 ---
+## Fetching Container Logs via API
+
+The container logs endpoint returns a stream of log lines, not a JSON array. Each line represents a log entry (stdout or stderr). To consume logs correctly:
+
+### Python Example
+
+```python
+import requests
+
+# Replace with your Deployment and Log IDs
+deployment_id = "Deployment ID"
+log_id = "Log ID"
+
+url = "https://api.io.solutions/enterprise/v1/io-cloud/caas/deployment/{deployment_id}/log/{log_id}"
+headers = {
+    "X-API-KEY": "YOUR_API_KEY",
+    "Content-Type": "application/json"
+}
+
+# Use stream=True to handle the response incrementally
+with requests.get(url, headers=headers, stream=True) as r:
+    r.raise_for_status()
+    for line in r.iter_lines():
+        if line:
+            print(line.decode("utf-8"))
+
+```
+
+### Notes
+
+- **Do not use** `response.json();` this will fail for streaming logs.
+- The endpoint may produce a **chunked HTTP response**, so always consume it line-by-line.
+- Logs returned include **both stdout and stderr**, similar to what you see in the UI.
+- This approach supports real-time log streaming for monitoring or debugging.
