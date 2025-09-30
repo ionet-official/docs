@@ -1,3 +1,10 @@
 ---
 openapi: "/openapi/caas/price-estimation.json GET /enterprise/v1/io-cloud/caas/price"
+title: "Deployment Price Check"
+description: "Calculates the estimated deployment cost based on selected location, hardware, GPU count, duration, and number of replicas. Returns a detailed price breakdown."
 ---
+
+**Once** `location_id` **and** `hardware_id`**are known, you can estimate the deployment cost based on the desired configuration.** 
+
+As a result, a detailed price breakdown will be returned.\
+**This step is optional.**

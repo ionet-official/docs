@@ -1,6 +1,9 @@
 ---
 openapi: "/openapi/caas/container-logs.json GET /enterprise/v1/io-cloud/caas/deployment/{deployment_id}/log/{container_id}"
+description: "Access real-time or historical logs for a specific container in a deployment."
+title: "Container Logs"
 ---
+
 ## Fetching Container Logs via API
 
 The container logs endpoint returns a stream of log lines, not a JSON array. Each line represents a log entry (stdout or stderr). To consume logs correctly:
@@ -26,7 +29,6 @@ with requests.get(url, headers=headers, stream=True) as r:
     for line in r.iter_lines():
         if line:
             print(line.decode("utf-8"))
-
 ```
 
 ### Notes

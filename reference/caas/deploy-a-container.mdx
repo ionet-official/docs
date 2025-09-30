@@ -1,3 +1,12 @@
 ---
 openapi: "/openapi/caas/deploy-a-container.json POST /enterprise/v1/io-cloud/caas/deploy"
+description: "This endpoint is used to deploy a CaaS cluster on IO.NET infrastructure. The container must expose an HTTP server on a single port, and it must run within a single node."
+title: "Deploy a Container"
 ---
+
+## **Important Constraints:**
+
+- **Only HTTP server containers are supported.**
+- **Only a single traffic port is allowed.**
+- **Each container must use a minimum of 1 GPU, with no maximum GPU limit.**
+  - Multi-node GPU configurations are not supported at this time.
