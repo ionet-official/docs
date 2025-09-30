@@ -1,3 +1,5 @@
 .frame .relative.flex.justify-center {
   display:block;
 }
+.nav-tabs{ width:100%}
+.nav-tabs a.link:last-child{ margin-left: auto !important; }
