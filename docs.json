@@ -500,7 +500,7 @@
                   "reference/caas/check-available-replicas-per-location",
                   "reference/caas/price-estimation",
                   "reference/caas/deploy-a-container",
-                  "reference/caas/track-deployments-overview",
+                  "reference/caas/get-all-deployments",
                   "reference/caas/get-deployment-details",
                   "reference/caas/list-deployment-containers",
                   "reference/caas/container-job-details",
