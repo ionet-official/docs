@@ -529,6 +529,12 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "Support",
+        "pages": [
+          "support-intro"
+        ]
       }
     ]
   },
