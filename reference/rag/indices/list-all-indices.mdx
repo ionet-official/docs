@@ -1,3 +1,15 @@
 ---
 openapi: "/openapi/rag-indices/list-all-indices.json GET /api/r2r/v3/indices"
+title: "List Vector Indices"
+description: "List existing vector similarity search indices with pagination support."
 ---
+
+Returns details about each index including:
+
+- Name and table name
+- Indexing method and parameters
+- Size and row count
+- Creation timestamp and last updated
+- Performance statistics (if available)
+
+The response can be filtered using the filter_by parameter to narrow down results based on table name, index method, or other attributes.

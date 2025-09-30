@@ -1,3 +1,7 @@
 ---
 openapi: "/openapi/rag-collections/delete-collection.json DELETE /api/r2r/v3/collections/{id}"
+title: "Delete Collection"
+description: "Delete an existing collection."
 ---
+
+This endpoint allows deletion of a collection identified by its UUID. The user must have appropriate permissions to delete the collection. Deleting a collection removes all associations but does not delete the documents within it.

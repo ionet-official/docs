@@ -1,3 +1,16 @@
 ---
 openapi: "/openapi/rag-indices/delete-an-index.json DELETE /api/r2r/v3/indices/{table_name}/{index_name}"
+title: "Delete Vector Index"
+description: "Delete an existing vector similarity search index."
 ---
+
+This endpoint removes the specified index from the database. Important considerations:
+
+- Deletion is permanent and cannot be undone
+- Underlying vector data remains intact
+- Queries will fall back to sequential scan
+- Running queries during deletion may be slower
+- Use run_with_orchestration=True for large indices to prevent timeouts
+- Consider index dependencies before deletion
+
+The operation returns immediately but cleanup may continue in background.

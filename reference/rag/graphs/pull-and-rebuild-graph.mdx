@@ -1,3 +1,25 @@
 ---
 openapi: "/openapi/rag-graphs/pull-and-rebuild-graph.json POST /api/r2r/v3/graphs/{collection_id}/pull"
+title: "Pull latest entities to the graph"
+description: "Adds documents to a graph by copying their entities and relationships."
 ---
+
+This endpoint:
+
+1. Copies document entities to the graphs_entities table
+2. Copies document relationships to the graphs_relationships table
+3. Associates the documents with the graph
+
+When a document is added:
+
+- Its entities and relationships are copied to graph-specific tables
+- Existing entities/relationships are updated by merging their properties
+- The document ID is recorded in the graph’s document_ids array
+
+Documents added to a graph will contribute their knowledge to:
+
+- Graph analysis and querying
+- Community detection
+- Knowledge graph enrichment
+
+The user must have access to both the graph and the documents being added.

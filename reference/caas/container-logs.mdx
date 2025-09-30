@@ -6,7 +6,12 @@ title: "Container Logs"
 
 ## Fetching Container Logs via API
 
-The container logs endpoint returns a stream of log lines, not a JSON array. Each line represents a log entry (stdout or stderr). To consume logs correctly:
+- The logs endpoint always **produces a chunked response** - it’s a **stream**.
+- Specifically, it uses **Server-Sent Events (SSE)** for streaming logs.
+- **Do not** use r`esponse.json();` consume the logs line-by-line.
+- Currently, the **API spec is incomplete**:
+  - `offset` and `stream type` query parameters are missing.
+  - Public API specs need a full review to match Swagger; other fields may be missing.
 
 ### Python Example
 
@@ -33,7 +38,6 @@ with requests.get(url, headers=headers, stream=True) as r:
 
 ### Notes
 
-- **Do not use** `response.json();` this will fail for streaming logs.
-- The endpoint may produce a **chunked HTTP response**, so always consume it line-by-line.
-- Logs returned include **both stdout and stderr**, similar to what you see in the UI.
-- This approach supports real-time log streaming for monitoring or debugging.
+- Treat all responses as **streams**, not JSON.
+- Each line corresponds to a log entry (stdout/stderr), as seen in the UI.
+- SSE allows for real-time log consumption for monitoring/debugging.

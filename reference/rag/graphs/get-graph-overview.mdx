@@ -1,3 +1,7 @@
 ---
 openapi: "/openapi/rag-graphs/get-graph-overview.json GET /api/r2r/v3/graphs"
+title: "Get graph overview"
+description: "Returns a paginated list of graphs the authenticated user has access to."
 ---
+
+Results can be filtered by providing specific graph IDs. Regular users will only see graphs they own or have access to. Superusers can see all graphs. The graphs are returned in order of last modification, with most recent first.

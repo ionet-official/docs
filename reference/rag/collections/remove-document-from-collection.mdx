@@ -1,3 +1,7 @@
 ---
 openapi: "/openapi/rag-collections/remove-document-from-collection.json DELETE /api/r2r/v3/collections/{id}/documents/{document_id}"
+title: "Remove document from collection"
+description: "This endpoint removes the association between a document and a collection."
 ---
+
+It does not delete the document itself. The user must have permissions to modify the collection.

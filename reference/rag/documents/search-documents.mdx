@@ -1,3 +1,9 @@
 ---
 openapi: "/openapi/rag-documents/search-documents.json POST /api/r2r/v3/documents/search"
+title: "Search document summaries"
+description: "Perform a search query on the automatically generated document summaries in the system."
 ---
+
+This endpoint allows for complex filtering of search results using PostgreSQL-based queries. Filters can be applied to various fields such as document_id, and internal metadata values.
+
+Allowed operators include `eq`, `neq`, `gt`, `gte`, `lt`, `lte`, `like`, `ilike`, `in`, and `nin`.
