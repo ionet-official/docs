@@ -1,3 +1,7 @@
 ---
 openapi: "/openapi/rag-chunks/update-chunk.json POST /api/r2r/v3/chunks/{id}"
+title: "Update Chunk"
+description: "Update an existing chunk’s content and/or metadata."
 ---
+
+The chunk’s vectors will be automatically recomputed based on the new content. Users can only update chunks they own unless they are superusers.

@@ -1,3 +1,9 @@
 ---
 openapi: "/openapi/rag-chunks/search-chunks.json POST /api/r2r/v3/chunks/search"
+title: "Search Chunks"
+description: "Perform a semantic search query over all stored chunks."
 ---
+
+This endpoint allows for complex filtering of search results using PostgreSQL-based queries. Filters can be applied to various fields such as document_id, and internal metadata values.
+
+Allowed operators include `eq`, `neq`, `gt`, `gte`, `lt`, `lte`, `like`, `ilike`, `in`, and `nin`.
