@@ -35,8 +35,7 @@
             "description": "The ID of the document to retrieve chunks for.",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string"
             }
           }
         ],

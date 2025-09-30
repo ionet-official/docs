@@ -34,8 +34,7 @@
             "in": "path",
             "description": "Document ID (UUID)",
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string"
             },
             "required": true
           }

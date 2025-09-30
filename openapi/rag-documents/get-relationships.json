@@ -35,8 +35,7 @@
             "description": "Document ID",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string"
             }
           }
         ],
