@@ -43,7 +43,10 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
                 "properties": {
                   "metadata": {
                     "type": "string",
