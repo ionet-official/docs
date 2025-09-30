@@ -47,8 +47,7 @@
                 "properties": {
                   "metadata": {
                     "type": "string",
-                    "description": "JSON object with metadata fields to update",
-                    "format": "json"
+                    "description": "JSON object with metadata fields to update"
                   }
                 }
               }
