@@ -34,8 +34,7 @@
             "in": "path",
             "description": "ID of the collection",
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string"
             },
             "required": true
           },
@@ -44,8 +43,7 @@
             "in": "path",
             "description": "ID of the community to delete",
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string"
             },
             "required": true
           }
