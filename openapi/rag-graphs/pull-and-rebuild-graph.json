@@ -34,8 +34,7 @@
             "in": "path",
             "description": "ID of the collection to rebuild the graph for",
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string"
             },
             "required": true
           }
