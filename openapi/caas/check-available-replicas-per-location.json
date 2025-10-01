@@ -95,24 +95,111 @@
               }
             }
           }
-        },
-        "deprecated": false,
-        "x-readme": {
-          "code-samples": [
-            {
-              "language": "curl",
-              "code": "curl https://api.io.solutions/enterprise/v1/io-cloud/caas/available-replicas?hardware_id={hardware_id}&hardware_qty={hardware_qty} \\\n  -H \"X-API-KEY: $IOCLOUD_API_KEY\" "
-            },
-            {
-              "language": "python",
-              "code": "import requests\n\nurl = \"https://api.io.solutions/enterprise/v1/io-cloud/caas/available-replicas\"\n\nheaders = {\n    \"X-API-KEY\": \"$IOCLOUD_API_KEY\"\n}\nparams = {\n    \"hardware_id\": \"YOUR_HARDWARE_ID\",\n    \"hardware_qty\": \"YOUR_QUANTITY\"\n}\n\nresponse = requests.get(url, headers=headers, params=params)\n\nprint(response.status_code)\nprint(response.json())"
-            }
-          ],
-          "samples-languages": [
-            "curl",
-            "python"
-          ]
         }
+      }
+    }
+  },
+   "components": {
+     "securitySchemes": {
+      "HTTPBasic": {
+        "type": "http",
+        "scheme": "basic"
+      },
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    },
+    "schemas": {
+      "io_cloud__schemas__response__enterprise__caas__GetAvailableReplicasPerLocationResponse": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/io_cloud__schemas__response__enterprise__caas__ReplicasPerLocation"
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "GetAvailableReplicasPerLocationResponse"
+      },
+      "io_cloud__schemas__response__enterprise__caas__ReplicasPerLocation": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "iso2": {
+            "type": "string",
+            "title": "Iso2"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "available_replicas": {
+            "type": "integer",
+            "title": "Available Replicas"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "iso2",
+          "name",
+          "available_replicas"
+        ],
+        "title": "ReplicasPerLocation"
+      },
+       "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
       }
     }
   }
