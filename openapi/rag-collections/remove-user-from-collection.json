@@ -34,8 +34,7 @@
             "in": "path",
             "description": "The unique identifier of the collection",
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string"
             },
             "required": true
           },
@@ -44,8 +43,7 @@
             "in": "path",
             "description": "The unique identifier of the user to remove",
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string"
             },
             "required": true
           }

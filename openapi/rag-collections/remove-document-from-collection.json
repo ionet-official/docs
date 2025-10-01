@@ -34,8 +34,7 @@
             "in": "path",
             "description": "Collection ID",
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string"
             },
             "required": true
           },
@@ -44,8 +43,7 @@
             "in": "path",
             "description": "Document ID to remove",
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string"
             },
             "required": true
           }
