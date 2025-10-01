@@ -23,214 +23,96 @@
     }
   ],
   "paths": {
-    "/enterprise/v1/io-cloud/caas/price": {
+     "/enterprise/v1/io-cloud/caas/price": {
       "get": {
-        "summary": "Deployment Price Check",
-        "description": "Calculates the estimated deployment cost based on selected location, hardware, GPU count, duration, and number of replicas. Returns a detailed price breakdown.",
-        "operationId": "price-estimation",
+        "tags": [
+          "enterprise-io-cloud-caas"
+        ],
+        "summary": "Get Deployment Price",
+        "operationId": "get_deployment_price_enterprise_v1_io_cloud_caas_price_get",
         "parameters": [
           {
             "name": "location_ids",
-            "in": "path",
+            "in": "query",
+            "required": true,
             "schema": {
-              "type": "array",
-              "items": {
-                "type": "integer",
-                "format": "int32"
-              },
-              "default": [
-                null,
-                null
-              ]
+              "type": "string",
+              "description": "list of ids in a form of json array",
+              "title": "Location Ids"
             },
-            "required": true
+            "description": "list of ids in a form of json array"
           },
           {
             "name": "hardware_id",
-            "in": "path",
+            "in": "query",
+            "required": true,
             "schema": {
               "type": "integer",
-              "format": "int32",
-              "default": 1
-            },
-            "required": true
+              "title": "Hardware Id"
+            }
           },
           {
             "name": "duration_hours",
-            "in": "path",
+            "in": "query",
+            "required": true,
             "schema": {
               "type": "integer",
-              "format": "int32",
-              "default": 1
-            },
-            "required": true
+              "minimum": 1,
+              "title": "Duration Hours"
+            }
           },
           {
             "name": "gpus_per_container",
-            "in": "path",
-            "description": "Input should be greater than or equal to 8",
+            "in": "query",
+            "required": true,
             "schema": {
               "type": "integer",
-              "format": "int32",
-              "default": 8
-            },
-            "required": true
+              "minimum": 1,
+              "title": "Gpus Per Container"
+            }
           },
           {
             "name": "replica_count",
-            "in": "path",
+            "in": "query",
+            "required": true,
             "schema": {
               "type": "integer",
-              "format": "int32",
-              "default": 1
+              "minimum": 1,
+              "title": "Replica Count"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "X-Api-Key"
             },
-            "required": true
+            "description": "io.net provided API Key"
           }
         ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "Successful Response",
             "content": {
               "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": {
-                      "data": {
-                        "replica_count": 0,
-                        "gpus_per_container": 0,
-                        "available_replica_count": [
-                          0
-                        ],
-                        "discount": 0,
-                        "ionet_fee": 0,
-                        "ionet_fee_percent": 0,
-                        "currency_conversion_fee": 0,
-                        "currency_conversion_fee_percent": 0,
-                        "total_cost_usdc": 0
-                      }
-                    }
-                  }
-                },
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "replica_count": {
-                          "type": "integer",
-                          "example": 0,
-                          "default": 0
-                        },
-                        "gpus_per_container": {
-                          "type": "integer",
-                          "example": 0,
-                          "default": 0
-                        },
-                        "available_replica_count": {
-                          "type": "array",
-                          "items": {
-                            "type": "integer",
-                            "example": 0,
-                            "default": 0
-                          }
-                        },
-                        "discount": {
-                          "type": "integer",
-                          "example": 0,
-                          "default": 0
-                        },
-                        "ionet_fee": {
-                          "type": "integer",
-                          "example": 0,
-                          "default": 0
-                        },
-                        "ionet_fee_percent": {
-                          "type": "integer",
-                          "example": 0,
-                          "default": 0
-                        },
-                        "currency_conversion_fee": {
-                          "type": "integer",
-                          "example": 0,
-                          "default": 0
-                        },
-                        "currency_conversion_fee_percent": {
-                          "type": "integer",
-                          "example": 0,
-                          "default": 0
-                        },
-                        "total_cost_usdc": {
-                          "type": "integer",
-                          "example": 0,
-                          "default": 0
-                        }
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/GetCaasPriceResponse"
                 }
               }
             }
           },
           "404": {
-            "description": "404",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": "string"
-                  }
-                },
-                "schema": {
-                  "type": "string",
-                  "example": "string"
-                }
-              }
-            }
+            "description": "Not found"
           },
           "422": {
-            "description": "422",
+            "description": "Validation Error",
             "content": {
-              "text/plain": {
-                "examples": {
-                  "Result": {
-                    "value": {
-                      "detail": [
-                        {
-                          "loc": [
-                            "string",
-                            0
-                          ],
-                          "msg": "string",
-                          "type": "string"
-                        }
-                      ]
-                    }
-                  }
-                },
+              "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "detail": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "loc": {
-                            "type": "array"
-                          },
-                          "msg": {
-                            "type": "string",
-                            "example": "string"
-                          },
-                          "type": {
-                            "type": "string",
-                            "example": "string"
-                          }
-                        }
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }

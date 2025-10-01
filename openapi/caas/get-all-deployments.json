@@ -15,58 +15,6 @@
         "type": "oauth2",
         "flows": {}
       }
-    },
-    "schemas": {
-      "GetDeploymentsData": {
-        "type": "object",
-        "properties": {
-          "deployments": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "status": {
-                  "type": "string"
-                },
-                "created_at": {
-                  "type": "string",
-                  "format": "date-time"
-                }
-              }
-            }
-          }
-        }
-      },
-      "HTTPValidationError": {
-        "type": "object",
-        "properties": {
-          "detail": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "loc": {
-                  "type": "array",
-                  "items": {
-                    "oneOf": [
-                      { "type": "string" },
-                      { "type": "integer" }
-                    ]
-                  }
-                },
-                "msg": { "type": "string" },
-                "type": { "type": "string" }
-              }
-            }
-          }
-        }
-      }
     }
   },
   "security": [

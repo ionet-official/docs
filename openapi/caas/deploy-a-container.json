@@ -25,203 +25,54 @@
   "paths": {
     "/enterprise/v1/io-cloud/caas/deploy": {
       "post": {
-        "summary": "Deploy a Container",
-        "description": "This endpoint is used to deploy a CaaS cluster on IO.NET infrastructure. The container must expose an HTTP server on a single port, and it must run within a single node.",
-        "operationId": "deploy-a-container",
+        "tags": [
+          "enterprise-io-cloud-caas"
+        ],
+        "summary": "Deploy Containers",
+        "operationId": "deploy_containers_enterprise_v1_io_cloud_caas_deploy_post",
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "X-Api-Key"
+            },
+            "description": "io.net provided API Key"
+          }
+        ],
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "required": [
-                  "resource_private_name",
-                  "duration_hours",
-                  "gpus_per_container",
-                  "hardware_id",
-                  "location_ids",
-                  "container_config",
-                  "registry_config",
-                  "replica_count",
-                  "entrypoint",
-                  "traffic_port"
-                ],
-                "properties": {
-                  "resource_private_name": {
-                    "type": "string",
-                    "description": "Must be a unique string identifying the deployment."
-                  },
-                  "duration_hours": {
-                    "type": "integer",
-                    "description": "Duration of the deployment in hours.",
-                    "format": "int32"
-                  },
-                  "gpus_per_container": {
-                    "type": "integer",
-                    "description": "Must be set to 8.",
-                    "format": "int32"
-                  },
-                  "hardware_id": {
-                    "type": "integer",
-                    "description": "Use values from the Inventory Browsing API.",
-                    "format": "int32"
-                  },
-                  "location_ids": {
-                    "type": "array",
-                    "description": "Array of region/location IDs. Use values from the Inventory Browsing API.",
-                    "items": {
-                      "type": "integer",
-                      "format": "int32"
-                    }
-                  },
-                  "container_config": {
-                    "type": "object",
-                    "description": "Configuration of the container to deploy. See below.",
-                    "properties": {}
-                  },
-                  "registry_config": {
-                    "type": "object",
-                    "description": "Docker image registry credentials and image details. See below.",
-                    "properties": {}
-                  },
-                  "replica_count": {
-                    "type": "integer",
-                    "description": "Number of container replicas to run.",
-                    "format": "int32"
-                  },
-                  "env_variables": {
-                    "type": "object",
-                    "description": "Key-value pairs of environment variables.",
-                    "properties": {}
-                  },
-                  "secret_env_variables": {
-                    "type": "object",
-                    "description": "Same as env_variables, but securely stored. Only visible in actual deployments.",
-                    "properties": {}
-                  },
-                  "entrypoint": {
-                    "type": "array",
-                    "description": "Array of strings in exec form that overrides the container’s default entrypoint. Example: [\"python3\", \"-m\", \"my.app\"].",
-                    "items": {
-                      "type": "string"
-                    }
-                  },
-                  "args": {
-                    "type": "array",
-                    "description": "Array of strings to append to the entrypoint. Must contain at least one item.",
-                    "items": {
-                      "type": "string"
-                    }
-                  },
-                  "traffic_port": {
-                    "type": "integer",
-                    "description": "Port on which the container exposes its HTTP service. Used for internal health checks.",
-                    "format": "int32"
-                  },
-                  "image_url": {
-                    "type": "string",
-                    "description": "Full Docker image path (e.g., ghcr.io/org/image:tag)."
-                  },
-                  "registry_username": {
-                    "type": "string",
-                    "description": "Username for container registry."
-                  },
-                  "registry_secret": {
-                    "type": "string",
-                    "description": "Access token or password for container registry."
-                  }
-                }
+                "$ref": "#/components/schemas/io_cloud__schemas__request__enterprise_caas__CaaSDeployClusterRequest"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "200",
+            "description": "Successful Response",
             "content": {
               "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": {
-                      "status": "string",
-                      "deployment_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-                    }
-                  }
-                },
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "string"
-                    },
-                    "deployment_id": {
-                      "type": "string",
-                      "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-                    }
-                  }
+                  "$ref": "#/components/schemas/SuccessResponse"
                 }
               }
             }
           },
           "404": {
-            "description": "404",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": "string"
-                  }
-                },
-                "schema": {
-                  "type": "string",
-                  "example": "string"
-                }
-              }
-            }
+            "description": "Not found"
           },
           "422": {
-            "description": "422",
+            "description": "Validation Error",
             "content": {
-              "text/plain": {
-                "examples": {
-                  "Result": {
-                    "value": {
-                      "detail": [
-                        {
-                          "loc": [
-                            "string",
-                            0
-                          ],
-                          "msg": "string",
-                          "type": "string"
-                        }
-                      ]
-                    }
-                  }
-                },
+              "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "detail": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "loc": {
-                            "type": "array"
-                          },
-                          "msg": {
-                            "type": "string",
-                            "example": "string"
-                          },
-                          "type": {
-                            "type": "string",
-                            "example": "string"
-                          }
-                        }
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }

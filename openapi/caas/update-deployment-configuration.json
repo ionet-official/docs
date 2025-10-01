@@ -25,108 +25,64 @@
   "paths": {
     "/enterprise/v1/io-cloud/caas/deployment/{deployment_id}": {
       "patch": {
-        "summary": "Update Deployment Configuration",
-        "description": "Modify runtime container settings such as environment variables or entrypoints.",
-        "operationId": "update-deployment-configuration",
+        "tags": [
+          "enterprise-io-cloud-caas"
+        ],
+        "summary": "Update Container Definition",
+        "operationId": "update_container_definition_enterprise_v1_io_cloud_caas_deployment__deployment_id__patch",
         "parameters": [
           {
             "name": "deployment_id",
             "in": "path",
+            "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string",
+              "format": "uuid",
+              "title": "Deployment Id"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "X-Api-Key"
             },
-            "required": true
+            "description": "io.net provided API Key"
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/io_cloud__schemas__request__enterprise_caas__ContainerUpdateRequest"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
-            "description": "200",
+            "description": "Successful Response",
             "content": {
               "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": {
-                      "status": "string",
-                      "deployment_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-                    }
-                  }
-                },
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "string"
-                    },
-                    "deployment_id": {
-                      "type": "string",
-                      "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-                    }
-                  }
+                  "$ref": "#/components/schemas/SuccessResponse"
                 }
               }
             }
           },
           "404": {
-            "description": "404",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": "string"
-                  }
-                },
-                "schema": {
-                  "type": "string",
-                  "example": "string"
-                }
-              }
-            }
+            "description": "Not found"
           },
           "422": {
-            "description": "422",
+            "description": "Validation Error",
             "content": {
-              "text/plain": {
-                "examples": {
-                  "Result": {
-                    "value": {
-                      "detail": [
-                        {
-                          "loc": [
-                            "string",
-                            0
-                          ],
-                          "msg": "string",
-                          "type": "string"
-                        }
-                      ]
-                    }
-                  }
-                },
+              "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "detail": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "loc": {
-                            "type": "array"
-                          },
-                          "msg": {
-                            "type": "string",
-                            "example": "string"
-                          },
-                          "type": {
-                            "type": "string",
-                            "example": "string"
-                          }
-                        }
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }
