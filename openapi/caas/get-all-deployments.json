@@ -77,18 +77,24 @@
   "paths": {
     "/enterprise/v1/io-cloud/caas/deployments": {
       "get": {
-        "tags": ["enterprise-io-cloud-caas"],
+        "tags": [
+          "enterprise-io-cloud-caas"
+        ],
         "summary": "Get All Deployments",
-        "operationId": "getAllDeployments",
+        "operationId": "get_all_deployments_enterprise_v1_io_cloud_caas_deployments_get",
         "parameters": [
           {
             "name": "status",
             "in": "query",
             "required": false,
             "schema": {
-              "type": "string"
-            },
-            "description": "Filter deployments by status"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/CaaSResourceStatus"
+                }
+              ],
+              "title": "Status"
+            }
           },
           {
             "name": "page",
@@ -96,10 +102,9 @@
             "required": false,
             "schema": {
               "type": "integer",
-              "minimum": 0,
-              "default": 0
-            },
-            "description": "Page number"
+              "default": 0,
+              "title": "Page"
+            }
           },
           {
             "name": "page_size",
@@ -107,18 +112,20 @@
             "required": false,
             "schema": {
               "type": "integer",
-              "minimum": 1,
               "maximum": 100,
-              "default": 10
-            },
-            "description": "Number of results per page"
+              "min": 1,
+              "default": 10,
+              "title": "Page Size"
+            }
           },
           {
-            "name": "X-API-KEY",
+            "name": "x-api-key",
             "in": "header",
-            "required": true,
+            "required": false,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "X-Api-Key"
             },
             "description": "io.net provided API Key"
           }
@@ -129,13 +136,13 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetDeploymentsData"
+                  "$ref": "#/components/schemas/io_cloud__schemas__response__enterprise__caas__GetDeploymentsData"
                 }
               }
             }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Not found"
           },
           "422": {
             "description": "Validation Error",
@@ -148,23 +155,22 @@
             }
           }
         },
-        "deprecated": false,
         "x-readme": {
-          "code-samples": [
-            {
-              "language": "curl",
-              "code": "curl https://api.io.solutions/enterprise/v1/io-cloud/caas/deployments \\\n  -H \"X-API-KEY: $IOCLOUD_API_KEY\" "
-            },
-            {
-              "language": "python",
-              "code": "import requests\n\nurl = \"https://api.io.solutions/enterprise/v1/io-cloud/caas/deployments\"\n\nheaders = {\n    \"X-API-KEY\": \"$IOCLOUD_API_KEY\"\n}\n\nresponse = requests.get(url, headers=headers)\n\nprint(response.status_code)\nprint(response.json())"
-            }
-          ],
-          "samples-languages": [
-            "curl",
-            "python"
-          ]
-        }
+            "code-samples": [
+              {
+                "language": "curl",
+                "code": "curl https://api.io.solutions/enterprise/v1/io-cloud/caas/deployments \\\n  -H \"X-API-KEY: $IOCLOUD_API_KEY\" "
+              },
+              {
+                "language": "python",
+                "code": "import requests\n\nurl = \"https://api.io.solutions/enterprise/v1/io-cloud/caas/deployments\"\n\nheaders = {\n    \"X-API-KEY\": \"$IOCLOUD_API_KEY\"\n}\n\nresponse = requests.get(url, headers=headers)\n\nprint(response.status_code)\nprint(response.json())"
+              }
+            ],
+            "samples-languages": [
+              "curl",
+              "python"
+            ]
+          }
       }
     }
   }
