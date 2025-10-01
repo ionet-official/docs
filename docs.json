@@ -501,7 +501,7 @@
                   "reference/caas/deploy-a-container",
                   "reference/caas/list-deployment-containers",
                   "reference/caas/check-maximum-gpus-per-container",
-                  "reference/caas/check-available-replicas-per-location",
+                  "reference/caas/available-replicas",
                   "reference/caas/price-estimation",
                   "reference/caas/container-job-details",
                   "reference/caas/container-logs",
