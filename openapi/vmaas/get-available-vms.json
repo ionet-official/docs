@@ -119,5 +119,1281 @@
         }
       }
     }
+  },
+  "components": {
+    "schemas": {
+      "ContainerConfig-Output": {
+        "properties": {
+          "entrypoint": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Entrypoint"
+          },
+          "env_variables": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Env Variables"
+          },
+          "traffic_port": {
+            "type": "integer",
+            "title": "Traffic Port"
+          },
+          "image_url": {
+            "type": "string",
+            "title": "Image Url"
+          },
+          "secret_env_keys": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "uniqueItems": true,
+            "title": "Secret Env Keys"
+          }
+        },
+        "type": "object",
+        "required": [
+          "entrypoint",
+          "env_variables",
+          "traffic_port",
+          "image_url",
+          "secret_env_keys"
+        ],
+        "title": "ContainerConfig"
+      },
+      "ContainerEvent": {
+        "properties": {
+          "time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Time"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "time",
+          "message"
+        ],
+        "title": "ContainerEvent"
+      },
+      "ContainersJobsData": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "workers": {
+            "items": {
+              "$ref": "#/components/schemas/io_cloud__schemas__response__enterprise__caas__WorkerData"
+            },
+            "type": "array",
+            "title": "Workers"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total",
+          "workers"
+        ],
+        "title": "ContainersJobsData"
+      },
+      "GetContainersJobData": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/ContainersJobsData"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "GetContainersJobData"
+      },
+      "GetVmJobData": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/VmJobsData"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "GetVmJobData"
+      },
+      "GetVmaasPriceData": {
+        "properties": {
+          "replica_count": {
+            "type": "integer",
+            "title": "Replica Count"
+          },
+          "gpus_per_vm": {
+            "type": "integer",
+            "title": "Gpus Per Vm"
+          },
+          "available_replica_count": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Available Replica Count"
+          },
+          "discount": {
+            "type": "number",
+            "title": "Discount"
+          },
+          "ionet_fee": {
+            "type": "number",
+            "title": "Ionet Fee"
+          },
+          "ionet_fee_percent": {
+            "type": "number",
+            "title": "Ionet Fee Percent"
+          },
+          "currency_conversion_fee": {
+            "type": "number",
+            "title": "Currency Conversion Fee"
+          },
+          "currency_conversion_fee_percent": {
+            "type": "number",
+            "title": "Currency Conversion Fee Percent"
+          },
+          "total_cost_usdc": {
+            "type": "number",
+            "title": "Total Cost Usdc"
+          }
+        },
+        "type": "object",
+        "required": [
+          "replica_count",
+          "gpus_per_vm",
+          "available_replica_count",
+          "discount",
+          "ionet_fee",
+          "ionet_fee_percent",
+          "currency_conversion_fee",
+          "currency_conversion_fee_percent",
+          "total_cost_usdc"
+        ],
+        "title": "GetVmaasPriceData"
+      },
+      "GetVmaasPriceResponse": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/GetVmaasPriceData"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "GetVmaasPriceResponse"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HardwareConfiguration": {
+        "properties": {
+          "hardware_names": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Hardware Names",
+            "description": "List of hardware names"
+          },
+          "regions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Regions",
+            "description": "List of regions"
+          },
+          "connectivity_tiers": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Connectivity Tiers",
+            "description": "List of connectivity tiers"
+          },
+          "num_gpus": {
+            "type": "integer",
+            "title": "Num Gpus",
+            "description": "Number of GPUs required"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "hardware_names",
+          "regions",
+          "connectivity_tiers",
+          "num_gpus"
+        ],
+        "title": "HardwareConfiguration"
+      },
+      "HardwareMultiplierDetails": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "multiplier": {
+            "type": "number",
+            "title": "Multiplier"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "multiplier",
+          "type"
+        ],
+        "title": "HardwareMultiplierDetails"
+      },
+      "LocationData": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "iso2": {
+            "type": "string",
+            "title": "Iso2"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "iso2",
+          "name"
+        ],
+        "title": "LocationData"
+      },
+      "LogStream": {
+        "type": "string",
+        "enum": [
+          "stdout",
+          "stderr"
+        ],
+        "title": "LogStream"
+      },
+      "MaxGpuPerNodeData": {
+        "properties": {
+          "hardware": {
+            "items": {
+              "$ref": "#/components/schemas/io_cloud__schemas__response__kubernetes__HardwareInfo"
+            },
+            "type": "array",
+            "title": "Hardware"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "hardware",
+          "total"
+        ],
+        "title": "MaxGpuPerNodeData"
+      },
+      "MonthlyStakedAmountData": {
+        "properties": {
+          "month": {
+            "type": "string",
+            "title": "Month"
+          },
+          "total_staked_per_month": {
+            "type": "number",
+            "title": "Total Staked Per Month"
+          }
+        },
+        "type": "object",
+        "required": [
+          "month",
+          "total_staked_per_month"
+        ],
+        "title": "MonthlyStakedAmountData"
+      },
+      "Network": {
+        "type": "string",
+        "enum": [
+          "solana",
+          "stripe"
+        ],
+        "title": "Network"
+      },
+      "NetworkProtocol": {
+        "type": "string",
+        "enum": [
+          "tcp",
+          "udp"
+        ],
+        "title": "NetworkProtocol"
+      },
+      "NetworkService": {
+        "properties": {
+          "port": {
+            "type": "integer",
+            "maximum": 65535,
+            "minimum": 1,
+            "title": "Port"
+          },
+          "protocol": {
+            "$ref": "#/components/schemas/NetworkProtocol"
+          },
+          "whitelist": {
+            "items": {
+              "type": "string",
+              "format": "ipvanynetwork"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Whitelist",
+            "description": "List of IP networks to allow access from. 0.0.0.0/0 for whitelisting all the IPs"
+          }
+        },
+        "type": "object",
+        "required": [
+          "port",
+          "protocol",
+          "whitelist"
+        ],
+        "title": "NetworkService"
+      },
+      "NetworkServiceResponse": {
+        "properties": {
+          "port": {
+            "type": "integer",
+            "title": "Port"
+          },
+          "protocol": {
+            "$ref": "#/components/schemas/NetworkProtocol"
+          },
+          "whitelist": {
+            "items": {
+              "type": "string",
+              "format": "ipvanynetwork"
+            },
+            "type": "array",
+            "title": "Whitelist"
+          },
+          "public_port": {
+            "type": "integer",
+            "title": "Public Port"
+          },
+          "public_ip": {
+            "type": "string",
+            "title": "Public Ip"
+          },
+          "srv_record": {
+            "type": "string",
+            "title": "Srv Record"
+          }
+        },
+        "type": "object",
+        "required": [
+          "port",
+          "protocol",
+          "whitelist",
+          "public_port",
+          "public_ip",
+          "srv_record"
+        ],
+        "title": "NetworkServiceResponse"
+      },
+      "NodeJobsData": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "workers": {
+            "items": {
+              "$ref": "#/components/schemas/io_cloud__schemas__response__enterprise__kubernetes__WorkerData"
+            },
+            "type": "array",
+            "title": "Workers"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total",
+          "workers"
+        ],
+        "title": "NodeJobsData"
+      },
+      "NodePoolData": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "title": "NodePoolData"
+      },
+      "NodesPerLocation": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "available_nodes": {
+            "type": "integer",
+            "title": "Available Nodes"
+          },
+          "iso2": {
+            "type": "string",
+            "title": "Iso2"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "available_nodes",
+          "iso2",
+          "name"
+        ],
+        "title": "NodesPerLocation"
+      },
+      "POTLEnum": {
+        "type": "boolean",
+        "enum": [
+          true,
+          false
+        ],
+        "title": "POTLEnum"
+      },
+      "Package": {
+        "type": "string",
+        "enum": [
+          "ray",
+          "ray-gpu",
+          "ray-arm"
+        ],
+        "title": "Package"
+      },
+      "PaginationMetadata": {
+        "properties": {
+          "total_items": {
+            "type": "integer",
+            "title": "Total Items"
+          },
+          "total_pages": {
+            "type": "integer",
+            "title": "Total Pages"
+          },
+          "current_page": {
+            "type": "integer",
+            "title": "Current Page"
+          },
+          "items_per_page": {
+            "type": "integer",
+            "title": "Items Per Page"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total_items",
+          "total_pages",
+          "current_page",
+          "items_per_page"
+        ],
+        "title": "PaginationMetadata"
+      },
+      "PriorityStatus": {
+        "type": "string",
+        "enum": [
+          "info",
+          "error",
+          "success",
+          "critical",
+          "promo"
+        ],
+        "title": "PriorityStatus"
+      },
+      "ResourceStatus": {
+        "type": "string",
+        "enum": [
+          "running",
+          "completed",
+          "unpaid",
+          "failed",
+          "deployment requested",
+          "deploying",
+          "termination requested",
+          "terminated",
+          "destroyed",
+          "all"
+        ],
+        "title": "ResourceStatus"
+      },
+      "ResourceType": {
+        "type": "string",
+        "enum": [
+          "cluster",
+          "k8s_cluster",
+          "baremetal",
+          "caas",
+          "vmaas"
+        ],
+        "title": "ResourceType"
+      },
+      "RuleCheck": {
+        "properties": {
+          "check": {
+            "type": "boolean",
+            "title": "Check"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          }
+        },
+        "type": "object",
+        "required": [
+          "check",
+          "reason"
+        ],
+        "title": "RuleCheck"
+      },
+      "SuccessResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "deployment_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Deployment Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "deployment_id"
+        ],
+        "title": "SuccessResponse"
+      },
+      "Summary": {
+        "properties": {
+          "total_coins_distributed": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total Coins Distributed",
+            "example": 50000000
+          },
+          "todays_coins_distributed": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Todays Coins Distributed",
+            "example": 24000
+          },
+          "next_block_start_time": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Block Start Time",
+            "example": "2024-05-13T15:00:00"
+          },
+          "total_blocks_computed": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total Blocks Computed",
+            "example": 10000
+          },
+          "total_unique_workers_paid": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total Unique Workers Paid",
+            "example": 44000
+          },
+          "todays_unique_workers_paid": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Todays Unique Workers Paid",
+            "example": 4000
+          }
+        },
+        "type": "object",
+        "title": "Summary"
+      },
+      "VMaaSResourceStatus": {
+        "type": "string",
+        "enum": [
+          "running",
+          "completed",
+          "failed",
+          "deployment requested",
+          "termination requested",
+          "destroyed"
+        ],
+        "title": "VMaaSResourceStatus"
+      },
+      "ValidateApiKey": {
+        "properties": {
+          "value": {
+            "type": "string",
+            "title": "Value"
+          }
+        },
+        "type": "object",
+        "required": [
+          "value"
+        ],
+        "title": "ValidateApiKey"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "VmEvent": {
+        "properties": {
+          "time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Time"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "time",
+          "message"
+        ],
+        "title": "VmEvent"
+      },
+      "VmImageType": {
+        "type": "string",
+        "enum": [
+          "general",
+          "datascience"
+        ],
+        "title": "VmImageType"
+      },
+      "VmJobsData": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "workers": {
+            "items": {
+              "$ref": "#/components/schemas/io_cloud__schemas__response__enterprise__vmaas__WorkerData"
+            },
+            "type": "array",
+            "title": "Workers"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total",
+          "workers"
+        ],
+        "title": "VmJobsData"
+      },
+      "io_cloud__schemas__request__enterprise__vmaas__ExtendCluster": {
+        "properties": {
+          "duration_hours": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "title": "Duration Hours"
+          }
+        },
+        "type": "object",
+        "required": [
+          "duration_hours"
+        ],
+        "title": "ExtendCluster"
+      },
+      "io_cloud__schemas__request__enterprise__vmaas__VMaasDeployRequest": {
+        "properties": {
+          "ssh_keys": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ssh Keys"
+          },
+          "resource_private_name": {
+            "type": "string",
+            "title": "Resource Private Name"
+          },
+          "node_pool_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Node Pool Id",
+            "description": "ID of private node pool. Can't be used if location_ids are provided."
+          },
+          "duration_hours": {
+            "type": "integer",
+            "maximum": 8760,
+            "exclusiveMinimum": 0,
+            "title": "Duration Hours"
+          },
+          "gpus_per_vm": {
+            "type": "integer",
+            "maximum": 8,
+            "minimum": 1,
+            "title": "Gpus Per Vm"
+          },
+          "hardware_id": {
+            "type": "integer",
+            "title": "Hardware Id"
+          },
+          "location_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array",
+                "maxItems": 1,
+                "minItems": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Location Ids",
+            "description": "Only single locations is supported for now"
+          },
+          "vms_qty": {
+            "type": "integer",
+            "title": "Vms Qty"
+          },
+          "github_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Github Ids"
+          },
+          "vm_image_type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/VmImageType"
+              }
+            ],
+            "default": "general"
+          },
+          "network_services": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/NetworkService"
+            },
+            "type": "object",
+            "title": "Network Services"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "resource_private_name",
+          "duration_hours",
+          "gpus_per_vm",
+          "hardware_id",
+          "vms_qty"
+        ],
+        "title": "VMaasDeployRequest"
+      },
+      "io_cloud__schemas__response__enterprise__vmaas__DeploymentDetails": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "started_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Started At"
+          },
+          "finished_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Finished At"
+          },
+          "amount_paid": {
+            "type": "number",
+            "title": "Amount Paid"
+          },
+          "completed_percent": {
+            "type": "number",
+            "title": "Completed Percent"
+          },
+          "total_gpus": {
+            "type": "integer",
+            "title": "Total Gpus"
+          },
+          "gpus_per_vm": {
+            "type": "integer",
+            "title": "Gpus Per Vm"
+          },
+          "total_vms": {
+            "type": "integer",
+            "title": "Total Vms"
+          },
+          "hardware_name": {
+            "type": "string",
+            "title": "Hardware Name"
+          },
+          "hardware_id": {
+            "type": "integer",
+            "title": "Hardware Id"
+          },
+          "locations": {
+            "items": {
+              "$ref": "#/components/schemas/LocationData"
+            },
+            "type": "array",
+            "title": "Locations"
+          },
+          "brand_name": {
+            "type": "string",
+            "title": "Brand Name"
+          },
+          "compute_minutes_served": {
+            "type": "integer",
+            "title": "Compute Minutes Served"
+          },
+          "compute_minutes_remaining": {
+            "type": "integer",
+            "title": "Compute Minutes Remaining"
+          },
+          "ssh_keys": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Ssh Keys"
+          },
+          "github_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Github Ids"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "status",
+          "created_at",
+          "started_at",
+          "finished_at",
+          "amount_paid",
+          "completed_percent",
+          "total_gpus",
+          "gpus_per_vm",
+          "total_vms",
+          "hardware_name",
+          "hardware_id",
+          "locations",
+          "brand_name",
+          "compute_minutes_served",
+          "compute_minutes_remaining",
+          "ssh_keys",
+          "github_ids"
+        ],
+        "title": "DeploymentDetails"
+      },
+      "io_cloud__schemas__response__enterprise__vmaas__GetAvailableReplicasPerLocationResponse": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/io_cloud__schemas__response__enterprise__vmaas__ReplicasPerLocation"
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "GetAvailableReplicasPerLocationResponse"
+      },
+      "io_cloud__schemas__response__enterprise__vmaas__GetDeploymentDetails": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/io_cloud__schemas__response__enterprise__vmaas__DeploymentDetails"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "GetDeploymentDetails"
+      },
+      "io_cloud__schemas__response__enterprise__vmaas__GetDeploymentsData": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/DeploymentsData"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "GetDeploymentsData"
+      },
+      "io_cloud__schemas__response__enterprise__vmaas__GetMaxGpuCountPerReplicaResponse": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/io_cloud__schemas__response__enterprise__vmaas__MaxGpuPerReplicaData"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "GetMaxGpuCountPerReplicaResponse"
+      },
+      "io_cloud__schemas__response__enterprise__vmaas__HardwareInfo": {
+        "properties": {
+          "max_gpus_per_vm": {
+            "type": "integer",
+            "title": "Max Gpus Per Vm"
+          },
+          "available": {
+            "type": "integer",
+            "title": "Available"
+          },
+          "network": {
+            "type": "integer",
+            "title": "Network"
+          },
+          "hardware_id": {
+            "type": "integer",
+            "title": "Hardware Id"
+          },
+          "hardware_name": {
+            "type": "string",
+            "title": "Hardware Name"
+          },
+          "brand_name": {
+            "type": "string",
+            "title": "Brand Name"
+          },
+          "price": {
+            "type": "number",
+            "title": "Price"
+          }
+        },
+        "type": "object",
+        "required": [
+          "max_gpus_per_vm",
+          "available",
+          "network",
+          "hardware_id",
+          "hardware_name",
+          "brand_name",
+          "price"
+        ],
+        "title": "HardwareInfo"
+      },
+      "io_cloud__schemas__response__enterprise__vmaas__MaxGpuPerReplicaData": {
+        "properties": {
+          "hardware": {
+            "items": {
+              "$ref": "#/components/schemas/io_cloud__schemas__response__enterprise__vmaas__HardwareInfo"
+            },
+            "type": "array",
+            "title": "Hardware"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "hardware",
+          "total"
+        ],
+        "title": "MaxGpuPerReplicaData"
+      },
+      "io_cloud__schemas__response__enterprise__vmaas__ReplicasPerLocation": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "iso2": {
+            "type": "string",
+            "title": "Iso2"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "available_replicas": {
+            "type": "integer",
+            "title": "Available Replicas"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "iso2",
+          "name",
+          "available_replicas"
+        ],
+        "title": "ReplicasPerLocation"
+      },
+      "io_cloud__schemas__response__enterprise__vmaas__WorkerData": {
+        "properties": {
+          "device_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Device Id"
+          },
+          "vm_id": {
+            "type": "string",
+            "title": "Vm Id"
+          },
+          "hardware": {
+            "type": "string",
+            "title": "Hardware"
+          },
+          "brand_name": {
+            "type": "string",
+            "title": "Brand Name"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "uptime_percent": {
+            "type": "number",
+            "title": "Uptime Percent"
+          },
+          "gpus_per_vm": {
+            "type": "integer",
+            "title": "Gpus Per Vm"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "vm_events": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/VmEvent"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Vm Events"
+          },
+          "network_services": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/NetworkServiceResponse"
+            },
+            "type": "object",
+            "title": "Network Services"
+          },
+          "ssh_access": {
+            "type": "string",
+            "title": "Ssh Access"
+          }
+        },
+        "type": "object",
+        "required": [
+          "device_id",
+          "vm_id",
+          "hardware",
+          "brand_name",
+          "created_at",
+          "uptime_percent",
+          "gpus_per_vm",
+          "status",
+          "vm_events",
+          "network_services",
+          "ssh_access"
+        ],
+        "title": "WorkerData"
+      }
+    },
+    "securitySchemes": {
+      "HTTPBasic": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    }
   }
 }
