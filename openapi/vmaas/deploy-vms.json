@@ -86,6 +86,10 @@
   },
   "components": {
     "securitySchemes": {
+      "HTTPBasic": {
+        "type": "http",
+        "scheme": "basic"
+      },
       "sec0": {
         "type": "oauth2",
         "flows": {}
