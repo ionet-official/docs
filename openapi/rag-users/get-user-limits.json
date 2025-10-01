@@ -34,8 +34,7 @@
             "in": "path",
             "description": "User ID",
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string"
             },
             "required": true
           }

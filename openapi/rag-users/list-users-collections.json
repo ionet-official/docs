@@ -34,8 +34,7 @@
             "in": "path",
             "description": "The user’s unique identifier",
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string"
             },
             "required": true
           },
