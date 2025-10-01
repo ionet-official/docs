@@ -34,8 +34,7 @@
             "in": "path",
             "description": "The unique identifier of the conversation to delete",
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string"
             },
             "required": true
           }
