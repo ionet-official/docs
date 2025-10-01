@@ -258,6 +258,105 @@
         ],
         "title": "GetVmJobData"
       },
+       "io_cloud__schemas__response__enterprise__vmaas__WorkerData": {
+        "properties": {
+          "device_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Device Id"
+          },
+          "vm_id": {
+            "type": "string",
+            "title": "Vm Id"
+          },
+          "hardware": {
+            "type": "string",
+            "title": "Hardware"
+          },
+          "brand_name": {
+            "type": "string",
+            "title": "Brand Name"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "uptime_percent": {
+            "type": "number",
+            "title": "Uptime Percent"
+          },
+          "gpus_per_vm": {
+            "type": "integer",
+            "title": "Gpus Per Vm"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "vm_events": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/VmEvent"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Vm Events"
+          },
+          "network_services": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/NetworkServiceResponse"
+            },
+            "type": "object",
+            "title": "Network Services"
+          },
+          "ssh_access": {
+            "type": "string",
+            "title": "Ssh Access"
+          }
+        },
+        "type": "object",
+        "required": [
+          "device_id",
+          "vm_id",
+          "hardware",
+          "brand_name",
+          "created_at",
+          "uptime_percent",
+          "gpus_per_vm",
+          "status",
+          "vm_events",
+          "network_services",
+          "ssh_access"
+        ],
+        "title": "WorkerData"
+      },
+      "VmJobsData": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "workers": {
+            "items": {
+              "$ref": "#/components/schemas/io_cloud__schemas__response__enterprise__vmaas__WorkerData"
+            },
+            "type": "array",
+            "title": "Workers"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total",
+          "workers"
+        ],
+        "title": "VmJobsData"
+      },
       "HTTPValidationError": {
         "properties": {
           "detail": {
@@ -371,6 +470,44 @@
           "stderr"
         ],
         "title": "LogStream"
+      },
+       "io_cloud__schemas__response__kubernetes__HardwareInfo": {
+        "properties": {
+          "max_gpus_per_node": {
+            "type": "integer",
+            "title": "Max Gpus Per Node"
+          },
+          "available": {
+            "type": "integer",
+            "title": "Available"
+          },
+          "hardware_id": {
+            "type": "integer",
+            "title": "Hardware Id"
+          },
+          "hardware_name": {
+            "type": "string",
+            "title": "Hardware Name"
+          },
+          "brand_name": {
+            "type": "string",
+            "title": "Brand Name"
+          },
+          "price": {
+            "type": "number",
+            "title": "Price"
+          }
+        },
+        "type": "object",
+        "required": [
+          "max_gpus_per_node",
+          "available",
+          "hardware_id",
+          "hardware_name",
+          "brand_name",
+          "price"
+        ],
+        "title": "HardwareInfo"
       },
       "MaxGpuPerNodeData": {
         "properties": {
@@ -497,6 +634,56 @@
           "srv_record"
         ],
         "title": "NetworkServiceResponse"
+      },
+       "io_cloud__schemas__response__enterprise__kubernetes__WorkerData": {
+        "properties": {
+          "device_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Device Id"
+          },
+          "node_id": {
+            "type": "string",
+            "title": "Node Id"
+          },
+          "hardware": {
+            "type": "string",
+            "title": "Hardware"
+          },
+          "brand_name": {
+            "type": "string",
+            "title": "Brand Name"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "uptime_percent": {
+            "type": "number",
+            "title": "Uptime Percent"
+          },
+          "gpus_per_node": {
+            "type": "integer",
+            "title": "Gpus Per Node"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "device_id",
+          "node_id",
+          "hardware",
+          "brand_name",
+          "created_at",
+          "uptime_percent",
+          "gpus_per_node",
+          "status"
+        ],
+        "title": "WorkerData"
       },
       "NodeJobsData": {
         "properties": {
@@ -1295,6 +1482,35 @@
           "data"
         ],
         "title": "GetDeploymentDetails"
+      },
+      "DeploymentsData": {
+        "properties": {
+          "deployments": {
+            "items": {
+              "$ref": "#/components/schemas/DeploymentData"
+            },
+            "type": "array",
+            "title": "Deployments"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "statuses": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Statuses"
+          }
+        },
+        "type": "object",
+        "required": [
+          "deployments",
+          "total",
+          "statuses"
+        ],
+        "title": "DeploymentsData"
       },
       "io_cloud__schemas__response__enterprise__caas__GetDeploymentsData": {
         "properties": {
