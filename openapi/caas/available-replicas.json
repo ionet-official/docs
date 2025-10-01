@@ -73,27 +73,13 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetAvailableReplicasPerLocationResponse"
-                }
-              }
-            }
+            "description": "Successful Response"
           },
           "404": {
             "description": "Not found"
           },
           "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
+            "description": "Validation Error"
           }
         },
         "deprecated": false,
@@ -113,110 +99,6 @@
             "python"
           ]
         }
-      }
-    }
-  },
-   "components": {
-     "securitySchemes": {
-      "HTTPBasic": {
-        "type": "http",
-        "scheme": "basic"
-      },
-      "sec0": {
-        "type": "oauth2",
-        "flows": {}
-      }
-    },
-    "schemas": {
-      "GetAvailableReplicasPerLocationResponse": {
-        "properties": {
-          "data": {
-            "items": {
-              "$ref": "#/components/schemas/ReplicasPerLocation"
-            },
-            "type": "array",
-            "title": "Data"
-          }
-        },
-        "type": "object",
-        "required": [
-          "data"
-        ],
-        "title": "GetAvailableReplicasPerLocationResponse"
-      },
-      "ReplicasPerLocation": {
-        "properties": {
-          "id": {
-            "type": "integer",
-            "title": "Id"
-          },
-          "iso2": {
-            "type": "string",
-            "title": "Iso2"
-          },
-          "name": {
-            "type": "string",
-            "title": "Name"
-          },
-          "available_replicas": {
-            "type": "integer",
-            "title": "Available Replicas"
-          }
-        },
-        "type": "object",
-        "required": [
-          "id",
-          "iso2",
-          "name",
-          "available_replicas"
-        ],
-        "title": "ReplicasPerLocation"
-      },
-       "HTTPValidationError": {
-        "properties": {
-          "detail": {
-            "items": {
-              "$ref": "#/components/schemas/ValidationError"
-            },
-            "type": "array",
-            "title": "Detail"
-          }
-        },
-        "type": "object",
-        "title": "HTTPValidationError"
-      },
-      "ValidationError": {
-        "properties": {
-          "loc": {
-            "items": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "integer"
-                }
-              ]
-            },
-            "type": "array",
-            "title": "Location"
-          },
-          "msg": {
-            "type": "string",
-            "title": "Message"
-          },
-          "type": {
-            "type": "string",
-            "title": "Error Type"
-          }
-        },
-        "type": "object",
-        "required": [
-          "loc",
-          "msg",
-          "type"
-        ],
-        "title": "ValidationError"
       }
     }
   }
