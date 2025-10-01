@@ -9,14 +9,6 @@
       "url": "https://api.io.solutions/"
     }
   ],
-  "components": {
-    "securitySchemes": {
-      "sec0": {
-        "type": "oauth2",
-        "flows": {}
-      }
-    }
-  },
   "security": [
     {
       "sec0": []
@@ -106,6 +98,16 @@
     }
   },
   "components": {
+     "securitySchemes": {
+      "HTTPBasic": {
+        "type": "http",
+        "scheme": "basic"
+      },
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    },
     "schemas": {
       "CaaSResourceStatus": {
         "type": "string",
@@ -1462,12 +1464,6 @@
           "public_url"
         ],
         "title": "WorkerData"
-      }
-    },
-    "securitySchemes": {
-      "HTTPBasic": {
-        "type": "http",
-        "scheme": "basic"
       }
     }
   }
