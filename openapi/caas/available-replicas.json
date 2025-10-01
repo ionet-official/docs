@@ -9,11 +9,6 @@
       "url": "https://api.io.solutions/"
     }
   ],
-  "security": [
-    {
-      "sec0": []
-    }
-  ],
   "paths": {
      "/enterprise/v1/io-cloud/caas/available-replicas": {
       "get": {
@@ -117,18 +112,8 @@
     }
   },
    "components": {
-     "securitySchemes": {
-      "HTTPBasic": {
-        "type": "http",
-        "scheme": "basic"
-      },
-      "sec0": {
-        "type": "oauth2",
-        "flows": {}
-      }
-    },
     "schemas": {
-      "io_cloud__schemas__response__enterprise__caas__GetAvailableReplicasPerLocationResponse": {
+"io_cloud__schemas__response__enterprise__caas__GetAvailableReplicasPerLocationResponse": {
         "properties": {
           "data": {
             "items": {
