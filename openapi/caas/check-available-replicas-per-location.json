@@ -23,11 +23,13 @@
     }
   ],
   "paths": {
-    "/enterprise/v1/io-cloud/caas/available-replicas?hardware_id={hardawer_id}&hardware_qty={hardware_qty}": {
+     "/enterprise/v1/io-cloud/caas/available-replicas": {
       "get": {
-        "summary": "Check available replicas per location",
-        "description": "Returns the number of deployable replicas in each location based on selected hardware type and GPU count per container, useful for matching supply to workload needs.",
-        "operationId": "check-available-replicas-per-location",
+        "tags": [
+          "enterprise-io-cloud-caas"
+        ],
+        "summary": "Get Available Replicas",
+        "operationId": "get_available_replicas_enterprise_v1_io_cloud_caas_available_replicas_get",
         "parameters": [
           {
             "name": "hardware_id",
@@ -35,7 +37,7 @@
             "required": true,
             "schema": {
               "type": "integer",
-              "format": "int32"
+              "title": "Hardware Id"
             }
           },
           {
@@ -44,122 +46,59 @@
             "required": true,
             "schema": {
               "type": "integer",
-              "format": "int32"
+              "minimum": 1,
+              "title": "Hardware Qty"
             }
+          },
+          {
+            "name": "node_pool_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Node Pool Id"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "X-Api-Key"
+            },
+            "description": "io.net provided API Key"
           }
         ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "Successful Response",
             "content": {
               "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": {
-                      "data": [
-                        {
-                          "id": 0,
-                          "iso2": "string",
-                          "name": "string",
-                          "available_replicas": 0
-                        }
-                      ]
-                    }
-                  }
-                },
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "integer",
-                            "example": 0,
-                            "default": 0
-                          },
-                          "iso2": {
-                            "type": "string",
-                            "example": "string"
-                          },
-                          "name": {
-                            "type": "string",
-                            "example": "string"
-                          },
-                          "available_replicas": {
-                            "type": "integer",
-                            "example": 0,
-                            "default": 0
-                          }
-                        }
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/io_cloud__schemas__response__enterprise__caas__GetAvailableReplicasPerLocationResponse"
                 }
               }
             }
           },
           "404": {
-            "description": "404",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": "string"
-                  }
-                },
-                "schema": {
-                  "type": "string",
-                  "example": "string"
-                }
-              }
-            }
+            "description": "Not found"
           },
           "422": {
-            "description": "422",
+            "description": "Validation Error",
             "content": {
-              "text/plain": {
-                "examples": {
-                  "Result": {
-                    "value": {
-                      "detail": [
-                        {
-                          "loc": [
-                            "string",
-                            0
-                          ],
-                          "msg": "string",
-                          "type": "string"
-                        }
-                      ]
-                    }
-                  }
-                },
+              "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "detail": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "loc": {
-                            "type": "array"
-                          },
-                          "msg": {
-                            "type": "string",
-                            "example": "string"
-                          },
-                          "type": {
-                            "type": "string",
-                            "example": "string"
-                          }
-                        }
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }

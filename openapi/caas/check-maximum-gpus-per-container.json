@@ -25,140 +25,61 @@
   "paths": {
     "/enterprise/v1/io-cloud/caas/hardware/max-gpus-per-container": {
       "get": {
-        "summary": "Check maximum GPUs per container",
-        "description": "Returns the maximum number of GPUs available per hardware type across all locations, helping to determine deployment limits by hardware.",
-        "operationId": "check-maximum-gpus-per-container",
+        "tags": [
+          "enterprise-io-cloud-caas"
+        ],
+        "summary": "Get Max Gpu Count Per Container",
+        "operationId": "get_max_gpu_count_per_container_enterprise_v1_io_cloud_caas_hardware_max_gpus_per_container_get",
+        "parameters": [
+          {
+            "name": "node_pool_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Node Pool Id"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "X-Api-Key"
+            },
+            "description": "io.net provided API Key"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "Successful Response",
             "content": {
               "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": {
-                      "data": {
-                        "hardware": [
-                          {
-                            "max_gpus_per_container": 0,
-                            "available": 0,
-                            "hardware_id": 0,
-                            "hardware_name": "string",
-                            "brand_name": "string"
-                          }
-                        ],
-                        "total": 0
-                      }
-                    }
-                  }
-                },
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "hardware": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "max_gpus_per_container": {
-                                "type": "integer",
-                                "example": 0,
-                                "default": 0
-                              },
-                              "available": {
-                                "type": "integer",
-                                "example": 0,
-                                "default": 0
-                              },
-                              "hardware_id": {
-                                "type": "integer",
-                                "example": 0,
-                                "default": 0
-                              },
-                              "hardware_name": {
-                                "type": "string",
-                                "example": "string"
-                              },
-                              "brand_name": {
-                                "type": "string",
-                                "example": "string"
-                              }
-                            }
-                          }
-                        },
-                        "total": {
-                          "type": "integer",
-                          "example": 0,
-                          "default": 0
-                        }
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/io_cloud__schemas__response__enterprise__caas__GetMaxGpuCountPerReplicaResponse"
                 }
               }
             }
           },
           "404": {
-            "description": "404",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": "string"
-                  }
-                },
-                "schema": {
-                  "type": "string",
-                  "example": "string"
-                }
-              }
-            }
+            "description": "Not found"
           },
           "422": {
-            "description": "422",
+            "description": "Validation Error",
             "content": {
-              "text/plain": {
-                "examples": {
-                  "Result": {
-                    "value": {
-                      "detail": [
-                        {
-                          "loc": [
-                            "string",
-                            0
-                          ],
-                          "msg": "string",
-                          "type": "string"
-                        }
-                      ]
-                    }
-                  }
-                },
+              "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "detail": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "loc": {
-                            "type": "array"
-                          },
-                          "msg": {
-                            "type": "string",
-                            "example": "string"
-                          },
-                          "type": {
-                            "type": "string",
-                            "example": "string"
-                          }
-                        }
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }
