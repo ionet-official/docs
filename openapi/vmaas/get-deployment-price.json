@@ -23,14 +23,14 @@
     }
   ],
   "paths": {
-     "/enterprise/v1/io-cloud/vmaas/price": {
+     
+    "/enterprise/v1/io-cloud/vmaas/price": {
       "get": {
         "tags": [
           "enterprise-io-cloud-vmaas"
         ],
         "summary": "Get Deployment Price",
-        "description": "Calculate or retrieve the pricing details for a deployment based on selected resources (CPUs, GPUs, memory, and duration).",
-        "operationId": "getDeploymentPrice",
+        "operationId": "get_deployment_price_enterprise_v1_io_cloud_vmaas_price_get",
         "parameters": [
           {
             "name": "location_ids",
@@ -55,12 +55,7 @@
             "in": "query",
             "required": true,
             "schema": {
-              "type": "string",
-              "enum": [
-                "usdc",
-                "iocoin"
-              ],
-              "title": "ClusterCurrency"
+              "$ref": "#/components/schemas/ClusterCurrency"
             }
           },
           {
@@ -110,69 +105,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "properties": {
-                    "data": {
-                      "properties": {
-                        "replica_count": {
-                          "type": "integer",
-                          "title": "Replica Count"
-                        },
-                        "gpus_per_vm": {
-                          "type": "integer",
-                          "title": "Gpus Per Vm"
-                        },
-                        "available_replica_count": {
-                          "items": {
-                            "type": "integer"
-                          },
-                          "type": "array",
-                          "title": "Available Replica Count"
-                        },
-                        "discount": {
-                          "type": "number",
-                          "title": "Discount"
-                        },
-                        "ionet_fee": {
-                          "type": "number",
-                          "title": "Ionet Fee"
-                        },
-                        "ionet_fee_percent": {
-                          "type": "number",
-                          "title": "Ionet Fee Percent"
-                        },
-                        "currency_conversion_fee": {
-                          "type": "number",
-                          "title": "Currency Conversion Fee"
-                        },
-                        "currency_conversion_fee_percent": {
-                          "type": "number",
-                          "title": "Currency Conversion Fee Percent"
-                        },
-                        "total_cost_usdc": {
-                          "type": "number",
-                          "title": "Total Cost Usdc"
-                        }
-                      },
-                      "type": "object",
-                      "required": [
-                        "replica_count",
-                        "gpus_per_vm",
-                        "available_replica_count",
-                        "discount",
-                        "ionet_fee",
-                        "ionet_fee_percent",
-                        "currency_conversion_fee",
-                        "currency_conversion_fee_percent",
-                        "total_cost_usdc"
-                      ],
-                      "title": "GetVmaasPriceData"
-                    }
-                  },
-                  "type": "object",
-                  "required": [
-                    "data"
-                  ],
-                  "title": "GetVmaasPriceResponse"
+                  "$ref": "#/components/schemas/GetVmaasPriceResponse"
                 }
               }
             }
@@ -185,65 +118,25 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "properties": {
-                    "detail": {
-                      "items": {
-                        "properties": {
-                          "loc": {
-                            "items": {
-                              "anyOf": [
-                                {
-                                  "type": "string"
-                                },
-                                {
-                                  "type": "integer"
-                                }
-                              ]
-                            },
-                            "type": "array",
-                            "title": "Location"
-                          },
-                          "msg": {
-                            "type": "string",
-                            "title": "Message"
-                          },
-                          "type": {
-                            "type": "string",
-                            "title": "Error Type"
-                          }
-                        },
-                        "type": "object",
-                        "required": [
-                          "loc",
-                          "msg",
-                          "type"
-                        ],
-                        "title": "ValidationError"
-                      },
-                      "type": "array",
-                      "title": "Detail"
-                    }
-                  },
-                  "type": "object",
-                  "title": "HTTPValidationError"
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }
           }
         },
         "x-readme": {
-            "code-samples": [
-              {
-                "language": "curl",
-                "code": "curl -X GET \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/price?location_ids=us-east-1&hardware_id=101&currency=usdc&duration_hours=4&gpus_per_vm=2&replica_count=3\" \\\n  -H \"x-api-key: $IOCLOUD_API_KEY\" \\\n  -H \"Content-Type: application/json\""
-              },
-              {
-                "language": "python",
-                "code": "import requests\n\nurl = \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/price?location_ids=us-east-1&hardware_id=101&currency=usdc&duration_hours=4&gpus_per_vm=2&replica_count=3\"\nheaders = {\n    \"x-api-key\": \"$IOCLOUD_API_KEY\",\n    \"Content-Type\": \"application/json\"\n}\nresponse = requests.get(url, headers=headers)\nprint(response.status_code)\nprint(response.json())"
-              }
-            ],
-            "samples-languages": ["curl", "python"]
-          }
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl -X GET \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/price?location_ids=us-east-1&hardware_id=101&currency=usdc&duration_hours=4&gpus_per_vm=2&replica_count=3\" \\\n  -H \"x-api-key: $IOCLOUD_API_KEY\" \\\n  -H \"Content-Type: application/json\""
+            },
+            {
+              "language": "python",
+              "code": "import requests\n\nurl = \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/price?location_ids=us-east-1&hardware_id=101&currency=usdc&duration_hours=4&gpus_per_vm=2&replica_count=3\"\nheaders = {\n    \"x-api-key\": \"$IOCLOUD_API_KEY\",\n    \"Content-Type\": \"application/json\"\n}\nresponse = requests.get(url, headers=headers)\nprint(response.status_code)\nprint(response.json())"
+            }
+          ],
+          "samples-languages": ["curl", "python"]
+        }
       }
     }
   }

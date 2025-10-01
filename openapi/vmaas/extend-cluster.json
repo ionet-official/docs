@@ -29,8 +29,7 @@
           "enterprise-io-cloud-vmaas"
         ],
         "summary": "Extend Cluster",
-        "description": "Extend the lifetime or capacity of an existing deployment by adding more resources or increasing its duration.",
-        "operationId": "extendCluster",
+        "operationId": "extend_cluster_enterprise_v1_io_cloud_vmaas_deployment__deployment_id__extend_post",
         "parameters": [
           {
             "name": "deployment_id",
@@ -59,18 +58,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "properties": {
-                  "duration_hours": {
-                    "type": "integer",
-                    "exclusiveMinimum": 0,
-                    "title": "Duration Hours"
-                  }
-                },
-                "type": "object",
-                "required": [
-                  "duration_hours"
-                ],
-                "title": "ExtendCluster"
+                "$ref": "#/components/schemas/io_cloud__schemas__request__enterprise_vmaas__ExtendCluster"
               }
             }
           }
@@ -81,158 +69,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "properties": {
-                    "data": {
-                      "properties": {
-                        "id": {
-                          "type": "string",
-                          "format": "uuid",
-                          "title": "Id"
-                        },
-                        "status": {
-                          "type": "string",
-                          "title": "Status"
-                        },
-                        "created_at": {
-                          "type": "string",
-                          "format": "date-time",
-                          "title": "Created At"
-                        },
-                        "started_at": {
-                          "anyOf": [
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            },
-                            {
-                              "type": "null"
-                            }
-                          ],
-                          "title": "Started At"
-                        },
-                        "finished_at": {
-                          "anyOf": [
-                            {
-                              "type": "string",
-                              "format": "date-time"
-                            },
-                            {
-                              "type": "null"
-                            }
-                          ],
-                          "title": "Finished At"
-                        },
-                        "amount_paid": {
-                          "type": "number",
-                          "title": "Amount Paid"
-                        },
-                        "completed_percent": {
-                          "type": "number",
-                          "title": "Completed Percent"
-                        },
-                        "total_gpus": {
-                          "type": "integer",
-                          "title": "Total Gpus"
-                        },
-                        "gpus_per_vm": {
-                          "type": "integer",
-                          "title": "Gpus Per Vm"
-                        },
-                        "total_vms": {
-                          "type": "integer",
-                          "title": "Total Vms"
-                        },
-                        "hardware_name": {
-                          "type": "string",
-                          "title": "Hardware Name"
-                        },
-                        "hardware_id": {
-                          "type": "integer",
-                          "title": "Hardware Id"
-                        },
-                        "locations": {
-                          "items": {
-                            "properties": {
-                              "id": {
-                                "type": "integer",
-                                "title": "Id"
-                              },
-                              "iso2": {
-                                "type": "string",
-                                "title": "Iso2"
-                              },
-                              "name": {
-                                "type": "string",
-                                "title": "Name"
-                              }
-                            },
-                            "type": "object",
-                            "required": [
-                              "id",
-                              "iso2",
-                              "name"
-                            ],
-                            "title": "LocationData"
-                          },
-                          "type": "array",
-                          "title": "Locations"
-                        },
-                        "brand_name": {
-                          "type": "string",
-                          "title": "Brand Name"
-                        },
-                        "compute_minutes_served": {
-                          "type": "integer",
-                          "title": "Compute Minutes Served"
-                        },
-                        "compute_minutes_remaining": {
-                          "type": "integer",
-                          "title": "Compute Minutes Remaining"
-                        },
-                        "ssh_keys": {
-                          "additionalProperties": {
-                            "type": "string"
-                          },
-                          "type": "object",
-                          "title": "Ssh Keys"
-                        },
-                        "github_ids": {
-                          "items": {
-                            "type": "string"
-                          },
-                          "type": "array",
-                          "title": "Github Ids"
-                        }
-                      },
-                      "type": "object",
-                      "required": [
-                        "id",
-                        "status",
-                        "created_at",
-                        "started_at",
-                        "finished_at",
-                        "amount_paid",
-                        "completed_percent",
-                        "total_gpus",
-                        "gpus_per_vm",
-                        "total_vms",
-                        "hardware_name",
-                        "hardware_id",
-                        "locations",
-                        "brand_name",
-                        "compute_minutes_served",
-                        "compute_minutes_remaining",
-                        "ssh_keys",
-                        "github_ids"
-                      ],
-                      "title": "DeploymentDetails"
-                    }
-                  },
-                  "type": "object",
-                  "required": [
-                    "data"
-                  ],
-                  "title": "GetDeploymentDetails"
+                  "$ref": "#/components/schemas/io_cloud__schemas__response__enterprise__vmaas__GetDeploymentDetails"
                 }
               }
             }
@@ -245,47 +82,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "properties": {
-                    "detail": {
-                      "items": {
-                        "properties": {
-                          "loc": {
-                            "items": {
-                              "anyOf": [
-                                {
-                                  "type": "string"
-                                },
-                                {
-                                  "type": "integer"
-                                }
-                              ]
-                            },
-                            "type": "array",
-                            "title": "Location"
-                          },
-                          "msg": {
-                            "type": "string",
-                            "title": "Message"
-                          },
-                          "type": {
-                            "type": "string",
-                            "title": "Error Type"
-                          }
-                        },
-                        "type": "object",
-                        "required": [
-                          "loc",
-                          "msg",
-                          "type"
-                        ],
-                        "title": "ValidationError"
-                      },
-                      "type": "array",
-                      "title": "Detail"
-                    }
-                  },
-                  "type": "object",
-                  "title": "HTTPValidationError"
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }

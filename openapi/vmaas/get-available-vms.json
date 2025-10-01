@@ -28,9 +28,8 @@
         "tags": [
           "enterprise-io-cloud-vmaas"
         ],
-        "summary": "Get Available VMs",
-        "description": "Retrieve a list of currently available VM types and configurations in the VMaaS cloud.",
-        "operationId": "getAvailableVms",
+        "summary": "Get Available Vms",
+        "operationId": "get_available_vms_enterprise_v1_io_cloud_vmaas_available_vms_get",
         "parameters": [
           {
             "name": "hardware_id",
@@ -86,45 +85,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "properties": {
-                    "data": {
-                      "items": {
-                        "properties": {
-                          "id": {
-                            "type": "integer",
-                            "title": "Id"
-                          },
-                          "iso2": {
-                            "type": "string",
-                            "title": "Iso2"
-                          },
-                          "name": {
-                            "type": "string",
-                            "title": "Name"
-                          },
-                          "available_replicas": {
-                            "type": "integer",
-                            "title": "Available Replicas"
-                          }
-                        },
-                        "type": "object",
-                        "required": [
-                          "id",
-                          "iso2",
-                          "name",
-                          "available_replicas"
-                        ],
-                        "title": "ReplicasPerLocation"
-                      },
-                      "type": "array",
-                      "title": "Data"
-                    }
-                  },
-                  "type": "object",
-                  "required": [
-                    "data"
-                  ],
-                  "title": "GetAvailableReplicasPerLocationResponse"
+                  "$ref": "#/components/schemas/io_cloud__schemas__response__enterprise__vmaas__GetAvailableReplicasPerLocationResponse"
                 }
               }
             }
@@ -137,47 +98,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "properties": {
-                    "detail": {
-                      "items": {
-                        "properties": {
-                          "loc": {
-                            "items": {
-                              "anyOf": [
-                                {
-                                  "type": "string"
-                                },
-                                {
-                                  "type": "integer"
-                                }
-                              ]
-                            },
-                            "type": "array",
-                            "title": "Location"
-                          },
-                          "msg": {
-                            "type": "string",
-                            "title": "Message"
-                          },
-                          "type": {
-                            "type": "string",
-                            "title": "Error Type"
-                          }
-                        },
-                        "type": "object",
-                        "required": [
-                          "loc",
-                          "msg",
-                          "type"
-                        ],
-                        "title": "ValidationError"
-                      },
-                      "type": "array",
-                      "title": "Detail"
-                    }
-                  },
-                  "type": "object",
-                  "title": "HTTPValidationError"
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }

@@ -29,8 +29,7 @@
           "enterprise-io-cloud-vmaas"
         ],
         "summary": "Get All Deployments",
-        "description": "Retrieve a list of all VMaaS deployments associated with the enterprise account, including their status, configuration, and metadata.",
-        "operationId": "get-all-deployments",
+        "operationId": "get_all_deployments_enterprise_v1_io_cloud_vmaas_deployments_get",
         "parameters": [
           {
             "name": "status",
@@ -39,16 +38,7 @@
             "schema": {
               "allOf": [
                 {
-                  "type": "string",
-                  "enum": [
-                    "running",
-                    "completed",
-                    "failed",
-                    "deployment requested",
-                    "termination requested",
-                    "destroyed"
-                  ],
-                  "title": "VMaaSResourceStatus"
+                  "$ref": "#/components/schemas/VMaaSResourceStatus"
                 }
               ],
               "title": "Status"
@@ -94,93 +84,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "properties": {
-                    "data": {
-                      "properties": {
-                        "deployments": {
-                          "items": {
-                            "properties": {
-                              "id": {
-                                "type": "string",
-                                "format": "uuid",
-                                "title": "Id"
-                              },
-                              "status": {
-                                "type": "string",
-                                "title": "Status"
-                              },
-                              "name": {
-                                "type": "string",
-                                "title": "Name"
-                              },
-                              "completed_percent": {
-                                "type": "number",
-                                "title": "Completed Percent"
-                              },
-                              "hardware_quantity": {
-                                "type": "integer",
-                                "title": "Hardware Quantity"
-                              },
-                              "brand_name": {
-                                "type": "string",
-                                "title": "Brand Name"
-                              },
-                              "hardware_name": {
-                                "type": "string",
-                                "title": "Hardware Name"
-                              },
-                              "compute_minutes_served": {
-                                "type": "integer",
-                                "title": "Compute Minutes Served"
-                              },
-                              "compute_minutes_remaining": {
-                                "type": "integer",
-                                "title": "Compute Minutes Remaining"
-                              }
-                            },
-                            "type": "object",
-                            "required": [
-                              "id",
-                              "status",
-                              "name",
-                              "completed_percent",
-                              "hardware_quantity",
-                              "brand_name",
-                              "hardware_name",
-                              "compute_minutes_served",
-                              "compute_minutes_remaining"
-                            ],
-                            "title": "DeploymentData"
-                          },
-                          "type": "array",
-                          "title": "Deployments"
-                        },
-                        "total": {
-                          "type": "integer",
-                          "title": "Total"
-                        },
-                        "statuses": {
-                          "items": {
-                            "type": "string"
-                          },
-                          "type": "array",
-                          "title": "Statuses"
-                        }
-                      },
-                      "type": "object",
-                      "required": [
-                        "deployments",
-                        "total",
-                        "statuses"
-                      ],
-                      "title": "DeploymentsData"
-                    }
-                  },
-                  "type": "object",
-                  "required": [
-                    "data"
-                  ],
-                  "title": "GetDeploymentsData"
+                  "$ref": "#/components/schemas/io_cloud__schemas__response__enterprise__vmaas__GetDeploymentsData"
                 }
               }
             }
@@ -193,66 +97,26 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "properties": {
-                    "detail": {
-                      "items": {
-                        "properties": {
-                          "loc": {
-                            "items": {
-                              "anyOf": [
-                                {
-                                  "type": "string"
-                                },
-                                {
-                                  "type": "integer"
-                                }
-                              ]
-                            },
-                            "type": "array",
-                            "title": "Location"
-                          },
-                          "msg": {
-                            "type": "string",
-                            "title": "Message"
-                          },
-                          "type": {
-                            "type": "string",
-                            "title": "Error Type"
-                          }
-                        },
-                        "type": "object",
-                        "required": [
-                          "loc",
-                          "msg",
-                          "type"
-                        ],
-                        "title": "ValidationError"
-                      },
-                      "type": "array",
-                      "title": "Detail"
-                    }
-                  },
-                  "type": "object",
-                  "title": "HTTPValidationError"
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }
           }
         },
         "x-readme": {
-            "code-samples": [
-              {
-                "language": "curl",
-                "code": "curl -X POST \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deploy?page=0&page_size=10&status=running\" \\\n  -H \"x-api-key: $IOCLOUD_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"name\": \"example-deployment\",\n    \"hardware_quantity\": 2,\n    \"hardware_name\": \"NVIDIA-A100\",\n    \"brand_name\": \"NVIDIA\"\n  }'"
-              },
-              {
-                "language": "python",
-                "code": "import requests\n\nurl = \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deploy\"\nparams = {\n    \"page\": 0,\n    \"page_size\": 10,\n    \"status\": \"running\"\n}\nheaders = {\n    \"x-api-key\": \"$IOCLOUD_API_KEY\",\n    \"Content-Type\": \"application/json\"\n}\npayload = {\n    \"name\": \"example-deployment\",\n    \"hardware_quantity\": 2,\n    \"hardware_name\": \"NVIDIA-A100\",\n    \"brand_name\": \"NVIDIA\"\n}\nresponse = requests.post(url, headers=headers, params=params, json=payload)\nprint(response.status_code)\nprint(response.json())"
-              }
-            ],
-            "samples-languages": ["curl", "python"]
-          }
-       }
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl -X POST \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deploy?page=0&page_size=10&status=running\" \\\n  -H \"x-api-key: $IOCLOUD_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"name\": \"example-deployment\",\n    \"hardware_quantity\": 2,\n    \"hardware_name\": \"NVIDIA-A100\",\n    \"brand_name\": \"NVIDIA\"\n  }'"
+            },
+            {
+              "language": "python",
+              "code": "import requests\n\nurl = \"https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deploy\"\nparams = {\n    \"page\": 0,\n    \"page_size\": 10,\n    \"status\": \"running\"\n}\nheaders = {\n    \"x-api-key\": \"$IOCLOUD_API_KEY\",\n    \"Content-Type\": \"application/json\"\n}\npayload = {\n    \"name\": \"example-deployment\",\n    \"hardware_quantity\": 2,\n    \"hardware_name\": \"NVIDIA-A100\",\n    \"brand_name\": \"NVIDIA\"\n}\nresponse = requests.post(url, headers=headers, params=params, json=payload)\nprint(response.status_code)\nprint(response.json())"
+            }
+          ],
+          "samples-languages": ["curl", "python"]
+        }
+      }
     }
   }
 }

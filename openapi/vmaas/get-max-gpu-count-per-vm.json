@@ -28,9 +28,8 @@
         "tags": [
           "enterprise-io-cloud-vmaas"
         ],
-        "summary": "Get Max GPU Count per VM",
-        "description": "Return the maximum number of GPUs that can be allocated to a single VM instance.",
-        "operationId": "getMaxGpuCountPerVm",
+        "summary": "Get Max Gpu Count Per Vm",
+        "operationId": "get_max_gpu_count_per_vm_enterprise_v1_io_cloud_vmaas_hardware_max_gpus_per_vm_get",
         "parameters": [
           {
             "name": "node_pool_id",
@@ -67,69 +66,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "properties": {
-                    "data": {
-                      "properties": {
-                        "hardware": {
-                          "items": {
-                            "properties": {
-                              "max_gpus_per_vm": {
-                                "type": "integer",
-                                "title": "Max Gpus Per Vm"
-                              },
-                              "available": {
-                                "type": "integer",
-                                "title": "Available"
-                              },
-                              "hardware_id": {
-                                "type": "integer",
-                                "title": "Hardware Id"
-                              },
-                              "hardware_name": {
-                                "type": "string",
-                                "title": "Hardware Name"
-                              },
-                              "brand_name": {
-                                "type": "string",
-                                "title": "Brand Name"
-                              },
-                              "price": {
-                                "type": "number",
-                                "title": "Price"
-                              }
-                            },
-                            "type": "object",
-                            "required": [
-                              "max_gpus_per_vm",
-                              "available",
-                              "hardware_id",
-                              "hardware_name",
-                              "brand_name",
-                              "price"
-                            ],
-                            "title": "HardwareInfo"
-                          },
-                          "type": "array",
-                          "title": "Hardware"
-                        },
-                        "total": {
-                          "type": "integer",
-                          "title": "Total"
-                        }
-                      },
-                      "type": "object",
-                      "required": [
-                        "hardware",
-                        "total"
-                      ],
-                      "title": "MaxGpuPerReplicaData"
-                    }
-                  },
-                  "type": "object",
-                  "required": [
-                    "data"
-                  ],
-                  "title": "GetMaxGpuCountPerReplicaResponse"
+                  "$ref": "#/components/schemas/io_cloud__schemas__response__enterprise__vmaas__GetMaxGpuCountPerReplicaResponse"
                 }
               }
             }
@@ -142,53 +79,13 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "properties": {
-                    "detail": {
-                      "items": {
-                        "properties": {
-                          "loc": {
-                            "items": {
-                              "anyOf": [
-                                {
-                                  "type": "string"
-                                },
-                                {
-                                  "type": "integer"
-                                }
-                              ]
-                            },
-                            "type": "array",
-                            "title": "Location"
-                          },
-                          "msg": {
-                            "type": "string",
-                            "title": "Message"
-                          },
-                          "type": {
-                            "type": "string",
-                            "title": "Error Type"
-                          }
-                        },
-                        "type": "object",
-                        "required": [
-                          "loc",
-                          "msg",
-                          "type"
-                        ],
-                        "title": "ValidationError"
-                      },
-                      "type": "array",
-                      "title": "Detail"
-                    }
-                  },
-                  "type": "object",
-                  "title": "HTTPValidationError"
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }
           }
         },
-        "x-readme": {
+         "x-readme": {
           "code-samples": [
             {
               "language": "curl",
