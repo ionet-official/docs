@@ -516,7 +516,6 @@
                   "reference/vmaas/get-started-with-vmaas-api",
                   "reference/vmaas/get-all-deployments",
                   "reference/vmaas/get-deployment-details",
-                  "reference/vmaas/destroy-deployment",
                   "reference/vmaas/get-deployment-vms",
                   "reference/vmaas/get-vms-jobs-history",
                   "reference/vmaas/get-max-gpu-count-per-vm",
