@@ -35,8 +35,7 @@
             "description": "ID of the chunk",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string"
             }
           }
         ],
