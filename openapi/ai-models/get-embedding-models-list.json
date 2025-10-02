@@ -9,14 +9,6 @@
       "url": "https://api.intelligence.io.solutions"
     }
   ],
-  "components": {
-    "securitySchemes": {
-      "sec0": {
-        "type": "oauth2",
-        "flows": {}
-      }
-    }
-  },
   "security": [
     {
       "sec0": []
@@ -25,215 +17,72 @@
   "paths": {
     "/api/v1/embedding-models": {
       "get": {
+        "tags": [
+          "OpenAI Compatible Developer API"
+        ],
         "summary": "Get Embedding Models List",
-        "description": "Get list of available models for Embeddings API",
-        "operationId": "get-embedding-models-list",
+        "description": "Get list of available models for Chat Completions API",
+        "operationId": "get_embedding_models_list_v1_embedding_models_get",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "Successful Response",
             "content": {
               "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": {
-                      "object": "list",
-                      "data": [
-                        {
-                          "id": "mixedbread-ai/mxbai-embed-large-v1",
-                          "object": "model",
-                          "created": 1736167493,
-                          "owned_by": "io-intelligence",
-                          "root": null,
-                          "parent": null,
-                          "max_model_len": null,
-                          "permission": [
-                            {
-                              "id": "modelperm-51e1b5335270426cb4255a3b12351d5f",
-                              "object": "model_permission",
-                              "created": 1738928596,
-                              "allow_create_engine": false,
-                              "allow_sampling": true,
-                              "allow_logprobs": true,
-                              "allow_search_indices": false,
-                              "allow_view": true,
-                              "allow_fine_tuning": false,
-                              "organization": "*",
-                              "group": null,
-                              "is_blocking": false
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                },
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "object": {
-                      "type": "string",
-                      "example": "list"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "string",
-                            "example": "mixedbread-ai/mxbai-embed-large-v1"
-                          },
-                          "object": {
-                            "type": "string",
-                            "example": "model"
-                          },
-                          "created": {
-                            "type": "integer",
-                            "example": 1736167493,
-                            "default": 0
-                          },
-                          "owned_by": {
-                            "type": "string",
-                            "example": "io-intelligence"
-                          },
-                          "root": {},
-                          "parent": {},
-                          "max_model_len": {},
-                          "permission": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "string",
-                                  "example": "modelperm-51e1b5335270426cb4255a3b12351d5f"
-                                },
-                                "object": {
-                                  "type": "string",
-                                  "example": "model_permission"
-                                },
-                                "created": {
-                                  "type": "integer",
-                                  "example": 1738928596,
-                                  "default": 0
-                                },
-                                "allow_create_engine": {
-                                  "type": "boolean",
-                                  "example": false,
-                                  "default": true
-                                },
-                                "allow_sampling": {
-                                  "type": "boolean",
-                                  "example": true,
-                                  "default": true
-                                },
-                                "allow_logprobs": {
-                                  "type": "boolean",
-                                  "example": true,
-                                  "default": true
-                                },
-                                "allow_search_indices": {
-                                  "type": "boolean",
-                                  "example": false,
-                                  "default": true
-                                },
-                                "allow_view": {
-                                  "type": "boolean",
-                                  "example": true,
-                                  "default": true
-                                },
-                                "allow_fine_tuning": {
-                                  "type": "boolean",
-                                  "example": false,
-                                  "default": true
-                                },
-                                "organization": {
-                                  "type": "string",
-                                  "example": "*"
-                                },
-                                "group": {},
-                                "is_blocking": {
-                                  "type": "boolean",
-                                  "example": false,
-                                  "default": true
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/ModelList"
                 }
               }
             }
           },
           "404": {
-            "description": "404",
-            "content": {
-              "text/plain": {
-                "examples": {
-                  "Result": {
-                    "value": "string"
-                  }
-                },
-                "schema": {
-                  "type": "string",
-                  "example": "string"
-                }
-              }
-            }
+            "description": "Not found"
           },
           "422": {
-            "description": "422",
+            "description": "Validation Error",
             "content": {
               "application/json": {
-                "examples": {
-                  "Validation Error": {
-                    "value": {
-                      "detail": [
-                        {
-                          "loc": [
-                            "string",
-                            0
-                          ],
-                          "msg": "string",
-                          "type": "string"
-                        }
-                      ]
-                    }
-                  }
-                },
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "detail": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "loc": {
-                            "type": "array"
-                          },
-                          "msg": {
-                            "type": "string",
-                            "example": "string"
-                          },
-                          "type": {
-                            "type": "string",
-                            "example": "string"
-                          }
-                        }
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }
           }
         },
-        "deprecated": false,
-        "security": [],
         "x-readme": {
           "code-samples": [
             {
@@ -250,6 +99,328 @@
             "python"
           ]
         }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    },
+    "schemas": {
+       "ModelCard": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "object": {
+            "type": "string",
+            "title": "Object",
+            "default": "model"
+          },
+          "created": {
+            "type": "integer",
+            "title": "Created"
+          },
+          "owned_by": {
+            "type": "string",
+            "title": "Owned By",
+            "default": "io-intelligence"
+          },
+          "root": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Root"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parent"
+          },
+          "max_model_len": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Model Len"
+          },
+          "permission": {
+            "items": {
+              "$ref": "#/components/schemas/ModelPermission"
+            },
+            "type": "array",
+            "title": "Permission"
+          },
+          "max_tokens": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Tokens",
+            "description": "Maximum number of tokens that can be generated in a single response"
+          },
+          "context_window": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Context Window",
+            "description": "Maximum number of tokens that can be processed in the model's context window"
+          },
+          "supports_images_input": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Supports Images Input",
+            "description": "Whether the model supports image inputs for multimodal processing"
+          },
+          "supports_prompt_cache": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Supports Prompt Cache",
+            "description": "Whether the model supports prompt caching to improve performance"
+          },
+          "input_token_price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Input Token Price",
+            "description": "Price per token for input processing (in dollars)"
+          },
+          "output_token_price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Output Token Price",
+            "description": "Price per token for output generation (in dollars)"
+          },
+          "cache_write_token_price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cache Write Token Price",
+            "description": "Price per token for writing to prompt cache (in dollars)"
+          },
+          "cache_read_token_price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cache Read Token Price",
+            "description": "Price per token for reading from prompt cache (in dollars)"
+          },
+          "precision": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Precision",
+            "description": "Model precision type (e.g., 'fp16', 'fp32', 'int8', 'int4')"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "title": "ModelCard"
+      },
+      "ModelList": {
+        "properties": {
+          "object": {
+            "type": "string",
+            "title": "Object",
+            "default": "list"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/ModelCard"
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "ModelList"
+      },
+      "ModelPermission": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "object": {
+            "type": "string",
+            "title": "Object",
+            "default": "model_permission"
+          },
+          "created": {
+            "type": "integer",
+            "title": "Created"
+          },
+          "allow_create_engine": {
+            "type": "boolean",
+            "title": "Allow Create Engine",
+            "default": false
+          },
+          "allow_sampling": {
+            "type": "boolean",
+            "title": "Allow Sampling",
+            "default": true
+          },
+          "allow_logprobs": {
+            "type": "boolean",
+            "title": "Allow Logprobs",
+            "default": true
+          },
+          "allow_search_indices": {
+            "type": "boolean",
+            "title": "Allow Search Indices",
+            "default": false
+          },
+          "allow_view": {
+            "type": "boolean",
+            "title": "Allow View",
+            "default": true
+          },
+          "allow_fine_tuning": {
+            "type": "boolean",
+            "title": "Allow Fine Tuning",
+            "default": false
+          },
+          "organization": {
+            "type": "string",
+            "title": "Organization",
+            "default": "*"
+          },
+          "group": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Group"
+          },
+          "is_blocking": {
+            "type": "boolean",
+            "title": "Is Blocking",
+            "default": false
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "ModelPermission"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
       }
     }
   }
