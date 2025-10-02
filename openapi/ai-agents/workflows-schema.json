@@ -2,63 +2,79 @@
   "openapi": "3.1.0",
   "info": {
     "title": "IO Intelligence",
-    "version": "1.0",
-    "description": "⚠️ Beta Notice: This project is in rapid development and may not be stable for production use."
+    "version": "1.0"
   },
   "servers": [
     {
       "url": "https://api.intelligence.io.solutions"
     }
   ],
-  "components": {
-    "securitySchemes": {
-      "BearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
-      }
+  "security": [
+    {
+      "sec0": []
     }
-  },
+  ],
   "paths": {
     "/api/v1/workflows/schema": {
       "get": {
-        "summary": "Workflows Schema",
-         "description": "Get list of available models for Embeddings API\n ⚠️ Beta Notice: This project is in rapid development and may not be stable for production use.",
-        "operationId": "workflows-schema",
-        "security": [{ "BearerAuth": [] }],
+        "tags": [
+          "agents"
+        ],
+        "summary": "Get Default Workflows",
+        "operationId": "get_default_workflows_v1_workflows_schema_get",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Successful response",
+            "description": "Successful Response",
             "content": {
               "application/json": {
-                "examples": {
-                  "example": {
-                    "value": "string"
-                  }
-                }
+                "schema": {}
               }
             }
           },
-          "404": { "description": "Not Found" },
+          "404": {
+            "description": "Not found"
+          },
           "422": {
             "description": "Validation Error",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "detail": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "loc": { "type": "array", "items": { "type": "string" } },
-                          "msg": { "type": "string" },
-                          "type": { "type": "string" }
-                        }
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }
@@ -77,6 +93,62 @@
           ],
           "samples-languages": ["curl", "python"]
         }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    },
+    "schemas": {
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
       }
     }
   }
