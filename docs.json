@@ -192,7 +192,7 @@
                   "guides/workers/aptos-wallet"
                 ]
               },
-              "guides/manage-and-monitor",
+              "guides/workers/manage-and-monitor",
               {
                 "group": "MacOS: Install Worker",
                 "pages": [
