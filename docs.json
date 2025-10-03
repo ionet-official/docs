@@ -537,14 +537,16 @@
           {
             "group": "General",
             "pages": [
-              "/support/faq"
+              "/support/faq",
+              "/support/staking"
             ]
           },
           {
             "group": "IO Worker",
             "pages": [
               "/support/worker-binary",
-              "/support/troubleshooting"
+              "/support/troubleshooting",
+              "/support/block-rewards"
             ]
           }
         ]
