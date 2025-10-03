@@ -32,9 +32,9 @@ export const SupportBlocks = () => {
     },
   ];
 
- const Card = ({ href, title, description }) => {
-  return (
-    <a
+ const Card = ({ href, title, description, kind }) => {
+    return (
+      <a
       href={href}
       className={`
         group relative block rounded-2xl border p-7 min-h-[260px]
@@ -61,8 +61,29 @@ export const SupportBlocks = () => {
         {description}
       </p>
     </a>
-  );
-};
+    );
+  }
+
+  const orbTint = (kind) => {
+    switch (kind) {
+      case "intelligence":
+        return "ring-2 ring-cyan-300/30";
+      case "staking":
+        return "ring-2 ring-emerald-300/30";
+      case "cloud":
+        return "ring-2 ring-sky-300/30";
+      case "worker":
+        return "ring-2 ring-fuchsia-300/30";
+      case "coin":
+        return "ring-2 ring-amber-300/30";
+      case "explorer":
+        return "ring-2 ring-purple-300/30";
+      case "id":
+        return "ring-2 ring-lime-300/30";
+      default:
+        return "";
+    }
+  }
 
   const top = items.slice(0, 4);
   const bottom = items.slice(4);
@@ -84,4 +105,4 @@ export const SupportBlocks = () => {
       </div>
     </div>
   );
-};
+}
