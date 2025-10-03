@@ -291,7 +291,8 @@
       },
       {
         "tab": "API References",
-        "groups": [
+        "pages": [
+          "/api-references", 
           {
             "group": "IO Explorer",
             "pages": [

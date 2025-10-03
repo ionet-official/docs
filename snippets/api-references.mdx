@@ -1,0 +1,105 @@
+export const ApiReferences = () => {
+  const categories = [
+    {
+      name: "IO Intelligence",
+      items: [
+        {
+          href: "/reference/ai-models/get-started-with-io-intelligence-api",
+          title: "Getting Started with AI Models API",
+          description:
+            "IO Intelligence API (Application Programming Interface) serves as a bridge to powerful, open-source machine learning models, deployed on IO Net hardware, allowing you to integrate cutting-edge AI capabilities into your projects with relative ease.",
+        },
+        {
+          href: "/reference/ai-agents/getting-started-with-api-agents",
+          title: "Getting Started with AI Agents API",
+          description:
+            "AI Agents in the IO Intelligence API are specialized assistants designed to handle a variety of tasks, from reasoning and summarization to sentiment analysis and translation.",
+        },
+        {
+          href: "/reference/rag/getting-started-with-the-rag-api",
+          title: "Getting Started with RAG API",
+          description:
+            "The API on R2R enables developers to build powerful AI systems that . It integrates the strengths of semantic search, knowledge graphs, and prompt-based generation for advanced question answering and intelligent assistants.",
+        },
+      ],
+    },
+    {
+      name: "IO Cloud",
+      items: [
+        {
+          href: "/reference/caas/get-started-with-caas-api",
+          title: "Get Started With CaaS API",
+          description:
+            "The lets you programmatically deploy and manage high-performance containerized workloads on io.net’s decentralized GPU network. This guide walks you through the key steps to get started.",
+        },
+        {
+          href: "/support/worker-binary",
+          title: "Get Started with VMaaS API",
+          description:
+            "The Virtual Machine as a Service (VMaaS) API lets you programmatically deploy and manage virtual machines on the IO Cloud. Unlike CaaS (Containers as a Service), VMaaS provides full VM instances with CPU, GPU, memory, and storage resources — ideal for long-running workloads, custom environments, or GPU-intensive tasks.",
+        },
+      ],
+    },
+    {
+      name: "IO Explorer",
+      items: [
+        {
+          href: "/reference/io-explorer/getting-started-with-your-api",
+          title: "Get Started With IO Explorer API",
+          description:
+            "IO’s API is built around principles. You can use IO’s APIs to gain insights into different elements of our network.",
+        },
+      ],
+    },
+  ];
+
+  const Card = ({ href, title, description }) => {
+    return (
+      <a
+        href={href}
+        className={`
+          group relative block rounded-2xl border p-7 min-h-[170px]
+          transition-transform duration-200
+          hover:-translate-y-0.5
+          ring-0 ring-transparent hover:ring-1
+          text-gray-800 dark:text-slate-100
+          border-gray-200 dark:border-white/10
+          bg-white dark:bg-black
+          shadow-md dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.03),0_10px_30px_rgba(0,0,0,0.35)]
+          hover:shadow-lg dark:hover:shadow-[0_14px_38px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.06)]
+          hover:ring-gray-300 dark:hover:ring-white/10
+        `}
+      >
+        <div className="mb-3 flex min-h-[32px] items-center gap-3">
+          {title && (
+            <span className="font-bold tracking-[0.08em] text-xs md:text-sm uppercase text-gray-900 dark:text-slate-50/95">
+              {title}
+            </span>
+          )}
+        </div>
+        <p className="m-0 text-[15px] leading-6 text-gray-600 dark:text-slate-300/95">
+          {description}
+        </p>
+      </a>
+    );
+  };
+
+  return (
+    <div className="mx-auto max-w-[1440px] px-4 lg:px-8 my-20">
+      <div className="grid gap-16">
+        {categories.map((cat, i) => (
+          <div key={i}>
+            <h2 className="mb-6 text-xl font-semibold text-gray-900 dark:text-slate-100">
+              {cat.name}
+            </h2>
+            <div className="grid gap-7 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+              {cat.items.map((it, j) => (
+                <Card key={j} {...it} />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
