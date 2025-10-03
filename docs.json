@@ -533,7 +533,17 @@
       {
         "tab": "Support",
         "pages": [
-          "/support"
+          "/support",
+          {
+            "group": "Get Started With VMaaS API",
+            "pages": [
+              "/support/general-faq",
+              "/support/staking",
+              "/support/block-rewards",
+              "/support/worker-binary",
+              "/support/troubleshooting"
+            ]
+          }
         ]
       }
     ]
