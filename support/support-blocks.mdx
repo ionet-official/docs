@@ -1,89 +1,65 @@
+export const Card = ({ href, title, description }) => (
+  <a
+    href={href}
+    className={`
+      group relative block rounded-2xl border p-7 min-h-[260px]
+      transition-transform duration-200
+      hover:-translate-y-0.5
+      ring-0 ring-transparent hover:ring-1
+      text-gray-800 dark:text-slate-100
+      border-gray-200 dark:border-white/10
+      bg-white dark:bg-black
+      shadow-md dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.03),0_10px_30px_rgba(0,0,0,0.35)]
+      hover:shadow-lg dark:hover:shadow-[0_14px_38px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.06)]
+      hover:ring-gray-300 dark:hover:ring-white/10
+    `}
+  >
+    <div className="mb-3 flex min-h-[32px] items-center gap-3">
+      {title && (
+        <span className="font-bold tracking-[0.08em] text-xs md:text-sm uppercase text-gray-900 dark:text-slate-50/95">
+          {title}
+        </span>
+      )}
+    </div>
+    <p className="m-0 text-[15px] leading-6 text-gray-600 dark:text-slate-300/95">
+      {description}
+    </p>
+  </a>
+);
+
 export const SupportBlocks = () => {
   const items = [
     {
       href: "/support/faq",
       title: "FAQ",
       description:
-        "A technology-driven system that enables data processing, automation, and decision-making through AI-powered insights and analytics.",
+        "Find answers to common questions about using IO and its ecosystem.",
     },
     {
       href: "/support/block-rewards",
       title: "Block Rewards",
       description:
-        "Access decentralized GPU clusters on demand via IO Workers, eliminating the need for costly hardware or infrastructure.",
+        "Learn how block rewards are distributed across workers and clusters.",
     },
     {
       href: "/support/staking",
       title: "Staking",
       description:
-        "Allows you to stake $IO tokens to secure the network, support computations, and earn rewards.",
+        "Stake $IO tokens to secure the network and earn staking rewards.",
     },
     {
       href: "/support/worker-binary",
       title: "Worker Binary",
       description:
-        "Put the power into your hands with our easy-to-use, one stop interface for all CPU and GPU worker setups, configurations, earnings, and security.",
+        "Download and configure the IO Worker binary for CPU and GPU setups.",
     },
     {
       href: "/support/troubleshooting",
       title: "Troubleshooting",
       description:
-        "Put the power into your hands with our easy-to-use, one stop interface for all CPU and GPU worker setups, configurations, earnings, and security.",
+        "Resolve common setup, connectivity, and performance issues.",
     },
   ];
-
- const Card = ({ href, title, description, kind }) => {
-    return (
-      <a
-      href={href}
-      className={`
-        group relative block rounded-2xl border p-7 min-h-[260px]
-        transition-transform duration-200
-        hover:-translate-y-0.5
-        ring-0 ring-transparent hover:ring-1
-        text-gray-800 dark:text-slate-100
-        border-gray-200 dark:border-white/10
-        bg-white dark:bg-black
-        shadow-md dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.03),0_10px_30px_rgba(0,0,0,0.35)]
-        hover:shadow-lg dark:hover:shadow-[0_14px_38px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.06)]
-        hover:ring-gray-300 dark:hover:ring-white/10
-      `}
-    >
-      <div className="mb-3 flex min-h-[32px] items-center gap-3">
-        {title && (
-          <span className="font-bold tracking-[0.08em] text-xs md:text-sm uppercase text-gray-900 dark:text-slate-50/95">
-            {title}
-          </span>
-        )}
-      </div>
-
-      <p className="m-0 text-[15px] leading-6 text-gray-600 dark:text-slate-300/95">
-        {description}
-      </p>
-    </a>
-    );
-  }
-
-  const orbTint = (kind) => {
-    switch (kind) {
-      case "intelligence":
-        return "ring-2 ring-cyan-300/30";
-      case "staking":
-        return "ring-2 ring-emerald-300/30";
-      case "cloud":
-        return "ring-2 ring-sky-300/30";
-      case "worker":
-        return "ring-2 ring-fuchsia-300/30";
-      case "coin":
-        return "ring-2 ring-amber-300/30";
-      case "explorer":
-        return "ring-2 ring-purple-300/30";
-      case "id":
-        return "ring-2 ring-lime-300/30";
-      default:
-        return "";
-    }
-  }
 
   const top = items.slice(0, 4);
   const bottom = items.slice(4);
@@ -105,4 +81,4 @@ export const SupportBlocks = () => {
       </div>
     </div>
   );
-}
+};
