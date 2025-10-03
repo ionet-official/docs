@@ -535,11 +535,14 @@
         "pages": [
           "/support",
           {
-            "group": "Get Started With VMaaS API",
+            "group": "General",
             "pages": [
-              "/support/faq",
-              "/support/staking",
-              "/support/block-rewards",
+              "/support/faq"
+            ]
+          },
+          {
+            "group": "IO Worker",
+            "pages": [
               "/support/worker-binary",
               "/support/troubleshooting"
             ]
