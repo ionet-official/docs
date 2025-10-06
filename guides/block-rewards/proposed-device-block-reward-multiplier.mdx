@@ -7,13 +7,13 @@ The io.net block reward system uses performance-based multipliers to fairly dist
 
 ## Network Expansion and Updated Reward Structure
 
-On **June 4, 2025 at 3 PM UTC**, io.net is significantly expanding its network with the addition of over **800 NVIDIA H200 GPUs**. This is the largest single onboarding of enterprise-grade hardware in our history and is part of our commitment to scaling infrastructure for enterprise AI workloads like training and inference.
+On **June 4, 2025 at 3 PM UTC**, io.net significantly expanded its network with the addition of over **800 NVIDIA H200 GPUs**. This is the largest single onboarding of enterprise-grade hardware in our history and is part of our commitment to scaling infrastructure for enterprise AI workloads like training and inference.
 
 To ensure fair distribution of rewards as the network grows, the block reward system has been updated to reflect the following changes:
 
-* Updated device multipliers
-* New reward pool categories
-* Temporary staking grace period
+- Updated device multipliers
+- New reward pool categories
+- Temporary staking grace period
 
 ## Reward Pool Categories
 
@@ -99,44 +99,43 @@ To ensure fair distribution of rewards as the network grows, the block reward sy
 ## Overview of Staking Requirements
 
 <Warning>
-**Important: Changes to Staking Requirements Coming July 1, 2025**
+  **Important changes to Staking Requirements coming July 1, 2025**
 
-Until **July 1, 2025**, staking requirements will continue to be calculated using the current earning multiplier.
+  Until **July 1, 2025**, staking requirements will continue to be calculated using the current earning multiplier.
 </Warning>
 
 To qualify for block rewards, each device must meet a minimum staking threshold calculated as follows:
 
-* **Base Stake** per processor: 200 \$IO
-* **Earning Multiplier**: Varies by device performance
-* **Number of processors**: Total processors in the device
+- **Base Stake** **per processor**: 200 \$IO
+- **Earning Multiplier**: Varies by device performance
+- **Number of processors**: Total processors in the device
 
 <Info>
- Minimum Stake = Base Stake × max(1, Earning Multiplier) × Number of processors
+  Minimum Stake = Base Stake × max(1, Earning Multiplier) × Number of processors
 </Info>
 
-Starting **July 1, 2025**, staking requirements may increase for some devices, as a new calculation logic will take effect. For example:
+Starting **July 1, 2025**, staking requirements may increase for some devices, as a new calculation logic will take effect.
 
-* A device with **8** H100 **GPUs**, each having an earning **multiplier of 10**: Minimum Stake calculation: **200 × 10 × 8 = 16,000 \$IO**
-* A device with **4** RTX 4070 **GPUs**, each having an earning **multiplier of 0.25**: Minimum Stake calculation: 200 × max(1, 0.5) × 4 = **200 × 1 × 4 = 800 \$IO**
+For example:
+
+- A device with **8** H100 **GPUs**, each having an earning **multiplier of 10** - Minimum Stake calculation: **200 × 10 × 8 = 16,000 \$IO**
+- A device with **4** RTX 4070 **GPUs**, each having an earning **multiplier of 0.25** - Minimum Stake calculation: 200 × max(1, 0.5) × 4 = **200 × 1 × 4 = 800 \$IO**
 
 <Info>
-Even if the earning multiplier is less than 1, the multiplier used in the calculation defaults to 1 to ensure a minimum stake of 200 \$IO per processor.
+  Even if the earning multiplier is less than 1, the multiplier used in the calculation defaults to 1 to ensure a minimum stake of 200 \$IO per processor.
 </Info>
 
 ### Upcoming Adjustments
 
-With the integration of new H200 GPUs and the introduction of a Community Hardware Pool, the following changes are anticipated:
+With the integration of new H200 GPUs and the introduction of a **_Community Hardware Pool_**, the following changes are anticipated:
 
-* **Updated Multipliers:** Devices will have their earning multipliers recalibrated based on performance metrics.
-* **Adjusted Staking Requirements:** As multipliers change, the corresponding staking requirements will also adjust.
-* **Grace Period**: A one-month grace period will be provided before new staking requirements are enforced.
+- **Updated Multipliers:** Devices will have their earning multipliers recalibrated based on performance metrics.
+- **Adjusted Staking Requirements:** As multipliers change, the corresponding staking requirements will also adjust.
+- **Grace Period**: A one-month grace period will be provided before new staking requirements are enforced.
 
 <Warning>
-**Important Note**: 
-
-  **Higher multiplier** ≠ **always higher rewards.** 
-  <br/>Actual rewards depend on several factors - including the number of eligible devices in a block, pool allocation (e.g., Community vs. Enterprise), and your device’s multiplier.
+  **Higher multiplier** ≠ **always higher rewards.** \
+  Actual rewards depend on several factors - including the number of eligible devices in a block, pool allocation (e.g., Community vs. Enterprise), and your device’s multiplier.
 </Warning>
 
-For more detailed information on staking requirements and calculations, please refer to the [IO Staking Documentation](/guides/staking/io-staking).
-
+For more detailed information on staking requirements and calculations, refer to the [IO Staking Documentation](/guides/staking/io-staking).
