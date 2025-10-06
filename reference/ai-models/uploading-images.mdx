@@ -5,13 +5,13 @@ description: "The io.net Intelligence API supports image inputs for vision-enabl
 
 **Supported Models for Image Processing**
 
-| Model Name                               | Capabilities                                                   |
-| ---------------------------------------- | -------------------------------------------------------------- |
-| meta-llama/Llama-3.2-90B-Vision-Instruct | Multi-modal vision model supporting image understanding.       |
-| Qwen/Qwen2-VL-7B-Instruct                | Supports both text and image-based inputs for AI interactions. |
+| Model Name                                 | Capabilities                                                   |
+| ------------------------------------------ | -------------------------------------------------------------- |
+| _meta-llama/Llama-3.2-90B-Vision-Instruct_ | Multi-modal vision model supporting image understanding.       |
+| _Qwen/Qwen2-VL-7B-Instruct_                | Supports both text and image-based inputs for AI interactions. |
 
 <Info>
-Image uploads are only available via API requests. They are not supported in the Chat UI.
+  Image uploads are only available via API requests. They are not supported in the Chat UI.
 </Info>
 
 ### Sending an Image via API Request
@@ -22,95 +22,98 @@ The API allows **two ways** to send an image:
 2. **Sending a Base64 Encoded Image** (for local images)
 
 <CodeGroup>
-  ```python Passing a URL
-  import requests
 
-  url = "https://api.intelligence.io.solutions/api/v1/chat/completions"
+```python Passing a URL
+import requests
 
-  headers = {
-      "Authorization": "Bearer \$IOINTELLIGENCE_API_KEY",
-      "Content-Type": "application/json"
-  }
+url = "https://api.intelligence.io.solutions/api/v1/chat/completions"
 
-  data = {
-      "model": "meta-llama/Llama-3.2-90B-Vision-Instruct", 
-      "messages": [
-          {"role": "system", "content": "You are an AI assistant."},
-          {"role": "user", "content": [
-              {"type": "text", "text": "What is in this image?"},
-              {"type": "image_url", "image_url": {"url": "https://your-image-url.com/image.jpg"}}
-          ]}
-      ]
-  }
+headers = {
+    "Authorization": "Bearer \$IOINTELLIGENCE_API_KEY",
+    "Content-Type": "application/json"
+}
 
-  response = requests.post(url, json=data, headers=headers)
-  print(response.json())
-  ```
+data = {
+    "model": "meta-llama/Llama-3.2-90B-Vision-Instruct", 
+    "messages": [
+        {"role": "system", "content": "You are an AI assistant."},
+        {"role": "user", "content": [
+            {"type": "text", "text": "What is in this image?"},
+            {"type": "image_url", "image_url": {"url": "https://your-image-url.com/image.jpg"}}
+        ]}
+    ]
+}
 
-  ```python Passing a Base64 encoded image
-  import requests
-  import base64
+response = requests.post(url, json=data, headers=headers)
+print(response.json())
+```
 
-  url = "https://api.intelligence.io.solutions/api/v1/chat/completions"
 
-  headers = {
-      "Authorization": "Bearer \$IOINTELLIGENCE_API_KEY",
-      "Content-Type": "application/json"
-  }
+```python Passing a Base64 encoded image
+import requests
+import base64
 
-  image_url = "path_to_your_image.jpg"
+url = "https://api.intelligence.io.solutions/api/v1/chat/completions"
 
-  image_response = requests.get(image_url)
-  if image_response.status_code == 200:
-      image_data = image_response.content  # Get raw image bytes
-  else:
-      print("Error: Unable to download image")
-      exit()
+headers = {
+    "Authorization": "Bearer \$IOINTELLIGENCE_API_KEY",
+    "Content-Type": "application/json"
+}
 
-  base64_image = base64.b64encode(image_data).decode("utf-8")
+image_url = "path_to_your_image.jpg"
 
-  data = {
-      "model": "meta-llama/Llama-3.2-90B-Vision-Instruct", 
-      "messages": [
-          {"role": "system", "content": "You are an AI assistant."},
-          {"role": "user", "content": [
-              {"type": "text", "text": "What is in this image?"},
-              {"type": "image", "image": base64_image} 
-          ]}
-      ]
-  }
+image_response = requests.get(image_url)
+if image_response.status_code == 200:
+    image_data = image_response.content  # Get raw image bytes
+else:
+    print("Error: Unable to download image")
+    exit()
 
-  response = requests.post(url, json=data, headers=headers)
+base64_image = base64.b64encode(image_data).decode("utf-8")
 
-  try:
-      print(response.json())  # Parse JSON response
-  except requests.exceptions.JSONDecodeError:
-      print("Error: Unable to parse response. Raw response:", response.text)
-  ```
+data = {
+    "model": "meta-llama/Llama-3.2-90B-Vision-Instruct", 
+    "messages": [
+        {"role": "system", "content": "You are an AI assistant."},
+        {"role": "user", "content": [
+            {"type": "text", "text": "What is in this image?"},
+            {"type": "image", "image": base64_image} 
+        ]}
+    ]
+}
+
+response = requests.post(url, json=data, headers=headers)
+
+try:
+    print(response.json())  # Parse JSON response
+except requests.exceptions.JSONDecodeError:
+    print("Error: Unable to parse response. Raw response:", response.text)
+```
+
 </CodeGroup>
 
 <Info>
-The image URL must be publicly accessible. Private or authentication-required URLs won’t work.
+  The image URL must be publicly accessible. Private or authentication-required URLs will not work.
 </Info>
 
 ### Image Input Requirements
 
-To ensure successful processing, images must meet these requirements:
+To ensure successful processing, images must meet the following requirements:
 
-| Requirement         | Details                                          |
-| ------------------- | ------------------------------------------------ |
-| Format              | JPEG, PNG, WEBP, or GIF (static)                 |
-| Max File Size       | 20MB                                             |
-| Resolution          | At least 512x512 pixels recommended              |
-| Max Dimensions      | 4096×4096 pixels                                 |
-| Accessibility       | If using a URL, ensure it is publicly accessible |
-| Multi-Image Support | Up to 10 images per request                      |
+| Requirement           | Details                                          |
+| --------------------- | ------------------------------------------------ |
+| _Format_              | JPEG, PNG, WEBP, or GIF (static)                 |
+| _Max File Size_       | 20MB                                             |
+| _Resolution_          | At least 512x512 pixels (recommended)            |
+| _Max Dimensions_      | 4096×4096 pixels                                 |
+| _Accessibility_       | If using a URL, ensure it is publicly accessible |
+| _Multi-Image Support_ | Up to 10 images per request                      |
 
 **Best Practices for Image Uploads**
 
-* Optimize File Size: While the max limit is 20MB, smaller files (1-5MB) ensure faster processing.
-* Use Clear Images: Avoid blurry or low-resolution images for better AI analysis.
-* Ensure Public URLs: If passing a URL, test it in a browser to confirm it's accessible.
+- **Optimize File Size**: While the maximum limit is 20MB, smaller files (1-5MB) ensure faster processing.
+- **Use Clear Images**: Avoid blurry or low-resolution images for better AI analysis.
+- **Ensure Public URLs**: If passing a URL, test it in a browser to confirm that it is accessible.
 
 ### Expected API Response
 
@@ -119,35 +122,37 @@ Upon successful submission, the API will return a structured response with AI-ge
 **Example Response:**
 
 <CodeGroup>
-  ```json json
-  {
-      "id": "chatcmpl-abc123",
-      "object": "chat.completion",
-      "created": 1710456789,
-      "model": "meta-llama/Llama-3.2-90B-Vision-Instruct",
-      "choices": [
-          {
-              "index": 0,
-              "message": {
-                  "role": "assistant",
-                  "content": "This is an image of a cat sitting on a table."
-              },
-              "finish_reason": "stop"
-          }
-      ],
-      "usage": {
-          "prompt_tokens": 120,
-          "completion_tokens": 20,
-          "total_tokens": 140
-      }
-  }
-  ```
+
+```json json
+{
+    "id": "chatcmpl-abc123",
+    "object": "chat.completion",
+    "created": 1710456789,
+    "model": "meta-llama/Llama-3.2-90B-Vision-Instruct",
+    "choices": [
+        {
+            "index": 0,
+            "message": {
+                "role": "assistant",
+                "content": "This is an image of a cat sitting on a table."
+            },
+            "finish_reason": "stop"
+        }
+    ],
+    "usage": {
+        "prompt_tokens": 120,
+        "completion_tokens": 20,
+        "total_tokens": 140
+    }
+}
+```
+
 </CodeGroup>
 
 ### Common Issues & Troubleshooting
 
-| Issue                                                | Possible Cause                     | Solution                                                  |
-| ---------------------------------------------------- | ---------------------------------- | --------------------------------------------------------- |
-| "An image? I'm in text format, so I can't see it..." | Model does not support image input | Ensure you are using one of the supported vision models.  |
-| "Invalid image format"                               | Image not encoded properly         | Convert image to base64 before sending.                   |
-| "Unauthorized"                                       | API key is missing or incorrect    | Check that your API key is valid and correctly formatted. |
+| Issue                                                  | Possible Cause                      | Solution                                                  |
+| ------------------------------------------------------ | ----------------------------------- | --------------------------------------------------------- |
+| _"An image? I'm in text format, so I can't see it..."_ | Model does not support image input. | Ensure you are using one of the supported vision models.  |
+| _"Invalid image format"_                               | Image not encoded properly.         | Convert image to base64 before sending.                   |
+| _"Unauthorized"_                                       | API key is missing or incorrect.    | Check that your API key is valid and correctly formatted. |

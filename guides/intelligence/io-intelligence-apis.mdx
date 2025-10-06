@@ -1,19 +1,19 @@
 ---
 title: "IO Intelligence APIs"
-description: "This guide is for users who want to use IO Intelligence API keys to use our open-source LLM Model Marketplace or AI Agents for your applications."
+description: "IO Intelligence API serves as a bridge to powerful, open-source machine learning models, deployed on io.net hardware, allowing you to integrate cutting-edge AI capabilities into your projects with relative ease. To make the integration easy for your application, we fully support the API contract presented by OpenAI, making it fully OpenAI API compatible."
 sidebarTitle: "APIs"
 ---
 
-You can also refer to [API References](/reference/ai-models/get-started-with-io-intelligence-api) for a more detailed approach to our APIs.
+This guide is for users who want to use _IO Intelligence API keys_ to use our open-source **_LLM Model Marketplace_** or **_AI Agents_** for your applications. You can also refer to [API References](/reference/ai-models/get-started-with-io-intelligence-api) for a more detailed approach to our APIs.
 
 ## Getting Started
 
-To use the IO Intelligence API, you’ll need an **API key**. Follow these steps to get started:
+To use _IO Intelligence APIs_, you will need an **API key**. Follow these steps to get started:
 
-1. **Sign up** for an account on IO Intelligence.
+1. **Sign up** for an account on **IO Intelligence**.
 2. **Create an API key** (see [Creating an API Key](https://ai.io.net/ai/api-keys)).
-3. Explore the available open-source **AI Models** and **AI Agents**.
-4. Use the API Reference to integrate the API into your application.
+3. Explore the available open-source **_AI Models_** and **_AI Agents_**.
+4. Use the **API References** to integrate the API into your application.
 
 ### Creating an API Key:
 
@@ -27,17 +27,17 @@ To use the IO Intelligence API, you’ll need an **API key**. Follow these steps
        style={{ width:"44%" }}
      />
    </Frame>
-2. Click **Create New Secret Key.**
+2. Click **_Create New Secret Key_.**
 
    <Frame>
      ![](/images/docs/0610c81565871f2e9faa543af9aa2fc1c989016a7b221e5b057c0113e55e5e2a-IO_Intellegence2.jpg)
    </Frame>
 3. Fill in the required details:
    - **Name**: Enter a descriptive name for your key.
-   - **Project**: Select "IO Intelligence".
-   - **Permissions**: Choose from All, Read, Write.
-   - **Expiration** Date: Select 30, 60, 90, or 180 days.
-4. Click Create Secret Key.
+   - **Project**: Select your project (i.e. "IO Intelligence").
+   - **Permissions**: Choose from **All**, **Read** or **Write**.
+   - **Expiration** **Date**: Select **30**, **60**, **90**, or **180** days.
+4. Click **_Create Secret Key_**.
 
    <Frame>
      <img
@@ -60,7 +60,7 @@ To use the IO Intelligence API, you’ll need an **API key**. Follow these steps
 
 ### Managing API Keys
 
-**Search API Keys:** Use the **search field** to find a previously created key.
+**Search API Keys:** Use the **search **field to find a previously created key.
 
 **View API Key Details:**
 
@@ -69,7 +69,7 @@ To use the IO Intelligence API, you’ll need an **API key**. Follow these steps
 - **Permissions**: Access levels assigned to the key.
 - **Expiration Date:** The validity period of the key.
 - **Editing a Key**: Update the name or permissions of an existing key.
-- **Revoking a Key**: If a key is no longer needed, you can revoke it. Note: Once revoked, the key cannot be restored.
+- **Revoking a Key**: If a key is no longer needed, you can revoke it. Note that once revoked, the key cannot be restored.
 
 <Frame>
   ![](/images/docs/8295ec8c9d5b1f695c1e79f3ec625876a183d1b86bc11d0672ae39e67902471a-IO_Intellegence5.jpg)
@@ -77,7 +77,7 @@ To use the IO Intelligence API, you’ll need an **API key**. Follow these steps
 
 ### Revoking API Keys
 
-1. Click the **Revoke** button in the API Key table.
+1. Click the **Revoke** button in the _API Key_ table.
 2. A confirmation popup will appear.
 3. Confirm the action to revoke the key.
 
@@ -92,10 +92,10 @@ To use the IO Intelligence API, you’ll need an **API key**. Follow these steps
 
 ## Using the API
 
-To use the IO Intelligence API:
+To use _IO Intelligence APIs_:
 
-1. Authenticate your requests using your **API key**.
-2. Send requests to the appropriate endpoints (see [API Reference](/reference/get-started-with-io-intelligence-api)).
+1. Authenticate your requests using your **API Key**.
+2. Send requests to the appropriate endpoints.
 3. Handle responses and integrate them into your application.
 
 **Example: cURL Request**
@@ -115,7 +115,7 @@ curl https://api.intelligence.io.solutions/api/v1/chat/completions /
 
 </CodeGroup>
 
-For detailed information on API endpoints, parameters, and examples, visit the [IO Intelligence API Reference](/reference/ai-models/get-started-with-io-intelligence-api).
+For detailed information on API endpoints, parameters, and examples, visit the **API References** tab.
 
 ## FAQs
 
@@ -127,6 +127,6 @@ For detailed information on API endpoints, parameters, and examples, visit the [
     Do not share your API key publicly. Use environment variables to store API keys securely. Rotate your API keys periodically.
   </Accordion>
   <Accordion title="Q: What are the request limits for the API?">
-    The IO Intelligence API offers different **free daily limits per account**, depending on the AI model. See the table in our [API Reference](/reference/get-started-with-io-intelligence-api#important-note-on-usage-limits) for model-specific limits.
+    The IO Intelligence API offers different **free daily limits per account**, depending on the AI model. See the table in our [API Reference](/reference/ai-models/get-started-with-io-intelligence-api) for model-specific limits.
   </Accordion>
 </AccordionGroup>
