@@ -202,7 +202,7 @@
             },
             {
               "language": "python",
-              "code": "from r2r import R2RClient\n\nclient = R2RClient()\n# when using auth, do client.login(...)\n\nresponse = client.completion(\n    messages=[\n        {\"role\": \"system\", \"content\": \"You are a helpful assistant.\"},\n        {\"role\": \"user\", \"content\": \"What is the capital of France?\"},\n        {\"role\": \"assistant\", \"content\": \"The capital of France is Paris.\"},\n        {\"role\": \"user\", \"content\": \"What about Italy?\"}\n    ],\n    generation_config={\n        \"model\": \"openai/gpt-4o-mini\",\n        \"temperature\": 0.7,\n        \"max_tokens\": 150,\n        \"stream\": False\n    }\n)\n"
+              "code": "from r2r import R2RClient\n\nclient = R2RClient()\n# when using auth, do client.login(...)\n\nresponse = client.retrieval.completion(\n    messages=[\n        {\"role\": \"system\", \"content\": \"You are a helpful assistant.\"},\n        {\"role\": \"user\", \"content\": \"What is the capital of France?\"},\n        {\"role\": \"assistant\", \"content\": \"The capital of France is Paris.\"},\n        {\"role\": \"user\", \"content\": \"What about Italy?\"}\n    ],\n    generation_config={\n        \"model\": \"openai/gpt-4o-mini\",\n        \"temperature\": 0.7,\n        \"max_tokens\": 150,\n        \"stream\": False\n    }\n)\n"
             }
           ],
           "samples-languages": [
