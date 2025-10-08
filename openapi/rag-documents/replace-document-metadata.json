@@ -223,7 +223,27 @@
             },
             {
               "language": "python",
-              "code": "from r2r import R2RClient\n\nclient = R2RClient()\n# when using auth, do client.login(...)\n\nresponse = client.documents.replace_metadata(\n    id=\"9fbe403b-c11c-5aae-8ade-ef22980c3ad1\",\n    metadata=[{\"key\": \"new_key\", \"value\": \"new_value\"}]\n)"
+              "code": "from r2r import R2RClient
+
+client = R2RClient('https://api.intelligence.io.solutions/api/r2r')
+client.set_api_key('<your-io-API-key>')
+
+response = client.retrieval.completion(
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "What is the capital of France?"},
+        {"role": "assistant", "content": "The capital of France is Paris."},
+        {"role": "user", "content": "What about Italy?"}
+    ],
+    generation_config={
+        "model": "hosted_vllm/openai/gpt-oss-120b",
+        "temperature": 0.7,
+        "max_tokens": 150,
+        "stream": False
+    }
+)
+
+print(response)"
             }
           ],
           "samples-languages": [
