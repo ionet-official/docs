@@ -21,40 +21,25 @@
           "agents"
         ],
         "summary": "Get Available Agents",
-        "operationId": "get_available_agents_v1_agents__get",
+        "operationId": "get_available_agents_v1_agents_get",
         "parameters": [
           {
-            "name": "token",
+            "name": "X-Guest-Session-ID",
             "in": "header",
             "required": false,
             "schema": {
-              "type": "string",
-              "description": "JWT token",
-              "title": "Token"
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Identifier of guest user",
+              "title": "X-Guest-Session-Id"
             },
-            "description": "JWT token"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "io.net provided API Key",
-              "title": "Authorization"
-            },
-            "description": "io.net provided API Key"
-          },
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "API key set by an SDK client",
-              "title": "X-Api-Key"
-            },
-            "description": "API key set by an SDK client"
+            "description": "Identifier of guest user"
           }
         ],
         "responses": {
