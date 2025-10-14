@@ -7,6 +7,12 @@
     "light": "#6b6b6b",
     "dark": "#6b6b6b"
   },
+  "redirects": [
+  {
+    "source": "/",
+    "destination": "/guides/inception"
+  }
+],
   "appearance": {
     "default": "dark",
     "strict": true
