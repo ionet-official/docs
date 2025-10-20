@@ -18,41 +18,94 @@
     "/api/v1/models": {
       "get": {
         "tags": [
-          "OpenAI Compatible Developer API"
+          "models"
         ],
         "summary": "Get Models List",
-        "description": "Get list of available models for Chat Completions API",
+        "description": "Get paginated list of available models",
         "operationId": "get_models_list_v1_models_get",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 50,
+              "title": "Page Size"
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Q"
+            }
+          },
+          {
+            "name": "X-Guest-Session-ID",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Identifier of guest user",
+              "title": "X-Guest-Session-Id"
+            },
+            "description": "Identifier of guest user"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ModelList"
+                  "$ref": "#/components/schemas/PaginatedModelResponse"
                 }
               }
             }
           },
           "404": {
             "description": "Not found"
-          }
-        },
-        "x-readme": {
-          "code-samples": [
-            {
-              "language": "curl",
-              "code": "curl https://api.intelligence.io.solutions/api/v1/models \\\n  -H \"Authorization: Bearer $IOINTELLIGENCE_API_KEY\" "
-            },
-            {
-              "language": "python",
-              "code": "import requests\n\nurl = \"https://api.intelligence.io.solutions/api/v1/models\"\n\nheaders = {\n    \"accept\": \"application/json\",\n    \"Authorization\": \"Bearer $IOINTELLIGENCE_API_KEY\",  \n}\n\nresponse = requests.get(url, headers=headers)\n\nprint(response.text)"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
             }
-          ],
-          "samples-languages": [
-            "curl",
-            "python"
-          ]
+          }
         }
       }
     }
@@ -376,6 +429,455 @@
         },
         "type": "object",
         "title": "HTTPValidationError"
+      },
+      "ModelMetadata": {
+        "properties": {
+          "image_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image Url",
+            "description": "URL to the model's display image"
+          },
+          "tags": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tags",
+            "description": "List of tags describing model features and status",
+            "examples": [
+              "New",
+              "Free",
+              "Uncensored"
+            ]
+          },
+          "version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Version",
+            "description": "Model version identifier"
+          },
+          "developer": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Developer",
+            "description": "Organization that developed the model"
+          },
+          "short_description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Short Description",
+            "description": "Short description of the model"
+          },
+          "enable_api_chat_completions": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Enable Api Chat Completions",
+            "description": "Flag to enable Open AI chat completions API for the model",
+            "default": false,
+            "examples": [true, false]
+          },
+          "enable_api_embeddings": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Enable Api Embeddings",
+            "description": "Flag to enable Open AI embeddings API for the model",
+            "default": false,
+            "examples": [true, false]
+          },
+          "enable_audio_stt": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Enable Audio Stt",
+            "description": "Enable speech-to-text (transcription) API for this model",
+            "default": false,
+            "examples": [true, false]
+          },
+          "enable_audio_tts": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Enable Audio Tts",
+            "description": "Enable text-to-speech (generation) API for this model",
+            "default": false,
+            "examples": [true, false]
+          },
+          "enable_chat_ui": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Enable Chat Ui",
+            "description": "Flag to enable chat UI for the model",
+            "default": true,
+            "examples": [true, false]
+          },
+          "trendiness": {
+            "type": "integer",
+            "maximum": 10,
+            "minimum": 0,
+            "title": "Trendiness",
+            "description": "Trendiness score of the model, higher score means more popular. Range: 0-10.",
+            "default": 0
+          },
+          "license": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LicenseInfo"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Model license metadata"
+          },
+          "tool_support": {
+            "$ref": "#/components/schemas/ToolSupport",
+            "description": "Tool calling support quirks for the model",
+            "default": "no"
+          },
+          "max_tokens": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Tokens",
+            "description": "Maximum tokens per request"
+          },
+          "context_window": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Context Window",
+            "description": "Model's context window size, in tokens"
+          },
+          "supports_images_input": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Supports Images Input",
+            "description": "Image input capability",
+            "default": false
+          },
+          "supports_prompt_cache": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Supports Prompt Cache",
+            "description": "Caching support flag",
+            "default": false
+          },
+          "input_token_price": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Input Token Price",
+            "description": "Cost per input token (USD per million tokens)"
+          },
+          "output_token_price": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Output Token Price",
+            "description": "Cost per output token (USD per million tokens)"
+          },
+          "cache_write_token_price": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cache Write Token Price",
+            "description": "Cost for cache creation tokens (USD per million tokens)"
+          },
+          "cache_read_token_price": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cache Read Token Price",
+            "description": "Cost for cache read tokens (USD per million tokens)"
+          },
+          "precision": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Precision",
+            "description": "Quantization precision (e.g., 'fp8', 'int4', 'fp16', 'fp32')"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "ModelMetadata"
+      },
+      "ModelStatus": {
+        "type": "string",
+        "enum": [
+          "active",
+          "inactive"
+        ],
+        "title": "ModelStatus"
+      },
+      "ModelData": {
+        "properties": {
+          "model_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Model Id",
+            "description": "Unique model identifier"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Model name"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description",
+            "description": "Model description"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ModelStatus",
+            "description": "Current model status"
+          },
+          "chat_daily_quota_tier_1": {
+            "type": "integer",
+            "title": "Chat Daily Quota Tier 1",
+            "description": "Daily chat quota for tier 1 users"
+          },
+          "api_completions_daily_quota_tier_1": {
+            "type": "integer",
+            "title": "Api Completions Daily Quota Tier 1",
+            "description": "Daily API completions quota for tier 1 users"
+          },
+          "embeddings_daily_quota_tier_1": {
+            "type": "integer",
+            "title": "Embeddings Daily Quota Tier 1",
+            "description": "Daily embeddings quota for tier 1 users"
+          },
+          "audio_transcriptions_daily_quota_tier_1": {
+            "type": "integer",
+            "title": "Audio Transcriptions Daily Quota Tier 1",
+            "description": "Daily audio transcriptions quota for tier 1 users (in seconds)"
+          },
+          "audio_speech_daily_quota_tier_1": {
+            "type": "integer",
+            "title": "Audio Speech Daily Quota Tier 1",
+            "description": "Daily audio speech generation quota for tier 1 users (in characters)"
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/ModelMetadata",
+            "description": "Model metadata including some optional fields",
+            "examples": [
+              {
+                "context_length": 8192,
+                "developer": "Meta AI",
+                "image_url": "https://example.com/gpt4.jpg",
+                "short_description": "The latest and greatest AI model",
+                "tags": [
+                  "New",
+                  "Premium",
+                  "Uncensored"
+                ],
+                "trendiness": 9,
+                "version": "1.0"
+              }
+            ]
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At",
+            "description": "Model creation timestamp"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At",
+            "description": "Last update timestamp"
+          }
+        },
+        "type": "object",
+        "required": [
+          "model_id",
+          "name",
+          "status",
+          "chat_daily_quota_tier_1",
+          "api_completions_daily_quota_tier_1",
+          "embeddings_daily_quota_tier_1",
+          "audio_transcriptions_daily_quota_tier_1",
+          "audio_speech_daily_quota_tier_1",
+          "metadata",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "ModelData"
+      },
+      "PaginationResponse": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "page": {
+            "type": "integer",
+            "title": "Page"
+          },
+          "page_size": {
+            "type": "integer",
+            "title": "Page Size"
+          },
+          "total_pages": {
+            "type": "integer",
+            "title": "Total Pages"
+          },
+          "has_next": {
+            "type": "boolean",
+            "title": "Has Next"
+          },
+          "has_previous": {
+            "type": "boolean",
+            "title": "Has Previous"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total",
+          "page",
+          "page_size",
+          "total_pages",
+          "has_next",
+          "has_previous"
+        ],
+        "title": "PaginationResponse"
+      },
+      "PaginatedModelResponse": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/ModelData"
+            },
+            "type": "array",
+            "title": "Data",
+            "description": "List of available models"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/PaginationResponse",
+            "description": "Pagination information"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data",
+          "pagination"
+        ],
+        "title": "PaginatedModelResponse"
       }
     }
   }

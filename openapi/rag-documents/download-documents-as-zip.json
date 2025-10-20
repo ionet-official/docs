@@ -25,102 +25,120 @@
   "paths": {
     "/api/r2r/v3/documents/download_zip": {
       "get": {
-        "summary": "Export multiple documents as zip",
-        "description": "Export multiple documents as a zip file. Documents can be filtered by IDs and/or date range.",
-        "operationId": "download-documents-as-zip",
+        "tags": [
+          "R2R-compatible API"
+        ],
+        "summary": "Reverse Proxy Auth",
+        "operationId": "reverse_proxy_auth_r2r_v3_documents_download_zip_get",
         "parameters": [
           {
-            "name": "document_ids",
-            "in": "query",
-            "description": "List of document IDs to include in the export. If not provided, all accessible documents will be included.",
+            "name": "token",
+            "in": "header",
+            "required": false,
             "schema": {
               "type": "string",
-              "default": "format: \"uuid\""
-            }
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
           },
           {
-            "name": "start_date",
-            "in": "query",
-            "description": "Filter documents created on or after this date.",
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
             "schema": {
               "type": "string",
-              "format": "date"
-            }
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
           },
           {
-            "name": "end_date",
-            "in": "query",
-            "description": "Filter documents created before this date.",
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
             "schema": {
               "type": "string",
-              "format": "date"
-            }
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
           }
         ],
         "responses": {
           "200": {
-            "description": "200",
+            "description": "Successful Response",
             "content": {
               "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": {}
-                  }
-                },
                 "schema": {
-                  "type": "object",
-                  "properties": {}
+
                 }
               }
             }
           },
           "404": {
-            "description": "404",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": {}
-                  }
-                },
-                "schema": {
-                  "type": "object",
-                  "properties": {}
-                }
-              }
-            }
+            "description": "Not found"
           },
           "422": {
-            "description": "422",
+            "description": "Validation Error",
             "content": {
-              "text/plain": {
-                "examples": {
-                  "Result": {
-                    "value": ""
-                  }
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }
           }
-        },
-        "deprecated": false,
-        "x-readme": {
-          "code-samples": [
-            {
-              "language": "curl",
-              "code": "curl -X GET \"https://api.intelligence.io.solutions/api/r2r/v3/documents/download_zip?document_ids=uuid1,uuid2&start_date=2024-01-01&end_date=2024-12-31\" \\\n-H \"Authorization: Bearer $IOINTELLIGENCE_API_KEY\""
-            },
-            {
-              "language": "python",
-              "code": "client.documents.download_zip(\n    document_ids=[\"uuid1\", \"uuid2\"],\n    start_date=\"2024-01-01\",\n    end_date=\"2024-12-31\"\n)"
-            }
-          ],
-          "samples-languages": [
-            "curl",
-            "python"
-          ]
         }
       }
     }
+  },
+  "components": {
+    "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+    "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
   }
 }
