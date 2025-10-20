@@ -59,7 +59,7 @@
           {
             "name": "x-api-key",
             "in": "header",
-            "required": false,
+            "required": true,
             "schema": {
               "type": "string",
               "description": "io.net provided API Key",
