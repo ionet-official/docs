@@ -9,14 +9,6 @@
       "url": "https://api.intelligence.io.solutions"
     }
   ],
-  "components": {
-    "securitySchemes": {
-      "sec0": {
-        "type": "oauth2",
-        "flows": {}
-      }
-    }
-  },
   "security": [
     {
       "sec0": []
@@ -94,7 +86,14 @@
     }
   },
   "components": {
-    "HTTPValidationError": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    },
+    "schemas": {
+      "HTTPValidationError": {
         "properties": {
           "detail": {
             "items": {
@@ -107,7 +106,7 @@
         "type": "object",
         "title": "HTTPValidationError"
       },
-    "ValidationError": {
+      "ValidationError": {
         "properties": {
           "loc": {
             "items": {
@@ -140,5 +139,6 @@
         ],
         "title": "ValidationError"
       }
+    }
   }
 }
