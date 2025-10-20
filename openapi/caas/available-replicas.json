@@ -18,10 +18,10 @@
      "/enterprise/v1/io-cloud/caas/available-replicas": {
       "get": {
         "tags": [
-          "io-cloud-caas"
+          "enterprise-io-cloud-caas"
         ],
         "summary": "Get Available Replicas",
-        "operationId": "get_available_replicas_v1_io_cloud_caas_available_replicas_get",
+        "operationId": "get_available_replicas_enterprise_v1_io_cloud_caas_available_replicas_get",
         "parameters": [
           {
             "name": "hardware_id",
@@ -38,24 +38,37 @@
             "required": true,
             "schema": {
               "type": "integer",
+              "minimum": 1,
               "title": "Hardware Qty"
             }
           },
           {
-            "name": "connectivity_tier",
+            "name": "node_pool_id",
             "in": "query",
             "required": false,
             "schema": {
               "anyOf": [
                 {
-                  "type": "integer"
+                  "type": "string",
+                  "format": "uuid"
                 },
                 {
                   "type": "null"
                 }
               ],
-              "title": "Connectivity Tier"
+              "title": "Node Pool Id"
             }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "X-Api-Key"
+            },
+            "description": "io.net provided API Key"
           }
         ],
         "responses": {
@@ -64,7 +77,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/io_cloud__schemas__response__caas__GetAvailableReplicasPerLocationResponse"
+                  "$ref": "#/components/schemas/io_cloud__schemas__response__enterprise__caas__GetAvailableReplicasPerLocationResponse"
                 }
               }
             }
@@ -205,6 +218,50 @@
         "title": "GetAvailableReplicasPerLocationResponse"
       },
       "io_cloud__schemas__response__enterprise__vmaas__ReplicasPerLocation": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "iso2": {
+            "type": "string",
+            "title": "Iso2"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "available_replicas": {
+            "type": "integer",
+            "title": "Available Replicas"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "iso2",
+          "name",
+          "available_replicas"
+        ],
+        "title": "ReplicasPerLocation"
+      },
+      "io_cloud__schemas__response__enterprise__caas__GetAvailableReplicasPerLocationResponse": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/io_cloud__schemas__response__enterprise__caas__ReplicasPerLocation"
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "GetAvailableReplicasPerLocationResponse"
+      },
+      "io_cloud__schemas__response__enterprise__caas__ReplicasPerLocation": {
         "properties": {
           "id": {
             "type": "integer",

@@ -18,26 +18,38 @@
     "/enterprise/v1/io-cloud/caas/hardware/max-gpus-per-container": {
       "get": {
         "tags": [
-          "io-cloud-caas"
+          "enterprise-io-cloud-caas"
         ],
         "summary": "Get Max Gpu Count Per Container",
-        "operationId": "get_max_gpu_count_per_container_v1_io_cloud_caas_hardware_max_gpus_per_container_get",
+        "operationId": "get_max_gpu_count_per_container_enterprise_v1_io_cloud_caas_hardware_max_gpus_per_container_get",
         "parameters": [
           {
-            "name": "connectivity_tier",
+            "name": "node_pool_id",
             "in": "query",
             "required": false,
             "schema": {
               "anyOf": [
                 {
-                  "type": "integer"
+                  "type": "string",
+                  "format": "uuid"
                 },
                 {
                   "type": "null"
                 }
               ],
-              "title": "Connectivity Tier"
+              "title": "Node Pool Id"
             }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "X-Api-Key"
+            },
+            "description": "io.net provided API Key"
           }
         ],
         "responses": {
@@ -46,7 +58,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/io_cloud__schemas__response__caas__GetMaxGpuCountPerReplicaResponse"
+                  "$ref": "#/components/schemas/io_cloud__schemas__response__enterprise__caas__GetMaxGpuCountPerReplicaResponse"
                 }
               }
             }
