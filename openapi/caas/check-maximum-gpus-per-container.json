@@ -18,38 +18,26 @@
     "/enterprise/v1/io-cloud/caas/hardware/max-gpus-per-container": {
       "get": {
         "tags": [
-          "enterprise-io-cloud-caas"
+          "io-cloud-caas"
         ],
         "summary": "Get Max Gpu Count Per Container",
-        "operationId": "get_max_gpu_count_per_container_enterprise_v1_io_cloud_caas_hardware_max_gpus_per_container_get",
+        "operationId": "get_max_gpu_count_per_container_v1_io_cloud_caas_hardware_max_gpus_per_container_get",
         "parameters": [
           {
-            "name": "node_pool_id",
+            "name": "connectivity_tier",
             "in": "query",
             "required": false,
             "schema": {
               "anyOf": [
                 {
-                  "type": "string",
-                  "format": "uuid"
+                  "type": "integer"
                 },
                 {
                   "type": "null"
                 }
               ],
-              "title": "Node Pool Id"
+              "title": "Connectivity Tier"
             }
-          },
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "io.net provided API Key",
-              "title": "X-Api-Key"
-            },
-            "description": "io.net provided API Key"
           }
         ],
         "responses": {
@@ -58,7 +46,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/io_cloud__schemas__response__enterprise__caas__GetMaxGpuCountPerReplicaResponse"
+                  "$ref": "#/components/schemas/io_cloud__schemas__response__caas__GetMaxGpuCountPerReplicaResponse"
                 }
               }
             }
@@ -76,23 +64,6 @@
               }
             }
           }
-        },
-        "deprecated": false,
-        "x-readme": {
-          "code-samples": [
-            {
-              "language": "curl",
-              "code": "curl https://api.io.solutions/enterprise/v1/io-cloud/caas/hardware/max-gpus-per-container \\\n  -H \"X-API-KEY: $IOCLOUD_API_KEY\" "
-            },
-            {
-              "language": "python",
-              "code": "import requests\n\nurl = \"https://api.io.solutions/enterprise/v1/io-cloud/caas/hardware/max-gpus-per-container\"\n\nheaders = {\n    \"X-API-KEY\": \"$IOCLOUD_API_KEY\"\n}\n\nresponse = requests.get(url, headers=headers)\n\nprint(response.status_code)\nprint(response.json())"
-            }
-          ],
-          "samples-languages": [
-            "curl",
-            "python"
-          ]
         }
       }
     }
@@ -1289,10 +1260,10 @@
         ],
         "title": "GetDeploymentsData"
       },
-      "io_cloud__schemas__response__enterprise__caas__GetMaxGpuCountPerReplicaResponse": {
+      "io_cloud__schemas__response__caas__GetMaxGpuCountPerReplicaResponse": {
         "properties": {
           "data": {
-            "$ref": "#/components/schemas/io_cloud__schemas__response__enterprise__caas__MaxGpuPerReplicaData"
+            "$ref": "#/components/schemas/io_cloud__schemas__response__caas__MaxGpuPerReplicaData"
           }
         },
         "type": "object",
@@ -1339,11 +1310,11 @@
         ],
         "title": "HardwareInfo"
       },
-      "io_cloud__schemas__response__enterprise__caas__MaxGpuPerReplicaData": {
+      "io_cloud__schemas__response__caas__MaxGpuPerReplicaData": {
         "properties": {
           "hardware": {
             "items": {
-              "$ref": "#/components/schemas/io_cloud__schemas__response__enterprise__caas__HardwareInfo"
+              "$ref": "#/components/schemas/io_cloud__schemas__response__caas__HardwareInfo"
             },
             "type": "array",
             "title": "Hardware"
@@ -1359,6 +1330,55 @@
           "total"
         ],
         "title": "MaxGpuPerReplicaData"
+      },
+      "io_cloud__schemas__response__caas__HardwareInfo": {
+        "properties": {
+          "max_gpus_per_container": {
+            "type": "integer",
+            "title": "Max Gpus Per Container"
+          },
+          "min_gpus_per_container": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min Gpus Per Container"
+          },
+          "available": {
+            "type": "integer",
+            "title": "Available"
+          },
+          "hardware_id": {
+            "type": "integer",
+            "title": "Hardware Id"
+          },
+          "hardware_name": {
+            "type": "string",
+            "title": "Hardware Name"
+          },
+          "brand_name": {
+            "type": "string",
+            "title": "Brand Name"
+          },
+          "price": {
+            "type": "number",
+            "title": "Price"
+          }
+        },
+        "type": "object",
+        "required": [
+          "max_gpus_per_container",
+          "available",
+          "hardware_id",
+          "hardware_name",
+          "brand_name",
+          "price"
+        ],
+        "title": "HardwareInfo"
       },
       "io_cloud__schemas__response__enterprise__caas__ReplicasPerLocation": {
         "properties": {
