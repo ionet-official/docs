@@ -155,7 +155,7 @@
             "pages": [
               {
               "group": "Unified Chat",
-                "hidden": true,
+                "hidden": false,
                 "pages": [
             "guides/intelligence/unified-chat"
                 ]
@@ -176,7 +176,7 @@
           },
           {
             "group": "IO Intelligence Payments",
-            "hidden": true,
+            "hidden": false,
             "pages": [
               "guides/payment/io-intelligence-payments"
             ]
