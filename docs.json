@@ -173,6 +173,13 @@
             "guides/intelligence/training-as-a-service",
             "guides/intelligence/io-intelligence-apis"
             ]
+          },
+          {
+            "group": "IO Intelligence Payments",
+            "hidden": true,
+            "pages": [
+              "guides/payments/io-intelligence-payments"
+            ]
           }
             
         ]
