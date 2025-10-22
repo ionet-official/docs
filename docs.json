@@ -162,7 +162,6 @@
                   "guides/intelligence/agent-framework"
                 ]
               },
-              "guides/intelligence/retrieval-engine",
             "guides/intelligence/agentic-workflow",
             "guides/intelligence/training-as-a-service",
             "guides/intelligence/io-intelligence-apis"
