@@ -153,13 +153,7 @@
           {
             "group": "Getting Started with IO Intelligence",
             "pages": [
-              {
-              "group": "Unified Chat",
-                "hidden": false,
-                "pages": [
-            "guides/intelligence/unified-chat"
-                ]
-              },
+            "guides/intelligence/unified-chat",
             "guides/intelligence/exploring-ai-models",
               {
                 "group": "Agents",
