@@ -1,41 +1,36 @@
-export function FetchModelsRaw() {
-  const [data, setData] = useState(null);
+import React, { useEffect, useState } from "react";
+
+export const FetchModels = () => {
+  const [data, setData] = useState("");
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchData() {
+    const fetchModels = async () => {
       try {
-        const res = await fetch("https://api.intelligence.io.solutions/api/v1/models");
-        if (!res.ok) {
-          throw new Error("HTTP error! status: " + res.status);
+        const response = await fetch("https://api.intelligence.io.solutions/api/v1/models");
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        const json = await res.json();
-        setData(json);
-      } catch (err) {
-        setError(err.message || "Failed to fetch data");
-      } finally {
-        setLoading(false);
-      }
-    }
 
-    fetchData();
+        const result = await response.json();
+        // Convert the JSON result into formatted plain text
+        const plainText = JSON.stringify(result, null, 2);
+        setData(plainText);
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+
+    fetchModels();
   }, []);
 
-  if (loading) return <p>Loading data...</p>;
-  if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
+  if (error) {
+    return <pre>Error: {error}</pre>;
+  }
 
   return (
-    <pre
-      style={{
-        background: "#f4f4f4",
-        padding: "16px",
-        borderRadius: "8px",
-        overflowX: "auto",
-        whiteSpace: "pre-wrap"
-      }}
-    >
-      {JSON.stringify(data, null, 2)}
-    </pre>
+    <div style={{ whiteSpace: "pre-wrap", fontFamily: "monospace", padding: "1em" }}>
+      {data ? data : "Loading..."}
+    </div>
   );
 }
