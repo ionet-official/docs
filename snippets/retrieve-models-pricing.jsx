@@ -1,79 +1,110 @@
-import React, { useEffect, useState } from "react";
-
-export function ModelsTable() {
-  const [models, setModels] = useState([]);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  const fmt = (n) => {
-    if (typeof n !== "number" || Number.isNaN(n)) return "—";
-    const multiplied = n * 1000000;
-    return "$" + multiplied.toLocaleString(undefined, {
-      minimumFractionDigits: 3,
-      maximumFractionDigits: 3
-    });
-  };
+export const ColorGenerator = () => {
+  const [hue, setHue] = useState(180)
+  const [saturation, setSaturation] = useState(50)
+  const [lightness, setLightness] = useState(50)
+  const [colors, setColors] = useState([])
 
   useEffect(() => {
-    let cancelled = false;
-
-    async function fetchData() {
-      try {
-        const res = await fetch("https://api.intelligence.io.solutions/api/v1/models");
-        if (!res.ok) throw new Error("HTTP error! status: " + res.status);
-        const data = await res.json();
-        if (!cancelled) {
-          const list = Array.isArray(data)
-            ? data
-            : data && Array.isArray(data.models)
-            ? data.models
-            : [];
-          setModels(list);
-        }
-      } catch (err) {
-        if (!cancelled) setError(err.message || "Failed to load data");
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
+    const newColors = []
+    for (let i = 0; i < 5; i++) {
+      const l = Math.max(10, Math.min(90, lightness - 20 + i * 10))
+      newColors.push(`hsl(${hue}, ${saturation}%, ${l}%)`)
     }
+    setColors(newColors)
+  }, [hue, saturation, lightness])
 
-    fetchData();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  if (loading) return <p>Loading model prices…</p>;
-  if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
-  if (!models.length) return <p>No models found.</p>;
+  const copyToClipboard = (color) => {
+    navigator.clipboard
+      .writeText(color)
+      .then(() => {
+        console.log(`Copied ${color} to clipboard!`)
+      })
+      .catch((err) => {
+        console.error("Failed to copy: ", err)
+      })
+  }
 
   return (
-    <div style={{ marginTop: "1rem" }}>
-      <table
-        style={{
-          borderCollapse: "collapse",
-          width: "100%",
-          backgroundColor: "#fff",
-          boxShadow: "0 2px 5px rgba(0,0,0,0.1)"
-        }}
-      >
-        <thead>
-          <tr style={{ backgroundColor: "#0f62fe", color: "white" }}>
-            <th style={{ padding: "12px", textAlign: "left" }}>ID</th>
-            <th style={{ padding: "12px", textAlign: "left" }}>Input Token Price (×1M)</th>
-            <th style={{ padding: "12px", textAlign: "left" }}>Output Token Price (×1M)</th>
-          </tr>
-        </thead>
-        <tbody>
-          {models.map((m) => (
-            <tr key={m?.id ?? Math.random()} style={{ borderBottom: "1px solid #eee" }}>
-              <td style={{ padding: "12px" }}>{m?.id ?? "—"}</td>
-              <td style={{ padding: "12px" }}>{fmt(m?.input_token_price)}</td>
-              <td style={{ padding: "12px" }}>{fmt(m?.output_token_price)}</td>
-            </tr>
+    <div className="p-4 border dark:border-zinc-950/80 rounded-xl not-prose">
+      <div className="space-y-4">
+        <div className="space-y-2">
+          <label className="block text-sm text-zinc-950/70 dark:text-white/70">
+            Hue: {hue}°
+            <input
+              type="range"
+              min="0"
+              max="360"
+              value={hue}
+              onChange={(e) => setHue(Number.parseInt(e.target.value))}
+              className="w-full h-2 bg-zinc-950/20 rounded-lg appearance-none cursor-pointer dark:bg-white/20 mt-1"
+              style={{
+                background: `linear-gradient(to right, 
+                  hsl(0, ${saturation}%, ${lightness}%), 
+                  hsl(60, ${saturation}%, ${lightness}%), 
+                  hsl(120, ${saturation}%, ${lightness}%), 
+                  hsl(180, ${saturation}%, ${lightness}%), 
+                  hsl(240, ${saturation}%, ${lightness}%), 
+                  hsl(300, ${saturation}%, ${lightness}%), 
+                  hsl(360, ${saturation}%, ${lightness}%))`,
+              }}
+            />
+          </label>
+
+          <label className="block text-sm text-zinc-950/70 dark:text-white/70">
+            Saturation: {saturation}%
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value={saturation}
+              onChange={(e) => setSaturation(Number.parseInt(e.target.value))}
+              className="w-full h-2 bg-zinc-950/20 rounded-lg appearance-none cursor-pointer dark:bg-white/20 mt-1"
+              style={{
+                background: `linear-gradient(to right, 
+                  hsl(${hue}, 0%, ${lightness}%), 
+                  hsl(${hue}, 50%, ${lightness}%), 
+                  hsl(${hue}, 100%, ${lightness}%))`,
+              }}
+            />
+          </label>
+
+          <label className="block text-sm text-zinc-950/70 dark:text-white/70">
+            Lightness: {lightness}%
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value={lightness}
+              onChange={(e) => setLightness(Number.parseInt(e.target.value))}
+              className="w-full h-2 bg-zinc-950/20 rounded-lg appearance-none cursor-pointer dark:bg-white/20 mt-1"
+              style={{
+                background: `linear-gradient(to right, 
+                  hsl(${hue}, ${saturation}%, 0%), 
+                  hsl(${hue}, ${saturation}%, 50%), 
+                  hsl(${hue}, ${saturation}%, 100%))`,
+              }}
+            />
+          </label>
+        </div>
+
+        <div className="flex space-x-1">
+          {colors.map((color, idx) => (
+            <div
+              key={idx}
+              className="h-16 rounded flex-1 cursor-pointer transition-transform hover:scale-105"
+              style={{ backgroundColor: color }}
+              title={`Click to copy: ${color}`}
+              onClick={() => copyToClipboard(color)}
+            />
           ))}
-        </tbody>
-      </table>
+        </div>
+
+        <div className="text-sm font-mono text-zinc-950/70 dark:text-white/70">
+          <p>
+            Base color: hsl({hue}, {saturation}%, {lightness}%)
+          </p>
+        </div>
+      </div>
     </div>
-  );
+  )
 }
