@@ -1,58 +1,84 @@
 ---
-title: "Device Object"
+title: "Device Object Reference"
+description: "Defines the structure, attributes, and metrics of a Device within the IO Network. Includes details on hardware specs, network performance, compliance, and job history used for monitoring and rewards calculation."
+sidebar_label: "Device Object"
+tags: "API Reference,Devices,Compute Nodes,IO Network"
 ---
 
 ### Device Object
 
-The **Device Object** defines a single computational unit within the IO Network — typically a machine or worker node equipped with one or more GPUs. It provides the fundamental structure for representing devices that contribute compute resources to the network. Each device record captures hardware specifications, performance data, connectivity status, geographic location, and compliance information.
+The **Device Object** represents a compute node within the IO Network, typically a machine or worker running one or more GPUs. It provides the foundational schema for describing devices that contribute compute power to the distributed network.
 
-This object is central to how the IO Network manages, monitors, and compensates devices for running distributed compute jobs. It tracks device uptime, speed metrics, SOC 2 compliance, and job-level data such as earnings, job duration, and connection stability, thus forming the foundation for analytics, reliability scoring, and marketplace operations.
+Each device entry captures details about its hardware, performance metrics, network characteristics, geographic location, and SOC 2 compliance. This object also tracks job-level details such as compute minutes, uptime, and earnings, this allows for transparent performance analytics, availability tracking, and compensation calculation.
 
-### Attributes
+---
 
-<ParamField path="base_tier_name" type="string" required>
-  Tier level assigned to the device based on its network speed.
-</ParamField>
+## Structure Overview
 
-<ParamField path="brand_icon" type="string" required>
-  Web address where the icon that corresponds to the device is hosted.
-</ParamField>
+A **Device** includes:
+
+- **Identification** – Unique ID, hardware name, and quantity
+- **Performance Metrics** – Uptime, speed, and availability stats
+- **Geographic Info** – Location name, ISO code, and country icon
+- **Compliance** – SOC 2 certification flag
+- **Job History** – Records of compute jobs, earnings, and status
+
+---
+
+## Core Attributes
 
 <ParamField path="device_id" type="string" required>
-  Unique identifier for your device.
+  The unique identifier for your device.
 </ParamField>
 
+<ParamField path="hardware_name" type="string" required>
+  The name of the hardware model used in the device, such as 'RTX A6000'.
+</ParamField>
+
+<ParamField path="hardware_quantity" type="integer" required>
+  The number of hardware components (GPUs) in the device.
+</ParamField>
+
+<ParamField path="base_tier_name" type="string" required>
+  The performance tier assigned to the device based on its network speed.
+</ParamField>
+
+---
+
+## Performance Metrics
+
 <ParamField path="down_percentage" type="integer" required>
-  Percentage of time the device was down or unavailable.
+  The percentage of time the device was unavailable.
 </ParamField>
 
 <ParamField path="download_speed_mbps" type="integer" required>
-  Average download speed for this device, measured in megabits per second.
+  The average download speed, measured in megabits per second (Mbps).
+</ParamField>
+
+<ParamField path="upload_speed_mbps" type="integer" required>
+  The average upload speed, measured in megabits per second (Mbps).
 </ParamField>
 
 <ParamField path="downtime_by_date" type="object" required>
-  An object where each key is a date string (YYYY-MM-DD format) representing a specific day. 
-  The value is an array of objects, each detailing downtime information for that day.
+  A breakdown of downtime occurrences by date.
 
   <Expandable title="properties">
     <ParamField path="downtime_by_date.key" type="string" required>
-      Format: YYYY-MM-DD —> The date the downtime occurred.
+      Date of downtime in `YYYY-MM-DD` format.
     </ParamField>
-
     <ParamField path="downtime_by_date.value" type="array" required>
-      Each date key maps to an array of objects, where each object contains the following properties.
+      Each entry represents a day's downtime data.
 
       <Expandable title="properties">
         <ParamField path="downtime_by_date.value.downtime" type="number" required>
-          The total duration of downtime in seconds.
+          Total downtime duration in seconds.
         </ParamField>
-
         <ParamField path="downtime_by_date.value.note" type="string" required>
-          A note providing the downtime duration in days, hours, and minutes.
+          Human-readable note summarizing downtime (e.g., “down for 0 days and 3 hours and 23 minutes”).
         </ParamField>
         **Example**
 
-        ```json json
+        ```json
         {
           "2023-09-11": {
             "downtime": 281.508,
@@ -69,63 +95,76 @@ This object is central to how the IO Network manages, monitors, and compensates 
   </Expandable>
 </ParamField>
 
-<ParamField path="hardware_name" type="string" required>
-  Name of the hardware model used in the device, such as 'RTX A6000'.
-</ParamField>
+---
 
-<ParamField path="hardware_quantity" type="integer" required>
-  Number of hardware components, defined in /hardware_name, installed in the device.
-</ParamField>
+## Location & Branding
 
 <ParamField path="iso2" type="string" required>
-  Country ISO Code that provides the country location of the device. For example, CA for Canada.
+  The country ISO code (e.g., `CA` for Canada).
 </ParamField>
 
+<ParamField path="location_name" type="string" required>
+  The name of the country or region where the device is located.
+</ParamField>
+
+<ParamField path="location_icon" type="string" required>
+  The URL of the location icon.
+</ParamField>
+
+<ParamField path="brand_icon" type="string" required>
+  The web address of the device’s associated brand icon.
+</ParamField>
+
+---
+
+## Compliance & Status
+
+<ParamField path="security_soc2" type="boolean" required>
+  Indicates whether the device meets SOC 2 (System and Organization Controls 2) compliance standards.
+</ParamField>
+
+<ParamField path="status" type="string" required>
+  The current status of the device or job running on it.
+</ParamField>
+
+---
+
+## Job History
+
 <ParamField path="jobs" type="array" required>
-  An array of objects, each representing different dimensions of the job. 
-  Every object in the array contains info about an aspect of the job, including duration, status, earnings, and slashed earnings.
+  An array of job entries representing each compute job executed on this device.
 
   <Expandable title="properties">
     <ParamField path="jobs.compute_minutes_hired" type="integer" required>
-      Total number of minutes a customer hired the device.
+      Total minutes a customer hired the device.
     </ParamField>
-
     <ParamField path="jobs.compute_minutes_served" type="integer" required>
-      Total number of minutes the device was used for the job.
+      Total minutes the device was active during the job.
     </ParamField>
-
     <ParamField path="jobs.earned" type="integer" required>
-      Total $IO earnings for the hired job.
+      Total \$IO earnings for this job.
     </ParamField>
-
-    <ParamField path="jobs.end_time" type="datetime string" required>
-      Date and time the job ended, in UTC.
-    </ParamField>
-
-    <ParamField path="jobs.for" type="string" required>
-      Cluster ID.
-    </ParamField>
-
     <ParamField path="jobs.slashed" type="integer" required>
-      Total slashed earnings for the job.
+      Earnings deducted (slashed) for downtime or failed performance.
     </ParamField>
-
-    <ParamField path="jobs.start_time" type="datetime string" required>
-      Date and time the job started, in UTC.
-    </ParamField>
-
-    <ParamField path="jobs.status" type="string" required>
-      Status of the job.
-    </ParamField>
-
     <ParamField path="jobs.total_hire_rate" type="integer" required>
-      Amount paid to the device owner if the device performs at 100% uptime for the duration of the job.
+      The full payment rate if the device achieved 100% uptime.
     </ParamField>
-
     <ParamField path="jobs.uptime_percent" type="integer" required>
-      Percent of time the device was connected.
+      Percentage of uptime during the job.
     </ParamField>
-
+    <ParamField path="jobs.start_time" type="datetime string" required>
+      UTC timestamp when the job started.
+    </ParamField>
+    <ParamField path="jobs.end_time" type="datetime string" required>
+      UTC timestamp when the job ended.
+    </ParamField>
+    <ParamField path="jobs.status" type="string" required>
+      Job status (e.g., `pending`, `running`, `completed`).
+    </ParamField>
+    <ParamField path="jobs.for" type="string" required>
+      Cluster ID associated with the job.
+    </ParamField>
     **Example**
 
     ```json
@@ -148,24 +187,3 @@ This object is central to how the IO Network manages, monitors, and compensates 
     ```
   </Expandable>
 </ParamField>
-
-<ParamField path="location_icon" type="string" required>
-  URL of where the location icon is stored.
-</ParamField>
-
-<ParamField path="location_name" type="string" required>
-  Name of the country where the device is located. Canada, for example.
-</ParamField>
-
-<ParamField path="security_soc2" type="boolean" required>
-  Indicates if the device complies with SOC 2 (System and Organization Controls 2) standards: True or False.
-</ParamField>
-
-<ParamField path="upload_speed_mbps" type="integer" required>
-  Average upload speed in MBps.
-</ParamField>
-
-<ParamField path="status" type="string" required>
-  Status of the job running on the device.
-</ParamField>
-
