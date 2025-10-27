@@ -26,13 +26,12 @@
     "/v1/io-explorer/devices/{device_id}/summary": {
       "get": {
         "summary": "Device Summary",
-        "description": "The Device Summary endpoint provides detailed information about a specific device. This allows you to view the device's status, aspects of connectivity, compute hours served, earnings and more.",
         "operationId": "device-summary",
         "parameters": [
           {
             "name": "device_id",
             "in": "path",
-            "description": "The unique identifier for your device.",
+            "description": "Unique identifier for your device.",
             "schema": {
               "type": "string"
             },

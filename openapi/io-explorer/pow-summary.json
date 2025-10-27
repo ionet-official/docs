@@ -26,7 +26,6 @@
     "/v1/io-explorer/devices/{device_id}/pow-summary": {
       "get": {
         "summary": "PoW Summary",
-        "description": "This PoW Summary endpoint returns information about the Proof of Work challenges for a device.",
         "operationId": "pow-summary",
         "parameters": [
           {
