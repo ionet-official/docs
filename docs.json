@@ -178,7 +178,7 @@
             "group": "Models Price List",
             "hidden": true,
             "pages": [
-              "snippets/retrieve-models-price"
+              "guides/intelligence/testing-models-pricing"
             ]
           }
             

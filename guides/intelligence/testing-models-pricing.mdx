@@ -1,7 +1,71 @@
----
-title: 'Models Pricing Table'
+import { useEffect, useState } from "react";
+
+export default function ModelsTable() {
+  const [models, setModels] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await fetch("https://api.intelligence.io.solutions/api/v1/models");
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        const data = await res.json();
+        setModels(data);
+      } catch (err) {
+        setError(err.message);
+      }
+    }
+    fetchData();
+  }, []);
+
+  if (error) {
+    return <p style={{ color: "red" }}>Error: {error}</p>;
+  }
+
+  if (models.length === 0) {
+    return <p>Loading model prices...</p>;
+  }
+
+  return (
+    <div style={{ marginTop: "2rem" }}>
+      <h2>Model Token Prices</h2>
+      <table
+        style={{
+          borderCollapse: "collapse",
+          width: "100%",
+          backgroundColor: "#fff",
+          boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
+        }}
+      >
+        <thead>
+          <tr style={{ backgroundColor: "#007bff", color: "white" }}>
+            <th style={{ padding: "12px", textAlign: "left" }}>ID</th>
+            <th style={{ padding: "12px", textAlign: "left" }}>Input Token Price (×1M)</th>
+            <th style={{ padding: "12px", textAlign: "left" }}>Output Token Price (×1M)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {models.map((model) => {
+            const inputPrice = (model.input_token_price * 1_000_000).toFixed(3);
+            const outputPrice = (model.output_token_price * 1_000_000).toFixed(3);
+            return (
+              <tr key={model.id} style={{ borderBottom: "1px solid #ddd" }}>
+                <td style={{ padding: "12px" }}>{model.id}</td>
+                <td style={{ padding: "12px" }}>${inputPrice}</td>
+                <td style={{ padding: "12px" }}>${outputPrice}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 ---
 
-import {ModelsTable} from "/snippets/retrieve-models-price.mdx";
+# 💡 Model Pricing Data
+
+Below is a live table fetching real-time data from the Intelligence API:
 
 <ModelsTable />
