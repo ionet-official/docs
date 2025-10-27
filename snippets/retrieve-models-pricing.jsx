@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const FetchModelPrices = () => {
+export const FetchModelPrices = () => {
   const [models, setModels] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
