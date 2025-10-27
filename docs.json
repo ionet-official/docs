@@ -173,6 +173,13 @@
             "pages": [
               "guides/payment/io-intelligence-payments"
             ]
+          },
+          {
+            "group": "Models Price List",
+            "hidden": true,
+            "pages": [
+              "guides/payment/testing-models-pricing"
+            ]
           }
             
         ]
