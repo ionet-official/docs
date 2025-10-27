@@ -25,15 +25,12 @@ const tdStyle = {
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
         const result = await response.json();
-
-        // Handle different response structures (array or nested data)
         const modelArray = Array.isArray(result)
           ? result
           : result.data || result.models || result.items || [];
 
         if (!Array.isArray(modelArray)) throw new Error("Unexpected API format");
 
-        // Multiply prices by 1,000,000 for display and round to two decimals
         const formattedData = modelArray.map(({ id, input_token_price, output_token_price }) => ({
           id,
           input_token_price: (input_token_price * 1_000_000).toFixed(2),
@@ -56,7 +53,7 @@ const tdStyle = {
 
   return (
     <div style={{ padding: "1em", fontFamily: "system-ui, sans-serif" }}>
-      <h2>🧮 Model Token Prices (×10⁶)</h2>
+      <h2>Model Rates</h2>
       <table
         style={{
           width: "100%",
@@ -65,11 +62,11 @@ const tdStyle = {
           border: "1px solid #ccc",
         }}
       >
-        <thead style={{ backgroundColor: "#f2f2f2" }}>
+        <thead style={{ backgroundColor: 'transparent' }}>
           <tr>
-            <th style={thStyle}>Model ID</th>
-            <th style={thStyle}>Input Token Price (×10⁶)</th>
-            <th style={thStyle}>Output Token Price (×10⁶)</th>
+            <th style={thStyle}>Model</th>
+            <th style={thStyle}>Input/M ($)</th>
+            <th style={thStyle}>Output/M ($)</th>
           </tr>
         </thead>
         <tbody>
