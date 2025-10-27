@@ -14,8 +14,17 @@ export const FetchModelPrices = () => {
 
         const result = await response.json();
 
-        // Assuming the response is an array of model objects
-        const filteredData = result.map(({ id, input_token_price, output_token_price }) => ({
+        // Find the array — sometimes it's directly the result, sometimes nested under data/models/etc
+        const modelArray =
+          Array.isArray(result)
+            ? result
+            : result.data || result.models || result.items || [];
+
+        if (!Array.isArray(modelArray)) {
+          throw new Error("Unexpected API format");
+        }
+
+        const filteredData = modelArray.map(({ id, input_token_price, output_token_price }) => ({
           id,
           input_token_price,
           output_token_price,
