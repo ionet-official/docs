@@ -26,13 +26,12 @@
     "/v1/io-explorer/devices/{device_id}/details": {
       "get": {
         "summary": "Device Details",
-        "description": "The Device Details endpoint returns insights about a specific device. This allows you to quickly view the device's status, aspects of connectivity, jobs, rewards earned, hire rate and more.",
         "operationId": "get-device-details",
         "parameters": [
           {
             "name": "device_id",
             "in": "path",
-            "description": "The unique identifier for your device.",
+            "description": "Unique identifier for your device.",
             "schema": {
               "type": "string"
             },
