@@ -21,7 +21,6 @@
           "OpenAI Compatible Developer API"
         ],
         "summary": "Create Embedding",
-        "description": "Embeddings API similar to OpenAI's API.\nSee https://platform.openai.com/docs/api-reference/embeddings/create\nfor the API specification. This API mimics the OpenAI Embedding API.",
         "operationId": "create_embedding_v1_embeddings_post",
         "parameters": [
           {

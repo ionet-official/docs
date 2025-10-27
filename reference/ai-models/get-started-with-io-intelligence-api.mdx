@@ -72,7 +72,7 @@ This snippet demonstrates how to configure the client, send a chat completion re
 IO Intelligence APIs authenticate requests using API keys. You can [generate API keys from your user](https://ai.io.net/ai/api-keys) account:
 
 <Warning>
-  Always treat your API key as a secret! Do not share it or expose it in client-side code (e.g., browsers or mobile apps). Instead, store it securely in an environment variable or a key management service on your backend server.
+  Always treat your API key as a secret. Do not share it or expose it in client-side code (e.g., browsers or mobile apps). Instead, store it securely in an environment variable or a key management service on your backend server.
 </Warning>
 
 Include the API key in an `Authorization` HTTP header for all API requests:
@@ -98,7 +98,7 @@ curl https://api.intelligence.io.solutions/api/v1/models /
   ![](/images/reference/e3e8c7c183fa588fc355c7bd42d70b93735d2c229da84c09310b5df20e27ca3f-chatetest-1.jpg)
 </Frame>
 
-This request should return a response like this:
+An example response is as follows:
 
 <CodeGroup>
 
@@ -140,7 +140,7 @@ This request should return a response like this:
 
 ## Making requests
 
-To test the API, use the following `curl` command. Replace `$IOINTELLIGENCE_API_KEY` with your actual **API key.**
+The example below demonstrates how to make a request to the Chat Completions endpoint using `curl`. To test the API, replace `$IOINTELLIGENCE_API_KEY` with your actual API key and modify the input values as shown.
 
 <CodeGroup>
 
@@ -162,11 +162,11 @@ curl https://api.intelligence.io.solutions/api/v1/chat/completions /
   ![](/images/reference/24379dbcfebcf3e58eb79022144a5a88a4f41a2d59df9b06c0991675ccccb86c-chatetest-2.jpg)
 </Frame>
 
-This command queries the `meta-llama/Llama-3.3-70B-Instruct` model to generate a chat completion for the input: "_Say this is a test!_".:
+This example queries the `meta-llama/Llama-3.3-70B-Instruct` model to generate a chat completion for the input: "_Say this is a test!_".
 
 ### Example Response
 
-The API should return a response like this:
+The API should return a response as follows:
 
 <CodeGroup>
 
@@ -204,5 +204,3 @@ The API should return a response like this:
 
 - **finish_reason**: Indicates why the generation stopped (e.g., "stop").
 - **choices**: Contains the generated response(s). Adjust the n parameter to generate multiple response choices.
-
-With these steps, you've successfully made your first request to the IO Intelligence API.

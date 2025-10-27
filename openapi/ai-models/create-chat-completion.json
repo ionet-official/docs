@@ -94,7 +94,23 @@
           "code-samples": [
             {
               "language": "curl",
-              "code": "curl https://api.intelligence.io.solutions/api/v1/chat/completions \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $IOINTELLIGENCE_API_KEY\" \\\n  -d '{\n    \"model\": \"CohereForAI/c4ai-command-r-plus-08-2024\",\n    \"messages\": [\n      {\n        \"role\": \"system\",\n        \"content\": \"You are a helpful assistant.\"\n      },\n      {\n        \"role\": \"user\",\n        \"content\": \"Hello!\"\n      }\n    ]\n}'",
+              "code":
+              curl https://api.intelligence.io.solutions/api/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $IOINTELLIGENCE_API_KEY" \
+  -d '{
+    "model": "CohereForAI/c4ai-command-r-plus-08-2024",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Hello!"
+      }
+    ]
+  }'
               "name": "cUrl Example"
             },
             {

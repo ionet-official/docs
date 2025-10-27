@@ -21,7 +21,6 @@
           "OpenAI Compatible Developer API"
         ],
         "summary": "Get Embedding Models List",
-        "description": "Get list of available models for Chat Completions API",
         "operationId": "get_embedding_models_list_v1_embedding_models_get",
         "parameters": [
           {
