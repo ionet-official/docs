@@ -1,109 +1,89 @@
-// File: FetchModelPricesTable.jsx
 "use client";
 import React, { useEffect, useState } from "react";
 
-const toMicro = (v) => {
-  if (v === null || v === undefined || v === "") return "—";
-  const num = Number(v);
-  if (Number.isNaN(num)) return "—";
-  return (num * 1_000_000).toFixed(2);
-};
-
-export default function FetchModelPrices() {
+export const FetchModelPrices = () => {
   const [models, setModels] = useState([]);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    (async () => {
+    const fetchModels = async () => {
       try {
-        setLoading(true);
-        setError("");
+        const response = await fetch("https://api.intelligence.io.solutions/api/v1/models");
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
-        const res = await fetch("https://api.intelligence.io.solutions/api/v1/models");
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const result = await res.json();
+        const result = await response.json();
 
-        const arr = Array.isArray(result)
+        // Handle different response structures (array or nested data)
+        const modelArray = Array.isArray(result)
           ? result
-          : result?.data || result?.models || result?.items || [];
+          : result.data || result.models || result.items || [];
 
-        if (!Array.isArray(arr)) throw new Error("Unexpected API format");
+        if (!Array.isArray(modelArray)) throw new Error("Unexpected API format");
 
-        const rows = arr.map(({ id, input_token_price, output_token_price }) => ({
-          id: id ?? "(no id)",
-          input_token_price: toMicro(input_token_price),
-          output_token_price: toMicro(output_token_price),
+        // Multiply prices by 1,000,000 for display and round to two decimals
+        const formattedData = modelArray.map(({ id, input_token_price, output_token_price }) => ({
+          id,
+          input_token_price: (input_token_price * 1_000_000).toFixed(2),
+          output_token_price: (output_token_price * 1_000_000).toFixed(2),
         }));
 
-        console.log("Models to render:", rows);
-        setModels(rows);
-      } catch (e) {
-        console.error(e);
-        setError(e?.message || "Failed to load");
+        setModels(formattedData);
+      } catch (err) {
+        setError(err.message);
       } finally {
         setLoading(false);
       }
-    })();
+    };
+
+    fetchModels();
   }, []);
 
-  if (loading) return <p>Loading…</p>;
-  if (error) return <p style={{ color: "crimson" }}>Error: {error}</p>;
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
 
   return (
-    <div style={{ padding: 16, fontFamily: "system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif" }}>
-      <h3 style={{ margin: 0 }}>Model Token Prices (×10⁶)</h3>
+    <div style={{ padding: "1em", fontFamily: "system-ui, sans-serif" }}>
+      <h2>🧮 Model Token Prices (×10⁶)</h2>
       <table
         style={{
           width: "100%",
           borderCollapse: "collapse",
-          marginTop: 12,
-          border: "1px solid #e5e7eb",
-          borderRadius: 8,
-          overflow: "hidden",
+          marginTop: "1em",
+          border: "1px solid #ccc",
         }}
       >
-        <thead style={{ background: "#f9fafb" }}>
+        <thead style={{ backgroundColor: "#f2f2f2" }}>
           <tr>
             <th style={thStyle}>Model ID</th>
-            <th style={thStyle, { textAlign: "right", padding: "10px 12px", borderBottom: "1px solid #e5e7eb" }}>
-              Input Token Price (×10⁶)
-            </th>
-            <th style={thStyle, { textAlign: "right", padding: "10px 12px", borderBottom: "1px solid #e5e7eb" }}>
-              Output Token Price (×10⁶)
-            </th>
+            <th style={thStyle}>Input Token Price (×10⁶)</th>
+            <th style={thStyle}>Output Token Price (×10⁶)</th>
           </tr>
         </thead>
         <tbody>
-          {models.length === 0 ? (
-            <tr>
-              <td style={tdStyle} colSpan={3}>No data</td>
+          {models.map((m) => (
+            <tr key={m.id}>
+              <td style={tdStyle}>{m.id}</td>
+              <td style={{ ...tdStyle, textAlign: "right" }}>{m.input_token_price}</td>
+              <td style={{ ...tdStyle, textAlign: "right" }}>{m.output_token_price}</td>
             </tr>
-          ) : (
-            models.map((m, idx) => (
-              <tr key={m.id || idx}>
-                <td style={tdStyle}>{m.id}</td>
-                <td style={{ ...tdStyle, textAlign: "right" }}>{m.input_token_price}</td>
-                <td style={{ ...tdStyle, textAlign: "right" }}>{m.output_token_price}</td>
-              </tr>
-            ))
-          )}
+          ))}
         </tbody>
       </table>
     </div>
   );
-}
+};
 
+// Simple styling
 const thStyle = {
   textAlign: "left",
-  padding: "10px 12px",
-  borderBottom: "1px solid #e5e7eb",
-  fontWeight: 600,
-  fontSize: 14,
+  padding: "10px 8px",
+  borderBottom: "2px solid #ddd",
+  fontWeight: "bold",
 };
 
 const tdStyle = {
-  padding: "10px 12px",
-  borderBottom: "1px solid #f1f5f9",
-  fontSize: 14,
+  padding: "8px",
+  borderBottom: "1px solid #eee",
+  fontSize: "0.95rem",
 };
