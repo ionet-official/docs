@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-export const FetchModels = () => {
-  const [data, setData] = useState("");
+export const FetchModelPrices = () => {
+  const [models, setModels] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -13,9 +13,15 @@ export const FetchModels = () => {
         }
 
         const result = await response.json();
-        // Convert the JSON result into formatted plain text
-        const plainText = JSON.stringify(result, null, 2);
-        setData(plainText);
+
+        // Assuming the response is an array of model objects
+        const filteredData = result.map(({ id, input_token_price, output_token_price }) => ({
+          id,
+          input_token_price,
+          output_token_price,
+        }));
+
+        setModels(filteredData);
       } catch (err) {
         setError(err.message);
       }
@@ -30,7 +36,14 @@ export const FetchModels = () => {
 
   return (
     <div style={{ whiteSpace: "pre-wrap", fontFamily: "monospace", padding: "1em" }}>
-      {data ? data : "Loading..."}
+      {models.length > 0
+        ? models
+            .map(
+              (model) =>
+                `ID: ${model.id}\nInput Token Price: ${model.input_token_price}\nOutput Token Price: ${model.output_token_price}\n`
+            )
+            .join("\n-------------------------\n")
+        : "Loading..."}
     </div>
   );
 }
