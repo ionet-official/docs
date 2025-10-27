@@ -26,13 +26,12 @@
     "/v1/io-blocks/blocks/{block_id}/workers/{device_id}": {
       "get": {
         "summary": "Device Details for a Block",
-        "description": "This endpoint returns granular information about a device in the context of a specific block reward. It offers details about Block Reward challenges, the outcome, and details about the device.",
         "operationId": "device-details-for-a-block",
         "parameters": [
           {
             "name": "device_id",
             "in": "path",
-            "description": "The unique identifier for your device.",
+            "description": "Unique identifier for your device.",
             "schema": {
               "type": "string"
             },
@@ -41,7 +40,7 @@
           {
             "name": "block_id",
             "in": "path",
-            "description": "The unique identifier for a specific block.",
+            "description": "Unique identifier for a specific block.",
             "schema": {
               "type": "string"
             },
