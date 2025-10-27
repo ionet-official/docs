@@ -1,3 +1,4 @@
+// File: FetchModelPricesTable.jsx
 import React, { useEffect, useState } from "react";
 
 export const FetchModelPrices = () => {
@@ -14,7 +15,7 @@ export const FetchModelPrices = () => {
 
         const result = await response.json();
 
-        // Find the array — sometimes it's directly the result, sometimes nested under data/models/etc
+        // Handle different possible structures (array or object with data/models)
         const modelArray =
           Array.isArray(result)
             ? result
@@ -24,6 +25,7 @@ export const FetchModelPrices = () => {
           throw new Error("Unexpected API format");
         }
 
+        // Extract required fields
         const filteredData = modelArray.map(({ id, input_token_price, output_token_price }) => ({
           id,
           input_token_price,
@@ -39,20 +41,23 @@ export const FetchModelPrices = () => {
     fetchModels();
   }, []);
 
-  if (error) {
-    return <pre>Error: {error}</pre>;
-  }
+  if (error) return <pre>Error: {error}</pre>;
+  if (models.length === 0) return <pre>Loading...</pre>;
+
+  // Build markdown-style table dynamically
+  const tableHeader = "| ID | Input Token Price | Output Token Price |\n| --- | --- | --- |";
+  const tableRows = models
+    .map(
+      (model) =>
+        `| ${model.id ?? "-"} | ${model.input_token_price ?? "-"} | ${model.output_token_price ?? "-"} |`
+    )
+    .join("\n");
+
+  const markdownTable = `${tableHeader}\n${tableRows}`;
 
   return (
-    <div style={{ whiteSpace: "pre-wrap", fontFamily: "monospace", padding: "1em" }}>
-      {models.length > 0
-        ? models
-            .map(
-              (model) =>
-                `ID: ${model.id}\nInput Token Price: ${model.input_token_price}\nOutput Token Price: ${model.output_token_price}\n`
-            )
-            .join("\n-------------------------\n")
-        : "Loading..."}
+    <div style={{ fontFamily: "monospace", whiteSpace: "pre-wrap", padding: "1em" }}>
+      {markdownTable}
     </div>
   );
 }
