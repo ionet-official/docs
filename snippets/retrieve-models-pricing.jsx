@@ -1,7 +1,7 @@
 // File: FetchModelPricesTable.jsx
 import React, { useEffect, useState } from "react";
 
-export const FetchModelPricesTable = () => {
+export const FetchModelPrices = () => {
   const [models, setModels] = useState([]);
   const [error, setError] = useState(null);
 
