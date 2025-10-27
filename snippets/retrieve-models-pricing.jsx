@@ -1,92 +1,52 @@
-// File: FetchModelPricesTable.jsx
 import React, { useEffect, useState } from "react";
 
 export const FetchModelPrices = () => {
-  const [models, setModels] = useState([]);
+  const [tableText, setTableText] = useState("Loading...");
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchModels = async () => {
       try {
-        setLoading(true);
         const response = await fetch("https://api.intelligence.io.solutions/api/v1/models");
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
         const result = await response.json();
 
-        // Handle different possible response shapes
+        // Normalize possible structures
         const modelArray = Array.isArray(result)
           ? result
           : result.data || result.models || result.items || [];
 
-        if (!Array.isArray(modelArray)) {
-          throw new Error("Unexpected API format");
-        }
+        if (!Array.isArray(modelArray)) throw new Error("Unexpected API format");
 
-        const filteredData = modelArray.map(({ id, input_token_price, output_token_price }) => ({
-          id,
-          input_token_price,
-          output_token_price,
-        }));
+        // Create table rows with values * 1,000,000 and formatted nicely
+        const rows = modelArray.map(({ id, input_token_price, output_token_price }) => {
+          const inPrice = (input_token_price * 1_000_000).toFixed(2);
+          const outPrice = (output_token_price * 1_000_000).toFixed(2);
+          return `| ${id ?? "-"} | ${inPrice} | ${outPrice} |`;
+        });
 
-        setModels(filteredData);
+        // Construct the markdown table
+        const markdown =
+          `### Model Token Prices\n\n` +
+          `| Model | Input/M | Output/M |\n` +
+          `| --- | ---: | ---: |\n` +
+          rows.join("\n");
+
+        setTableText(markdown);
       } catch (err) {
         setError(err.message);
-      } finally {
-        setLoading(false);
       }
     };
 
     fetchModels();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
+  if (error) return <pre style={{ color: "red" }}>Error: {error}</pre>;
 
   return (
-    <div style={{ padding: "1em", fontFamily: "sans-serif" }}>
-      <h2>Model Prices</h2>
-      <table
-        style={{
-          width: "100%",
-          borderCollapse: "collapse",
-          marginTop: "1em",
-          textAlign: "left",
-        }}
-      >
-        <thead>
-          <tr>
-            <th style={thStyle}>ID</th>
-            <th style={thStyle}>Input Token Price</th>
-            <th style={thStyle}>Output Token Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          {models.map((m) => (
-            <tr key={m.id}>
-              <td style={tdStyle}>{m.id}</td>
-              <td style={tdStyle}>{m.input_token_price}</td>
-              <td style={tdStyle}>{m.output_token_price}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div style={{ fontFamily: "monospace", whiteSpace: "pre-wrap", padding: "1em" }}>
+      {tableText}
     </div>
   );
-};
-
-const thStyle = {
-  borderBottom: "2px solid #ddd",
-  padding: "8px",
-  backgroundColor: "#f9f9f9",
-  fontWeight: "bold",
-};
-
-const tdStyle = {
-  borderBottom: "1px solid #eee",
-  padding: "8px",
-};
-
+}
