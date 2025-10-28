@@ -1,21 +1,26 @@
 ---
 title: "Overview"
+description: "The R2R Indices API manages vector index structures that enable high-speed similarity search across chunks. It supports multiple index methods, configurable similarity measures, and concurrent building for optimized RAG retrieval performance."
 ---
 
-An `Index` in R2R represents a vector index structure that optimizes similarity search operations across chunks. Indices are crucial for efficient retrieval in RAG applications, supporting various similarity measures and index types optimized for different use cases.
+An **Index** in R2R represents a **vector index structure** designed to optimize **similarity search** operations across document chunks. Indices are a core component of R2R’s **Retrieval-Augmented Generation (RAG)** architecture, enabling fast and scalable semantic retrieval.
+
+By organizing vector embeddings efficiently, indices make it possible to perform **high-performance vector searches** across large datasets using different similarity metrics and indexing strategies.
+
+### Key Capabilities
 
 Indices in R2R provide:
 
-* Fast similarity search capabilities
-* Multiple index method options (HNSW, IVF-Flat)
-* Configurable similarity measures
-* Concurrent index building
-* Performance optimization for vector operations
+- **Fast similarity search** for vector-based retrieval.
+- **Multiple index methods**, including **HNSW** (Hierarchical Navigable Small World) and **IVF-Flat**.
+- **Configurable similarity measures** such as cosine similarity or inner product.
+- **Concurrent index building** to improve throughput and scalability.
+- **Performance optimization** for large-scale vector operations.
 
-## Available Endpoints
+## API Endpoints
 
-| Method | Endpoint                                                                   | Description                            |
-| ------ | -------------------------------------------------------------------------- | -------------------------------------- |
-| GET    | [/indices](/reference/rag/indices/list-all-indices)                                         | List available indices with pagination |
-| GET    | [/indices/\{table_name}/\{index_name}](/reference/rag/indices/get-specific-index-details) | Get details of a specific index        |
-| DELETE | [/indices/\{table_name}/\{index_name}](/reference/rag/indices/delete-an-index)            | Delete an existing index               |
+| Method | Endpoint                                                                                | Description                                              |
+| ------ | --------------------------------------------------------------------------------------- | -------------------------------------------------------- |
+| GET    | [/indices](/reference/rag/indices/list-all-indices)                                     | List available indices with pagination.                  |
+| GET    | [/indices/{table_name}/{index_name}](/reference/rag/indices/get-specific-index-details) | Retrieve details and configuration for a specific index. |
+| DELETE | [/indices/{table_name}/{index_name}](/reference/rag/indices/delete-an-index)            | Delete an existing index.                                |

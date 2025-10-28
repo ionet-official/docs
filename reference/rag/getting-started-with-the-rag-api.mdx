@@ -1,23 +1,25 @@
 ---
-sidebarTitle: Overview
+sidebarTitle: "Overview"
 title: "Overview"
-description: "The  API on R2R enables developers to build powerful AI systems that . It integrates the strengths of semantic search, knowledge graphs, and prompt-based generation for advanced question answering and intelligent assistants."
+description: "The R2R APIs enables developers to build powerful AI systems that integrates the strengths of semantic search, knowledge graphs, and prompt-based generation for advanced question answering and intelligent assistants."
 ---
 
 ## What Is RAG on R2R?
 
-* **Retrieval + Generation Workflow:** RAG operates in two phases:
+### **Retrieval and Generation Workflow:**
 
-  * **Retrieve** relevant document chunks via semantic search or knowledge graph lookup.
-  * **Generate** coherent and contextually accurate responses using those retrieved chunks and your customized prompts.
+RAG operates in two phases:
 
-* **Why It Matters:** By tapping into real, structured, or unstructured content, RAG systems produce answers grounded in facts, avoiding hallucinations and improving trustworthiness.
+1. **Retrieve** relevant document chunks via semantic search or knowledge graph lookup.
+2. **Generate** coherent and contextually accurate responses using the retrieved chunks and your customized prompts.
+
+- **Why It Matters:** By tapping into real, structured, or unstructured content, RAG systems produce answers grounded in facts, avoiding hallucinations and improving trustworthiness.
 
 ## Core Components
 
 | Component              | Description                                                                                       |
 | ---------------------- | ------------------------------------------------------------------------------------------------- |
-| **Documents & Chunks** | Ingested files or text are segmented into **Chunks**—the basis for retrieval.                     |
+| **Documents & Chunks** | Ingested files or text are segmented into **Chunks**, the basis for retrieval.                    |
 | **Indices**            | Vector indices enable fast similarity search over chunk embeddings.                               |
 | **Graphs**             | Knowledge graph extracts relationships and entities, enabling intelligent navigation of concepts. |
 | **Prompts**            | Prompt templates shape the generation step, with type-safe inputs and version control.            |
@@ -25,21 +27,21 @@ description: "The  API on R2R enables developers to build powerful AI systems th
 
 ## Getting Started
 
-To get started with the R2R API, you’ll need to:
+To get started with the R2R APIs, you will need to:
 
-* [Install R2R](https://github.com/SciPhi-AI/R2R) in your environment
-* Run the server with `python -m r2r.serve`, or customize your FastAPI for production settings.
+- [Install R2R](https://github.com/SciPhi-AI/R2R) in your environment.
+- Run the server with `python -m r2r.serve`, or configure FastAPI settings for production use.
 
-For detailed installation and setup instructions, please refer to R2R [Installation Guide](https://r2r-docs.sciphi.ai/self-hosting/installation/overview).
+For detailed installation and setup instructions, refer to the R2R [Installation Guide](https://r2r-docs.sciphi.ai/self-hosting/installation/overview).
 
 ## Authentication
 
 ### API keys
 
-IO Intelligence APIs authenticate requests using API keys. You can [generate API keys from your user](https://ai.io.net/ai/api-keys) account:
+IO Intelligence APIs authenticate requests using API keys. You can [generate API keys from your account](https://ai.io.net/ai/api-keys):
 
 <Warning>
-Always treat your API key as a secret! Do not share it or expose it in client-side code (e.g., browsers or mobile apps). Instead, store it securely in an environment variable or a key management service on your backend server.
+  Always treat your API key as a secret. Do not share it or expose it in client-side code (e.g., browsers or mobile apps). Instead, store it securely in an environment variable or a key management service on your backend server.
 </Warning>
 
 Include the API key in an `Authorization` HTTP header for all API requests:
@@ -48,56 +50,60 @@ Include the API key in an `Authorization` HTTP header for all API requests:
 Authorization: Bearer \$IOINTELLIGENCE_API_KEY
 ```
 
-## Examples for RAG Workflows
+## Example of a RAG Workflow
 
-### Step 1: Search for relevant chunks (Retrieval)
+### Step 1: Retreive relevant chunks
 
 <CodeGroup>
-  ```curl curl
-  curl -X POST https://api.intelligence.io.solutions/api/r2r/v3/retrieval/search /
-    -H "Authorization: Bearer \$IOINTELLIGENCE_API_KEY" /
-    -H "Content-Type: application/json" /
-    -d '{
-      "query": "What is Retrieval-Augmented Generation?",
-      "top_k": 5
-  }'
-  ```
+
+```curl curl
+curl -X POST https://api.intelligence.io.solutions/api/r2r/v3/retrieval/search /
+  -H "Authorization: Bearer \$IOINTELLIGENCE_API_KEY" /
+  -H "Content-Type: application/json" /
+  -d '{
+    "query": "What is Retrieval-Augmented Generation?",
+    "top_k": 5
+}'
+```
+
 </CodeGroup>
 
-### Step 2: Generate a response using RAG
+### Step 2: Generate a response
 
-Assuming you’ve retrieved relevant chunks and want to pass them as context:
+Assuming you have retrieved relevant chunks and want to pass them as context:
 
 <CodeGroup>
-  ```curl curl
-  curl -X POST https://api.intelligence.io.solutions/api/r2r/v3/rag/generate /
-    -H "Authorization: Bearer \$IOINTELLIGENCE_API_KEY" /
-    -H "Content-Type: application/json" /
-    -d '{
-      "prompt_name": "default_rag",
-      "inputs": {
-        "query": "What is Retrieval-Augmented Generation?",
-        "context": "Chunk 1 text/nChunk 2 text/nChunk 3 text" //it's just example chunk text
-      }
-  }'
-  ```
+
+```curl curl
+curl -X POST https://api.intelligence.io.solutions/api/r2r/v3/rag/generate /
+  -H "Authorization: Bearer \$IOINTELLIGENCE_API_KEY" /
+  -H "Content-Type: application/json" /
+  -d '{
+    "prompt_name": "default_rag",
+    "inputs": {
+      "query": "What is Retrieval-Augmented Generation?",
+      "context": "Chunk 1 text/nChunk 2 text/nChunk 3 text" //it's just example chunk text
+    }
+}'
+```
+
 </CodeGroup>
 
 ## Token Quotas & Usage
 
-Each account has daily usage limits based on model and request volume. Check the [IO Intelligence API Quotas](/reference/get-started-with-io-intelligence-api#quotas) for up-to-date information.
+Each account has daily usage limits based on model and request volume. Refer to the [IO Intelligence Payments ](/guides/payment/io-intelligence-payments) for further information.
 
 ## Next Steps
 
-Explore the API reference for detailed guides:
+Explore the following API references for more detailed guides:
 
-* **[Retrieval](/reference/rag/retrieval)** – perform semantic and hybrid search across ingested data
-* **[Documents](/reference/rag/documents)** – management and metadata
-* **[Graphs](/reference/rag/graphs)** – entity extraction and knowledge graphs
-* **[Indices](/reference/rag/indices)** – create and configure embeddings
-* **[Chunks](/reference/rag/chunks)** – ingest, list, search
-* **[Users](/reference/rag/users)** – manage API users, authentication, and access control
-* **[Collections](/reference/rag/collections)** – group related documents and control indexing scope
-* **[Conversations](/reference/rag/conversations)** – manage chat sessions, history, and context retention
-* **[Prompts](/reference/rag/prompts)** – template definition and versioning
-* **[System](/reference/rag/system)** – health and diagnostics
+- [**Retrieval**](/reference/rag/retrieval) – Perform semantic and hybrid search across ingested data
+- [**Documents**](/reference/rag/documents) – Management and metadata of documents.
+- [**Graphs**](/reference/rag/graphs) – Entity extraction and knowledge graphs.
+- [**Indices**](/reference/rag/indices) – Create and configure embeddings.
+- [**Chunks**](/reference/rag/chunks) – Ingest, list and search documents.
+- [**Users**](/reference/rag/users) – Manage API users, authentication, and access control.
+- [**Collections**](/reference/rag/collections) – Group related documents and control indexing scope.
+- [**Conversations**](/reference/rag/conversations) – Manage chat sessions, history, and context retention.
+- [**Prompts**](/reference/rag/prompts) – Template definition and versioning.
+- [**System**](/reference/rag/system) – Health and diagnostics.

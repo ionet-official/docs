@@ -1,49 +1,53 @@
 ---
 title: "Overview"
+description: "The R2R Graphs API manages knowledge graphs tied to specific collections. It supports entity and relationship extraction, community detection, and synchronization with document data—enabling structured, queryable knowledge organization for advanced AI reasoning."
 ---
 
-A in R2R is a knowledge `graph` that is associated with a specific. Each Graph contains:
+A **Graph** in R2R is a **knowledge graph** associated with a specific **Collection**. Each Graph organizes and connects extracted knowledge—such as entities, relationships, and communities—into a structured, queryable network. It serves as the **semantic backbone** of R2R, enabling advanced reasoning, knowledge discovery, and relational search.
 
-* **Entities**: Extracted information nodes from documents (e.g., people, places, concepts)
-* **Relationships**: Connections between entities defining how they relate
-* **Communities**: LLM generated descriptions of groupings of related entities found from Leiden clustering.
-* **Document Mappings**: Tracking which documents have contributed to the graph
+Each Graph contains:
 
-Key features of Graphs in R2R:
+- **Entities** — extracted information nodes from documents (e.g., people, organizations, concepts).
+- **Relationships** — links between entities that define how they relate.
+- **Communities** — LLM-generated clusters of related entities identified through **Leiden clustering**.
+- **Document Mappings** — records of which documents contributed to the graph’s knowledge base.
 
-1. **Git-like Model**
+### Key Features
 
-   * Each Collection has an associated Graph that can diverge independently
-   * The pull operation syncs document knowledge into the graph
-   * Changes can be experimental without affecting the base Collection and underlying documents
+#### Git-like Model
 
-2. **Knowledge Organization**
+- Each **Collection** has an independent, associated **Graph**.
+- Graphs can **diverge and evolve** separately from their parent collection.
+- The **pull operation** syncs knowledge from documents into the graph.
+- Supports **experimental changes** without impacting the base Collection or source data.
 
-   * Automatic entity and relationship extraction from documents
-   * Community detection for hierarchical knowledge organization
-   * Support for manual creation and editing of entities, relationships and communities
-   * Rich metadata and property management
+#### Knowledge Organization
 
-3. **Access Control**
+- Automatic **entity and relationship extraction** from documents.
+- **Community detection** enables hierarchical knowledge structures.
+- Support for **manual creation and editing** of entities, relationships, and communities.
+- Rich **metadata and property management** for nodes and edges.
 
-   * Graph operations are tied to Collection permissions
-   * Superuser privileges required for certain operations like community building
-   * Document-level access checks when pulling content
+#### Access Control
 
-## Core Operations
+- Graph operations inherit **Collection-level permissions**.
+- Certain operations (e.g., community generation) require **superuser privileges**.
+- **Document-level access checks** are enforced when pulling or synchronizing data.
 
-| Method                          | Endpoint                                                            | Description               |
-| ------------------------------- | ------------------------------------------------------------------- | ------------------------- |
-| GET                             | [/graphs/](/reference/rag/graphs/get-graph-overview)                                | Get graph overview        |
-| POST                            | [/graphs/\{collection_id}/pull](/reference/rag/graphs/pull-and-rebuild-graph)      | Sync documents with graph |
-| POST                            | [/graphs/\{collection_id}/](/reference/rag/graphs/get-graph-data-for-a-collection) | Get graph details         |
+## Core Graph Operations
+
+| Method | Endpoint                                                                          | Description                                                       |
+| ------ | --------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| GET    | [/graphs/](/reference/rag/graphs/get-graph-overview)                              | Retrieve an overview of available graphs.                         |
+| POST   | [/graphs/{collection_id}/pull](/reference/rag/graphs/pull-and-rebuild-graph)      | Synchronize documents and extract their knowledge into the graph. |
+| POST   | [/graphs/{collection_id}/](/reference/rag/graphs/get-graph-data-for-a-collection) | Retrieve details of a specific collection’s graph.                |
 
 ## Entity Management
 
-| Method | Endpoint                                                                            | Description                               |
-| ------ | ----------------------------------------------------------------------------------- | ----------------------------------------- |
-| GET    | [/graphs/\{collection_id}/entities](/reference/rag/graphs/list-graph-entities)                     | List entities (/[r2r-docs.sciphi.ai]/[1]) |
-| POST   | [/graphs/\{collection_id}/entities](/reference/rag/graphs/add-new-entities)                        | Create entity                             |
-| GET    | [/graphs/\{collection_id}/entities/\{entity_id}](/reference/rag/graphs/get-single-entity-details) | Get entity details                        |
+| Method | Endpoint                                                                                        | Description                                |
+| ------ | ----------------------------------------------------------------------------------------------- | ------------------------------------------ |
+| GET    | [/graphs/{collection_id}/entities](/reference/rag/graphs/list-graph-entities)                   | List entities within a collection’s graph. |
+| POST   | [/graphs/{collection_id}/entities](/reference/rag/graphs/add-new-entities)                      | Create a new entity.                       |
+| GET    | [/graphs/{collection_id}/entities/{entity_id}](/reference/rag/graphs/get-single-entity-details) | Retrieve details for a specific entity.    |
 
-Similar CRUD endpoints exist by mapping `/entities` above to for relationships (`/relationships`) and communities (`/communities`).
+Similar **CRUD** endpoints exist for managing **relationships** (`/relationships`) and **communities** (`/communities`).
