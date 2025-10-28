@@ -1,61 +1,103 @@
 ---
 openapi: "/openapi/rag-retrieval/semantic-search.json POST /api/r2r/v3/retrieval/search"
 title: "Search R2R"
-description: "Perform a search query against vector and/or graph-based databases."
+description: "The R2R Search Endpoint provides semantic, hybrid, and graph-enhanced retrieval across documents and chunks. It supports advanced filters, hybrid ranking, and knowledge graph traversal to deliver contextually relevant and explainable results."
 ---
 
-**Search Modes:**
+The **Search** endpoint provides advanced retrieval capabilities across documents, chunks, and knowledge graphs within R2R.
 
-- `basic`: Defaults to semantic search. Simple and easy to use.
-- `advanced`: Combines semantic search with full-text search for more comprehensive results.
-- `custom`: Complete control over how search is performed. Provide a full `SearchSettings` object.
+It supports multiple **search modes**, **hybrid vector and keyword retrieval**, **graph-enhanced search**, and **metadata-based filtering**, enabling powerful and flexible information discovery for semantic, contextual, and RAG-driven applications.
 
-**Filters**: Apply filters directly inside `search_settings.filters.` For example:
+This endpoint is designed for both simple semantic lookups and complex, structured search workflows that combine multiple retrieval strategies.
 
-```
+### **Search Modes**
+
+The `search_mode` field determines the level of control and type of retrieval performed.
+
+| **Mode**   | **Description**                                                                                                     |
+| :--------- | :------------------------------------------------------------------------------------------------------------------ |
+| `basic`    | Performs a standard **semantic search** using vector embeddings. Ideal for quick and simple retrievals.             |
+| `advanced` | Combines **semantic search** with **full-text search** for broader and more comprehensive results.                  |
+| `custom`   | Grants full control via a `SearchSettings` object, allowing fine-tuned configurations for specialized applications. |
+
+### **Filters**
+
+Filters can be used to restrict search results by document attributes or metadata. Apply filters directly inside `search_settings.filters.`
+
+**Supported operators:**
+
+`$eq`, `$neq`, `$gt`, `$gte`, `$lt`, `$lte`, `$like`, `$ilike`, `$in`, `$nin`.
+
+**Example:**
+
+```json
 {
-"filters": {"document_id": {"$eq": "e43864f5-a36f-548e-aacd-6f8d48b30c7f"}}
+	"filters": {
+		"document_id": {"$eq": "e43864f5-a36f-548e-aacd-6f8d48b30c7f"}
+	}
 }
 ```
 
-Supported operators: `$eq`, `$neq`, `$gt`, `$gte`, `$lt`, `$lte`, `$like`, `$ilike`, `$in`, `$nin`.
+**Complex Filters Example:**
 
-**Hybrid Search:** Enable hybrid search by setting `use_hybrid_search`: `true` in search_settings. This combines semantic search with keyword-based search for improved results. Configure with `hybrid_settings`:
-
-```
+```json
 {
-"use_hybrid_search": true,
-"hybrid_settings": {
-    "full_text_weight": 1.0,
-    "semantic_weight": 5.0,
-    "full_text_limit": 200,
-    "rrf_k": 50
-}
-}
-```
-
-**Graph-Enhanced Search**: Knowledge graph integration is enabled by default. Control with `graph_search_settings`:
-
-```
-{
-"graph_search_settings": {
-    "use_graph_search": true,
-    "kg_search_type": "local"
-}
-}
-```
-
-**Advanced Filtering:** Use complex filters to narrow down results by metadata fields or document properties:
-
-```
-{
-"filters": {
-    "$and":[
-        {"document_type": {"$eq": "pdf"}},
-        {"metadata.year": {"$gt": 2020}}
+  "filters": {
+    "$and": [
+      {"document_type": {"$eq": "report"}},
+      {"metadata.topic": {"$ilike": "finance"}}
     ]
-}
+  }
 }
 ```
 
-**Results**: The response includes vector search results and optional graph search results. Each result contains the matched text, document ID, and relevance score.
+### **Hybrid Search**
+
+Hybrid search combines **semantic similarity** with **keyword-based retrieval**, improving result relevance by leveraging both vector embeddings and traditional text search.
+
+Enable hybrid search by setting `use_hybrid_search`: `true` in `search_settings `and configure with `hybrid_settings` .
+
+**Configuration Example:**
+
+```json
+{
+	"use_hybrid_search": true,
+	"hybrid_settings": {
+    	"full_text_weight": 1.0,
+    	"semantic_weight": 5.0,
+    	"full_text_limit": 200,
+    	"rrf_k": 50
+	}
+}
+```
+
+**Parameters:**
+
+- `full_text_weight`: Adjusts the influence of keyword search.
+- `semantic_weight`: Adjusts the influence of semantic similarity.
+- `full_text_limit`: Limits keyword results before fusion.
+- `rrf_k`: Rank fusion parameter controlling hybrid blending strength.
+
+### **Graph-Enhanced Search**
+
+The Search API supports **knowledge graph integration**, enabling entity- and relationship-aware retrieval.
+
+This allows search results to include contextually related information based on graph traversal.
+
+Knowledge graph integration is enabled by default. Configure it with `graph_search_settings` .
+
+**Configuration Example:**
+
+```json
+{
+	"graph_search_settings": {
+    	"use_graph_search": true,
+    	"kg_search_type": "local"
+	}
+}
+```
+
+**Parameters:**
+
+- `use_graph_search`: Enables or disables graph integration.
+- `kg_search_type`: Defines scope — `"local"` (collection-level) or `"global"` (across all graphs).
