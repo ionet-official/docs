@@ -64,20 +64,22 @@
               "title": "X-Api-Key"
             },
             "description": "API key set by an SDK client"
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "description": "Raw JSON body for the embedding request.",
-          "content": {
+          },
+          {
+            "name": "JSON body",
+            "in": "body",
+            "required": true,
+            "description": "Raw JSON body for the embedding request.",
+            "content": {
             "application/json": {
               "schema": {
                 "type": "object",
                 "additionalProperties": true
-              }
+                }
             }
           }
-        },
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful Response",
