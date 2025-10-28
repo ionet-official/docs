@@ -1,5 +1,6 @@
 ---
-title: "Get Started with VMaaS API"
+title: "Getting Started with VMaaS API"
+sidebarTitle: "Overview"
 ---
 
 The **Virtual Machine as a Service (VMaaS) API** lets you programmatically deploy and manage virtual machines on the IO Cloud. Unlike CaaS (Containers as a Service), VMaaS provides full VM instances with CPU, GPU, memory, and storage resources — ideal for long-running workloads, custom environments, or GPU-intensive tasks.
@@ -16,7 +17,7 @@ You can obtain an API key for IO Cloud to use VMaaS in two ways:
 IO Clouds APIs authenticate requests using API keys. You can [generate API keys from your user](https://ai.io.net/ai/api-keys) account.\
 **Note: When generating an API key, make sure to specify the associated IO Cloud project.**
 
-> 🚧 Always treat your API key as a secret\! Do not share it or expose it in client-side code (e.g., browsers or mobile apps). Instead, store it securely in an environment variable or a key management service on your backend server.
+> 🚧 Always treat your API key as a secret! Do not share it or expose it in client-side code (e.g., browsers or mobile apps). Instead, store it securely in an environment variable or a key management service on your backend server.
 
 ### Option 2: Generate an API Key Using a JWT Token
 
@@ -57,7 +58,7 @@ curl -X POST 'https://api.io.solutions/v1/api-keys/' \
 
 Use the returned key with the `X-API-KEY` header in your requests.
 
-> 🚧 Always treat your API key as a secret\! Do not share it or expose it in client-side code (e.g., browsers or mobile apps). Instead, store it securely in an environment variable or a key management service on your backend server.
+> 🚧 Always treat your API key as a secret! Do not share it or expose it in client-side code (e.g., browsers or mobile apps). Instead, store it securely in an environment variable or a key management service on your backend server.
 
 ![Vmaas2 Jp](/images/reference/vmaas/vmaas2.jpg)
 

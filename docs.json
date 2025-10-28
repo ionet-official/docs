@@ -316,7 +316,7 @@
             "group": "IO Explorer",
             "pages": [
               {
-                "group": "Get Started With IO Explorer API",
+                "group": "Getting Started With IO Explorer API",
                 "pages": [
                   "reference/io-explorer/getting-started-with-your-api",
                   "reference/io-explorer/objects",
@@ -512,7 +512,7 @@
             "group": "IO Cloud",
             "pages": [
               {
-                "group": "Get Started With CaaS API",
+                "group": "Getting Started With CaaS API",
                 "pages": [
                   "reference/caas/get-started-with-caas-api",
                   "reference/caas/get-all-deployments",
@@ -530,7 +530,7 @@
                 ]
               },
               {
-                "group": "Get Started With VMaaS API",
+                "group": "Getting Started With VMaaS API",
                 "pages": [
                   "reference/vmaas/get-started-with-vmaas-api",
                   "reference/vmaas/get-all-deployments",
