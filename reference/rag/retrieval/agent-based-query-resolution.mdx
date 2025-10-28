@@ -1,60 +1,79 @@
 ---
 openapi: "/openapi/rag-retrieval/agent-based-query-resolution.json POST /api/r2r/v3/retrieval/agent"
-title: "RAG-powered Conversational Agent"
-description: "Engage with an intelligent agent for information retrieval, analysis, and research."
+title: "RAG-Powered Conversational Agent"
+description: "The R2R Agent endpoint provides a conversational RAG interface for retrieval, reasoning, and research. It supports multi-turn context, tool integration, streaming output, and both RAG and Research modes for dynamic AI-driven analysis."
 ---
 
-This endpoint offers two operating modes:
+The **RAG-powered Conversational Agent** enables interactive, multi-turn communication with an intelligent agent built on R2R’s Retrieval-Augmented Generation (RAG) system.
 
-- **RAG mode**: Standard retrieval-augmented generation for answering questions based on knowledge base
-- **Research mode**: Advanced capabilities for deep analysis, reasoning, and computation
+This endpoint allows users to engage in real-time dialogue with an AI capable of retrieving information from internal and external sources, reasoning through complex problems, executing computations, and maintaining context across multiple conversation turns.
 
-## **RAG Mode (Default)**
+It operates in two distinct modes: **RAG Mode** for knowledge-based responses and **Research Mode** for deep analytical reasoning.
 
-The RAG mode provides fast, knowledge-based responses using:
+## Operating Modes
 
-- Semantic and hybrid search capabilities
+### **RAG Mode (Default)**
+
+Provides fast, grounded answers by combining retrieval and generation.
+
+Features include:
+
+- Semantic and hybrid search across documents and chunks
+- Optional web search integration for live context
 - Document-level and chunk-level content retrieval
-- Optional web search integration
 - Source citation and evidence-based responses
 
 ## **Research Mode**
 
-The Research mode builds on RAG capabilities and adds:
+Extends RAG functionality with advanced reasoning and computational abilities.
 
-- A dedicated reasoning system for complex problem-solving
-- Critique capabilities to identify potential biases or logical fallacies
-- Python execution for computational analysis
-- Multi-step reasoning for deeper exploration of topics
+Features include:
+
+- Dedicated reasoning system for multi-step problem-solving
+- Automated critique generation to identify biases or logical fallacies
+- Python execution for quantitative analysis and code-based reasoning
+- Deep exploration capabilities across multiple sources
 
 ## **Available Tools**
 
 ### **RAG Tools:**
 
-- `search_file_knowledge`: Semantic/hybrid search on your ingested documents
-- `search_file_descriptions`: Search over file-level metadata
-- `content`: Fetch entire documents or chunk structures
-- `web_search`: Query external search APIs for up-to-date information
-- `web_scrape`: Scrape and extract content from specific web pages
+- `search_file_knowledge` — Perform semantic or hybrid search across ingested documents.
+- `search_file_descriptions` — Search file-level metadata and descriptions.
+- `content` — Retrieve full documents or chunk structures.
+- `web_search` — Query external search engines for up-to-date information.
+- `web_scrape` — Extract content directly from specified web pages.
 
-### **Research Tools:**
+**Research Tools:**
 
-- `rag`: Leverage the underlying RAG agent for information retrieval
-- `reasoning`: Call a dedicated model for complex analytical thinking
-- `critique`: Analyze conversation history to identify flaws and biases
-- `python_executor`: Execute Python code for complex calculations and analysis
+- `rag` — Invoke the underlying RAG agent for information retrieval.
+- `reasoning` — Use a dedicated reasoning model for deep analysis and logical inference.
+- `critique` — Analyze the conversation for potential biases or reasoning flaws.
+- `python_executor` — Execute Python code for computation, simulation, or data processing.
 
 ## **Streaming Output**
 
-When streaming is enabled, the agent produces different event types:
+When streaming is enabled (`"stream": true`), the API emits **Server-Sent Events (SSE)** to deliver updates in real time.
 
-- `thinking`: Shows the model’s step-by-step reasoning (when extended_thinking=true)
-- `tool_cal`: Shows when the agent invokes a tool
-- `tool_result`: Shows the result of a tool call
-- `citation`: Indicates when a citation is added to the response
-- `message`: Streams partial tokens of the response
-- `final_answer`: Contains the complete generated answer and structured citations
+Each event corresponds to a stage in the agent’s reasoning and response generation process.
+
+| **Event Type** | **Description**                                                                          |
+| :------------- | :--------------------------------------------------------------------------------------- |
+| `thinking`     | Displays the model’s intermediate reasoning steps (enabled by `extended_thinking=true`). |
+| `tool_call`    | Indicates when the agent invokes a tool.                                                 |
+| `tool_result`  | Contains the output from an executed tool.                                               |
+| `citation`     | Signals that a citation has been added to the response.                                  |
+| `message`      | Streams partial tokens of the generated message.                                         |
+| `final_answer` | Provides the complete generated response with structured citations.                      |
 
 ## **Conversations**
 
-Maintain context across multiple turns by including `conversation_id` in each request. After your first call, store the returned `conversation_id` and include it in subsequent calls. If no conversation name has already been set for the conversation, the system will automatically assign one.
+The agent maintains persistent conversational context using the `conversation_id` field.
+
+**How it works:**
+
+1. On the initial request, the system creates a new conversation and returns a `conversation_id`.
+2. Include this ID in subsequent requests to continue the same thread.
+3. If no conversation name exists, R2R automatically assigns one.
+
+This design allows for **multi-turn, context-aware discussions**, where the agent can recall prior messages, reasoning, and results.

@@ -1,11 +1,15 @@
 ---
 openapi: "/openapi/rag-retrieval/prompt-based-completion.json POST /api/r2r/v3/retrieval/completion"
-title: "Prompt-based completion"
-description: "Sends a raw prompt for direct completion using a selected model."
+title: "Prompt-Based Completion"
+description: "The R2R Completion endpoint generates text completions directly from a language model. It accepts structured messages, supports configurable generation parameters, and enables both streaming and non-streaming responses for flexible AI interaction."
 ---
 
-Generate completions for a list of messages.
+The **Prompt-Based Completion** endpoint allows direct interaction with a language model by sending raw prompts or structured message sequences.
 
-This endpoint uses the language model to generate completions for the provided messages. The generation process can be customized using the generation_config parameter.
+It provides a simple interface for generating completions, summaries, or other free-form outputs without performing any retrieval or grounding from the document corpus.
 
-The messages list should contain alternating user and assistant messages, with an optional system message at the start. Each message should have a ‘role’ and ‘content’.
+This endpoint is ideal for open-ended generation tasks such as text drafting, classification, rewriting, summarization, and chat-like conversations that do not require knowledge integration from R2R’s retrieval pipeline.
+
+### Request Body
+
+The request must include a `messages` list representing the conversational context and an optional `generation_config` object to control model behavior.
