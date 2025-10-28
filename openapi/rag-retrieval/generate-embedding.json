@@ -9,14 +9,6 @@
       "url": "https://api.intelligence.io.solutions"
     }
   ],
-  "components": {
-    "securitySchemes": {
-      "sec0": {
-        "type": "oauth2",
-        "flows": {}
-      }
-    }
-  },
   "security": [
     {
       "sec0": []
@@ -64,22 +56,24 @@
               "title": "X-Api-Key"
             },
             "description": "API key set by an SDK client"
-          },
-          {
-            "name": "JSON body",
-            "in": "body",
-            "required": true,
-            "description": "Raw JSON body for the embedding request.",
-            "content": {
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "Raw JSON body for the embedding request. Example inputs shown below.",
+          "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "additionalProperties": true
+                "additionalProperties": true,
+                "example": {
+                  "model": "text-embedding-3-large",
+                  "input": "hello world"
                 }
+              }
             }
           }
-          }
-        ],
+        },
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -109,6 +103,12 @@
     }
   },
   "components":{
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    },
     "schemas":{
       "HTTPValidationError": {
         "properties": {
