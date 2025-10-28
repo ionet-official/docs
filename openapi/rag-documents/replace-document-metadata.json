@@ -27,7 +27,7 @@ lang{
       "put": {
         "summary": "Replace metadata of a document",
         "description": "Replaces metadata in a document. This endpoint allows overwriting existing metadata fields.",
-        "operationId": "replace-document-metadata",
+        "operationId": "reverse_proxy_auth_r2r_v3_documents__id__metadata_put",
         "parameters": [
           {
             "name": "id",
@@ -37,6 +37,39 @@ lang{
               "type": "string"
             },
             "required": true
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "JWT token",
+              "title": "Token"
+            },
+            "description": "JWT token"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "Authorization"
+            },
+            "description": "io.net provided API Key"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "API key set by an SDK client",
+              "title": "X-Api-Key"
+            },
+            "description": "API key set by an SDK client"
           }
         ],
         "responses": {

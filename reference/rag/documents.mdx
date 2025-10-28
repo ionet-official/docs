@@ -19,20 +19,20 @@ Documents in R2R support several key stages of processing:
 
 ## API Endpoints
 
-| Method   | Endpoint                                                                          | Description                                                              |
-| -------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| `POST`   | [/documents](/reference/rag/documents/list-all-documents)                         | Ingest new information (file, text, or chunks) as a document.            |
-| `GET`    | [/documents](/reference/rag/documents/upload-and-ingest-a-document)               | List existing documents with pagination and filtering.                   |
-| `GET`    | [/documents/](/reference/rag/documents/get-document-by-id)                        | Retrieve metadata, ingestion status, or details for a specific document. |
-| `GET`    | [/documents//download](/reference/rag/documents/download-original-file)           | Download the original source file of a document.                         |
-| `GET`    | [/documents//chunks](/reference/rag/documents/get-document-chunks)                | List the text _Chunks_ generated from a document’s content.              |
-| `PATCH`  | [/documents//metadata](/reference/rag/documents/update-document-metadata-partial) | Add or update metadata for a document.                                   |
-| `PUT`    | [/documents//metadata](/reference/rag/documents/replace-document-metadata)        | Replace all metadata for a document.                                     |
-| `DELETE` | [/documents/](/reference/rag/documents/delete-document-by-id)                     | Delete a document and its associated data.                               |
-| `DELETE` | [/documents/by-filter](/reference/rag/documents/delete-documents-by-filter)       | Delete multiple documents that match a filter.                           |
-| `POST`   | [/documents/search](/reference/rag/documents/search-documents)                    | Search across generated document summaries.                              |
-| `GET`    | [/documents/download_zip](/reference/rag/documents/download-documents-as-zip)     | Download multiple original document files as a zip archive.              |
-| `POST`   | [/documents//extract](/reference/rag/documents/extract-entities)                  | Start entity and relationship extraction for a document.                 |
-| `GET`    | [/documents//entities](/reference/rag/documents/get-extracted-entities)           | List _Entities_ identified within a document.                            |
-| `GET`    | [/documents//relationship](/reference/rag/documents/get-relationships)            | List _Relationships_ identified within a document.                       |
-| `POST`   | [/documents//deduplicate](/reference/rag/documents/deduplicate-document)          | Start entity deduplication for a document.                               |
+| Method   | Endpoint                                                                              | Description                                                              |
+| -------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| `POST`   | [/documents](/reference/rag/documents/list-all-documents)                             | Ingest new information (file, text, or chunks) as a document.            |
+| `GET`    | [/documents](/reference/rag/documents/upload-and-ingest-a-document)                   | List existing documents with pagination and filtering.                   |
+| `GET`    | [/documents/](/reference/rag/documents/get-document-by-id)                            | Retrieve metadata, ingestion status, or details for a specific document. |
+| `GET`    | [/documents/{id}/download](/reference/rag/documents/download-original-file)           | Download the original source file of a document.                         |
+| `GET`    | [/documents/{id}/chunks](/reference/rag/documents/get-document-chunks)                | List the text _Chunks_ generated from a document’s content.              |
+| `PATCH`  | [/documents/{id}/metadata](/reference/rag/documents/update-document-metadata-partial) | Add or update metadata for a document.                                   |
+| `PUT`    | [/documents/{id}/metadata](/reference/rag/documents/replace-document-metadata)        | Replace all metadata for a document.                                     |
+| `DELETE` | [/documents/](/reference/rag/documents/delete-document-by-id)                         | Delete a document and its associated data.                               |
+| `DELETE` | [/documents/by-filter](/reference/rag/documents/delete-documents-by-filter)           | Delete multiple documents that match a filter.                           |
+| `POST`   | [/documents/search](/reference/rag/documents/search-documents)                        | Search across generated document summaries.                              |
+| `GET`    | [/documents/download_zip](/reference/rag/documents/download-documents-as-zip)         | Download multiple original document files as a zip archive.              |
+| `POST`   | [/documents/{id}/extract](/reference/rag/documents/extract-entities)                  | Start entity and relationship extraction for a document.                 |
+| `GET`    | [/documents/{id}/entities](/reference/rag/documents/get-extracted-entities)           | List _Entities_ identified within a document.                            |
+| `GET`    | [/documents/{id}/relationship](/reference/rag/documents/get-relationships)            | List _Relationships_ identified within a document.                       |
+| `POST`   | [/documents/{id}/deduplicate](/reference/rag/documents/deduplicate-document)          | Start entity deduplication for a document.                               |
