@@ -551,6 +551,7 @@
       },
       {
         "tab": "Support",
+        "hidden": true,
         "pages": [
           "/support",
           {
