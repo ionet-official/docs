@@ -92,15 +92,22 @@ The table below shows the **current per-model usage rates** available across all
 | _guillaumekln/faster-whisper-small.en_               | \$0.04      | Input based cost.      | Per 1 hour.    |
 | _guillaumekln/faster-whisper-medium.en_              | \$0.04      | Input based cost.      | Per 1 hour.    |
 
+<Note>
+  To verify the latest model pricing, use the **GET /models** API endpoint. The response includes detailed pricing information for each available model. The fields `"input_token_price"` and `"output_token_price"` represent the respective costs per token for input and output usage. For implementation details and the full endpoint specification, refer to: [**GET /models API Documentation**](/reference/ai-models/get-models-list)**.**
+</Note>
+
 ## FAQs
 
-**Q: What do I do when I hit my daily limit?**\
-_A_: You can buy **IO Credits** or wait for your daily limit to refresh.\
-If you already have credits, they will automatically cover additional usage with no interruptions.
+<Accordion title="What do I do when I hit my daily limit?" icon="comment-question">
+  You can buy **IO Credits** or wait for your daily limit to refresh.\
+  If you already have credits, they will automatically cover additional usage with no interruptions.
+</Accordion>
 
-**Q: How does the limit work across different models?**\
-_A_: **_IO Intelligence_** uses a **shared credit pool system**.\
-Credits can be spent on any model, with each consuming credits at a different rate depending on the complexity.
+<Accordion title="How does the limit work across different models?" icon="comment-question">
+  **_IO Intelligence_** uses a **shared credit pool system**.\
+  Credits can be spent on any model, with each consuming credits at a different rate depending on the complexity.
+</Accordion>
 
-**Q: Does my daily limit include both Chat and API calls?**\
-_A_: Yes.**Chat**  interactions count toward your API quota and contribute to your daily limit.
+<Accordion title="Does my daily limit include both Chat and API calls?" icon="comment-question">
+  Yes. **Chat**  interactions count toward your API quota and contribute to your daily limit.
+</Accordion>
