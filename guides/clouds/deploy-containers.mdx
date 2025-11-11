@@ -1,18 +1,22 @@
 ---
 title: "Deploy CaaS"
-description: "Flexible & High-Performance Containers Built for Rapid Deployment and Scalable AI Workloads"
+description: "Flexible & High-Performance Containers built for rapid deployment and scalable AI workloads"
 sidebarTitle: "Container"
 ---
 
-IO.NET offers a simple and powerful interface for deploying containers using high-performance infrastructure. Whether you're running inference, training models, or hosting APIs, the Containers system gives you flexibility and speed.
+[io.net](http://io.net) offers a simple and powerful interface for deploying containers using high-performance infrastructure. Whether you are running inference, training models, or hosting APIs, the Containers system gives you flexibility and speed.
 
-This guide is intended for users who want to deploy using IO Cloud API keys on our CaaS clusters. For detailed API usage, refer to our [API Reference](/reference/get-started-with-caas-api)
+This guide will help you deploy using IO Cloud API keys on our CaaS clusters. For detailed API usage, refer to our [API Reference](/reference/get-started-with-caas-api).
+
+<Note>
+  Support for _AWS ECR_ private images is not available at this time for **CaaS**.
+</Note>
 
 <iframe className="w-full aspect-video rounded-xl" src="https://www.youtube.com/embed/IZ7qjUFucdo" title="Start Using IO Cloud: Your First Steps Explained" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen />
 
 ## Deploy Container
 
-Click the "Deploy Container" button to launch a wizard that guides you through the deployment process.
+Click the **Deploy Container** button to launch a wizard that guides you through the deployment process.
 
 <Frame>
   <img
@@ -115,7 +119,7 @@ Click **Return to Clusters** after your cluster is successfully deployed. The sc
 
 > 🚧 Troubleshooting Container Issues
 >
-> If your container isn’t running, you don’t need to delete the whole cluster. Instead, open the deployment settings, adjust any incorrect details (for example, the image name or registry credentials), and redeploy.
+> If your container is not running, you do not need to delete the whole cluster. Instead, open the deployment settings, adjust any incorrect details (for example, the image name or registry credentials), and redeploy.
 >
 > This way, you avoid the minimum 1-hour charge for deleting and recreating a cluster.
 >
