@@ -1,0 +1,160 @@
+---
+title: "Smart Contract Events"
+description: "Learn how smart contracts manage booking, payments, extensions, compute tracking, refunds, and earnings within the IO Network. This guide explains each on-chain event, from creating a cluster to final IO Coin settlement, ensuring full transparency and auditability."
+---
+
+When you interact with the IO Network, whether by creating, extending, or completing a compute cluster, every action is managed transparently through smart contracts. These contracts handle payments, track usage, and settle completed compute work in **IO Coin**, which powers the **Total Network Earnings (TNE)**.
+
+<Note>
+  The **Total Network Earnings (TNE)** metric represents the total compute-based activity and payments within the IO Network. It is not a distribution of financial returns.
+</Note>
+
+This section walks you through the full process, from booking a cluster to the point where the network records its earnings.
+
+---
+
+## **1. Creating a Cluster (Book Product)**
+
+When you create a cluster on the IO Network, your booking is recorded on-chain. This booking defines the main details of your compute session, including hardware type (CPU or GPU), quantity, duration, and payment currency (USDC or IO Coin).
+
+At this stage, your compute agreement with the network is established. The cluster is reserved and ready, but payment can be completed in stages if needed.
+
+```json
+book_product(
+  customer_id: <uuid>,
+  cluster_id: <uuid>,
+  currency: USDC | IOCOIN,
+  hardware_type: 'CPU' | 'GPU',
+  hardware_quantity: int,
+  total_cost: u64,
+  compute_minutes_hired: int,
+  compute_minutes_worked: int,
+  worked_amount: int,
+  paid: u64
+)
+```
+
+---
+
+## **2. Paying for a Cluster (Payment)**
+
+Once your cluster is created, you can start making payments toward it.
+
+Each payment updates the total paid amount and the cluster status. If the total amount paid has not yet covered the full cost, the cluster is marked as **partially paid**. Once it is fully paid, the status changes to **paid**.
+
+```json
+pay(
+  transaction_id: <uuid>,
+  cluster_id: <uuid>,
+  amount: u64  # in cluster currency
+)
+
+paid_amount = paid_amount + amount
+payment_status = if paid_amount >= total_amount then "paid" else "partially_paid"
+```
+
+---
+
+## **3. Extending a Cluster (Extension)**
+
+If you want to keep your cluster running for longer than originally planned, you can extend it. When you do this, both the total compute time and the total cost increase proportionally. The extension is added to your existing contract, allowing your cluster to continue operating without interruption.
+
+```json
+extend(
+  cluster_id: <uuid>,
+  extended_minutes: int,
+  extended_amount: u64
+)
+
+compute_minutes_hired = compute_minutes_hired + extended_minutes
+total_cost = total_cost + extended_amount
+```
+
+---
+
+## **4. Tracking Compute Work**
+
+Once your cluster begins running, the network automatically tracks the compute time that is used.
+
+Every 24 hours, or when the hired duration ends, whichever happens first, the smart contract records the total compute delivered. For longer jobs, the system records progress every 24 hours to make verification simple and consistent.
+
+**Examples:**
+
+- A 3-hour cluster is logged once after 3 hours.
+- A 48-hour cluster is logged twice, once every 24 hours.
+
+All compute work is recorded in **IO Coin**, even when you pay in another currency. This ensures that TNE calculations remain consistent in the network’s native token.
+
+```json
+worked(
+  cluster_id: <uuid>,
+  compute_minutes: int,
+  amount: u64  # always in IO Coin
+)
+
+compute_minutes_served = compute_minutes_served + compute_minutes
+worked_amount = worked_amount + amount
+```
+
+---
+
+## **5. Refunds (if Applicable)**
+
+If a cluster terminates early, the protocol automatically calculates a refund for unused compute time at the original booking rate, excluding the first non-refundable hour and applicable network fees. Refunds are issued in the same currency used for payment.
+
+```json
+refund(
+  transaction_id: <uuid>,
+  cluster_id: <uuid>,
+  amount: u64  # in cluster currency
+)
+
+refund = refund + amount
+```
+
+---
+
+## **6. Repurchases**
+
+For clusters paid in USDC, the protocol automatically converts the equivalent compute value into IO Coin via on-chain logic only. No off-chain exchange, custody, or third-party conversion is involved.
+
+```json
+repurchase(
+  cluster_id: <uuid>,
+  amount_in: u64,   # USDC
+  amount_out: u64   # IO Coin
+)
+```
+
+---
+
+## **7. Earnings**
+
+After your compute work is verified and any conversions are complete, the earned IO Coin is transferred from escrow to the **IO Treasury wallet**.
+
+```json
+earn(
+  transaction_id: <uuid>,
+  cluster_id: <uuid>,
+  amount: u64  # always in IO Coin
+)
+
+settled_amount = settled_amount + amount
+send amount to treasury from escrow
+```
+
+Each completed cluster, extension, and repurchase follows this process, creating a transparent and verifiable record of the network’s total compute activity.
+
+---
+
+## **Putting It All Together**
+
+Here is the full lifecycle of a cluster in the IO Network:
+
+1. **Booking** – You reserve compute resources.
+2. **Payment** – You fund your session, fully or partially.
+3. **Extension** – You can add more time if needed.
+4. **Compute Work** – The network tracks and records your compute activity.
+5. **Refund (if applicable)** – Unused time is refunded.
+6. **Repurchase** – USDC payments are converted into IO Coin.
+7. **Earnings** – IO Coin from completed work is transferred to the treasury.

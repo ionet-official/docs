@@ -291,6 +291,14 @@
               "guides/explorer/io-explorer",
               "guides/explorer/homepage",
               "guides/explorer/workers-page",
+              {
+                "group": "TNE on Chain",
+                "hidden": true,
+                "pages": [
+                  "guides/explorer/tne-on-chain",
+                  "guides/explorer/tne-smart-contracts"
+                ]
+              },
               "guides/explorer/tne-on-chain",
               "guides/explorer/inferences-page",
               "guides/explorer/clusters-page",
