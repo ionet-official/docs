@@ -293,7 +293,6 @@
               "guides/explorer/workers-page",
               {
                 "group": "TNE on Chain",
-                "hidden": false,
                 "pages": [
                   "guides/explorer/tne-on-chain",
                   "guides/explorer/tne-smart-contracts"
