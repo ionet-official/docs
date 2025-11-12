@@ -293,13 +293,12 @@
               "guides/explorer/workers-page",
               {
                 "group": "TNE on Chain",
-                "hidden": true,
+                "hidden": false,
                 "pages": [
                   "guides/explorer/tne-on-chain",
                   "guides/explorer/tne-smart-contracts"
                 ]
               },
-              "guides/explorer/tne-on-chain",
               "guides/explorer/inferences-page",
               "guides/explorer/clusters-page",
               "guides/explorer/staking-dashboard",
