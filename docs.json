@@ -115,13 +115,7 @@
                       "pages": [
                         "guides/clouds/deploy-vm-on-demand",
                         "guides/clouds/data-science-image-full-specification",
-                        {
-                          "group": "Confidential Compute",
-                          "hidden": true,
-                          "pages": [
-                            "guides/clouds/vm-confidential-compute"
-                          ]
-                        }
+                        "guides/clouds/vm-confidential-compute"
                       ]
                     },
                     {
