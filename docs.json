@@ -112,6 +112,7 @@
                     "guides/clouds/deploy-bare-metal-cluster",
                     {
                       "group": "VM on Demand",
+                      "tag": "UPDATED",
                       "pages": [
                         "guides/clouds/deploy-vm-on-demand",
                         "guides/clouds/data-science-image-full-specification",
