@@ -1,0 +1,89 @@
+---
+title: "Confidential Compute"
+description: "Run secure AI workloads with Intel TDX encryption on io.cloud. Protect data in use on H100, H200, and B200 GPUs at up to 90% lower cost."
+---
+
+## Overview
+
+**Confidential Compute VMs** on [io.net](http://io.net) provides hardware-based encryption that protects your AI data, model weights, and computations from unauthorized access, including cloud operators, administrators, or malicious actors.
+
+Unlike traditional cloud environments that only encrypt data at rest and in transit, **Confidential Compute** maintains end-to-end encryption even in memory while your workloads are running.
+
+This capability is powered by **Intel Trust Domain Extensions (TDX)** on **5th** and **6th** **generation** **Intel Xeon processors**, combined with [io.net](http://io.net)’s decentralized GPU network.
+
+## Why It Matters
+
+When training or running AI models on traditional hyperscalers, your data sits unencrypted in memory where it can be exposed through:
+
+- Insider threats or compromised infrastructure operators
+- Cyberattacks targeting shared cloud environments
+- Government subpoenas or data access requests
+
+These risks endanger:
+
+- Proprietary model architectures
+- Customer PII, health records, and financial data
+- Sensitive inference requests revealing business logic
+
+_Big Tech_ encrypts data at rest and in transit, but not during processing, when your most sensitive data is exposed.
+
+## **What Is Confidential Computing?**
+
+**Confidential Computing** is a hardware-based security model that ensures your data stays encrypted even while being processed.
+
+Using **Trusted Execution Environments (TEEs)**, it creates isolated regions of memory where code and data remain protected from all external access, including the host OS, hypervisor, and cloud administrators.
+
+### **Key Technology**
+
+- **Intel Trust Domain Extensions (TDX):** Provides per-VM encryption and isolation for workloads.
+- **Trusted Execution Environments:** Secure enclaves ensure no unauthorized party can read memory contents.
+- **Hardware Attestation:** Verifies the integrity of BIOS, firmware, and kernel before execution.
+
+[io.net](http://io.net) delivers the same enterprise-grade protection as _Azure_ and _Google Cloud_ Confidential VMs, at a fraction of the cost, with bare-metal GPU performance and no centralized dependency.
+
+## **Key Benefits**
+
+**Protect Intellectual Property:** Encrypt training data, model weights, and architectures during AI model development.
+
+**Enable Secure Collaboration:** Support multi-party or federated learning while keeping datasets isolated and private.
+
+**Ensure Regulatory Compliance:** Meet HIPAA, GDPR, and financial data requirements with full auditability.
+
+**Secure Inference at Scale:** Protect live prompts, responses, and intermediate model states.
+
+**Reduce Costs:** Run on a decentralized GPU infrastructure, **up to 90% cheaper** than hyperscalers.
+
+## **Getting Started**
+
+Confidential Compute is currently rolling out for select users, with self-serve deployment launching after **November 24**.
+
+To begin using Confidential Compute on [io.net](http://io.net):
+
+1. **Request Access:** Submit a provisioning request through[ ](https://io.cloud)[io.cloud](http://io.cloud). Choose your preferred GPU type (H100, H200, or B200) and provide basic project details.
+
+   <Note>
+     Approvals are typically issued within 24 hours.
+   </Note>
+2. **Deploy a Confidential VM:** Once approved, deploy your Confidential VM using the web console, CLI, or API.
+3. **Verify Attestation:** Before running sensitive workloads, verify your instance’s attestation report to confirm the integrity of its BIOS, firmware, and TDX configuration. This ensures your VM is operating in a trusted, secure state.
+4. **Integrate Seamlessly:** Run workloads on **Ubuntu 25.04** with **built-in Intel TDX support**. Existing MLOps pipelines run without modification. You can migrate existing workflows directly to [io.net](http://io.net) without changing your training or deployment code.
+5. **Run Secure Workloads:** Connect to your instance and deploy your AI training or inference workloads as usual. All computations, model weights, and data remain encrypted in memory throughout processing, maintaining full performance and GPU acceleration.
+
+<Note>
+  Performance impact is minimal and with full GPU capabilities preserved. This validates secure AI pipelines on cost-effective infrastructure.
+</Note>
+
+## **Compliance and Use Cases**
+
+**Confidential Compute** supports secure operations across regulated and high-risk industries:
+
+- **Healthcare:** Train on PHI and diagnostic data securely.
+- **Finance:** Protect trading models and risk analytics pipelines.
+- **Legal:** Safeguard sensitive inference workloads and document data.
+- **Defense and Government:** Maintain sovereignty over AI models and datasets.
+
+Additionally, all workloads comply with:
+
+- **HIPAA** (Health Insurance Portability and Accountability Act)
+- **GDPR** (General Data Protection Regulation)
+- **PCI DSS** (Payment Card Industry Data Security Standard)
