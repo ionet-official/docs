@@ -4,17 +4,17 @@ description: "Your ML Workflow, One Click Away - Fast, Frictionless VM Infrastru
 sidebarTitle: "Overview"
 ---
 
-**VM on Demand** - the easiest way to spin up fully-equipped virtual machines tailored for AI and ML workloads. Whether you're a data scientist, researcher, or solo builder, you can now launch GPU or CPU-powered VMs with pre-installed frameworks like PyTorch, and CUDA - no DevOps required.
+**VM on Demand** is the easiest way to spin up fully-equipped virtual machines tailored for AI and ML workloads. Whether you're a data scientist, researcher, or solo builder, you can now launch GPU or CPU-powered VMs with pre-installed frameworks like PyTorch, and CUDA - no DevOps required.
 
 <iframe className="w-full aspect-video rounded-xl" src="https://www.youtube.com/embed/q_o6nQg40yU" title="Deploy a VM On-Demand Cluster on IO Cloud" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen />
 
-With just a few clicks, you'll go from zero to a ready-to-code environment, without the usual cloud complexity. Here's how to get started:
+With just a few clicks, you can go from zero to a ready-to-code environment, without the usual cloud complexity. Here is how to get started:
 
 ## Configure Your Cluster
 
 ### 1. Create Your Cluster
 
-Start by selecting Virtual Machine from the cluster creation menu. This is your entry point to a customizable and dedicated compute environment.
+Start by selecting **Virtual Machine** from the cluster creation menu. This is your entry point to a customizable and dedicated compute environment.
 
 <img
   src="/images/docs/cloud_vm_on_demand/Containers1.jpg"
@@ -41,9 +41,9 @@ Your data transfer needs matter. Choose the right network bandwidth:
   style={{ width:"84%" }}
 />
 
-### 3. Processor + Data Center Location
+### 3. Processor and Data Center Location
 
-Pick the physical location where your VM will live. Closer regions = lower latency.
+Pick the physical location where your VM will live. Closer regions means lower latency.
 
 1. Choose a **Processor Type** (e.g., A100, EPYC)
 2. Then, select your preferred **Location** from the available regions (e.g., US-East, EU-West, Asia-Pacific)
@@ -58,7 +58,7 @@ Deploying closer to your users or team means faster response times.
   style={{ width:"72%" }}
 />
 
-### 4. Select Image & Add SSH Keys
+### 4. Select Image and Add SSH Keys
 
 Choose Your VM Image:
 
@@ -127,7 +127,7 @@ Choose one of two ways to securely access your VM:
   />
 - **Fetch from GitHub**
 
-  Just enter your **GitHub ID** - we’ll pull your public key for you.
+  Just enter your **GitHub ID** - we will pull your public key for you.
 
   <img
     src="/images/docs/cloud_vm_on_demand/Containers4.jpg"
@@ -139,11 +139,14 @@ Choose one of two ways to securely access your VM:
 
 ### 5. Add Network Services (Optional)
 
-SSH is added by default. Want to expose other ports or services, here is how:
+SSH is added by default. To expose other ports or services, follow these steps:
 
-1. Click “**Add First Network Service**”, and enter: Name, Port, Protocol (TCP/UDP), Whitelist IPs (who’s allowed in)
-2. Click "**Plus**" button to apply. This gives you
-3. control over custom APIs, inference endpoints, or webhooks.
+1. Click **Add First Network Service** and fill the following fields:
+   - Name
+   - Port
+   - Protocol (TCP/UDP)
+   - Whitelist IPs (who is allowed in)
+2. Click the **\+** button to apply. This gives you control over custom APIs, inference endpoints, or webhooks.
 
 <img
   src="/images/docs/cloud_vm_on_demand/Containers5.jpg"
@@ -155,7 +158,7 @@ SSH is added by default. Want to expose other ports or services, here is how:
 
 #### Port Exposure on io.net
 
-When deploying containers, users need to expose ports in two places:
+When deploying containers, you need to expose ports in two places:
 
 1. **Docker inside the VM**\
    Specify the ports to expose when running the container:
@@ -163,7 +166,7 @@ When deploying containers, users need to expose ports in two places:
    ```
    docker run -d -p 8082:8082 your-image-name
    ```
-2. **io.net Network / Frontend Configuration**\
+2. **io.net Network/Frontend Configuration**\
    After VM deployment, the platform will provide external ports that map to your container ports. Users need to use these ports to access the services externally.
 
 > 📘 **Note:**
@@ -181,10 +184,10 @@ In the final screen, double-check and customize:
 
 - Container Count
 - GPU/CPU Quantity
-- \*\*Runtime Duration \*\*- hourly, daily, or weekly (in hours)
-- \*\*Payment Method \*\*- select your preferred option from **IO Coin**, **USDC**, **USD**
+- **Runtime Duration** - hourly, daily, or weekly (in hours)
+- **Payment Method** - select your preferred option from **IO Coin**, **USDC**, **USD**
 
-At the bottom, you’ll see your total estimated cost. When ready, click Deploy VM button - your VM will now begin provisioning.
+At the bottom, you will ll see your total estimated cost. When ready, click the **Deploy VM** button and your VM will now begin provisioning.
 
 <img
   src="/images/docs/cloud_vm_on_demand/Containers6.jpg"
@@ -196,7 +199,7 @@ At the bottom, you’ll see your total estimated cost. When ready, click Deploy 
 
 ## View Your Cluster
 
-Once payment is processed and deployment finishes, you’ll see a live view of your VM cluster.
+Once payment is processed and deployment finishes, you will see a live view of your VM cluster.
 
 Click **Return to Clusters** to monitor usage, pause or resume machines, or launch another VM.
 
@@ -220,8 +223,8 @@ Each cluster detail page gives you:
      className="mx-auto"
      style={{ width:"72%" }}
    />
-2. Open your Terminal and **paste the SSH command**, then **press Enter**.
-3. You’ll be asked to confirm the connection - **type yes** and **press Enter**.
+2. Open your Terminal and paste the SSH command, then press**Enter** .
+3. You will be asked to confirm the connection - type**yes**  and press**Enter** .
 
    <img
      src="/images/docs/cloud_vm_on_demand/Containers10.jpg"
@@ -230,4 +233,4 @@ Each cluster detail page gives you:
      className="mx-auto"
      style={{ width:"74%" }}
    />
-4. Once connected, you’ll see the welcome message and be ready to use your VM through the SSH terminal.
+4. Once connected, you will see the welcome message and be ready to use your VM through the SSH terminal.
