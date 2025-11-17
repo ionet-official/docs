@@ -357,7 +357,17 @@
                   "reference/ai-agents/getting-started-with-api-agents",
                   "reference/ai-agents/get-agents-list",
                   "reference/ai-agents/workflows-schema",
-                  "reference/ai-agents/workflows-run"
+                  "reference/ai-agents/workflows-run",
+                  {
+                    "group": "Secret Management",
+                    "hidden": true,
+                    "pages": [
+                      "reference/ai-agents/secret-management-get",
+                      "reference/ai-agents/secret-management-post",
+                      "reference/ai-agents/secret-management-patch",
+                      "reference/ai-agents/secret-management-delete"
+                    ]
+                  }
                 ]
               },
                         {
