@@ -360,7 +360,7 @@
                   "reference/ai-agents/workflows-run",
                   {
                     "group": "Secret Management",
-                    "hidden": true,
+                    "hidden": false,
                     "pages": [
                       "reference/ai-agents/secret-management-get",
                       "reference/ai-agents/secret-management-post",
