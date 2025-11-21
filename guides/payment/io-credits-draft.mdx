@@ -3,50 +3,38 @@ title: "IO Credits"
 description: "Simplify your IO Cloud payments with IO Credits, a prepaid USD-equivalent credit system you can use across compute products."
 ---
 
-### What Are IO Credits?
+## What are IO Credits?
 
 **IO Credits** are prepaid credits you can use to pay for compute deployments on IO Cloud, including Ray Clusters, VMs, Kubernetes, and Baremetal. **Each IO Credit is equivalent to 1 USD**, this allows pricing to be simple and consistent.
 
-<Frame>
-  ![](/images/docs/96c703934740b030402097520657bbb45106447cbd43118f46f6ecb24efea691-IO_Credits1.jpg)
-</Frame>
+## Why IO Credits?
 
-### Quick Start
+- Pay once to use anytime.
+- Can be used across all IO products.
+- Faster checkout process during deployments.
+- Refunds and incentives automatically appear as credits.
+- API support is available for fully automated workflows.
 
-1. Submit a request form to receive **IO Credits**.
-2. Once approved, credits will appear in your account.
-3. Use your credits to deploy compute or inference workloads.
-4. Track your usage, view your balance, and request withdrawals in **Manage Funds.**
+## Quick Start
 
-### Why Use IO Credits?
-
-- Pay once, use anytime
-- Works across all IO products
-- Easier checkout during deployments
-- Refunds and incentives automatically appear as credits
-- API support for fully automated workflows
-
-## How to Get IO Credits
-
-You can fund your IO account by requesting prepaid credits:
-
-1. Click **"Request IO Credits"** on any IO Cloud product page.
+1. Click **Purchase IO Credits** and A pop-up window will appear.
 
    <Frame>
-     <img
-       src="/images/docs/4991bf36a10dc3cebf3895b4ff0f958ea87293ecbade02652162442f08f13947-IO_Credits2.jpg"
-       alt=""
-       className="mx-auto"
-       style={{ width:"64%" }}
-     />
+     ![IO Credits Nav Bar Pn](/images/docs/payments/io-credits/IOCredits_NavBar.png)
    </Frame>
-2. The IO team will review your request and reach out if any details are needed.
-3. Once approved, your credits will appear in your wallet as a single balance.
-4. You’ll see the updated amount reflected in your account dashboard.
 
-#### Refunds as Credits
 
-If a deployment ends early or is cancelled, any unused funds are returned as IO Credits. You'll be notified via the **Notification Center**.
+1. Enter the number of credits to purchase.
+2. Choose a payment method: **USDC** or **USD (Credit/Debit Card)**.
+3. If **USDC** is selected, you will be redirected to **Spherepay** to complete the transaction.
+4. If **USD (Credit/Debit Card)** is selected, you will be redirected to **Stripe** to complete the transaction.
+5. Once payment is confirmed, the purchased IO Credits will be added to your account.
+6. Use IO Credits to deploy compute or inference workloads.
+7. View your balance, track usage, and manage withdrawals in **Usage & Billing**.
+
+### Refunds as Credits
+
+If a deployment ends early or is cancelled, any unused funds are returned as IO Credits. You will be notified via the **Notification Center**.
 
 ## How to Use IO Credits
 
@@ -55,10 +43,10 @@ If a deployment ends early or is cancelled, any unused funds are returned as IO 
 During checkout, you’ll see three payment options: **USDC**, **IO Coin** and **IO Credits**. Click **IO Credits** to view the **required credits** and see **your available balance**
 
 <Info>
-  Note: 1 IO Credit = 1 USD
+  1 IO Credit = 1 USD
 </Info>
 
-**If credits are enough**, you will be able to click the active **Pay & Deploy Container** button
+**If sufficient credits are available**, you will be able to click the active **Pay & Deploy Container** button
 
 <Frame>
   <img
@@ -86,7 +74,7 @@ During checkout, you’ll see three payment options: **USDC**, **IO Coin** and *
 
 #### Use via API
 
-Deployment endpoints accept `payment_method: "credits"`. If **Balance Is Low**, fallback options may include:
+Deployment endpoints accept `payment_method: "credits"`. If **Balance is Low**, fallback options may include:
 
 - `GET /credits/check?amount=XX`
 - Pending Payment state
@@ -96,13 +84,13 @@ Deployment endpoints accept `payment_method: "credits"`. If **Balance Is Low**, 
 
 ## How to Manage Your Credits
 
-#### View & Use Credits
+#### View Credits
 
-Go to **Manage Funds** from the top bar. You'll see:
+Go to **Usage & Billing** from the top navigation bar. Here, you can see:
 
 - **Total IO Credits** – shown as a single balance (in USD)
 - **Request Withdrawal** (for purchased credits only)
-- **Use for IO Cloud**
+- **Usage in IO Cloud**
 - **View Transaction History**
 
 <Frame>
