@@ -1,0 +1,202 @@
+---
+title: "Deploy VM on Demand"
+description: "Your ML Workflow, One Click Away - Fast, Frictionless VM Infrastructure."
+sidebarTitle: "Overview"
+---
+
+**VM on Demand** is the easiest way to spin up fully-equipped virtual machines tailored for AI and ML workloads. Whether you're a data scientist, researcher, or solo builder, you can now launch GPU or CPU-powered VMs with pre-installed frameworks like PyTorch, and CUDA - no DevOps required.
+
+With just a few clicks, you can go from zero to a ready-to-code environment, without the usual cloud complexity. Here is how to get started:
+
+## Deploying Clusters
+
+### 1. Getting Started
+
+Click the Deploy button in the **Virtual Machine **row from the **Home** tab of io.net Cloud, or navigate to the Virtual Machine tab and click Deploy Virtual Machine to start.
+
+This is your entry point to a customizable and dedicated compute environment.
+
+<img
+  src="/images/docs/cloud_vm_on_demand/Containers1.jpg"
+  alt="Containers1 Jp"
+  title="Containers1 Jp"
+  className="mx-auto"
+  style={{ width:"47%" }}
+/>
+
+### 2. Select your Cluster Processor
+
+### 3. Configure Environment and SSH Keys
+
+Choose Your VM Image:
+
+#### **— General Purpose Image**
+
+> Ubuntu 24.04 64-bit, 3.5GB – includes CUDA Toolkit and drivers. Ideal for running your own stack from scratch.
+
+#### **— Data Science Image** (Coming Soon)
+
+> The Data Science Image comes preloaded with a powerful GPU-accelerated environment for AI, machine learning, and analytics tasks. It includes:
+>
+> - **OS**: Ubuntu 24.04.2 LTS
+> - **Python**: 3.12
+> - **Conda:** 25.7.0
+> - **CUDA**: 12.1
+> - **RAPIDS:** 25.6.0
+>
+> **This image is ideal for:**
+>
+> - Building and training machine learning models
+> - Exploring large datasets with GPU acceleration
+> - Running distributed computing tasks using Ray
+> - Developing and testing AI workflows in Jupyter
+>
+> [View full image specification →](doc:data-science-image-full-specification)
+
+> 🚧 **Important:** Using Environment Variables in Entrypoints
+>
+> To avoid deployment failures:
+>
+> - **Always define environment variables** in the `env_variables` section instead of substituting them directly in the `entrypoint` or `args`.
+> - If you reference variables in the entrypoint, **`escape $ as $$`** so the container interprets them correctly.
+>
+> **Example:**
+>
+> ```json
+> "entrypoint": [
+>   "sh", "-c", "echo 'Variable value: $${TEST_VAR}' && sleep 3600"
+> ],
+> "env_variables": {
+>   "TEST_VAR": "This is a test"
+> }
+> ```
+>
+> - Correct: `$${TEST_VAR}` inside the container prints the variable value.
+> - Incorrect: `$TEST_VAR` may fail during deployment.
+> - Avoid passing variables via `args` or directly in the command; use `env_variables` instead.
+
+> 🚧 Note for advanced users:
+>
+> There is a known issue where Terraform variable interpolation (`$`) can clash with environment variable substitution at the service layer. Escaping with `$$` prevents this conflict.
+
+#### Add Your SSH Key:
+
+Choose one of two ways to securely access your VM:
+
+- **Manual Input**\
+  Add a **key name** and your public **SSH key**.
+
+  <img
+    src="/images/docs/cloud_vm_on_demand/Containers7.jpg"
+    alt="Containers7 Jp"
+    title="Containers7 Jp"
+    className="mx-auto"
+    style={{ width:"83%" }}
+  />
+- **Fetch from GitHub**
+
+  Just enter your **GitHub ID** - we will pull your public key for you.
+
+  <img
+    src="/images/docs/cloud_vm_on_demand/Containers4.jpg"
+    alt="Containers4 Jp"
+    title="Containers4 Jp"
+    className="mx-auto"
+    style={{ width:"67%" }}
+  />
+
+### 5. Customize your Cluster (Optional)
+
+SSH is added by default. To expose other ports or services, follow these steps:
+
+1. Click **Add First Network Service** and fill the following fields:
+   - Name
+   - Port
+   - Protocol (TCP/UDP)
+   - Whitelist IPs (who is allowed in)
+2. Click the **\+** button to apply. This gives you control over custom APIs, inference endpoints, or webhooks.
+
+<img
+  src="/images/docs/cloud_vm_on_demand/Containers5.jpg"
+  alt="Containers5 Jp"
+  title="Containers5 Jp"
+  className="mx-auto"
+  style={{ width:"68%" }}
+/>
+
+#### Port Exposure on io.net
+
+When deploying containers, you need to expose ports in two places:
+
+1. **Docker inside the VM**\
+   Specify the ports to expose when running the container:
+
+   ```
+   docker run -d -p 8082:8082 your-image-name
+   ```
+2. **io.net Network/Frontend Configuration**\
+   After VM deployment, the platform will provide external ports that map to your container ports. Users need to use these ports to access the services externally.
+
+> 📘 **Note:**
+>
+> Local Docker port configuration is not automatically propagated to the external network. Both steps are necessary to make your services accessible from outside the VM.
+
+> ⚠️ **Important**
+>
+> Network services (including port exposure) cannot be modified after the cluster is created.\
+> Make sure to specify all required ports during cluster creation in the frontend, and also expose them in your Docker run command inside the VM.
+
+### 6. Review and Deploy
+
+- Container Count
+- GPU/CPU Quantity
+- **Runtime Duration** - hourly, daily, or weekly (in hours)
+- **Payment Method** - select your preferred option from **IO Coin**, **USDC**, **USD**
+
+At the bottom, you will ll see your total estimated cost. When ready, click the **Deploy VM** button and your VM will now begin provisioning.
+
+<img
+  src="/images/docs/cloud_vm_on_demand/Containers6.jpg"
+  alt="Containers6 Jp"
+  title="Containers6 Jp"
+  className="mx-auto"
+  style={{ width:"62%" }}
+/>
+
+## Viewing Clusters
+
+Once payment is processed and deployment finishes, you will see a live view of your VM cluster.
+
+Click **Return to Clusters** to monitor usage, pause or resume machines, or launch another VM.
+
+Each cluster detail page gives you:
+
+- Real-time resource usage
+- SSH connection info
+- Lifecycle controls (pause/resume/terminate)
+- Billing insights
+
+![Containers8 Jp](/images/docs/cloud_vm_on_demand/Containers8.jpg)
+
+### To start working with your VM:
+
+1. Find the SSH Access line on your VM Cluster page and **copy it**.
+
+   <img
+     src="/images/docs/cloud_vm_on_demand/Containers9.jpg"
+     alt="Containers9 Jp"
+     title="Containers9 Jp"
+     className="mx-auto"
+     style={{ width:"72%" }}
+   />
+2. Open your Terminal and paste the _SSH command_, then press **Enter**.
+3. You will be asked to confirm the connection - type **yes** and press **Enter**.
+
+   <img
+     src="/images/docs/cloud_vm_on_demand/Containers10.jpg"
+     alt="Containers10 Jp"
+     title="Containers10 Jp"
+     className="mx-auto"
+     style={{ width:"74%" }}
+   />
+4. Once connected, you will see the welcome message and you are now ready to use your VM through the SSH terminal.
