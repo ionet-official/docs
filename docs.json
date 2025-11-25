@@ -119,6 +119,14 @@
                         "guides/clouds/vm-confidential-compute"
                       ]
                     },
+                 {
+                      "group": "VM on Demand",
+                      "tag": "UPDATED",
+                       "hidden": true,
+                      "pages": [
+                        "guides/clouds/deploy-vm-on-demand-draft"
+                      ]
+                    },
                     {
                       "group": "Kubernetes",
                       "pages": [
