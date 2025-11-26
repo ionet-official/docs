@@ -22,8 +22,6 @@ description: "Simplify your IO Cloud payments with IO Credits, a prepaid USD-equ
    <Frame>
      ![IO Credits Nav Bar Pn](/images/docs/payments/io-credits/IOCredits_NavBar.png)
    </Frame>
-
-
 1. Enter the number of credits to purchase.
 2. Choose a payment method: **USDC** or **USD (Credit/Debit Card)**.
 3. If **USDC** is selected, you will be redirected to **Spherepay** to complete the transaction.
@@ -36,62 +34,40 @@ description: "Simplify your IO Cloud payments with IO Credits, a prepaid USD-equ
 
 If a deployment ends early or is cancelled, any unused funds are returned as IO Credits. You will be notified via the **Notification Center**.
 
-## How to Use IO Credits
+## Using IO Credits
 
-#### Compute Products (Ray, CaaS, Baremetal, VM)
+### Compute Products
 
-During checkout, you’ll see three payment options: **USDC**, **IO Coin** and **IO Credits**. Click **IO Credits** to view the **required credits** and see **your available balance**
+During the checkout process, several payment options are available.\
+Select **IO Credits** to view the required amount and your current credit balance.
 
 <Info>
   1 IO Credit = 1 USD
 </Info>
 
-**If sufficient credits are available**, you will be able to click the active **Pay & Deploy Container** button
+If sufficient credits are available, the **Pay & Deploy** button becomes active, allowing you to proceed with deployment.
 
-<Frame>
-  <img
-    src="/images/docs/3a024467b6a70650dcb8b247822e5f54087df4843ac5f02230d4b4d10cd085a9-IO_Credits4.jpg"
-    alt=""
-    className="mx-auto"
-    style={{ width:"67%" }}
-  />
-</Frame>
+### Use via API
 
-**If credits are insufficient**, the **Pay & Deploy Container** button will be greyed out with a message: _"Not enough credits. Use another payment method or request more."_
+Deployment endpoints accept the parameter `payment_method: "credits"`.\
+If the available balance is low, the system may provide fallback options such as:
 
-<Info>
-  Users with zero credits will not see this tab
-</Info>
+- `GET /credits/check?amount=XX` – Checks if sufficient credits are available for a specific amount.
+- **Pending Payment** state – Indicates that payment confirmation is required.
+- **Small negative credit allowance** (for example, up to -\$10) – Allows limited temporary usage.
+- **Five-minute grace window** – Prompts you to top up before deployment fails.
+- **Failure to deploy** – Occurs if credits are not replenished within the grace period.
 
-<Frame>
-  <img
-    src="/images/docs/5aaa39b884274496f2e1d7505e8bd438b2121f416b4f780fe000a30b00312e0e-IO_Credits3.jpg"
-    alt=""
-    className="mx-auto"
-    style={{ width:"65%" }}
-  />
-</Frame>
+## Managing IO Credits
 
-#### Use via API
+### Viewing Credit Balance
 
-Deployment endpoints accept `payment_method: "credits"`. If **Balance is Low**, fallback options may include:
+To view your IO Credit balance:
 
-- `GET /credits/check?amount=XX`
-- Pending Payment state
-- Small negative credit allowance (e.g., -\$10)
-- 5-minute grace window with top-up prompt
-- Failure if not topped up in time
-
-## How to Manage Your Credits
-
-#### View Credits
-
-Go to **Usage & Billing** from the top navigation bar. Here, you can see:
-
-- **Total IO Credits** – shown as a single balance (in USD)
-- **Request Withdrawal** (for purchased credits only)
-- **Usage in IO Cloud**
-- **View Transaction History**
+1. Navigate to **Usage & Billing** from the top navigation bar.
+2. In this section you can:
+   - View your **Total IO Credits** displayed as a single balance (in USD).
+   - Request a**Withdrawal**  (available for purchased credits only).
 
 <Frame>
   <img
@@ -102,11 +78,11 @@ Go to **Usage & Billing** from the top navigation bar. Here, you can see:
   />
 </Frame>
 
-#### Request Withdrawal
+### Request Withdrawal
 
-Submit a manual request to withdraw available **purchased credit**s from your balance.
+You may submit a manual request to withdraw available **purchased credits** from your balance.
 
-Withdrawals are only available to users who have submitted the credit request form and paid for their credits. Once submitted, withdrawal requests are reviewed by the IO Finance team and are typically processed within **3–7 business days.**
+Withdrawals are available only to users who have **paid for credits**. Once submitted, withdrawal requests are reviewed by the IO Finance team and typically **processed within three to seven business days**.
 
 <Frame>
   <img
@@ -117,19 +93,24 @@ Withdrawals are only available to users who have submitted the credit request fo
   />
 </Frame>
 
-#### Transaction History
+#### Viewing Transactions
 
-The Transaction History section gives you full visibility into how your IO Credits have been added, used, or refunded. It helps you track spending, reconcile deployments, and understand your current balance.
+The **Transactions** section provides visibility into how your IO Credits have been **added, used, or refunded**. It allows you to track spending, reconcile deployments, and understand your current balance.
 
-You’ll find entries for:
+You will find transaction entries for the following categories:
 
-- **Credit purchases** – credits added via BD team approval or SpherePay funding
-- **Usage deductions** – credits spent on compute deployments or inference runs
-- **Refunds** – returned credits from early terminations or unused deployments
+- **Credit Inflow** – Credits that you have purchased or that have been issued to your account by the IO team.
+- **Usage Deductions** – Credits spent on compute deployments, inference runs, or other billable operations.
+- **Refunds** – Credits returned from early terminations, failed deployments, or unused services.
 
-Each entry includes **IO Service, Timestamp, Type of transaction, Amount added or deducted, Transaction ID**
+Each transaction record includes the following details:
 
-Use this log to audit your activity or troubleshoot billing questions.
+- **Type** of transaction
+- **Amount** added or deducted
+- **Date and time** of the transaction
+- **Transaction ID**
+
+Use this log to **audit your activity**, **track usage patterns**, or **troubleshoot billing inquiries**.
 
 <Frame>
   ![](/images/docs/d17cbf842973356dee84d9503f1dc35eaa810121fa53b35c5abcb4cc98d9d575-IO_Credits6.jpg)
@@ -137,15 +118,29 @@ Use this log to audit your activity or troubleshoot billing questions.
 
 ## Credit Usage via API and Tracking
 
-Credits are tied to your IO ID and can be used across all IO Cloud products. When using IO APIs, you can specify the payment method as "`credits`" to automatically deduct from your balance.
+Credits are tied to your IO ID and can be used across all IO Cloud products. When using io.net APIs, you can specify the payment method as `credits` to automatically deduct from your balance.
 
 ## FAQs
 
 <AccordionGroup>
-  <Accordion title="What happens if I don’t have enough IO Credits?">
-    You’ll be prompted to top up or use another payment method. Your deployment will pause temporarily and may fail if not resolved in time.
+  <Accordion title="What happens if I don’t have enough IO Credits?" icon="comment-question" iconType="regular">
+    You will be prompted to top up or use another payment method. Your deployment will pause temporarily and may fail if not resolved in time.
   </Accordion>
-  <Accordion title="Can I convert credits back to USDC?">
-    Only purchased credits may be withdrawn, after a manual review by the finance team.
+  <Accordion title="Can I convert credits back to USDC?" icon="comment-question" iconType="regular">
+    Only **purchased** credits may be withdrawn, after a manual review by the finance team.
+  </Accordion>
+  <Accordion title="Do IO Credits expire?" icon="comment-question" iconType="regular">
+    Yes. All **purchased** IO Credits expire **twelve (12) months from the date of purchase**.
+  </Accordion>
+  <Accordion title="What happens when my IO Credits expire?" icon="comment-question" iconType="regular">
+    Once IO Credits expire, any unused balance will **have no remaining value** and **cannot be withdrawn, refunded, or reinstated**.
+  </Accordion>
+  <Accordion title="Does this expiration policy apply to all IO Credits?" icon="comment-question" iconType="regular">
+    No. The **12-month expiration** applies **only to non-promotional credits**, which are credits that were **purchased or paid for by users**.
+
+    Promotional credits (for example, credits granted by the IO team for trials, rewards, or campaigns) may have **different expiration timelines or conditions**, which will be **clearly stated** when they are issued.
+  </Accordion>
+  <Accordion title="Can I extend or renew my IO Credit expiration date?" icon="comment-question" iconType="regular">
+    No. Once IO Credits have expired, they **cannot be reactivated** or extended. To continue using IO, you can purchase new credits at any time.
   </Accordion>
 </AccordionGroup>
