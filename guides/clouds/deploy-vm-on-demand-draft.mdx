@@ -6,9 +6,7 @@ sidebarTitle: "Overview"
 
 **VM on Demand** provides a seamless way to deploy fully equipped virtual machines optimized for AI and machine learning workflows. Designed for data scientists, researchers, and builders, it enables you to launch high-performance GPU or CPU-powered environments with a few simple clicks.
 
-Each virtual machine comes preconfigured with essential frameworks such as **PyTorch**, **CUDA**, and **Ubuntu**, allowing you to focus on experimentation and development instead of infrastructure setup. You can scale resources as your workloads grow, monitor performance, and manage deployments, all through an intuitive interface.
-
-Whether you are training deep learning models, running data pipelines, or testing ML prototypes, **VM on Demand** delivers a fast, reliable, and frictionless compute experience.
+You can scale resources as your workloads grow, monitor performance, and manage deployments, all through an intuitive interface. Whether you are training deep learning models, running data pipelines, or testing ML prototypes, **VM on Demand** delivers a fast, reliable, and frictionless compute experience.
 
 ## Quick Start:
 
@@ -32,7 +30,7 @@ You can also open the **Virtual Machine** tab directly and select **Deploy Virtu
 
 Choose a processor based on your requirements. Each card displays its specifications, including:
 
-- _Available stock_
+- _Device Availability_
 - _Price_
 - _VRAM per card_
 - _Storage_
@@ -43,13 +41,13 @@ To view detailed technical information, click **More Details**. This will displa
 
 You can refine your selection using the **Search GPU Model** field or by applying filters. Click **Filter** to filter by:
 
-- GPU Family
-- Region
-- Supplier
-- GPU Memory
-- GPU Cores
-- Device Memory
-- Storage
+- _GPU Family_
+- _Region_
+- _Supplier_
+- _GPU Memory_
+- _GPU Cores_
+- _Device Memory_
+- _Storage_
 
 You can apply these filters individually or in combination.
 
@@ -63,8 +61,6 @@ Set up your environment and link SSH Keys for secure access. You can choose betw
   Partner-provided clusters include a preloaded image that cannot be changed.
 
   To choose a specific image, select a processor supplied by **io.net**.
-
-  Click **Edit** next to _Chosen Image_ to modify your selection.
 </Note>
 
 <Tabs>
@@ -175,25 +171,35 @@ Choose one of the following methods to access your VM securely:
 
 ### 5. Customize your Cluster (Optional)
 
-You can assign a name to your cluster in the **Your Cluster Name** field.
+In this step, you can personalize your deployment by assigning a **cluster name** and configuring **network services**.
 
-To add additional network services beyond the default SSH access, follow these steps:
+**Cluster Name**
+
+You can assign a unique name to your cluster to help identify and manage it easily.
+
+Enter your preferred name in the **Your Cluster Name** field. This name will appear throughout your dashboard and logs, making it simpler to distinguish between different clusters or projects.
+
+**Network Services**
+
+Network services allow you to expose specific ports on your cluster that are necessary for your applications or workflows. These ports enable external access to services running inside your virtual machine, such as APIs, web applications, or databases.
+
+By defining network services during setup, you ensure that your required tools and applications are reachable while keeping all other ports securely closed by default. This approach provides flexibility for your workloads without compromising security.
+
+You can configure multiple network services depending on your use case.
+
+To expose additional ports or services, follow these steps:
 
 1. Click **Add Network Service**
 2. Provide the required details:
-   - Service Name
-   - Port Number
-   - Protocol (TCP or UDP)
-   - Whitelisted IPs (IPv4 subnet)
+   - _Service Name_
+   - _Port Number_
+   - _Protocol_ (TCP or UDP)
+   - _Whitelisted IPs_ (IPv4 subnet)
 3. Click the **\+** button to add each IP to your whitelist.
 
-<img
-  src="/images/docs/cloud_vm_on_demand/Containers5.jpg"
-  alt="Containers5 Jp"
-  title="Containers5 Jp"
-  className="mx-auto"
-  style={{ width:"68%" }}
-/>
+<Warning>
+  Network services and port configurations cannot be changed after cluster creation. Ensure that all required ports are defined before deployment, and expose them in your Docker command inside the VM.
+</Warning>
 
 <Accordion title="Port Exposure on io.net">
   When deploying containers, you must expose ports in two locations:
@@ -214,9 +220,6 @@ To add additional network services beyond the default SSH access, follow these s
   <Note>
     Docker port exposure inside the VM does not automatically propagate to the external network. Both configurations are required for external accessibility.
   </Note>
-  <Warning>
-    Network services and port configurations cannot be changed after cluster creation. Ensure that all required ports are defined before deployment, and expose them in your Docker command inside the VM.
-  </Warning>
 </Accordion>
 
 ### 6. Review and Deploy
@@ -251,8 +254,6 @@ Each **Cluster Detail** page shows you:
 - SSH connection details
 - Lifecycle controls (Pause, Resume, Terminate)
 - Billing and usage insights
-
-![Containers8 Jp](/images/docs/cloud_vm_on_demand/Containers8.jpg)
 
 ### Connecting to your Virtual Machine
 
