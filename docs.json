@@ -146,13 +146,6 @@
                     "guides/payment/card-payments-faqs"
                ]
             },
-          {
-               "group": "IO Cloud Payments",
-              "hidden": true,
-               "pages": [
-                    "guides/payment/io-credits-draft"
-               ]
-            },
             {
                "group": "Run Jobs on Clusters",
                "pages": [
