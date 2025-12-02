@@ -12,7 +12,7 @@ You can scale resources as your workloads grow, monitor performance, and manage 
 
 1. Click **Deploy Virtual Machine** on the **Home** tab.
 2. Choose your **Processor**.
-3. Configure your **Cluster**.
+3. Configure your **Virtual Machine**.
 4. Monitor your deployment details in the sidebar.
 5. Once the minimum requirements are met, review and deploy your cluster.
 6. Start using your **Virtual Machine**.
@@ -34,7 +34,7 @@ You can also open the **Virtual Machine** tab directly and select **Deploy Virtu
   ![IO Cloud VM Deploy VM Pn](/images/docs/cloud_vm_on_demand/IOCloud_VM_DeployVM.png)
 </Frame>
 
-### 2. Select your Cluster Processor
+### 2. Select your Virtual Machine Processor
 
 Choose a processor based on your requirements. Each card displays its specifications, including:
 
@@ -186,7 +186,7 @@ Enter your preferred name in the **Your Cluster Name** field. This name will app
 
 **Network Services**
 
-Network services allow you to expose specific ports on your cluster that are necessary for your applications or workflows. These ports enable external access to services running inside your virtual machine, such as APIs, web applications, or databases.
+Network services allow you to expose specific ports on your virtual machine that are necessary for your applications or workflows. These ports enable external access to services running inside your virtual machine, such as APIs, web applications, or databases.
 
 By defining network services during setup, you ensure that your required tools and applications are reachable while keeping all other ports securely closed by default. This approach provides flexibility for your workloads without compromising security.
 
@@ -203,7 +203,7 @@ To expose additional ports or services, follow these steps:
 3. Click the **\+** button to add each IP to your whitelist.
 
 <Warning>
-  Network services and port configurations cannot be changed after cluster creation. Ensure that all required ports are defined before deployment, and expose them in your Docker command inside the VM.
+  Network services and port configurations cannot be changed after virtual machine deployment. Ensure that all required ports are defined before deployment, and expose them in your Docker command inside the VM.
 </Warning>
 
 <Accordion title="Port Exposure on io.net">
@@ -231,7 +231,7 @@ To expose additional ports or services, follow these steps:
 
 A sidebar on the right displays all your deployment details, including:
 
-- _Cluster Type_
+- _Machine Type_
 - _Processor_
 - _Cost_
 - _GPUs per VM_
@@ -253,15 +253,15 @@ A payment window will appear where you can complete the transaction using **IO C
 
 Once payment is confirmed, your cluster deployment will begin automatically.
 
-## Viewing Clusters
+## Viewing Virtual Machines
 
-After deployment, you can view your live virtual machine cluster.
+After deployment, you can view your live virtual machine.
 
 Click **Return to Clusters** or navigate to the **Virtual Machines** tab to monitor performance, pause or resume machines, or launch additional VMs.
 
-The **Virtual Machines Dashboard** allows you to filter clusters by their current status. Click on a specific cluster to open its details page.
+The **Virtual Machines Dashboard** allows you to filter clusters by their current status. Click on a specific VM to open its details page.
 
-Each **Cluster Detail** page shows you:
+Each **Detail** page shows you:
 
 - Real-time resource usage information
 - SSH connection details
