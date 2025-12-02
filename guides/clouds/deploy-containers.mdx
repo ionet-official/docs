@@ -63,6 +63,33 @@ Once all required fields are completed, click **Next Step**.
   />
 </Frame>
 
+<Accordion title="Using Environment Variables in Entrypoints" icon="warning" iconType="duotone">
+  To avoid deployment failures:
+
+  - Always define environment variables in the `env_variables` section.
+  - Do not substitute variables directly in the `entrypoint` or `args`.
+  - When referencing variables in the entrypoint, **escape**`$`**as**   `$$`.
+
+  Example:
+
+  ```json
+  "entrypoint": [
+    "sh", "-c", "echo 'Variable value: $${TEST_VAR}' && sleep 3600"
+  ],
+  "env_variables": {
+    "TEST_VAR": "This is a test"
+  }
+  ```
+
+  - **Correct:** `$${TEST_VAR}` prints the variable value inside the container.
+  - **Incorrect:** `$TEST_VAR` may cause deployment failure.
+  - Always use `env_variables` for variable management.
+
+  <Note>
+    For advanced users: There is a known issue where Terraform variable interpolation (`$`) may conflict with service-layer substitution. Escaping with `$$` resolves this issue.
+  </Note>
+</Accordion>
+
 ### Step 2: Select Your Cluster Processor + Location
 
 Choose the hardware and region for your deployment:

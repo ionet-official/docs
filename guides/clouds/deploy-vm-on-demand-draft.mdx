@@ -1,6 +1,6 @@
 ---
 title: "Deploy VM on Demand"
-description: "Instantly deploy GPU or CPU-powered virtual machines for AI and ML workloads. Configure, launch, and manage your compute clusters in minutes, no DevOps required."
+description: "Instantly deploy GPU accelerated virtual machines designed for AI and ML workloads. Configure, launch, and manage your compute clusters. CPUs are included with every instance."
 sidebarTitle: "Overview"
 ---
 
@@ -16,7 +16,7 @@ You can scale resources as your workloads grow, monitor performance, and manage 
 4. Monitor your deployment details in the sidebar.
 5. Once the minimum requirements are met, review and deploy your cluster.
 6. Start using your **Virtual Machine**.
-7. View and manage your clusters in the **Virtual Machines** tab.
+7. View and manage your virtual machines in the **Virtual Machine** tab.
 
 ## Deploying Clusters
 
@@ -67,7 +67,7 @@ You can apply these filters individually or in combination.
   ![IO Cloud VM Filters Pn](/images/docs/cloud_vm_on_demand/IOCloud_VM_Filters.png)
 </Frame>
 
-After selecting your Cluster Processor, click **Next Step** to continue.
+After selecting your Virtual Machine Processor, click **Next Step** to continue.
 
 ### 3. Configure Environment and SSH Keys
 
@@ -118,33 +118,6 @@ Set up your environment and link SSH Keys for secure access. You can choose betw
     </Frame>
   </Tab>
 </Tabs>
-
-<Accordion title="Using Environment Variables in Entrypoints" icon="warning" iconType="duotone">
-  To avoid deployment failures:
-
-  - Always define environment variables in the `env_variables` section.
-  - Do not substitute variables directly in the `entrypoint` or `args`.
-  - When referencing variables in the entrypoint, **escape**`$`**as**   `$$`.
-
-  Example:
-
-  ```json
-  "entrypoint": [
-    "sh", "-c", "echo 'Variable value: $${TEST_VAR}' && sleep 3600"
-  ],
-  "env_variables": {
-    "TEST_VAR": "This is a test"
-  }
-  ```
-
-  - **Correct:** `$${TEST_VAR}` prints the variable value inside the container.
-  - **Incorrect:** `$TEST_VAR` may cause deployment failure.
-  - Always use `env_variables` for variable management.
-
-  <Note>
-    For advanced users: There is a known issue where Terraform variable interpolation (`$`) may conflict with service-layer substitution. Escaping with `$$` resolves this issue.
-  </Note>
-</Accordion>
 
 #### 4. Add your SSH Key:
 
@@ -197,9 +170,9 @@ Choose one of the following methods to access your VM securely:
   </Tab>
 </Tabs>
 
-### 5. Customize your Cluster (Optional)
+### 5. Customize your Virtual Machine (Optional)
 
-In this step, you can personalize your deployment by assigning a **cluster name** and configuring **network services**.
+In this step, you can personalize your deployment by assigning a**name**  and configuring **network services**.
 
 **Cluster Name**
 
