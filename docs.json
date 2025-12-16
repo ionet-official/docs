@@ -563,8 +563,6 @@
                   "reference/vmaas/get-deployment-details",
                   "reference/vmaas/get-deployment-vms",
                   "reference/vmaas/get-vms-jobs-history",
-                  "reference/vmaas/get-max-gpu-count-per-vm",
-                  "reference/vmaas/get-available-vms",
                   "reference/vmaas/get-deployment-price",
                   "reference/vmaas/deploy-vms",
                   "reference/vmaas/extend-cluster",
