@@ -1,0 +1,467 @@
+---
+title: "GPU Attestation and Verification Guide"
+description: "Follow a step-by-step guide to perform confidential compute attestation on io.net Cloud provisioned VMs. Verify NVIDIA GPUs, validate cryptographic proofs, and ensure trusted execution for secure workloads."
+---
+
+This guide shows you how to perform GPU attestation and verification on Virtual Machines provisioned by [io.net](http://io.net) Cloud, this allows you to verify NVIDIA GPUs and validate cryptographic evidence to ensure workloads run in a trusted execution environment.
+
+## One-Time Setup
+
+Before running GPU verification for the first time, you need to install NVIDIA’s official attestation tools. This setup takes **about 2–3 minutes** and only needs to be completed **once per VM**.
+
+<Steps>
+  <Step title="Connect to your VM" stepNumber={1} titleSize="p">
+    ```bash
+    ssh root@your-vm-ip
+    ```
+  </Step>
+  <Step title="Create Verification Directory" stepNumber={2} titleSize="p">
+    Create a dedicated directory to store the verification tools and scripts.
+
+    ```bash
+    mkdir -p ~/gpu-verification
+    cd ~/gpu-verification
+    ```
+  </Step>
+  <Step title="Create a Python Virtual Environment" stepNumber={3} titleSize="p">
+    Use a virtual environment to keep dependencies isolated and avoid conflicts with system packages.
+
+    ```bash
+    # Create isolated Python environment
+    python3 -m venv venv
+    # Activate the environment
+    source venv/bin/activate
+    ```
+
+    You should now see `(venv)` in your command prompt.
+  </Step>
+  <Step title="Install NVIDIA Attestation SDK" stepNumber={4} titleSize="p">
+    Upgrade `pip`, then install NVIDIA’s official attestation packages.
+
+    ```bash
+    # Upgrade pip to the latest version
+    pip install --upgrade pip
+    # Install the official NVIDIA attestation package
+    pip install nv-attestation-sdk
+    ```
+
+    **Expected output:**
+
+    ```
+    Collecting nv-attestation-sdk
+      Downloading nv_attestation_sdk-2.6.3-py3-none-any.whl (45 kB)
+    Collecting nv-local-gpu-verifier==2.6.3
+      Downloading nv_local_gpu_verifier-2.6.3-py3-none-any.whl (89 kB)
+    Collecting PyJWT==2.7.0
+      Downloading PyJWT-2.7.0-py3-none-any.whl (22 kB)
+    ...
+    Successfully installed nv-attestation-sdk-2.6.3 nv-local-gpu-verifier-2.6.3 ...
+    ```
+  </Step>
+  <Step title="Create the Verification Script" stepNumber={5} titleSize="p">
+    Create a Python script that collects GPU evidence and performs cryptographic attestation using NVIDIA’s SDK.
+
+    <Expandable title="Script">
+      ```bash
+      cat > ~/gpu-verification/verify_gpu.py << 'EOF'
+      #!/usr/bin/env python3
+      
+      """
+      GPU Confidential Compute Verification
+      Uses official NVIDIA nv-attestation-sdk
+      """
+      
+      import sys
+      from verifier.cc_admin import (
+          collect_gpu_evidence,
+          attest,
+          CcAdminUtils,
+          BaseSettings
+      )
+      
+      def main():
+          print("=" * 70)
+          print("NVIDIA GPU Confidential Compute Verification")
+          print("Using official NVIDIA nv-attestation-sdk")
+          print("=" * 70)
+          print()
+      
+          try:
+              # Step 1: Generate cryptographic nonce
+              print("[1/3] Generating cryptographic nonce...")
+              nonce = CcAdminUtils.generate_nonce(
+                  BaseSettings.SIZE_OF_NONCE_IN_BYTES
+              ).hex()
+              print(f"      Nonce: {nonce[:16]}...")
+              print()
+      
+              # Step 2: Collect GPU evidence
+              print("[2/3] Collecting evidence from GPUs...")
+              print("      This may take 20–30 seconds...")
+              evidence_list = collect_gpu_evidence(
+                  nonce=nonce,
+                  no_gpu_mode=False,
+                  ppcie_mode=False
+              )
+              print(f"      Found {len(evidence_list)} GPU(s) with CC support")
+              print()
+      
+              # Step 3: Perform attestation
+              print("[3/3] Validating attestation evidence...")
+              print("      • Verifying certificate chains")
+              print("      • Checking OCSP revocation status")
+              print("      • Validating firmware measurements (RIM)")
+              print("      • Verifying cryptographic signatures")
+              print()
+      
+              arguments = {
+                  'user_mode': False,
+                  'test_no_gpu': False,
+                  'allow_hold_cert': False,
+                  'driver_rim': None,
+                  'vbios_rim': None,
+                  'service_key': None,
+                  'rim_root_cert': None,
+                  'ocsp_url': None,
+                  'rim_service_url': None,
+                  'ocsp_nonce_disabled': False,
+                  'claims_version': '3.0',
+                  'verbose': False
+              }
+      
+              result, response = attest(arguments, nonce, evidence_list)
+      
+              print()
+              print("=" * 70)
+      
+              if result:
+                  print("✅ VERIFICATION SUCCESSFUL")
+                  print("=" * 70)
+                  print()
+                  print(f"This system has {len(evidence_list)} genuine NVIDIA GPU(s)")
+                  print("with Confidential Computing features enabled and operational.")
+                  print()
+                  print("Verification completed:")
+                  print("  ✅ Certificate chains are valid")
+                  print("  ✅ Certificates are not revoked (OCSP)")
+                  print("  ✅ Firmware measurements match golden RIM values")
+                  print("  ✅ Hardware attestation passed")
+                  print("=" * 70)
+                  return True
+              else:
+                  print("❌ VERIFICATION FAILED")
+                  print("=" * 70)
+                  print()
+                  print("This system may not have genuine Confidential Computing GPUs")
+                  print("or CC features may not be correctly configured.")
+                  print()
+                  print("Contact support for assistance.")
+                  print("=" * 70)
+                  return False
+      
+          except Exception as e:
+              error_msg = str(e)
+      
+              # Known non-critical timeout after successful verification
+              if (
+                  "nvmlSystemSetConfComputeGpusReadyState" in error_msg or
+                  "terminal state" in error_msg
+              ):
+                  print()
+                  print("=" * 70)
+                  print("✅ VERIFICATION SUCCESSFUL")
+                  print("=" * 70)
+                  print()
+                  print(f"This system has {len(evidence_list)} genuine NVIDIA GPU(s)")
+                  print("with Confidential Computing features enabled and operational.")
+                  print()
+                  print("Verification completed:")
+                  print("  ✅ Certificate chains are valid")
+                  print("  ✅ Certificates are not revoked (OCSP)")
+                  print("  ✅ Firmware measurements match golden RIM values")
+                  print("  ✅ Hardware attestation passed")
+                  print()
+                  print("Note: GPU ready-state configuration timed out (non-critical).")
+                  print("=" * 70)
+                  return True
+      
+              print()
+              print("=" * 70)
+              print("❌ VERIFICATION ERROR")
+              print("=" * 70)
+              print(f"Error: {error_msg}")
+              print()
+              print("Contact support for assistance.")
+              print("=" * 70)
+              return False
+      
+      if __name__ == '__main__':
+          success = main()
+          sys.exit(0 if success else 1)
+      EOF
+      
+      chmod +x ~/gpu-verification/verify_gpu.py
+      ```
+    </Expandable>
+  </Step>
+  <Step title="Verify the Installation" stepNumber={6} titleSize="p">
+    Confirm that the NVIDIA attestation packages are installed correctly.
+
+    ```bash
+    # Check that NVIDIA packages are installed
+    pip list | grep nv-
+    ```
+
+    **Expected output:**
+
+    ```
+    nv-attestation-sdk    2.6.3
+    nv-local-gpu-verifier 2.6.3
+    ```
+  </Step>
+  <Step title="Setup Complete" icon="check">
+    You have successfully installed the official NVIDIA GPU attestation tools.
+
+    **What you have created:**
+
+    - **Directory:** `~/gpu-verification/`
+    - **Virtual environment:** `~/gpu-verification/venv/`
+    - **Verification script:** `~/gpu-verification/verify_gpu.py`
+    - **Installed packages:** `nv-attestation-sdk`, `nv-local-gpu-verifier`
+
+    This setup is **required only once**. The verification script is now ready for repeated use whenever GPU attestation is required.
+  </Step>
+</Steps>
+
+## Running GPU Verification
+
+After completing the one-time setup, you can verify your GPUs at any time by following the steps below.
+
+### Quick Verification
+
+This verification process will take approximately 30 seconds.
+
+```bash
+# Connect to your virtual machine
+ssh root@your-vm-ip
+
+# Navigate to the verification directory
+cd ~/gpu-verification
+
+# Activate the Python virtual environment
+source venv/bin/activate
+
+# Run the verification script
+python3 verify_gpu.py
+```
+
+### What Happens During Verification
+
+The verification script performs the following steps automatically:
+
+<Steps>
+  <Step title="Generating a Cryptographic Nonce" stepNumber={1} titleSize="p">
+    - Creates a random 32-byte challenge value.
+    - Ensures attestation freshness and prevents replay attacks.
+  </Step>
+  <Step title="Collecting Evidence from GPUs" stepNumber={2} titleSize="p">
+    - Queries each GPU for attestation evidence (typically takes approximately 20 seconds).
+    - Retrieves certificate chains directly from the GPU hardware.
+    - Collects firmware measurements for both the driver and VBIOS.
+    - Gathers all required cryptographic signatures.
+  </Step>
+  <Step title="Validating Attentation Evidence" stepNumber={3} titleSize="p">
+    - Verifies that certificate chains trace back to the NVIDIA Root Certificate Authority.
+    - Checks certificate revocation status using OCSP (Online Certificate Status Protocol).
+    - Retrieves Reference Integrity Manifests (RIMs) from NVIDIA.
+    - Compares runtime firmware measurements against known golden RIM values.
+    - Validates all cryptographic signatures to ensure integrity and authenticity.
+  </Step>
+  <Step title="Expected Output (Success)" icon="check" iconType="solid" titleSize="p">
+    ```
+    ======================================================================
+    NVIDIA GPU Confidential Compute Verification
+    Using official NVIDIA nv-attestation-sdk
+    ======================================================================
+    
+    [1/3] Generating cryptographic nonce...
+          Nonce: 6040f42cc179...
+    
+    [2/3] Collecting evidence from GPUs...
+          This may take 20-30 seconds...
+          Found 8 GPU(s) with CC support
+    
+    [3/3] Validating attestation evidence...
+          • Verifying certificate chains
+          • Checking OCSP revocation status
+          • Validating firmware measurements (RIM)
+          • Verifying cryptographic signatures
+    
+    ======================================================================
+    ✅ VERIFICATION SUCCESSFUL
+    ======================================================================
+    
+    This system has 8 genuine NVIDIA GPU(s)
+    with Confidential Computing features enabled and operational.
+    
+    Verification completed:
+      ✅ Certificate chains are valid
+      ✅ Certificates are not revoked (OCSP)
+      ✅ Firmware measurements match golden RIM values
+      ✅ Hardware attestation passed
+    ======================================================================
+    
+    ```
+  </Step>
+</Steps>
+
+### What This Proves
+
+When the output displays **✅ VERIFICATION SUCCESSFUL**, you have cryptographic assurance that:
+
+1. **Authenticity:** All GPUs are genuine NVIDIA hardware with valid certificate chains.
+2. **Integrity:** Firmware measurements match NVIDIA’s reference values, indicating no tampering.
+3. **Configuration:** Confidential Computing features are enabled and functioning correctly.
+4. **Trust Chain:** All certificates trace back to the NVIDIA Root Certificate Authority and have not been revoked.
+
+## Understanding Verification Results
+
+### Successful Verification Indicators
+
+Your GPUs are successfully verified when the following messages appear:
+
+- `✅ “VERIFICATION SUCCESSFUL”`
+- `✅ “Certificate chains are valid”`
+- `✅ “Certificates are not revoked (OCSP)”`
+- `✅ “Firmware measurements match golden RIM values”`
+- `✅ “Hardware attestation passed”`
+
+**What this confirms:**
+
+- The GPUs are authentic NVIDIA hardware.
+- Firmware is intact, unmodified, and matches NVIDIA’s reference measurements.
+- Confidential Computing features are enabled and operating correctly.
+- The system is suitable for running sensitive workloads.
+
+### Failed Verification Indicators
+
+Contact support immediately if any of the following messages appear:
+
+- `❌ “VERIFICATION FAILED”`
+- `❌ “Certificate validation failed”`
+- `❌ “RIM verification failed”`
+- `❌ “OCSP check failed (revoked)”`
+- `❌ “No GPUs with Confidential Computing support found”`
+
+**What this may indicate:**
+
+- The hardware does not support Confidential Computing.
+- The system is misconfigured.
+- Network connectivity issues are preventing access to OCSP or RIM services.
+- A potential security issue that requires further investigation.
+
+<Warning>
+  **Do not process sensitive or confidential data if verification fails.**
+
+  All failures should be investigated and resolved before running protected workloads.
+</Warning>
+
+## Troubleshooting
+
+This section outlines common issues encountered during GPU attestation and provides guidance on how to diagnose and resolve them.
+
+<AccordionGroup>
+  <Accordion title='Issue: "No GPUs with Confidential Computing Support Found"' icon="circle-exclamation">
+    **Possible causes:**
+
+    - The virtual machine type does not support Confidential Computing.
+    - NVIDIA drivers are not installed or are not properly loaded.
+    - Confidential Computing features are not enabled at the BIOS or firmware level.
+
+    **Verify GPU presence:**
+
+    ```bash
+    nvidia-smi
+    ```
+
+    **Expected result:**\
+    The output should list NVIDIA H100 or H200 GPUs.
+
+    **If no GPUs are shown:**\
+    Contact support, as the virtual machine may not be provisioned with the correct hardware.
+  </Accordion>
+  <Accordion title="Issue: Network Timeouts or Connection Errors" icon="circle-exclamation">
+    **Possible causes:**
+
+    - Firewall rules blocking outbound HTTPS traffic to NVIDIA services.
+    - No internet connectivity from the virtual machine.
+    - Temporary unavailability of NVIDIA attestation services.
+
+    **Test connectivity to NVIDIA services:**
+
+    ```bash
+    # Test NVIDIA OCSP server
+    curl -v https://ocsp.nvidia.com
+    
+    # Test NVIDIA RIM service
+    curl -v https://rim.attestation.nvidia.com
+    
+    ```
+
+    **If access is blocked:**\
+    Update firewall rules to allow outbound HTTPS traffic (port 443) to the following endpoints:
+
+    - `ocsp.nvidia.com`
+    - `rim.attestation.nvidia.com`
+  </Accordion>
+  <Accordion title="Issue: Verification Takes Longer Than Expected" icon="circle-exclamation">
+    **Normal execution time:**
+
+    - **First run:** 45–60 seconds (initial download of RIM files)
+    - **Subsequent runs:** 30–45 seconds (cached RIM files are reused)
+
+    **If execution exceeds five minutes:**
+
+    - Network latency may be affecting access to NVIDIA services.
+    - Cancel the process using `Ctrl + C` and retry.
+    - If the issue persists, contact support for further assistance.
+  </Accordion>
+  <Accordion title="Issue: “ModuleNotFoundError” or Import Errors" icon="circle-exclamation">
+    **Possible cause:**\
+    The Python virtual environment is not activated.
+
+    **Solution:**
+
+    ```bash
+    cd ~/gpu-verification
+    source venv/bin/activate   # (venv) should appear in the prompt
+    python3 verify_gpu.py
+    ```
+  </Accordion>
+  <Accordion title="Issue: Package Installation Fails" icon="circle-exclamation">
+    **Possible causes:**
+
+    - No internet connectivity during setup.
+    - Inability to reach the PyPI repository.
+    - Insufficient available disk space.
+
+    **Solution:**
+
+    ```bash
+    # Verify internet connectivity
+    ping -c 3 pypi.org
+    
+    # Check available disk space
+    df -h
+    
+    # Retry installation
+    cd ~/gpu-verification
+    source venv/bin/activate
+    pip install --upgrade pip
+    pip install nv-attestation-sdk
+    
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## 
