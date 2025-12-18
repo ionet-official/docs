@@ -1,0 +1,134 @@
+---
+title: "GPU Attestation and Verification Guide"
+description: "Verify Your NVIDIA Confidential Computing GPUs"
+---
+
+## Overview
+
+[io.net](http://io.net) provisioned _Confidential Compute VMs_ are equipped with NVIDIA H100 or H200 GPUs featuring hardware-based confidential computing capabilities. This guide shows you how to verify that your GPUs are genuine NVIDIA hardware with confidential computing features properly enabled.
+
+### Key Takeaways
+
+- Understand why GPU verification is essential for confidential computing.
+- Learn how to confirm GPU authenticity using cryptographic attestation.
+- Follow clear, step-by-step instructions to run verification on your VM.
+
+### Prerequisites
+
+- SSH access to your Confidential Compute VM
+- Python 3.7 or later (pre-installed on your VM)
+- Basic command line understanding
+- 5 minutes to perform the initial set up
+
+## Why does GPU verification matter?
+
+### Trust, but Verify
+
+When running sensitive workloads on confidential computing infrastructure, it is not enough to rely on a provider’s assurances. You need **cryptographic proof** that the hardware is authentic, correctly configured, and operating in a secure state.
+
+GPU attestation provides independent verification that:
+
+- **The GPUs are genuine NVIDIA hardware** — not counterfeit, emulated, or misrepresented.
+- **Firmware is intact and unmodified** — ensuring no tampering with GPU software or drivers.
+- **Confidential computing features are enabled** — confirming that CC mode is active and functioning properly.
+- **Hardware measurements match expected “golden” values** — validating that the GPU’s state aligns with NVIDIA’s reference integrity manifests.
+
+### Security and Compliance
+
+GPU attestation is a foundational security mechanism for confidential computing environments. It helps ensure:
+
+- **Zero-trust architecture** - trust no component by default, verify every claim cryptographically.
+- **Regulatory and compliance adherence** - meet requirements that mandate hardware verification.
+- **Data protection** - guarantee that sensitive workloads run only on validated, trustworthy hardware.
+- **Clear auditability** - produce cryptographic evidence for stakeholders, security teams, and auditors.
+
+### How It Works
+
+Attestation relies on **cryptographic proofs** that cannot be falsified, forged or altered. The verification process follows a clear chain of checks:
+
+```
+Your VM → Collect GPU Evidence → Verify Certificates
+                                → Check Measurements
+                                → Validate Signatures
+                                → Result: Verified or Check Failed
+```
+
+**What gets verified:**
+
+During attestation, the following elements are validated:
+
+- **A four-level GPU certificate chain**, traced back to the NVIDIA Root Certificate Authority.
+- **Certificate revocation status**, checked via OCSP to ensure no certificates have been revoked.
+- **Driver firmware measurements**, consisting of 64 SHA-384 cryptographic hashes.
+- **VBIOS firmware measurements**, consisting of 64 SHA-384 cryptographic hashes.
+- **Digital signatures on all attestation evidence**, ensuring integrity and authenticity.
+
+## What is GPU Attestation?
+
+### Cryptographic Proof of Authenticity
+
+GPU attestation is a cryptographic verification process rooted in **hardware-based trust**. It provides verifiable proof that a GPU is authentic, securely configured, and operating in a trusted state. Specifically, it validates four core properties:
+
+<Tabs>
+  <Tab title="1. Hardware Authenticity">
+    Every NVIDIA GPU that supports Confidential Computing includes:
+
+    - A **unique hardware identity** permanently embedded in silicon during manufacturing.
+    - A **certificate chain** signed by NVIDIA’s Root Certificate Authority.
+    - **Cryptographic keys** stored in tamper-resistant hardware.
+
+    **What this proves:**\
+    The GPU is genuine NVIDIA hardware, produced by NVIDIA, and not counterfeit or emulated.
+  </Tab>
+  <Tab title="2. Firmware Integrity">
+    During attestation, the system:
+
+    - Measures all GPU firmware using **SHA-384 cryptographic hashes.**
+    - Compares measurements against NVIDIA’s **Reference Integrity Manifests (RIMs)**.
+    - Verifies the **digital signatures** on the RIM files.
+
+    **What this proves:**\
+    The GPU firmware has not been modified, tampered with, or compromised.
+  </Tab>
+  <Tab title="3. Configuration State">
+    The verification process confirms that:
+
+    - **Confidential Computing (CC) mode** is enabled.
+    - **Protected PCIe (PPCIE)** is correctly configured.
+    - The GPU is operating in the **expected secure state**.
+
+    **What this proves:**\
+    Confidential Computing features are actively enabled and functioning, not merely claimed.
+  </Tab>
+  <Tab title="4. Freshness">
+    Attestation uses a **nonce** (a cryptographic challenge) to:
+
+    - Prevent replay attacks.
+    - Ensure the evidence is current, not reused or pre-recorded.
+    - Confirm that measurements reflect the GPU’s **current state**.
+
+    **What this proves:**\
+    The attestation is happening in real time on this specific GPU.
+  </Tab>
+</Tabs>
+
+### Official NVIDIA Technology
+
+**GPU attestation is performed using NVIDIA’s official tooling:**
+
+- **Package:** `nv-attestation-sdk` (official NVIDIA Python SDK)
+- **Source:** PyPI (Python Package Index)
+- **Version:** 2.6.3 (as of December 2025)
+- **License:** Apache 2.0
+- **Repository:** https://github.com/NVIDIA/nvtrust
+
+This is **not a third-party tool**. It is NVIDIA’s production-ready attestation framework, used by enterprise customers worldwide.
+
+### Standards-Based Approach
+
+NVIDIA GPU attestation is built on widely adopted industry standards:
+
+- **SPDM (Security Protocol and Data Model):** Version 1.1 for device authentication.
+- **X.509 PKI:** Standard public key infrastructure for certificates.
+- **OCSP:** Online Certificate Status Protocol for revocation checks.
+- **TCG standards:** Trusted Computing Group measurement and attestation specifications.

@@ -124,7 +124,7 @@
                       "tag": "UPDATED",
                        "hidden": true,
                       "pages": [
-                        "guides/clouds/deploy-vm-on-demand-draft"
+                        "guides/clouds/confidential-compute-attestation"
                       ]
                     },
                     {
