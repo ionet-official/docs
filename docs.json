@@ -116,17 +116,27 @@
                       "pages": [
                         "guides/clouds/deploy-vm-on-demand",
                         "guides/clouds/data-science-image-full-specification",
+                        {
+                          "group": "Confidential Compute",
+                          "tag": "NEW",
+                          "hidden": true,
+                          "pages": [
+                            "guides/clouds/vm-confidential-compute",
+                            {
+                              "group": "Confidential Compute Attestation",
+                              "hidden": true,
+                              "pages": [
+                                "guides/clouds/confidential-compute-attestation",
+                                "guides/clouds/confidential-compute-attestation-guide"
+                              ]
+                            },
+                            "guides/clouds/confidential-compute-attestation"
+                                  ]
+                        },
                         "guides/clouds/vm-confidential-compute"
                       ]
                     },
-                 {
-                      "group": "VM on Demand",
-                      "tag": "UPDATED",
-                       "hidden": true,
-                      "pages": [
-                        "guides/clouds/confidential-compute-attestation"
-                      ]
-                    },
+                 
                     {
                       "group": "Kubernetes",
                       "pages": [

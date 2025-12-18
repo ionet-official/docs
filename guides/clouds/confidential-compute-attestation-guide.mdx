@@ -464,4 +464,47 @@ This section outlines common issues encountered during GPU attestation and provi
   </Accordion>
 </AccordionGroup>
 
-## 
+## Support
+
+### Getting Help
+
+If you encounter issues during GPU verification, follow the steps below to diagnose and resolve the problem.
+
+**Recommended Troubleshooting Steps**
+
+1. **Review this guide**\
+   Most common issues and resolutions are documented in the troubleshooting section.
+2. **Examine error messages carefully**\
+   Error output typically indicates the underlying cause of the failure.
+3. **Verify prerequisites**\
+   Ensure that the NVIDIA driver is installed correctly and that GPUs are visible to the system.
+4. **Collect diagnostic information**\
+   Gather the following information before contacting support:
+
+   ```bash
+   # Capture GPU information
+   nvidia-smi > gpu_info.txt
+   
+   # Capture verification output
+   python3 verify_gpu.py 2>&1 | tee verification_output.txt
+   
+   # Capture installed NVIDIA package versions
+   pip list | grep nv- > package_versions.txt
+   ```
+
+### Contact Support
+
+When reaching out for assistance, provide the Virtual machine identifier, complete error messages, and the diagnostic files listed above.
+
+### NVIDIA Resources
+
+**Official NVIDIA Documentation**
+
+- GPU Attestation: https://docs.nvidia.com/attestation/
+- Confidential Computing: https://docs.nvidia.com/confidential-computing/
+- SDK Repository: https://github.com/NVIDIA/nvtrust
+
+**NVIDIA Support Channels**
+
+- Developer Forums: https://forums.developer.nvidia.com/
+- NGC Support: https://ngc.nvidia.com/support
