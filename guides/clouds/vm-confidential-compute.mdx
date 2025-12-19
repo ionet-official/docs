@@ -40,8 +40,6 @@ These risks endanger:
 - Customer PII, health records, and financial data
 - Sensitive inference requests revealing business logic
 
-_Big Tech_ encrypts data at rest and in transit, but not during processing, when your most sensitive data is exposed.
-
 ## **Key Benefits**
 
 - **Protect Intellectual Property:** Encrypt training data, model weights, and architectures during AI model development.
@@ -56,12 +54,12 @@ Confidential Compute is available upon request through [io.net](http://io.net)â€
 
 To begin using **Confidential Compute** on [io.net](http://io.net):
 
-1. **Request Access:** Submit a provisioning request through the io.cloud _Confidential Compute Form_. Choose your preferred GPU type (H100, H200, or B200) and provide basic project details.
+1. **Request Access:** Submit a provisioning request by emailing `business@io.net` . Mention your preferred GPU type (H100, H200, or B200) and provide basic project details.
 
    <Note>
      Our specialists will reach out to understand your needs and assist with configuring the machines to your specifications.
    </Note>
-2. **Deploy a Confidential VM:** Once set up, deploy your Confidential VM using the web console, CLI, or API.
+2. **Deploy a Confidential VM:** Once set up, deploy your Confidential VM using the web console or API.
 3. **Verify Attestation:** Before running sensitive workloads, verify your instanceâ€™s attestation report to confirm the integrity of its BIOS, firmware, and TDX configuration. This ensures your VM is operating in a trusted, secure state.
 4. **Integrate Seamlessly:** Run workloads on **Ubuntu 24.04 (LTS)** with **built-in Intel TDX support**. Existing MLOps pipelines run without modification. You can migrate existing workflows directly to [io.net](http://io.net) without changing your training or deployment code.
 5. **Run Secure Workloads:** Connect to your instance and deploy your AI training or inference workloads as usual. All computations, model weights, and data remain encrypted in memory throughout processing, maintaining full performance and GPU acceleration.
