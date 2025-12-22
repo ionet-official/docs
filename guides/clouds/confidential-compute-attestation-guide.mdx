@@ -3,7 +3,7 @@ title: "GPU Attestation and Verification Guide"
 description: "Follow a step-by-step guide to perform confidential compute attestation on io.net Cloud provisioned VMs. Verify NVIDIA GPUs, validate cryptographic proofs, and ensure trusted execution for secure workloads."
 ---
 
-This guide shows you how to perform GPU attestation and verification on Virtual Machines provisioned by [io.net](http://io.net) Cloud, this allows you to verify NVIDIA GPUs and validate cryptographic evidence to ensure workloads run in a trusted execution environment.
+This guide shows you how to perform GPU attestation and verification on Virtual Machines provisioned by [io.net](http://io.net) Cloud, this allows you to verify NVIDIA GPUs and validate cryptographic evidence to ensure workloads run in a Trusted Execution Environment (TEE).
 
 ## One-Time Setup
 
@@ -215,8 +215,8 @@ Before running GPU verification for the first time, you need to install NVIDIAâ€
     **Expected output:**
 
     ```
-    nv-attestation-sdk    2.6.3
-    nv-local-gpu-verifier 2.6.3
+    nv-attestation-sdk    2.6.3 (or higher)
+    nv-local-gpu-verifier 2.6.3 (or higher)
     ```
   </Step>
   <Step title="Setup Complete" icon="check">
@@ -270,7 +270,7 @@ The verification script performs the following steps automatically:
     - Collects firmware measurements for both the driver and VBIOS.
     - Gathers all required cryptographic signatures.
   </Step>
-  <Step title="Validating Attentation Evidence" stepNumber={3} titleSize="p">
+  <Step title="Validating Attestation Evidence" stepNumber={3} titleSize="p">
     - Verifies that certificate chains trace back to the NVIDIA Root Certificate Authority.
     - Checks certificate revocation status using OCSP (Online Certificate Status Protocol).
     - Retrieves Reference Integrity Manifests (RIMs) from NVIDIA.
