@@ -93,10 +93,17 @@ GPU attestation is a cryptographic verification process rooted in **hardware-bas
   <Tab title="3. Configuration State">
     The verification process confirms that:
 
-    - **Confidential Computing (CC) mode** is enabled.
+    - **Confidential Computing (CC)** is enabled.
     - **Protected PCIe (PPCIE)** is correctly configured.
     - The GPU is operating in the **expected secure state**.
 
+    <Note>
+      In this context, **CC** refers to the general concept of **Confidential Compute**, where the GPU operates in a secure, protected environment. This is different from **CC mode** (also referred to as `CC State`), which is a specific configuration within the GPU.
+
+      `CC State` cannot be enabled at the same time as **PPCIe**, the two modes are mutually exclusive.
+
+      `CC State` specifically refers to scenarios where a single GPU (or multiple GPUs that are **NOT** NVLink-connected) is passed through directly to a virtual machine.
+    </Note>
     **What this proves:**\
     Confidential Computing features are actively enabled and functioning, not merely claimed.
   </Tab>
