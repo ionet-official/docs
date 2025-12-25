@@ -129,8 +129,7 @@
                                 "guides/clouds/confidential-compute-attestation",
                                 "guides/clouds/confidential-compute-attestation-guide"
                               ]
-                            },
-                            "guides/clouds/confidential-compute-attestation"
+                            }
                                   ]
                         }
                       ]
