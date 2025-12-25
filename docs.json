@@ -125,6 +125,7 @@
                             {
                               "group": "Confidential Compute Attestation",
                               "hidden": false,
+                              "tag": "NEW",
                               "pages": [
                                 "guides/clouds/confidential-compute-attestation",
                                 "guides/clouds/confidential-compute-attestation-guide"
