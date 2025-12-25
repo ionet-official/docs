@@ -106,6 +106,30 @@ GPU attestation is a cryptographic verification process rooted in **hardware-bas
     </Note>
     **What this proves:**\
     Confidential Computing features are actively enabled and functioning, not merely claimed.
+
+    <Accordion title="Further Reading on CC and PPCIe">
+      **How CC and Protected PCIe (PPCIe) Work Together**
+
+      GPU confidentiality is controlled through **two independent mechanisms**:
+
+      - **CC (Confidential Compute / CC State)**
+      - **PPCIe (Protected PCIe)**
+
+      These settings determine _how_ and _which_ GPUs operate in confidential mode. Each GPU can have CC and PPCIe enabled or disabled independently, but only certain combinations are valid.
+
+      - **CC = OFF, PPCIe = OFF**\
+        No confidential computing is enabled.
+      - **CC = ON, PPCIe = OFF**\
+        Only a subset of GPUs is confidential. This mode is **NOT compatible with NVLink-connected GPUs**.
+      - **CC = OFF, PPCIe = ON**\
+        The **entire GPU set in the server, including NVLink connected GPUs**, operate in confidential mode.
+
+        <Note>
+          _This is the configuration used in our recommended setup._
+        </Note>
+      - **CC = ON, PPCIe = ON**\
+        This is an invalid configuration. The virtual machine will either fail to boot or the CUDA drivers will not load.
+    </Accordion>
   </Tab>
   <Tab title="4. Freshness">
     Attestation uses a **nonce** (a cryptographic challenge) to:
@@ -325,5 +349,13 @@ For a more comprehensive guide for verifying your Confidential Compute VM, refer
        ```bash
        pip hash nv-attestation-sdk
        ```
+  </Accordion>
+  <Accordion title="Why does the CC State show as OFF when I check my onboarded node?" icon="comment-question">
+    This is expected for nodes with **NVLink-connected GPUs**. CC State is only used when individual GPUs (or non-NVLink GPUs) are passed into a VM. Because NVLink-connected GPUs must be passed through **as a complete set**, CC State remains `OFF`.
+
+    For these nodes, confidentiality is provided through **Protected PCIe**, not `CC State`. You can confirm this by checking:
+
+    - `Multi-GPU Mode: Protected PCIe` → GPUs are running in confidential mode.
+    - `CPU CC Capabilities: INTEL TDX` → CPU is running in confidential mode.
   </Accordion>
 </AccordionGroup>
