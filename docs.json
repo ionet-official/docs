@@ -121,7 +121,7 @@
                           "tag": "NEW",
                           "hidden": false,
                           "pages": [
-                            "guides/clouds/vm-confidential-compute",
+                            "guides/clouds/confidential-compute-overview",
                             "guides/clouds/confidential-compute-attestation",
                             "guides/clouds/confidential-compute-attestation-guide",
                             {
