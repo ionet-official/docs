@@ -122,9 +122,11 @@
                           "hidden": false,
                           "pages": [
                             "guides/clouds/vm-confidential-compute",
+                            "guides/clouds/confidential-compute-attestation",
+                            "guides/clouds/confidential-compute-attestation-guide",
                             {
                               "group": "Confidential Compute Attestation",
-                              "hidden": false,
+                              "hidden": true,
                               "tag": "NEW",
                               "pages": [
                                 "guides/clouds/confidential-compute-attestation",
