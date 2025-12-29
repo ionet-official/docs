@@ -3,39 +3,45 @@ title: "Getting Started with VMaaS API"
 sidebarTitle: "Overview"
 ---
 
-The **Virtual Machine as a Service (VMaaS) API** lets you programmatically deploy and manage virtual machines on the IO Cloud. Unlike CaaS (Containers as a Service), VMaaS provides full VM instances with CPU, GPU, memory, and storage resources — ideal for long-running workloads, custom environments, or GPU-intensive tasks.
+The **Virtual Machine as a Service (VMaaS) APIs** lets you programmatically deploy and manage virtual machines on io.net Cloud. Unlike CaaS (Containers as a Service), VMaaS provides full VM instances with CPU, GPU, memory, and storage resources — ideal for long-running workloads, custom environments, or GPU-intensive tasks.
 
 ## Generate an API key
 
-You can obtain an API key for IO Cloud to use VMaaS in two ways:
+You can obtain an API key for io.net Cloud to use VMaaS in two ways:
 
-1. Via the web interface
-2. By using a two-step process (first generate a JWT token, then request the API key using curl)
+1. From the web interface.
+2. By using a two-step process (first generate a JWT token, then request the API key using curl).
 
 ### Option 1: Generate an API Key via Web Interface
 
 IO Clouds APIs authenticate requests using API keys. You can [generate API keys from your user](https://ai.io.net/ai/api-keys) account.\
 **Note: When generating an API key, make sure to specify the associated IO Cloud project.**
 
-> 🚧 Always treat your API key as a secret! Do not share it or expose it in client-side code (e.g., browsers or mobile apps). Instead, store it securely in an environment variable or a key management service on your backend server.
+<Warning>
+  Always treat your API key as a secret. Do not share it or expose it in client-side code (e.g., browsers or mobile apps). Instead, store it securely in an environment variable or a key management service in your backend server.
+</Warning>
 
 ### Option 2: Generate an API Key Using a JWT Token
 
-#### Step 1. Get a JWT Token
+#### Step 1: Get a JWT Token
 
-IO's API is built around [RESTful](https://en.wikipedia.org/wiki/REST) principles. You can use IO's APIs to gain insights into different elements of our network.
+io.net APIs are built around [RESTful](https://en.wikipedia.org/wiki/REST) principles. You can use io.net APIs to gain insight into different elements of the network.
 
-To use IO's APIs, you must supply a JWT token in the header of your request. Follow the instructions below to generate a token:
+To use [io.net](http://io.net) APIs, you must provide a JWT token in the header of your request.
 
-1. Go to **IO.net** \> **IO ID** \> **IO Clouds** tab.
+Follow the instructions below to generate a token:
+
+1. Go to **io.net** \> **IO ID** \> **IO Clouds** tab.
 2. In the UI, right-click and select **Inspect**.
 3. In the Inspect tool, click **Network**.
 4. Refresh the **IO Clouds** page.
 5. In the list of elements, click **Devices**.
-6. Scroll down to  the **Request Headers** section.
+6. Scroll down to the **Request Headers** section.
 7. Copy and store the token.
 
-> 📘 The token is valid for 21 days.
+<Note>
+  This token is valid for 21 days.
+</Note>
 
 ![Vmaas1 Jp](/images/reference/vmaas/vmaas1.jpg)
 
@@ -58,13 +64,19 @@ curl -X POST 'https://api.io.solutions/v1/api-keys/' \
 
 Use the returned key with the `X-API-KEY` header in your requests.
 
-> 🚧 Always treat your API key as a secret! Do not share it or expose it in client-side code (e.g., browsers or mobile apps). Instead, store it securely in an environment variable or a key management service on your backend server.
+<Warning>
+  Always treat your API key as a secret. Do not share it or expose it in client-side code (e.g., browsers or mobile apps). Instead, store it securely in an environment variable or a key management service in your backend server.
+</Warning>
 
 ![Vmaas2 Jp](/images/reference/vmaas/vmaas2.jpg)
 
 ## Making requests
 
-> ❗️ **Note:** Accessing APIs requires IO credits. Please make sure to request IO credits before using any API endpoints. Contact support or visit the [IO Credits Request Page](doc:io-credits) for more details.
+<Note>
+  Accessing APIs requires IO credits. Make sure you have sufficient IO credits before using any API endpoint.
+
+  Contact support or visit the IO Credits documentation page for more details.
+</Note>
 
 Include the API key in an `Authorization` HTTP header for all API requests:
 
@@ -72,7 +84,7 @@ Include the API key in an `Authorization` HTTP header for all API requests:
 Authorization: X-API-KEY $IOCLOUD_API_KEY
 ```
 
-Replace `$IOCLOUD_API_KEY` with your actual \*\*API key. \*\*
+Replace `$IOCLOUD_API_KEY` with your **API key**.
 
 ### Example: Deploy VMs
 
@@ -92,7 +104,7 @@ curl -X POST "https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deploy?page=
   }'
 ```
 
-This request should return a response like this:
+This request should return a similar response:
 
 ```json
 {
