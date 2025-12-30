@@ -570,6 +570,7 @@
                 "group": "Getting Started With VMaaS API",
                 "pages": [
                   "reference/vmaas/get-started-with-vmaas-api",
+                  "reference/vmaas/get-hardware-list",
                   "reference/vmaas/get-all-deployments",
                   "reference/vmaas/get-deployment-details",
                   "reference/vmaas/get-deployment-vms",
