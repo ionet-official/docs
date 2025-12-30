@@ -1,0 +1,502 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO API",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.io.solutions/"
+    }
+  ],
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/enterprise/v1/io-cloud/vmaas/hardware": {
+      "get": {
+        "tags": [
+          "enterprise-io-cloud-vmaas"
+        ],
+        "summary": "Get Hardware List",
+        "operationId": "get_hardware_list_enterprise_v1_io_cloud_vmaas_hardware_get",
+        "parameters": [
+          {
+            "name": "gpu",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Text search by GPU name",
+              "title": "Gpu"
+            },
+            "description": "Text search by GPU name"
+          },
+          {
+            "name": "regions",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by regions",
+              "title": "Regions"
+            },
+            "description": "Filter by regions"
+          },
+          {
+            "name": "gpu_family",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "GPU model names",
+              "title": "Gpu Family"
+            },
+            "description": "GPU model names"
+          },
+          {
+            "name": "gpu_memory_min",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Minimum GPU memory in GB",
+              "title": "Gpu Memory Min"
+            },
+            "description": "Minimum GPU memory in GB"
+          },
+          {
+            "name": "gpu_memory_max",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Maximum GPU memory in GB",
+              "title": "Gpu Memory Max"
+            },
+            "description": "Maximum GPU memory in GB"
+          },
+          {
+            "name": "cpu_cores_min",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Minimum CPU cores",
+              "title": "Cpu Cores Min"
+            },
+            "description": "Minimum CPU cores"
+          },
+          {
+            "name": "cpu_cores_max",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Maximum CPU cores",
+              "title": "Cpu Cores Max"
+            },
+            "description": "Maximum CPU cores"
+          },
+          {
+            "name": "device_memory_min",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Minimum device memory in MB",
+              "title": "Device Memory Min"
+            },
+            "description": "Minimum device memory in MB"
+          },
+          {
+            "name": "device_memory_max",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Maximum device memory in MB",
+              "title": "Device Memory Max"
+            },
+            "description": "Maximum device memory in MB"
+          },
+          {
+            "name": "storage_min",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Minimum storage in MB",
+              "title": "Storage Min"
+            },
+            "description": "Minimum storage in MB"
+          },
+          {
+            "name": "storage_max",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Maximum storage in MB",
+              "title": "Storage Max"
+            },
+            "description": "Maximum storage in MB"
+          },
+          {
+            "name": "supplier",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by supplier: internal or external",
+              "title": "Supplier"
+            },
+            "description": "Filter by supplier: internal or external"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "io.net provided API Key",
+              "title": "X-Api-Key"
+            },
+            "description": "io.net provided API Key"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/io_cloud__schemas__response__enterprise__vmaas__GetHardwareListResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+     "securitySchemes": {
+      "HTTPBasic": {
+        "type": "http",
+        "scheme": "basic"
+      },
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    },
+    "schemas": {
+      "io_cloud__schemas__response__enterprise__vmaas__GetHardwareListResponse": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/io_cloud__schemas__response__enterprise__vmaas__HardwareListData"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "GetHardwareListResponse"
+      },
+      "io_cloud__schemas__response__enterprise__vmaas__HardwareListData": {
+        "properties": {
+          "hardware": {
+            "items": {
+              "$ref": "#/components/schemas/io_cloud__schemas__response__enterprise__vmaas__HardwareItem"
+            },
+            "type": "array",
+            "title": "Hardware"
+          }
+        },
+        "type": "object",
+        "required": [
+          "hardware"
+        ],
+        "title": "HardwareListData"
+      },
+      "io_cloud__schemas__response__enterprise__vmaas__HardwareItem": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id",
+            "description": "Item unique ID to build list"
+          },
+          "deploy_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Deploy Id",
+            "description": "Hardware ID used for price request and deploy"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "num_cards": {
+            "type": "integer",
+            "title": "Num Cards"
+          },
+          "supplier": {
+            "type": "string",
+            "title": "Supplier",
+            "description": "Hardware supplier io (internal) or partner (external)."
+          },
+          "price": {
+            "type": "number",
+            "title": "Price",
+            "description": "Price per hour in USD"
+          },
+          "vram_per_card": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Vram Per Card"
+          },
+          "interconnect": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Interconnect"
+          },
+          "nvlink": {
+            "type": "boolean",
+            "title": "Nvlink",
+            "default": false
+          },
+          "storage": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Storage"
+          },
+          "vcpu": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Vcpu"
+          },
+          "memory": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Memory",
+            "description": "Memory in GB"
+          },
+          "location": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Location"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "deploy_id",
+          "name",
+          "num_cards",
+          "supplier",
+          "price"
+        ],
+        "title": "HardwareItem"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+       "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}

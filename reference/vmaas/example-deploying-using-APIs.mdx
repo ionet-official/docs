@@ -1,0 +1,30 @@
+---
+title: "Deployment Flow using APIs"
+description: "Step-by-step guide for developers to deploy, price, and manage GPU clusters programmatically using io.net Cloud VMaaS APIs."
+---
+
+This page outlines the end-to-end flow for deploying a GPU cluster using [**io.net**](http://io.net) **Cloud VMaaS APIs**. It is intended to help you understand the steps you can take and API calls needed to provision, price, and manage a cluster programmatically.
+
+### Workflow Summary
+
+The cluster deployment process consists of the following steps:
+
+1. **Retrieve available hardware**
+
+   Use the [**GET Hardware List**](/reference/vmaas/get-hardware-list) endpoint to fetch all supported GPU hardware configurations, including available GPU counts, locations, and resource specifications.
+2. **Select hardware and configuration**\
+   From the hardware list response, select the desired hardware type, number of GPUs per VM, and deployment region.
+3. **Validate deployment pricing (optional)**\
+   Use the [**GET Deployment Price**](/reference/vmaas/get-deployment-price) endpoint to calculate the expected cost for the selected hardware configuration and duration.
+4. **Deploy the cluster**
+
+   Use the [**POST Deploy VM**](/reference/vmaas/deploy-vms) endpoint to provision the cluster using the selected hardware, GPU count, location, and duration.
+5. **Manage the cluster lifecycle**
+
+   After deployment, manage the cluster using one of the following endpoints:
+   - [**POST Extend Cluster**](/reference/vmaas/extend-cluster) endpoint to increase the deployment duration.
+   - [**DELETE Destroy Deployment**](/reference/vmaas/destroy-deployment) endpoint to terminate the cluster early.
+
+<Note>
+  The first hour of usage is non-refundable.
+</Note>
