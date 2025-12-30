@@ -119,7 +119,7 @@ Set up your environment and link SSH Keys for secure access. You can choose betw
   </Tab>
 </Tabs>
 
-#### 4. Add your SSH Key:
+#### 4. Add your SSH Key
 
 Choose one of the following methods to access your VM securely:
 
@@ -191,6 +191,17 @@ Network services allow you to expose specific ports on your virtual machine that
 By defining network services during setup, you ensure that your required tools and applications are reachable while keeping all other ports securely closed by default. This approach provides flexibility for your workloads without compromising security.
 
 You can configure multiple network services depending on your use case.
+
+<Note>
+  Partner-supplied clusters expose all ports. However, the following ports are occupied by default:
+
+  - **_Port 22 - SSH Access_**
+  - **_Port 53 - System DNS_**
+  - **_Port 5555 - NVIDIA Host Engine_**
+  - **_Port 9100 - Node Exporter: Metrics_**
+  - **_Port 9400 - DCGM Exporter: GPU Metrics_**
+  - **_Port 12345  and 12346 - Grafana Agent_**
+</Note>
 
 To expose additional ports or services, follow these steps:
 
