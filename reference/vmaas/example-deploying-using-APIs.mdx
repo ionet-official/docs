@@ -43,9 +43,7 @@ The cluster deployment process consists of the following steps:
     ```
 
     <Accordion title="Response Example">
-      <ResponseExample>
-
-      ```json GET Hardware List
+      ```json
       {
           "data": {
               "hardware": [
@@ -117,8 +115,6 @@ The cluster deployment process consists of the following steps:
            }
       }
       ```
-
-      </ResponseExample>
     </Accordion>
   </Step>
   <Step title="Selecting your Hardware and Configuration" titleSize="h3">
@@ -139,12 +135,12 @@ The cluster deployment process consists of the following steps:
 
     **Request Example**
 
-    ```bash
+    ```
     GET https://api.io.solutions/enterprise/v1/io-cloud/vmaas/price?
-    			hardware_id=12& - deploy_id
-    			gpus_per_vm=1& - num_cards
+    			hardware_id=12
+    			gpus_per_vm=1
     			duration_hours=1
-    			currency=usdc&
+    			currency=usdc
     			location_ids=%5B%22US%22%5D - url encoded list ["US"]
     ```
 
@@ -175,7 +171,7 @@ The cluster deployment process consists of the following steps:
 
     **Request Example**
 
-    ```bash
+    ```
     POST https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deploy
     Body
     {
