@@ -33,16 +33,14 @@ The cluster deployment process consists of the following steps:
   <Step title="Retrieving Available Hardware" titleSize="h3">
     Using the [GET Hardware List](/reference/vmaas/get-hardware-list) endpoint, retrieve all currently available GPU hardware configurations.
 
-    <RequestExample>
+    **Request Example**
 
-    ```bash GET Hardware List
+    ```bash
     curl -X 'GET' \
       'https://api.io.solutions/enterprise/v1/io-cloud/vmaas/hardware' \
       -H 'accept: application/json' \
       -H 'x-api-key: <api-key>'
     ```
-
-    </RequestExample>
 
     <Accordion title="Response Example">
       <ResponseExample>
@@ -139,9 +137,9 @@ The cluster deployment process consists of the following steps:
   <Step title="Validating your Deployment Price (Optional)" titleSize="h3">
     Using the [GET Deployment Price](/reference/vmaas/get-deployment-price) endpoint and the values you have saved, validate the price of your desired deployment before you deploy your cluster.
 
-    <RequestExample>
+    **Request Example**
 
-    ```bash GET Deployment Price
+    ```bash
     GET https://api.io.solutions/enterprise/v1/io-cloud/vmaas/price?
     			hardware_id=12& - deploy_id
     			gpus_per_vm=1& - num_cards
@@ -150,9 +148,7 @@ The cluster deployment process consists of the following steps:
     			location_ids=%5B%22US%22%5D - url encoded list ["US"]
     ```
 
-    </RequestExample>
-
-    Ensure that the following fields have been filled:
+    Ensure that the following fields have been assigned a value:
 
     <ResponseField name="hardware_id" type="string/integer" required>
       Value of `deploy_id` from the Hardware List response.
@@ -177,9 +173,9 @@ The cluster deployment process consists of the following steps:
   <Step title="Deploying your Cluster" titleSize="h3">
     Using the POST Deploy VM enndpoint, deploy your selected hardware for the specified duration.
 
-    <RequestExample>
+    **Request Example**
 
-    ```bash POST Deploy VM
+    ```bash
     POST https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deploy
     Body
     {
@@ -191,7 +187,5 @@ The cluster deployment process consists of the following steps:
       ssh_keys: {"name of key": "<public-key>"} # Use RSA, ECDSA, or ED25519
     }
     ```
-
-    </RequestExample>
   </Step>
 </Steps>
