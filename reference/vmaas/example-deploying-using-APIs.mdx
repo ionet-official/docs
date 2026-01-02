@@ -1,5 +1,5 @@
 ---
-title: "Deployment Flow using APIs"
+title: "Cluster Deployment using APIs"
 description: "Step-by-step guide for developers to deploy, price, and manage GPU clusters programmatically using io.net Cloud VMaaS APIs."
 ---
 
@@ -28,3 +28,170 @@ The cluster deployment process consists of the following steps:
 <Note>
   The first hour of usage is non-refundable.
 </Note>
+
+<Steps>
+  <Step title="Retrieving Available Hardware" titleSize="h3">
+    Using the [GET Hardware List](/reference/vmaas/get-hardware-list) endpoint, retrieve all currently available GPU hardware configurations.
+
+    <RequestExample>
+
+    ```bash GET Hardware List
+    curl -X 'GET' \
+      'https://api.io.solutions/enterprise/v1/io-cloud/vmaas/hardware' \
+      -H 'accept: application/json' \
+      -H 'x-api-key: <api-key>'
+    ```
+
+    </RequestExample>
+
+    <Accordion title="Response Example">
+      <ResponseExample>
+
+      ```json GET Hardware List
+      {
+          "data": {
+              "hardware": [
+                  {
+                      "id": "12__2",
+                      "deploy_id": 12,
+                      "name": "GeForce RTX 4090",
+                      "num_cards": 2,
+                      "supplier": "internal",
+                      "sold_out": false,
+                      "price": 0.6,
+                      "vram_per_card": 24,
+                      "interconnect": null,
+                      "nvlink": false,
+                      "storage": 1000,
+                      "vcpu": 39,
+                      "memory": 125,
+                      "location": "US"
+                  },
+                  {
+                      "id": "12__1",
+                      "deploy_id": 12,
+                      "name": "GeForce RTX 4090",
+                      "num_cards": 1,
+                      "supplier": "internal",
+                      "sold_out": false,
+                      "price": 0.3,
+                      "vram_per_card": 24,
+                      "interconnect": null,
+                      "nvlink": false,
+                      "storage": 500,
+                      "vcpu": 39,
+                      "memory": 125,
+                      "location": "US"
+                  },
+                  {
+                      "id": "B200_sxm6x8__US",
+                      "deploy_id": "B200_sxm6x8",
+                      "name": "B200",
+                      "num_cards": 8,
+                      "supplier": "external",
+                      "sold_out": false,
+                      "price": 39.92,
+                      "vram_per_card": 192,
+                      "interconnect": "sxm6",
+                      "nvlink": false,
+                      "storage": 22528,
+                      "vcpu": 208,
+                      "memory": 2900,
+                      "location": "US"
+                  },
+                  {
+                      "id": "B200_sxm6x8__AU",
+                      "deploy_id": "B200_sxm6x8",
+                      "name": "B200",
+                      "num_cards": 8,
+                      "supplier": "external",
+                      "sold_out": false,
+                      "price": 39.92,
+                      "vram_per_card": 192,
+                      "interconnect": "sxm6",
+                      "nvlink": false,
+                      "storage": 22528,
+                      "vcpu": 208,
+                      "memory": 2900,
+                      "location": "AU"
+                  }
+              ]       
+           }
+      }
+      ```
+
+      </ResponseExample>
+    </Accordion>
+  </Step>
+  <Step title="Selecting your Hardware and Configuration" titleSize="h3">
+    From the response of the [GET Hardware List](/reference/vmaas/get-hardware-list) endpoint, select your chosen GPU and save the following values:
+
+    <ResponseField name="deploy_id" type="string/integer" required>
+      Hardware identifier used for pricing and deployment. Can be a string or integer.
+    </ResponseField>
+    <ResponseField name="num_cards" type="integer" required>
+      Number of GPUs per VM.
+    </ResponseField>
+    <ResponseField name="location" type="string" required>
+      Deployment region.
+    </ResponseField>
+  </Step>
+  <Step title="Validating your Deployment Price (Optional)" titleSize="h3">
+    Using the [GET Deployment Price](/reference/vmaas/get-deployment-price) endpoint and the values you have saved, validate the price of your desired deployment before you deploy your cluster.
+
+    <RequestExample>
+
+    ```bash GET Deployment Price
+    GET https://api.io.solutions/enterprise/v1/io-cloud/vmaas/price?
+    			hardware_id=12& - deploy_id
+    			gpus_per_vm=1& - num_cards
+    			duration_hours=1
+    			currency=usdc&
+    			location_ids=%5B%22US%22%5D - url encoded list ["US"]
+    ```
+
+    </RequestExample>
+
+    Ensure that the following fields have been filled:
+
+    <ResponseField name="hardware_id" type="string/integer" required>
+      Value of `deploy_id` from the Hardware List response.
+    </ResponseField>
+    <ResponseField name="gpus_per_vm" type="integer" required>
+      Number of GPUs per VM. Value of `num_cards` from the Hardware List response.
+    </ResponseField>
+    <ResponseField name="duration_hours" type="integer" required>
+      Duration of your deployment, in hours.
+    </ResponseField>
+    <ResponseField name="currency" type="string" required>
+      Pricing currency.
+
+      _Example:_ `usdc`
+    </ResponseField>
+    <ResponseField name="location_ids" type="string" required>
+      URL-encoded JSON array of locations.
+
+      _Example:_ `%5B%22US%22%5D` = `["US"]`
+    </ResponseField>
+  </Step>
+  <Step title="Deploying your Cluster" titleSize="h3">
+    Using the POST Deploy VM enndpoint, deploy your selected hardware for the specified duration.
+
+    <RequestExample>
+
+    ```bash POST Deploy VM
+    POST https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deploy
+    Body
+    {
+      resource_private_name: "name of cluster",
+      duration_hours: 1,
+      gpus_per_vm: 1, num_cards
+      hardware_id: 12, deploy_id
+      location_ids: ["US"],
+      ssh_keys: {"name of key": "<public-key>"} # Use RSA, ECDSA, or ED25519
+    }
+    ```
+
+    </RequestExample>
+  </Step>
+</Steps>
