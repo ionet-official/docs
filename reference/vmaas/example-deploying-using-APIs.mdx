@@ -136,14 +136,15 @@ The cluster deployment process consists of the following steps:
     **Request Example**
 
     ```bash
-    curl -G "https://api.io.solutions/enterprise/v1/io-cloud/vmaas/price" \
-      -H "x-api-key: <api-key>" \
+    curl -X GET "https://api.io.solutions/enterprise/v1/io-cloud/vmaas/price" \
+      -H "x-api-key: YOUR_API_KEY" \
       --data-urlencode "hardware_id=12" \
       --data-urlencode "gpus_per_vm=1" \
       --data-urlencode "replica_count=1" \
       --data-urlencode "duration_hours=1" \
       --data-urlencode "currency=usdc" \
       --data-urlencode 'location_ids=["US"]'
+    
     ```
 
     Ensure that the following fields have been assigned a value:
