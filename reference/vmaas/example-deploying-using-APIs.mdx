@@ -135,13 +135,15 @@ The cluster deployment process consists of the following steps:
 
     **Request Example**
 
-    ```
-    GET https://api.io.solutions/enterprise/v1/io-cloud/vmaas/price?
-    			hardware_id=12
-    			gpus_per_vm=1
-    			duration_hours=1
-    			currency=usdc
-    			location_ids=%5B%22US%22%5D - url encoded list ["US"]
+    ```bash
+    curl -G "https://api.io.solutions/enterprise/v1/io-cloud/vmaas/price" \
+      -H "x-api-key: <api-key>" \
+      --data-urlencode "hardware_id=12" \
+      --data-urlencode "gpus_per_vm=1" \
+      --data-urlencode "replica_count=1" \
+      --data-urlencode "duration_hours=1" \
+      --data-urlencode "currency=usdc" \
+      --data-urlencode 'location_ids=["US"]'
     ```
 
     Ensure that the following fields have been assigned a value:
@@ -161,7 +163,7 @@ The cluster deployment process consists of the following steps:
       _Example:_ `usdc`
     </ResponseField>
     <ResponseField name="location_ids" type="string" required>
-      URL-encoded JSON array of locations.
+      URL-encoded JSON array of locations. Use `--data-urlencode`  in your cURL request if you use a plain string.
 
       _Example:_ `%5B%22US%22%5D` = `["US"]`
     </ResponseField>
@@ -171,17 +173,43 @@ The cluster deployment process consists of the following steps:
 
     **Request Example**
 
+    ```bash
+    curl -X POST "https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deploy" \
+      -H "Content-Type: application/json" \
+      -H 'x-api-key: <api-key>'
+      -d '{
+        "resource_private_name": "name of cluster",
+        "duration_hours": 1,
+        "gpus_per_vm": 1,
+        "hardware_id": 12,
+        "location_ids": ["US"],
+        "ssh_keys": {
+          "name of key": "<public-key>"
+        }
+      }'
     ```
-    POST https://api.io.solutions/enterprise/v1/io-cloud/vmaas/deploy
-    Body
-    {
-      resource_private_name: "name of cluster",
-      duration_hours: 1,
-      gpus_per_vm: 1, num_cards
-      hardware_id: 12, deploy_id
-      location_ids: ["US"],
-      ssh_keys: {"name of key": "<public-key>"} # Use RSA, ECDSA, or ED25519
-    }
-    ```
+
+    Ensure that the following fields have been assigned a value:
+
+    <ResponseField name="resource_private_name" type="string" required>
+      The name of your cluster.
+    </ResponseField>
+    <ResponseField name="duration_hours" type="integer" required>
+      Duration of your deployment, in hours.
+    </ResponseField>
+    <ResponseField name="gpus_per_vm" type="integer" required>
+      Number of GPUs per VM. Value of `num_cards` from the Hardware List response.
+    </ResponseField>
+    <ResponseField name="hardware_id" type="string/integer" required>
+      Value of `deploy_id` from the Hardware List response.
+    </ResponseField>
+    <ResponseField name="location_ids" type="string" required>
+      Location of your chosen GPU.
+    </ResponseField>
+    <ResponseField name="ssh_keys" type="object" required>
+      Your public SSH key, use RSA, ECDSA, or ED25519.
+
+      _Format:_ `"name of key": "<public-key>"`
+    </ResponseField>
   </Step>
 </Steps>
