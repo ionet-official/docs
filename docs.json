@@ -122,7 +122,7 @@
                           "hidden": false,
                           "pages": [
                             "guides/clouds/confidential-compute-overview",
-                            "guides/clouds/confidential-compute-attestation",
+                            "guides/clouds/confidential-compute-attestation-overview",
                             "guides/clouds/confidential-compute-attestation-guide",
                             {
                               "group": "Confidential Compute Attestation",
