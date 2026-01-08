@@ -33,7 +33,7 @@ If the cluster cost is **lower than the \$0.50 minimum card payment**, Stripe wi
   style={{ width:"71%" }}
 />
 
-Stripe will show line items like:
+Stripe will show line items such as:
 
 - `Cluster Cost`
 - `Payment Provider Fee`
@@ -48,15 +48,7 @@ Stripe will show line items like:
 
 ### Q. Can I use Fiat to purchase IO Credits?
 
-Yes. You can purchase IO Credits using either Crypto (USDC) or Fiat (Stripe). Minimum amount: **\$1.00**.
-
-<img
-  src="/images/docs/stripe-faq/stripe-2.jpg"
-  alt="Stripe 2 Jp"
-  title="Stripe 2 Jp"
-  className="mx-auto"
-  style={{ width:"65%" }}
-/>
+Yes. You can purchase IO Credits using either Crypto (USDC) or Fiat (Stripe). The minimum amount is **\$1.00**.
 
 Stripe payment page will show line items:
 
@@ -75,9 +67,9 @@ After successful payment, credits are added to the user’s IO Credits balance.
 
 ### Q. What happens if I already have enough credits?
 
-If your existing IO Credits balance is enough to cover the compute cost then **Fiat (card) payment is disabled**
+If your existing IO Credits balance is enough to cover the compute cost then **Fiat (card) payments are disabled**
 
-A message will appear: `You have sufficient credits to purchase compute. Please proceed to use them.` This ensures credits are used first before showing any fiat option.
+The following message will appear: `You have sufficient credits to purchase compute. Please proceed to use them.` This ensures credits are used first before showing any Fiat options.
 
 <img
   src="/images/docs/stripe-faq/stripe-3.jpg"
@@ -99,7 +91,7 @@ Yes. You can extend your compute using Fiat (Stripe). It works the same as initi
   style={{ width:"64%" }}
 />
 
-Any leftover amount (after cluster cost \+ provider fee) is **automatically added to IO Credits.**
+Any leftover amount (after cluster cost + provider fee) is **automatically added to IO Credits.**
 
 <img
   src="/images/docs/stripe-faq/stripe-4-2.jpg"
@@ -121,18 +113,14 @@ This breakdown makes the payment fully transparent.
 
 ### Q. Can I pay with my local currency?
 
-Yes. If your local currency is supported by Stripe, you should be able to pay using it.  
+Yes. If your local currency is supported by Stripe, you should be able to pay using it.
 
-Stripe will automatically handle currency conversion to USD during checkout.  
+Stripe will automatically handle currency conversion to USD during checkout.
 
 The final amount charged may vary slightly based on exchange rates and your bank’s conversion fees.
 
 ### Q. Why am I purchasing credits when I pay by card?
 
-Even when you pay directly by card (Fiat), the system works by first adding the equivalent amount as **IO Credits **to your account and then using those credits to pay for your compute clusters.  
+Even when you pay directly by card (Fiat), the system works by first adding the equivalent amount as **IO Credits** to your account and then using those credits to pay for your compute clusters.
 
 This happens automatically in the background, so you might see a small remaining balance added as credits if the cluster cost is less than the minimum card payment amount.
-
-<Info>
-  Tip: You can place these two questions after your existing “Can I use Fiat (Stripe) to pay for compute?” section so the flow stays logical. 
-</Info>
