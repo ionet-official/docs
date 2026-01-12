@@ -126,7 +126,7 @@ This guide provides a comprehensive overview of how to expose applications to th
         </Note>
       </Step>
       <Step title="Update DNS Records">
-        Point your domain to the Service’s `EXTERNAL-IP` values shown by `kubectl get svc -n ingress-nginx`, or follow the ExternalDNS guide below.
+        Point your domain to the Service’s `EXTERNAL-IP` values shown by `kubectl get svc -n ingress-nginx`, or follow the ExternalDNS Guide.
       </Step>
       <Step title="Deploy Applications with Ingress">
         Deploy your applications and configure ingress resources to handle routing to the appropriate services.
@@ -134,34 +134,92 @@ This guide provides a comprehensive overview of how to expose applications to th
     </Steps>
   </Tab>
   <Tab title="Option 2">
-    
+    ## Ingress Controller as a DaemonSet
+
+    Run the ingress controller on every cluster node, where it listens directly on ports 80 and 443 of each node’s public IP. Your domain can be configured to point to multiple node IPs for traffic ingress.
+
+    ### Flow overview:
+
+    ```
+    [ Client ]
+       |
+       v
+    DNS round robin → node public IPs
+       |
+       +--> Node A: ingress controller (listens 80/443) → routes to applications
+       +--> Node B: ingress controller (listens 80/443) → routes to applications
+       +--> Node C: ingress controller (listens 80/443) → routes to applications
+    ```
+
+    ### How it works:
+
+    - **_Workload Type:_** DaemonSet (one ingress controller pod per node).
+    - **_Traffic Exposure:_** The ingress controller listens directly on ports **80/443** of each node’s public IP.
+    - **_DNS Management:_** DNS records are configured to point directly to the public IPs of all nodes running the ingress controller (for example, using DNS round-robin).
+
+    | Pros                                                                                 | Cons                                                                             |
+    | :----------------------------------------------------------------------------------- | :------------------------------------------------------------------------------- |
+    | Simple and straightforward to set up.                                                | Relies on DNS round robin when no external load balancer is used.                |
+    | Every node can accept traffic directly.                                              | DNS records may continue to point to unavailable nodes until they are refreshed. |
+    | High availability through multiple node public IPs.                                  | Ports 80/443 are reserved on every node.                                         |
+    | Can combine with an external load balancer for a more advanced traffic distribution. | Scaling is limited to one ingress pod per node.                                  |
+
+    ### Step-by-Step Setup:
+
+    <Steps>
+      <Step title="Install NGINX Ingress Controller as a DaemonSet">
+        <Warning>
+          The _Pod Security Admission_ plugin is enabled by default in all [io.net](http://io.net) Kubernetes clusters to enforce _Pod Security Standards_ and enhance baseline cluster security.
+
+          You may override _Pod Security Admission_ settings at the namespace level when necessary. This can be useful for workloads such as ingress controllers or monitoring solutions that require less restrictive security policies.
+
+          However, the recommended approach is to adapt your applications to run securely by configuring an appropriate `podSecurityContext`.
+        </Warning>
+        ```bash
+        kubectl create namespace ingress-nginx
+        kubectl label namespace ingress-nginx pod-security.kubernetes.io/enforce=privileged
+        
+        helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+        helm repo update
+        helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx \
+          --namespace ingress-nginx \
+          --set controller.kind=DaemonSet \
+          --set controller.hostNetwork=true \
+          --set controller.publishService.enabled=false \
+          --set controller.dnsPolicy=ClusterFirstWithHostNet \
+          --set controller.resources.requests.cpu=100m \
+          --set controller.resources.requests.memory=128Mi \
+          --set controller.service.enabled=true \
+          --set controller.service.type=ClusterIP \
+          --set controller.service.clusterIP=None \
+          --set controller.admissionWebhooks.enabled=false \
+          --set-string controller.nodeSelector.worker-node=true
+        ```
+
+        <Warning>
+          Using `hostNetwork=true` reserves ports 80/443 on every node. Use `nodeSelector` and `tolerations` if you only want ingress on specific nodes.
+
+          `--set 'controller.tolerations[0].operator=Exists'`
+
+          `--set 'controller.nodeSelector.node-role\.kubernetes\.io/hostname='`
+        </Warning>
+      </Step>
+      <Step title="Configure DNS for Node IPs">
+        Point your domain to the public IPs of all nodes running the ingress controller, or follow the _ExternalDNS_ Guide.
+      </Step>
+      <Step title="Deploy Applications with Ingress">
+        Deploy your applications and define Ingress resources to route incoming traffic to the appropriate services.
+      </Step>
+    </Steps>
   </Tab>
 </Tabs>
 
-## 
+## ExternalDNS Deployment Guide
 
 ## Option 2: Ingress Controller as DaemonSet (Direct on Every Node)
 
 The ingress controller runs on every cluster node and listens directly on ports **80/443**\
 of each node's public IP. Your domain can point to multiple node IPs.
-
-```
-[ Client ]
-   |
-   v
-DNS round robin → node public IPs
-   |
-   +--> Node A: ingress controller (listens 80/443) → routes to applications
-   +--> Node B: ingress controller (listens 80/443) → routes to applications
-   +--> Node C: ingress controller (listens 80/443) → routes to applications
-```
-
-| Pros                                                                 | Cons                                                          |
-| :------------------------------------------------------------------- | :------------------------------------------------------------ |
-| Simple to set up.                                                    | Relies on DNS round robin if no external load balancer.       |
-| Every node can accept traffic directly.                              | If a node goes down, DNS may still point to it until refresh. |
-| High availability with multiple node IPs.                            | Ports 80/443 occupied on each node.                           |
-| Can combine with an external load balancer for smarter distribution. | Scaling fixed to one ingress pod per node.                    |
 
 ### Step Setup
 
