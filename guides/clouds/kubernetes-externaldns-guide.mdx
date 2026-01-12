@@ -11,7 +11,7 @@ _ExternalDNS_ automatically manages DNS records for applications exposed through
   <Step title="Deploy ExternalDNS" titleSize="h2">
     Choose one of the following examples based on your DNS provide:
 
-    ### Example for Cloudflare with API Token (Recommended)
+    **Example for Cloudflare with API Token (Recommended)**
 
     <Note>
       API tokens are more secure than API keys as they can be scoped to specific zones and permissions.
@@ -33,7 +33,7 @@ _ExternalDNS_ automatically manages DNS records for applications exposed through
         --set 'env[0].valueFrom.secretKeyRef.key=apiToken'
       ```
     </Expandable>
-    ### Example for Cloudflare with API Key
+    **Example for Cloudflare with API Key**
 
     Reference: https://kubernetes-sigs.github.io/external-dns/latest/docs/tutorials/cloudflare/
 
@@ -66,7 +66,7 @@ _ExternalDNS_ automatically manages DNS records for applications exposed through
   <Step title="Annotate the Ingress Controller Service" titleSize="h2">
     The annotations you need depend on which ingress controller option you chose.
 
-    ### Option 1 (Deployment with the LoadBalancer Service)
+    **Option 1 (Deployment with the LoadBalancer Service)**
 
     ```bash
     kubectl annotate svc ingress-nginx-controller \
@@ -79,7 +79,7 @@ _ExternalDNS_ automatically manages DNS records for applications exposed through
     - DNS records are automatically updated when the Service’s `externalIPs` change.
     - ExternalDNS monitors the LoadBalancer Service and creates DNS **A** records that point to the configured `externalIPs`.
 
-    ### Option 2 (DaemonSet with hostNetwork)
+    **Option 2 (DaemonSet with hostNetwork)**
 
     ```bash
     kubectl annotate svc ingress-nginx-controller \
