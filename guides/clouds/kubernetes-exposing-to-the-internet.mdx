@@ -7,105 +7,138 @@ This guide provides a comprehensive overview of how to expose applications to th
 
 ## Prerequisites
 
-- `kubectl` access to your IO.net Kubernetes cluster
-- Helm 3.x installed
-- Domain ownership and DNS management access
-- Basic understanding of Kubernetes concepts (Pods, Services, Ingress)
-- For ExternalDNS: API credentials for your DNS provider
+- `kubectl` access to your io.net Kubernetes Cluster.
+- `Helm 3.x` installed.
+- Domain ownership and DNS management access.
+- Basic understanding of Kubernetes concepts (Pods, Services, Ingress).
+- For _ExternalDNS_: API credentials for your DNS provider.
 
-### Choosing the Right Method
+## Selecting your Method
 
-| Factor            | Deployment + Service IPs      | DaemonSet                      |
-| ----------------- | ----------------------------- | ------------------------------ |
-| Setup Complexity  | Medium                        | Simple                         |
-| Scalability       | High (flexible scaling)       | Limited (one pod per node)     |
-| High Availability | Requires manual IP management | Built-in with multiple nodes   |
-| Resource Usage    | Configurable                  | Fixed per node                 |
-| Best For          | Large-scale applications      | Simple deployments, edge cases |
+| Factor              | Deployment + Service IPs      | DaemonSet                      |
+| ------------------- | ----------------------------- | ------------------------------ |
+| _Setup Complexity_  | Medium                        | Simple                         |
+| _Scalability_       | High (flexible scaling)       | Limited (one pod per node)     |
+| _High Availability_ | Requires manual IP management | Built-in with multiple nodes   |
+| _Resource Usage_    | Configurable                  | Fixed per node                 |
+| _Best For_          | Large-scale applications      | Simple deployments, edge cases |
 
-## Option 1: Ingress Controller as Deployment with Service IPs
+<Tabs>
+  <Tab title="Option 1">
+    ## Ingress Controller as a Deployment with Service IPs
 
-The ingress controller runs as a scalable Deployment exposed via a Service with assigned public IPs.\
-Traffic is automatically balanced across ingress pods.
+    The ingress controller is deployed as a scalable Kubernetes deployment and exposed via a LoadBalancer Service with manually assigned external IP addresses.
 
-```
-[ Client ]
-   |
-   v
-Connects to node public IPs
-   |
-   v
-Traffic → balanced across ingress controller pods
-   |
-   v
-Ingress controller routes to applications
-```
+    Incoming traffic is automatically load-balanced across ingress pods. This approach is fully compatible with ExternalDNS.
 
-| Pros                                                 | Cons                                       |
-| :--------------------------------------------------- | :----------------------------------------- |
-| Automatic load balancing across ingress controllers. | Node failures affect assigned public IPs.  |
-| No host port conflicts.                              | Public IPs must be managed manually.       |
-| Ingress controllers can scale flexibly.              | No automatic failover without extra tools. |
-| Cleaner setup for most applications.                 |                                            |
+    ### Flow overview:
 
-### Setup Steps
+    ```
+    [ Client ]
+       |
+       v
+    Connects to node public IPs (set as externalIPs on LoadBalancer service)
+       |
+       v
+    Traffic → balanced across ingress controller pods
+       |
+       v
+    Ingress controller routes to applications
+    ```
 
-#### 1. Install NGINX Ingress Controller as Deployment:
+    ### How it works:
 
-> ⚠️ The Pod Security Admission plugin is automatically enabled in every io.net Kubernetes cluster to enforce Pod Security Standards and improve cluster security by default.
->
-> You can override the Pod Security Admission configuration at the namespace level. This is useful for workloads such as ingress controllers or monitoring solutions that require more relaxed security settings.
->
-> However, the recommended approach is to adjust your applications to run securely using a proper podSecurityContext.
+    - **_Service Type_**: `LoadBalancer` (required for ExternalDNS compatibility).
+    - **_External IPs_**: Manually assigned and mapped to the nodes where ingress pods are scheduled.
+    - **_DNS Management_**: ExternalDNS monitors the LoadBalancer Service and automatically creates DNS records that point to the configured external IPs.
 
-```bash
-kubectl create namespace ingress-nginx
-kubectl label namespace ingress-nginx pod-security.kubernetes.io/enforce=privileged
+    | Pros                                                 | Cons                                            |
+    | :--------------------------------------------------- | :---------------------------------------------- |
+    | Automatic load balancing across ingress controllers. | Node failures impact the assigned public IPs.   |
+    | No host port conflicts.                              | Public IPs must be managed manually.            |
+    | Ingress controllers can scale flexibly.              | No automatic failover without additional tools. |
+    | Cleaner setup for most applications.                 |                                                 |
 
-helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-helm repo update
-helm upgrade --install nginx-ingress ingress-nginx/ingress-nginx \
-  --namespace ingress-nginx \
-  --set controller.kind=Deployment \
-  --set controller.replicaCount=3 \
-  --set controller.resources.requests.cpu=100m \
-  --set controller.resources.requests.memory=128Mi \
-  --set controller.service.enabled=true \
-  --set controller.service.type=ClusterIP \
-  --set controller.publishService.enabled=false
-```
+    ### Step-by-Step Setup:
 
-> ⚠️ Use `nodeSelector` and `tolerations` if you only want ingress on specific nodes.
->
-> `--set 'controller.tolerations[0].operator=Exists'`
->
-> `--set 'controller.nodeSelector.node-role\.kubernetes\.io/hostname='`
->
-> Use affinity to ensure that pod replicas are scheduled on different nodes:
->
-> `--set 'controller.affinity.podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution[0].labelSelector.matchLabels.app\.kubernetes\.io/name=ingress-nginx'`
->
-> `--set 'controller.affinity.podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution[0].topologyKey=kubernetes.io/hostname'`
+    <Steps>
+      <Step title="Install NGINX Ingress Controller as a Deployment">
+        <Warning>
+          The _Pod Security Admission_ plugin is enabled by default in all [io.net](http://io.net) Kubernetes clusters to enforce _Pod Security Standards_ and enhance baseline cluster security.
 
-#### 2. Edit the Service to assign public IPs:
+          You may override _Pod Security Admission_ settings at the namespace level when necessary. This can be useful for workloads such as ingress controllers or monitoring solutions that require less restrictive security policies.
 
-#### 
+          However, the recommended approach is to adapt your applications to run securely by configuring an appropriate `podSecurityContext`.
+        </Warning>
+        ```bash
+        kubectl create namespace ingress-nginx
+        kubectl label namespace ingress-nginx pod-security.kubernetes.io/enforce=privileged
+        
+        helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+        helm repo update
+        helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx \
+          --namespace ingress-nginx \
+          --set controller.kind=Deployment \
+          --set controller.replicaCount=3 \
+          --set controller.resources.requests.cpu=100m \
+          --set controller.resources.requests.memory=128Mi \
+          --set controller.service.enabled=true \
+          --set controller.service.type=LoadBalancer \
+          --set controller.publishService.enabled=false \
+          --set-string controller.nodeSelector.worker-node=true
+        ```
 
-```bash
-kubectl patch svc nginx-ingress-ingress-nginx-controller --type=merge -p "{
-  \"spec\": {
-    \"externalIPs\": [
-      $(kubectl get nodes -l node-role.kubernetes.io/ingress \
-        -o jsonpath='{.items[*].status.addresses[?(@.type=="InternalIP")].address}' \
-        | tr ' ' ',' | sed 's/\([^,]*\)/"\1"/g')
-    ]
-  }
-}"
-```
+        <Note>
+          The ingress controller is configured to deploy only on worker nodes with the `worker-node=true` label.
+        </Note>
+        <Info>
+          **Optional:** add _Tolerations_ if your worker nodes have taints:
 
-#### 3. Update your DNS to point your domain to these EXTERNAL-IPs (`kubectl get svc -n ingress-nginx`), or follow the ExternalDNS guide below.
+          `--set 'controller.tolerations[0].operator=Exists'`
+        </Info>
+        <Info>
+          **Optional:** add _Pod Anti-Affinity_ to ensure pod replicas are scheduled on different nodes (only if you have sufficient worker nodes):
 
-#### 4. Deploy applications with Ingress resources for routing.
+          `--set 'controller.affinity.podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution[0].labelSelector.matchLabels.app\.kubernetes\.io/name=ingress-nginx'`
+
+          `--set 'controller.affinity.podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution[0].topologyKey=kubernetes.io/hostname'`
+        </Info>
+      </Step>
+      <Step title="Assign Public IPs to Ingress Nodes">
+        Edit the Service configuration so that Public IPs are assigned only from nodes where ingress pods are running.
+
+        ```bash
+        kubectl patch svc ingress-nginx-controller -n ingress-nginx --type=merge -p "{
+          \"spec\": {
+            \"externalIPs\": [
+              $(kubectl get pods -n ingress-nginx -l app.kubernetes.io/name=ingress-nginx -o jsonpath='{.items[*].spec.nodeName}' \
+                | tr ' ' '\n' | sort -u | while read node; do \
+                  kubectl get node "$node" -o jsonpath='{.status.addresses[?(@.type=="ExternalIP")].address}'; \
+                  echo; \
+                done | tr '\n' ',' | sed 's/,$//' | sed 's/\([^,]*\)/"\1"/g')
+            ]
+          }
+        }"
+        ```
+
+        <Note>
+          This command identifies the nodes currently running ingress controller pods and assigns their external IP addresses to the LoadBalancer Service. This allows ExternalDNS to correctly detect the service endpoints and manage the corresponding DNS records.
+        </Note>
+      </Step>
+      <Step title="Update DNS Records">
+        Point your domain to the Service’s `EXTERNAL-IP` values shown by `kubectl get svc -n ingress-nginx`, or follow the ExternalDNS guide below.
+      </Step>
+      <Step title="Deploy Applications with Ingress">
+        Deploy your applications and configure ingress resources to handle routing to the appropriate services.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Option 2">
+    
+  </Tab>
+</Tabs>
+
+## 
 
 ## Option 2: Ingress Controller as DaemonSet (Direct on Every Node)
 
