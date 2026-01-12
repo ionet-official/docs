@@ -3,6 +3,93 @@ title: "ExternalDNS Deployment Guide"
 description: "Learn how to deploy ExternalDNS to automate DNS record management for Kubernetes ingress controllers, including Deployment-based and DaemonSet-based ingress setups."
 ---
 
-_ExternalDNS_ automatically manages DNS records for applications exposed through your ingress controller. Configuration depends on whether the ingress controller is deployed as a [Deployment (Option 1)](/guides/clouds/kubernetes-exposing-to-the-internet) or a DaemonSet (Option 2).
+_ExternalDNS_ automatically manages DNS records for applications exposed through your ingress controller. Configuration depends on whether the ingress controller is deployed as a [Deployment (Option 1)](https://io.net/docs/guides/clouds/kubernetes-exposing-to-the-internet#option-1) or a [DaemonSet (Option 2)](https://io.net/docs/guides/clouds/kubernetes-exposing-to-the-internet#option-2).
 
 **Popular DNS providers:** Cloudflare, Route 53, Google Cloud DNS, DigitalOcean, Vultr, etc.
+
+<Steps>
+  <Step title="Deploy ExternalDNS" titleSize="h2">
+    Choose one of the following examples based on your DNS provide:
+
+    ### Example for Cloudflare with API Token (Recommended)
+
+    <Note>
+      API tokens are more secure than API keys as they can be scoped to specific zones and permissions.
+    </Note>
+    <Expandable title="Example">
+      ```bash
+      kubectl create namespace external-dns
+      kubectl create secret generic cloudflare-api-token -n external-dns --from-literal=apiToken=YOUR_API_TOKEN
+      
+      helm repo add external-dns https://kubernetes-sigs.github.io/external-dns/
+      helm repo update
+      
+      helm upgrade --install external-dns external-dns/external-dns \
+        --namespace external-dns \
+        --set txtOwnerId=mycluster \
+        --set provider.name=cloudflare \
+        --set 'env[0].name=CF_API_TOKEN' \
+        --set 'env[0].valueFrom.secretKeyRef.name=cloudflare-api-token' \
+        --set 'env[0].valueFrom.secretKeyRef.key=apiToken'
+      ```
+    </Expandable>
+    ### Example for Cloudflare with API Key
+
+    Reference: https://kubernetes-sigs.github.io/external-dns/latest/docs/tutorials/cloudflare/
+
+    <Expandable title="Example">
+      ```bash
+      kubectl create namespace external-dns
+      kubectl create secret generic cloudflare-api-key -n external-dns --from-literal=apiKey=YOUR_API_KEY --from-literal=email=YOUR_CLOUDFLARE_EMAIL
+      
+      helm repo add external-dns https://kubernetes-sigs.github.io/external-dns/
+      helm repo update
+      
+      helm upgrade --install external-dns external-dns/external-dns \
+        --namespace external-dns \
+        --set txtOwnerId=mycluster \
+        --set provider.name=cloudflare \
+        --set 'env[0].name=CF_API_KEY' \
+        --set 'env[0].valueFrom.secretKeyRef.name=cloudflare-api-key' \
+        --set 'env[0].valueFrom.secretKeyRef.key=apiKey' \
+        --set 'env[1].name=CF_API_EMAIL' \
+        --set 'env[1].valueFrom.secretKeyRef.name=cloudflare-api-key' \
+        --set 'env[1].valueFrom.secretKeyRef.key=email'
+      ```
+    </Expandable>
+    <Note>
+      By default, _ExternalDNS_ runs with the `upsert-only` policy, which allows it to create and update DNS records but not delete them. To enable record deletion, change the policy to `sync`.
+
+      `--set policy=sync`
+    </Note>
+  </Step>
+  <Step title="Annotate the Ingress Controller Service" titleSize="h2">
+    The annotations you need depend on which ingress controller option you chose.
+
+    ### Option 1 (Deployment with the LoadBalancer Service)
+
+    ```bash
+    kubectl annotate svc ingress-nginx-controller \
+      -n ingress-nginx \
+      external-dns.alpha.kubernetes.io/hostname="*.example.com"
+    ```
+
+    - Wildcard domains simplify DNS management for multiple applications.
+    - Eliminates the need to annotate each Ingress resource individually.
+    - DNS records are automatically updated when the Service’s `externalIPs` change.
+    - ExternalDNS monitors the LoadBalancer Service and creates DNS **A** records that point to the configured `externalIPs`.
+
+    ### Option 2 (DaemonSet with hostNetwork)
+
+    ```bash
+    kubectl annotate svc ingress-nginx-controller \
+      -n ingress-nginx \
+      external-dns.alpha.kubernetes.io/hostname="*.example.com" \
+      external-dns.alpha.kubernetes.io/endpoints-type=NodeExternalIP
+    ```
+
+    - The `endpoints-type=NodeExternalIP` annotation instructs _ExternalDNS_ to use the external IPs of nodes where the DaemonSet pods are running.
+    - This results in DNS **A** records pointing to the external IPs of all worker nodes.
+    - DNS records are automatically updated as nodes are added to, or removed from, the cluster.
+  </Step>
+</Steps>

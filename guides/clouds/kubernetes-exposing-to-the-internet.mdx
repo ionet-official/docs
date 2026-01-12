@@ -25,7 +25,7 @@ This guide provides a comprehensive overview of how to expose applications to th
 
 <Tabs>
   <Tab title="Option 1">
-    ## Ingress Controller as a Deployment with Service IPs
+    ## Option 1: Ingress Controller as a Deployment with Service IPs
 
     The ingress controller is deployed as a scalable Kubernetes deployment and exposed via a LoadBalancer Service with manually assigned external IP addresses.
 
@@ -134,7 +134,7 @@ This guide provides a comprehensive overview of how to expose applications to th
     </Steps>
   </Tab>
   <Tab title="Option 2">
-    ## Ingress Controller as a DaemonSet
+    ## Option 2: Ingress Controller as a DaemonSet
 
     Run the ingress controller on every cluster node, where it listens directly on ports 80 and 443 of each node’s public IP. Your domain can be configured to point to multiple node IPs for traffic ingress.
 
