@@ -126,7 +126,7 @@ This guide provides a comprehensive overview of how to expose applications to th
         </Note>
       </Step>
       <Step title="Update DNS Records">
-        Point your domain to the Service’s `EXTERNAL-IP` values shown by `kubectl get svc -n ingress-nginx`, or follow the ExternalDNS Guide.
+        Point your domain to the Service’s `EXTERNAL-IP` values shown by `kubectl get svc -n ingress-nginx`, or follow the [_ExternalDNS_ Guide](/guides/clouds/kubernetes-externaldns-guide).
       </Step>
       <Step title="Deploy Applications with Ingress">
         Deploy your applications and configure ingress resources to handle routing to the appropriate services.
@@ -205,7 +205,7 @@ This guide provides a comprehensive overview of how to expose applications to th
         </Warning>
       </Step>
       <Step title="Configure DNS for Node IPs">
-        Point your domain to the public IPs of all nodes running the ingress controller, or follow the _ExternalDNS_ Guide.
+        Point your domain to the public IPs of all nodes running the ingress controller, or follow the [_ExternalDNS_ Guide](/guides/clouds/kubernetes-externaldns-guide).
       </Step>
       <Step title="Deploy Applications with Ingress">
         Deploy your applications and define Ingress resources to route incoming traffic to the appropriate services.
@@ -213,100 +213,6 @@ This guide provides a comprehensive overview of how to expose applications to th
     </Steps>
   </Tab>
 </Tabs>
-
-## ExternalDNS Deployment Guide
-
-## Option 2: Ingress Controller as DaemonSet (Direct on Every Node)
-
-The ingress controller runs on every cluster node and listens directly on ports **80/443**\
-of each node's public IP. Your domain can point to multiple node IPs.
-
-### Step Setup
-
-#### 1. Install NGINX Ingress Controller as DaemonSet:
-
-> ⚠️ The Pod Security Admission plugin is automatically enabled in every io.net Kubernetes cluster to enforce Pod Security Standards and improve cluster security by default.
->
-> You can override the Pod Security Admission configuration at the namespace level. This is useful for workloads such as ingress controllers or monitoring solutions that require more relaxed security settings.
->
-> However, the recommended approach is to adjust your applications to run securely using a proper podSecurityContext.
-
-```bash
-kubectl create namespace ingress-nginx
-kubectl label namespace ingress-nginx pod-security.kubernetes.io/enforce=privileged
-
-helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-helm repo update
-helm upgrade --install nginx-ingress ingress-nginx/ingress-nginx \
-  --namespace ingress-nginx \
-  --set controller.kind=DaemonSet \
-  --set controller.hostNetwork=true \
-  --set controller.publishService.enabled=false \
-  --set controller.dnsPolicy=ClusterFirstWithHostNet \
-  --set controller.resources.requests.cpu=100m \
-  --set controller.resources.requests.memory=128Mi \
-  --set controller.service.enabled=true \
-  --set controller.service.type=ClusterIP \
-  --set controller.service.clusterIP=None \
-  --set controller.admissionWebhooks.enabled=false
-```
-
-> ⚠️ Using `hostNetwork=true` reserves ports 80/443 on every node. Use `nodeSelector` and `tolerations` if you only want ingress on specific nodes.
->
-> `--set 'controller.tolerations[0].operator=Exists'`
->
-> `--set 'controller.nodeSelector.node-role\.kubernetes\.io/hostname='`
-
-#### 2: Point your domain to the public IPs of all nodes, or follow the ExternalDNS guide below.
-
-#### 3: Deploy applications with Ingress resources for routing.
-
-## ExternalDNS Deployment
-
-ExternalDNS automatically manages DNS records for all applications routed through your ingress controller.\
-It works with both Deployment and DaemonSet ingress setups.
-
-#### 1. Deploy ExternalDNS
-
-> **Popular DNS Providers:** cloudflare, route53, google, digitalocean, vultr, etc.
-
-```bash
-### Example for Cloudflare - https://kubernetes-sigs.github.io/external-dns/latest/docs/tutorials/cloudflare/
-kubectl create namespace external-dns
-kubectl create secret generic cloudflare-api-key -n external-dns --from-literal=apiKey=YOUR_API_KEY --from-literal=email=YOUR_CLOUDFLARE_EMAIL 
-
-helm repo add external-dns https://kubernetes-sigs.github.io/external-dns/
-helm repo update
-
-helm upgrade --install external-dns external-dns/external-dns \
-  --namespace external-dns \
-  --set txtOwnerId=mycluster \
-  --set provider.name=cloudflare \
-  --set 'env[0].name=CF_API_KEY' \
-  --set 'env[0].valueFrom.secretKeyRef.name=cloudflare-api-key' \
-  --set 'env[0].valueFrom.secretKeyRef.key=apiKey' \
-  --set 'env[1].name=CF_API_EMAIL' \
-  --set 'env[1].valueFrom.secretKeyRef.name=cloudflare-api-key' \
-  --set 'env[1].valueFrom.secretKeyRef.key=email'
-```
-
-#### 2: Annotate the Ingress Controller Service
-
-#### 
-
-```bash
-kubectl annotate svc nginx-ingress-ingress-nginx-controller \
-  -n ingress-nginx \
-  external-dns.alpha.kubernetes.io/hostname="*.example.com"
-```
-
-- Wildcard domains simplify DNS management for multiple applications.
-- No need to annotate each Ingress individually.
-- DNS records are automatically updated when IPs change.
-
-> By default, ExternalDNS is deployed with the `upsert-only` policy, which allows it to create or update DNS records but never delete them. If you want ExternalDNS to also delete records, you can change the policy to `sync`.
->
-> `--set policy=sync`
 
 ## SSL/TLS Certificate Management
 
