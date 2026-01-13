@@ -126,7 +126,7 @@ This guide provides a comprehensive overview of how to expose applications to th
         </Note>
       </Step>
       <Step title="Update DNS Records">
-        Point your domain to the Service’s `EXTERNAL-IP` values shown by `kubectl get svc -n ingress-nginx`, or follow the [_ExternalDNS Guide_](/guides/clouds/kubernetes-externaldns-guide).
+        Point your domain to the Service’s `EXTERNAL-IP` values shown by `kubectl get svc -n ingress-nginx`, or follow the [_ExternalDNS Guide_](/guides/clouds/kubernetes/externaldns-guide).
       </Step>
       <Step title="Deploy Applications with Ingress">
         Deploy your applications and configure ingress resources to handle routing to the appropriate services.
@@ -205,7 +205,7 @@ This guide provides a comprehensive overview of how to expose applications to th
         </Warning>
       </Step>
       <Step title="Configure DNS for Node IPs">
-        Point your domain to the public IPs of all nodes running the ingress controller, or follow the [_ExternalDNS Guide_](/guides/clouds/kubernetes-externaldns-guide).
+        Point your domain to the public IPs of all nodes running the ingress controller, or follow the [_ExternalDNS Guide_](/guides/clouds/kubernetes/externaldns-guide).
       </Step>
       <Step title="Deploy Applications with Ingress">
         Deploy your applications and define Ingress resources to route incoming traffic to the appropriate services.
@@ -341,7 +341,7 @@ EOF
 </Expandable>
 
 <Tip>
-  For an end-to-end HTTPS application example, refer to [Quick Start: Hello World with HTTPS](/guides/clouds/kubernetes-quick-start).
+  For an end-to-end HTTPS application example, refer to [Quick Start: Hello World with HTTPS](/guides/clouds/kubernetes/quick-start).
 </Tip>
 
 ## Troubleshooting
