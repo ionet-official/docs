@@ -336,146 +336,93 @@ EOF
               key: api-key
   EOF
   ```
+
+  ## 
 </Expandable>
 
-## Quick Start: Hello World with HTTPS
-
-#### 1. Deploy the application
-
-```bash
-kubectl create namespace hello
-kubectl run hello-world \
-  --image=k8s.gcr.io/echoserver:1.10 \
-  --port=8080 \
-  -n hello
-```
-
-#### 2. Expose the application with a Service
-
-```bash
-kubectl expose pod hello-world \
-  --type=ClusterIP \
-  --port=80 \
-  --target-port=8080 \
-  -n hello
-```
-
-#### 3. Create an Ingress resource with HTTPS
-
-#### 
-
-```yaml
-cat <<EOF | kubectl apply -f -
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: hello-ingress
-  namespace: hello
-  annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-spec:
-  ingressClassName: nginx
-  tls:
-  - hosts:
-    - app.example.com
-    secretName: hello-tls
-  rules:
-  - host: app.example.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: hello-world
-            port:
-              number: 80
-EOF
-```
-
-#### 4. Test the application
-
-- ExternalDNS automatically manages DNS if the ingress controller Service is annotated but it may take some time to synchronize DNS records.
-- Ensure your domain points to the ingress public IP(s).
-- Open `https://app.example.com/` in a browser to see "Hello World".
+<Tip>
+  For an end-to-end HTTPS application example, refer to [Quick Start: Hello World with HTTPS](/guides/clouds/kubernetes-quick-start).
+</Tip>
 
 ## Troubleshooting
 
 ### Health Checks
 
-```bash
-# Check ingress controller status
-kubectl get pods -n ingress-nginx
-kubectl logs -f deployment/nginx-ingress-ingress-nginx-controller -n ingress-nginx
-
-# Check ingress resources
-kubectl get ingress --all-namespaces
-kubectl describe ingress hello-ingress -n hello
-```
+<AccordionGroup>
+  <Accordion title="Check Ingress Controller Status" icon="circle-check">
+    ```bash
+    kubectl get pods -n ingress-nginx
+    kubectl logs -f deployment/nginx-ingress-ingress-nginx-controller -n ingress-nginx
+    ```
+  </Accordion>
+  <Accordion title="Check Ingress Resources" icon="circle-check">
+    ```bash
+    kubectl get ingress --all-namespaces
+    kubectl describe ingress hello-ingress -n hello
+    
+    
+    ```
+  </Accordion>
+</AccordionGroup>
 
 ### Common Issues and Solutions
 
-#### DNS Not Resolving
-
-#### 
-
-```bash
-# Check DNS propagation
-nslookup app.example.com
-dig app.example.com
-
-# Check ExternalDNS logs
-kubectl logs -f deployment/external-dns -n external-dns
-```
-
-#### SSL Certificate Issues
-
-```bash
-# Check certificate status
-kubectl get certificates --all-namespaces
-kubectl describe certificate hello-tls -n hello
-
-# Check cert-manager logs
-kubectl logs -f deployment/cert-manager -n cert-manager
-```
-
-#### Application Not Accessible
-
-```bash
-# Check ingress configuration
-kubectl describe ingress hello-ingress -n hello
-
-# Test backend service directly
-kubectl port-forward svc/hello-world 8080:80 -n hello
-# Then test: curl localhost:8080
-
-# Check ingress controller logs
-kubectl logs -f deployment/nginx-ingress-ingress-nginx-controller -n ingress-nginx
-```
-
-#### High Resource Usage
-
-```bash
-# Check resource usage
-kubectl top pods -n ingress-nginx
-kubectl describe pod <ingress-controller-pod> -n ingress-nginx
-
-# Adjust resource limits
-helm upgrade nginx-ingress ingress-nginx/ingress-nginx \
-  --namespace ingress-nginx \
-  --set controller.resources.limits.cpu=2000m \
-  --set controller.resources.limits.memory=1Gi
-```
-
-### Debug Commands
-
-```bash
-# Get all ingress-related resources
-kubectl get all,ingress,certificates -n ingress-nginx
-kubectl get all,ingress,certificates -n your-app-namespace
-
-# Test connectivity
-kubectl run test-pod --image=busybox --rm -it -- sh
-# Inside pod: wget -O- http://your-service.namespace.svc.cluster.local
-```
+<AccordionGroup>
+  <Accordion title="DNS Not Resolving" icon="circle-exclamation">
+    ```bash
+    # Check DNS propagation
+    nslookup app.example.com
+    dig app.example.com
+    
+    # Check ExternalDNS logs
+    kubectl logs -f deployment/external-dns -n external-dns
+    ```
+  </Accordion>
+  <Accordion title="SSL Certificate Issues" icon="circle-exclamation">
+    ```bash
+    # Check certificate status
+    kubectl get certificates --all-namespaces
+    kubectl describe certificate hello-tls -n hello
+    
+    # Check cert-manager logs
+    kubectl logs -f deployment/cert-manager -n cert-manager
+    ```
+  </Accordion>
+  <Accordion title="Application Not Accessible" icon="circle-exclamation">
+    ```bash
+    # Check ingress configuration
+    kubectl describe ingress hello-ingress -n hello
+    
+    # Test backend service directly
+    kubectl port-forward svc/hello-world 8080:80 -n hello
+    # Then test: curl localhost:8080
+    
+    # Check ingress controller logs
+    kubectl logs -f deployment/nginx-ingress-ingress-nginx-controller -n ingress-nginx
+    ```
+  </Accordion>
+  <Accordion title="High Resource Usage" icon="circle-exclamation">
+    ```bash
+    # Check resource usage
+    kubectl top pods -n ingress-nginx
+    kubectl describe pod <ingress-controller-pod> -n ingress-nginx
+    
+    # Adjust resource limits
+    helm upgrade nginx-ingress ingress-nginx/ingress-nginx \
+      --namespace ingress-nginx \
+      --set controller.resources.limits.cpu=2000m \
+      --set controller.resources.limits.memory=1Gi
+    ```
+  </Accordion>
+  <Accordion title="Debug Commands" icon="circle-exclamation">
+    ```bash
+    # Get all ingress-related resources
+    kubectl get all,ingress,certificates -n ingress-nginx
+    kubectl get all,ingress,certificates -n your-app-namespace
+    
+    # Test connectivity
+    kubectl run test-pod --image=busybox --rm -it -- sh
+    # Inside pod: wget -O- http://your-service.namespace.svc.cluster.local
+    ```
+  </Accordion>
+</AccordionGroup>

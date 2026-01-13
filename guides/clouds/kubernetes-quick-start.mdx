@@ -1,0 +1,68 @@
+---
+title: "Quick Start: Hello World with HTTPS"
+description: "Deploy a Kubernetes Hello World application with HTTPS using Ingress, ExternalDNS, and cert-manager, and expose it securely to the internet step by step."
+---
+
+This walkthrough demonstrates how to deploy a simple application and expose it securely to the internet using Kubernetes Ingress. It brings together the components such as, [Ingress routing](/guides/clouds/kubernetes-exposing-to-the-internet), [ExternalDNS for DNS management](/guides/clouds/kubernetes-externaldns-guide), and [cert-manager for automated TLS certificates](https://io.net/docs/guides/clouds/kubernetes-exposing-to-the-internet#ssl%2Ftls-certificate-management), to deliver a working **HTTPS-enabled** application from start to finish.
+
+<Steps>
+  <Step title="Deploy the Application" titleSize="h3">
+    ```bash
+    kubectl create namespace hello
+    kubectl run hello-world \
+      --image=k8s.gcr.io/echoserver:1.10 \
+      --port=8080 \
+      -n hello
+    ```
+  </Step>
+  <Step title="Expose the Application with a Service" titleSize="h3">
+    ```bash
+    kubectl expose pod hello-world \
+      --type=ClusterIP \
+      --port=80 \
+      --target-port=8080 \
+      -n hello
+    ```
+  </Step>
+  <Step title="Create an Ingress Resource with HTTPS" titleSize="h3">
+    ```yaml
+    cat <<EOF | kubectl apply -f -
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: hello-ingress
+      namespace: hello
+      annotations:
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+        nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    spec:
+      ingressClassName: nginx
+      tls:
+      - hosts:
+        - app.example.com
+        secretName: hello-tls
+      rules:
+      - host: app.example.com
+        http:
+          paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: hello-world
+                port:
+                  number: 80
+    EOF
+    ```
+  </Step>
+  <Step title="Test the Application" titleSize="h3">
+    - ExternalDNS automatically manages DNS records when the ingress controller Service is annotated, though synchronization may take a few minutes.
+    - Verify that your domain points to the ingress controller’s public IP address(es).
+    - Open `https://app.example.com/` in a browser to confirm the application is reachable and displaying “Hello World”.
+  </Step>
+</Steps>
+
+For additional examples, troubleshooting guidance, or clarification on any topics covered in this guide, refer to the resources below:
+
+- [Exposing Applications to the Internet](/guides/clouds/kubernetes-exposing-to-the-internet)
+- [ExternalDNS Deployment Guide](/guides/clouds/kubernetes-externaldns-guide)
