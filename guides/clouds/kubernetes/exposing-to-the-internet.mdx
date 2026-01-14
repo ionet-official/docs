@@ -15,13 +15,15 @@ This guide provides a comprehensive overview of how to expose applications to th
 
 ## Selecting your Method
 
-| Factor              | Deployment + Service IPs      | DaemonSet                      |
-| ------------------- | ----------------------------- | ------------------------------ |
-| _Setup Complexity_  | Medium                        | Simple                         |
-| _Scalability_       | High (flexible scaling)       | Limited (one pod per node)     |
-| _High Availability_ | Requires manual IP management | Built-in with multiple nodes   |
-| _Resource Usage_    | Configurable                  | Fixed per node                 |
-| _Best For_          | Large-scale applications      | Simple deployments, edge cases |
+This table outlines the key factors to consider when choosing between **Deployment + Service IPs** and **DaemonSet**.
+
+| Key Factor            | Deployment + Service IPs        | DaemonSet                      |
+| --------------------- | ------------------------------- | ------------------------------ |
+| **Setup Complexity**  | Medium                          | Simple                         |
+| **Scalability**       | High, supports flexible scaling | Limited, one pod per node      |
+| **High Availability** | Requires manual IP management   | Built-in with multiple nodes   |
+| **Resource Usage**    | Configurable                    | Fixed per node                 |
+| **Best For**          | Large-scale applications        | Simple deployments, edge cases |
 
 <Tabs>
   <Tab title="Option 1">
