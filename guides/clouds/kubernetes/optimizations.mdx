@@ -1,0 +1,49 @@
+---
+title: "Optimizations"
+description: "Explore Kubernetes optimizations on io.net Cloud, including Kubernetes control plane design, minimal GPU cluster sizing, and master node scheduling best practices."
+---
+
+This section explains several infrastructure design decisions and provides guidance on how to optimize your Kubernetes cluster for performance and reliability.
+
+## Control Plane Architecture
+
+By default, a Kubernetes cluster is provisioned with **three CPU-only master (control plane) nodes** running in a **separate cloud environment** from your worker nodes.
+
+### Why this design was chosen?
+
+This architecture enables two key benefits:
+
+- **Minimum cluster size of one GPU VM:** You can create a functional Kubernetes cluster with just a single GPU Virtual Machine, avoiding the cost of running multiple GPU nodes purely for control plane redundancy.
+- **Improved fault tolerance without extra GPU cost:** Running three dedicated CPU-only master nodes provides higher availability for the control plane without requiring two or more expensive GPU VMs per cluster.
+
+## Untainted Master Nodes
+
+By default, **master nodes are not tainted**. This means Kubernetes may schedule your workloads (pods) onto master nodes in the control plane cloud.
+
+### Why master nodes are not tainted by default
+
+- Reduce cluster creation time
+- Allow clusters to become usable immediately without additional configuration.
+
+## Avoid Running Pods on Master Nodes
+
+Running application pods on master nodes can lead to several issues, such as:
+
+- **Risk to control plane stability:** Application workloads may interfere with critical Kubernetes components responsible for scheduling, networking, and cluster orchestration.
+- **Increased latency:** Because master nodes run in a separate cloud, communication between services may experience higher latency when one service runs on a master node and another runs on a worker node.
+
+## Recommended Optimisation - Taint Master Nodes
+
+To prevent pods from being scheduled on master nodes, apply a taint to all control plane nodes.
+
+Run the following command:
+
+```bash
+kubectl taint nodes -l node-role.kubernetes.io/control-plane node-role.kubernetes.io/control-plane=:NoSchedule
+```
+
+### What this does
+
+- Prevents application pods from being scheduled on master nodes.
+- Ensures master nodes are reserved exclusively for control plane workloads.
+- Improves performance isolation and overall cluster reliability.

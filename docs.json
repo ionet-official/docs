@@ -151,7 +151,8 @@
                       "pages": [
                         "guides/clouds/kubernetes/exposing-to-the-internet",
                         "guides/clouds/kubernetes/externaldns-guide",
-                        "guides/clouds/kubernetes/quick-start"
+                        "guides/clouds/kubernetes/quick-start",
+                        "guides/clouds/kubernetes/optimizations"
                       ]
                     }
                ]
