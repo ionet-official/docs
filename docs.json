@@ -186,11 +186,12 @@
             "pages": [
             "guides/intelligence/unified-chat",
             "guides/intelligence/exploring-ai-models",
+            "guides/intelligence/exploring-ai-agents",
               {
                 "group": "Agents",
+                "hidden": true,
                 "pages": [
-                  "guides/intelligence/exploring-ai-agents",
-                  "guides/intelligence/agent-framework"
+                  "guides/intelligence/exploring-ai-agents"
                 ]
               },
             "guides/intelligence/agentic-workflow",
