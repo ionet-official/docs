@@ -9,11 +9,6 @@
       "url": "https://api.io.solutions/"
     }
   ],
-  "security": [
-    {
-      "sec0": []
-    }
-  ],
   "paths": {
      "/enterprise/v1/io-cloud/vmaas/hardware/max-gpus-per-vm": {
       "get": {
