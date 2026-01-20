@@ -4,14 +4,37 @@ sidebarTitle: "Agents"
 description: "Learn about AI Agents on io.net and how to use, configure, and deploy them to build autonomous AI systems."
 ---
 
-Agents on [io.net](http://io.net) are packaged, executable components that encapsulate task logic, tool interactions, and external integrations. This section documents the agents provided by [io.net](http://io.net), including core agents and agents that integrate with third-party services such as GitHub, Linear, and other external tools. It describes how to deploy agents programmatically or via `curl`, configure runtime parameters, and manage secrets required for authenticated access to external APIs. These capabilities support repeatable, secure operation of AI agents within automated workflows.
+Agents on [io.net](http://io.net) are packaged, executable components that encapsulate task logic, tool interactions, and external integrations. This section documents the agents provided by [io.net](http://io.net), including core agents and agents that integrate with third-party services such as _GitHub_, _Linear_, and other external tools. It describes how to deploy agents programmatically or via `curl`, configure runtime parameters, and manage secrets required for authenticated access to external APIs. These capabilities support repeatable, secure operation of AI agents within automated workflows.
 
 ## Getting Started
 
 <Steps>
-  <Step title="Navigate to the Agents tab of IO Intelligence">
+  <Step title="Navigate to the Agents tab">
+    Open [io.net Intelligence](https://ai.io.net/) and navigate to the Agents tab in the navigation bar.
+
     <Frame>
       ![Agents Tab in the Navigation Bar](/images/docs/io-intelligence/Agents/IOIntel_Agents_NavBar.png)
     </Frame>
   </Step>
+  <Step title="Select an Agent">
+    Browse the list of available agents, or use the search bar to quickly locate a specific agent, then click on your chosen agent to view its details.
+
+    <Frame>
+      ![Agents Selection and Search Bar](/images/docs/io-intelligence/Agents/IOIntel_Agents_MainView.png)
+    </Frame>
+  </Step>
 </Steps>
+
+## **Deploying and Configuring Agents**
+
+When an agent is selected, the _Agent Details_ view provides everything needed to evaluate, install, and configure your chosen agent.
+
+### Agent Details and Installation
+
+The _Agent Details_ view displays information about your selected agent, along with installation options. Agents can be installed using either Python (via `pip`) or `cURL`, depending on your preferred workflow.
+
+If you do not already have an existing API key, the _Agent Details_ view provides an option to generate and inject a new API key directly into the provided `pip` or `curl` installation commands, allowing installation to proceed without leaving the page.
+
+<Frame>
+  ![Inject API Key Button in Agent Details view](/images/docs/io-intelligence/Agents/IOIntel_Agents_InjectAPIKey.png)
+</Frame>
