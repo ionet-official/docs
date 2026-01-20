@@ -191,7 +191,7 @@
                 "group": "Agents",
                 "hidden": true,
                 "pages": [
-                  "guides/intelligence/exploring-ai-agents"
+                  "guides/intelligence/exploring-ai-agents-new"
                 ]
               },
             "guides/intelligence/agentic-workflow",
