@@ -36,5 +36,41 @@ The _Agent Details_ view displays information about your selected agent, along w
 If you do not already have an existing API key, the _Agent Details_ view provides an option to generate and inject a new API key directly into the provided `pip` or `curl` installation commands, allowing installation to proceed without leaving the page.
 
 <Frame>
-  ![Inject API Key Button in Agent Details view](/images/docs/io-intelligence/Agents/IOIntel_Agents_InjectAPIKey.png)
+  ![IO Intel Agents Inject API Key](/images/docs/io-intelligence/Agents/IOIntel_Agents_InjectAPIKey.png)
 </Frame>
+
+### Trying an Agent before Installation
+
+Before installing, an agent can be tested directly from the interface. Click the **Try Agent** button and it opens the _Playground_ where you can be provide input for the agent.
+
+After clicking the **Run Agent** button, the **Result** tab displays the agent’s output, making it possible to quickly validate behavior and responses before deployment.
+
+<Frame>
+  ![IO Intel Agents Playground](/images/docs/io-intelligence/Agents/IOIntel_Agents_Playground.png)
+</Frame>
+
+### Configuring Secrets
+
+Agents that integrate with third-party applications require secrets for authenticated access, for example, GitHub, Linear, Jira and many more.
+
+To configure secrets, navigate to the **Secret Management** tab within the _Agent Details_ view.
+
+<Frame>
+  ![IO Intel Agents Secret Management](/images/docs/io-intelligence/Agents/IOIntel_Agents_SecretManagement.png)
+</Frame>
+
+On this tab:
+
+- Clicking the **Manage Secrets** button redirects you to the _API Keys and Secrets_ page.
+- On the _API Keys and Secrets_ page, a new secret can be added here by clicking **Add Secret** and providing:
+  - _Secret Name_
+  - _Secret Value_
+  - _Associated Agent_
+
+Alternatively, secrets can be created or selected directly within the **Secret Management** section of the _Agent Details_ view:
+
+- An existing secret can be selected from the list.
+- A new secret can be created by entering a secret name and value.
+- Secrets created here are automatically saved and will also appear in the _API Keys and Secrets_ page.
+
+Once the required secrets are configured, the agent is fully set up and ready to be interacted with.
