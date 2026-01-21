@@ -191,16 +191,9 @@
             "guides/intelligence/unified-chat",
             "guides/intelligence/exploring-ai-models",
             "guides/intelligence/exploring-ai-agents",
-              {
-                "group": "Agents",
-                "hidden": true,
-                "pages": [
-                  "guides/intelligence/exploring-ai-agents-new"
-                ]
-              },
             "guides/intelligence/agentic-workflow",
             "guides/intelligence/training-as-a-service",
-            "guides/intelligence/io-intelligence-apis"
+            "guides/intelligence/api-keys-and-secrets"
             ]
           },
           {
