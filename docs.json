@@ -140,6 +140,8 @@
                  
                     {
                       "group": "Kubernetes",
+                      "tag": "UPDATED",
+                      "hidden" : true,
                       "pages": [
                         "guides/clouds/deploy-kubernetes-cluster",
                         "guides/clouds/kubernetes-ingress-setup"
@@ -147,8 +149,10 @@
                     },
                  {
                       "group": "Kubernetes",
-                      "hidden": true,
+                      "hidden": false,
+                      "tag": "UPDATED",
                       "pages": [
+                        "guides/clouds/deploy-kubernetes-cluster",
                         "guides/clouds/kubernetes/exposing-to-the-internet",
                         "guides/clouds/kubernetes/externaldns-guide",
                         "guides/clouds/kubernetes/quick-start",
