@@ -204,6 +204,13 @@
             ]
           },
           {
+            "group": "IO Intelligence Integrations",
+            "hidden": true,
+            "pages": [
+              "guides/intelligence/integrations/portkey-gateway"
+            ]
+          },
+          {
             "group": "Models Price List",
             "hidden": true,
             "pages": [

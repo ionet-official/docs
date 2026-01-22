@@ -1,0 +1,214 @@
+---
+title: "IO Intelligence × Portkey Integration Guide"
+description: "Learn how to integrate IO Intelligence with Portkey’s AI gateway to access OpenAI-compatible models with observability, fallbacks, and load balancing."
+sidebarTitle: "Portkey Integration Guide"
+---
+
+## Overview
+
+IO Intelligence is now available as a provider within the Portkey AI Gateway.\
+This integration allows you to access **15+ high-performance, open-source LLMs** through an **OpenAI-compatible API**, while leveraging Portkey’s enterprise-grade gateway capabilities such as observability, fallbacks, caching, and load balancing.
+
+With this setup, you can switch between providers without changing client-side code and maintain a unified request and response schema across your AI stack.
+
+### Key Capabilities
+
+The main capabilities of this integration include:
+
+- Chat Completions
+- Embeddings
+- Model Response API (`createModelResponse`)
+- OpenAI-compatible request/response format
+- Bearer token authentication
+- Unified provider routing via Portkey
+
+### Benefits
+
+The primary benefits of this integration include:
+
+- **Unified interface** across multiple AI providers.
+- **Built-in fallback and load balancing** for high availability.
+- **Built-in observability** with real-time metrics and monitoring
+- **Automatic retry handling** to improve reliability under transient failures.
+- **Request and response logging** for debugging and auditability
+- **Easy multi-provider setup** without changing client-side code
+- **Cost tracking and optimization** via intelligent routing.
+- **Enhanced security and compliance**, with centralized key management.
+
+## Integration Architecture
+
+```
+Client
+   |
+   v
+Portkey Gateway (provider: "iointelligence")
+   |
+   v
+IO Intelligence API (io.net)
+```
+
+Portkey acts as an intelligent routing layer between the client and IO Intelligence. Clients interact with a single, consistent API, while Portkey transparently manages provider selection, request formatting, and response normalization when communicating with IO Intelligence.
+
+## Prerequisites
+
+Before you begin, ensure that you have:
+
+- An [**io.net**](http://io.net)\*\* account\*\*
+- A **valid IO Intelligence API key**
+- A working **Portkey AI Gateway setup**
+- **Node.js ≥ 18**
+
+### Environment Variables
+
+Add the following to your `.env` file:
+
+```
+IO_INTELLIGENCE_API_KEY=your_api_key_here
+```
+
+Your API key must allow access to the following APIs:
+
+- `/chat/completions`
+- `/embeddings`
+
+## Quick Start
+
+### Step 1: Configure IO Intelligence in Portkey
+
+You can add IO Intelligence as a provider in Portkey through the Portkey Dashboard or via API.
+
+<Tabs>
+  <Tab title="Porthkey Dashboard">
+    **_Option A: Configuring IO Intelligence from the Portkey Dashboard_**
+
+    <Steps>
+      <Step title="Log In to your Portkey Dashboard">
+        
+      </Step>
+      <Step title="Navigate to Providers -> Add Provider">
+        
+      </Step>
+      <Step title="Select io.net (IO Intelligence) in the Providers List">
+        
+      </Step>
+      <Step title="Enter your IO Intelligence API Key">
+        
+      </Step>
+      <Step title="Save your Configuration">
+        The provider will be saved internally as:
+
+        ```json
+        "provider": "iointelligence"
+        ```
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Via API">
+    **_Option B: Configure IO Intelligence via API_**
+
+    When using Portkey programmatically, reference IO Intelligence as an OpenAI-compatible provider:
+
+    ```json
+    {
+      "provider": "iointelligence",
+      "apiKey": "<IO_INTELLIGENCE_API_KEY>"
+    }
+    ```
+
+    With this, portkey automatically handles:
+
+    - Base URL resolution (https://api.intelligence.io.solutions/api/v1)
+    - Bearer authentication headers
+    - Endpoint mapping for chat and embeddings
+  </Tab>
+</Tabs>
+
+### Step 2: Make Your First Request
+
+Test your integration using the following examples.
+
+**_Chat Completion Example:_**
+
+```json
+{
+  "provider": "iointelligence",
+  "model": "meta-llama/Llama-3.3-70B-Instruct",
+  "messages": [
+    { "role": "user", "content": "Hello!" }
+  ]
+}
+```
+
+**_Expected Response:_**
+
+```json
+{
+  "provider": "iointelligence",
+  "id": "chatcmpl-xyz",
+  "choices": [
+    {
+      "message": {
+        "role": "assistant",
+        "content": "Hi there!"
+      }
+    }
+  ]
+}
+```
+
+<Note>
+  All responses follow the **OpenAI response schema**, enabling drop-in compatibility with existing tooling.
+</Note>
+
+**_Embeddings Example:_**
+
+```json
+{
+  "provider": "iointelligence",
+  "model": "text-embedding-3-small",
+  "input": "Generate vector"
+}
+```
+
+## Advanced Configuration
+
+### Using IO Intelligence as Primary with Fallback
+
+As a standard Portkey provider, IO Intelligence can be included in routing and fallback configurations together with other providers. All fallback logic is defined and controlled by the Portkey gateway.
+
+Portkey can route requests to your chosen fallback provider if the following errors are encountered:
+
+- Rate limited (Error 429)
+- Provider errors (Error 5xx)
+
+## Supported Endpoints
+
+| Endpoint              | Function Name         | Endpoint Path       |
+| :-------------------- | :-------------------- | :------------------ |
+| Chat Completions      | `chatComplete`        | `/chat/completions` |
+| Embeddings            | `embed`               | `/embeddings`       |
+| Create Model Response | `createModelResponse` | `/chat/completions` |
+
+<Note>
+  All endpoints are OpenAI-compatible and normalized by Portkey’s response transformers
+</Note>
+
+## Error Handling
+
+The following table shows errors you may encounter:
+
+| Status Code | Description                         |
+| :---------- | :---------------------------------- |
+| 401         | Missing or invalid API key          |
+| 404         | Incorrect endpoint or invalid model |
+| 422         | Invalid request payload             |
+| 429         | Rate limit exceeded                 |
+| 500         | Provider-side error                 |
+
+### Troubleshooting Checklist
+
+- Confirm `.env` variables are loaded.
+- Verify model names are correct.
+- Validate request payload structure.
+- Retry 429 / 500 errors with backoff.
+- Inspect Portkey gateway logs for normalized requests.
