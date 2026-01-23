@@ -15,7 +15,7 @@
 ],
   "appearance": {
     "default": "dark",
-    "strict": false
+    "strict": true
   },
   "favicon": "logo-small-favicon.png",
   "navigation": {
