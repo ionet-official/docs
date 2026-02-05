@@ -181,15 +181,6 @@
         "tab": "Intelligence",
         "groups": [
           {
-            "group": "Confidential Inference",
-            "pages": [
-              "overview",
-              "quick-start",
-              "confidential-chat",
-              "verification-guide"
-            ]
-          },
-          {
             "group": "Getting Started with IO Intelligence",
             "pages": [
               "guides/intelligence/unified-chat",
@@ -198,6 +189,15 @@
               "guides/intelligence/agentic-workflow",
               "guides/intelligence/training-as-a-service",
               "guides/intelligence/api-keys-and-secrets"
+            ]
+          },
+          {
+            "group": "Confidential Inference",
+            "pages": [
+              "overview",
+              "quick-start",
+              "confidential-chat",
+              "verification-guide"
             ]
           },
           {
