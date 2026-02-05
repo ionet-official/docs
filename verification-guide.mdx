@@ -61,7 +61,7 @@ This proves:
 - The GPU's firmware and configuration are in a known-good state
 - Multiple GPUs may have multiple evidence entries in `evidence_list`
 
-**Verification:** 
+**Verification:**
 
 Use NVIDIA's attestation API to verify the GPU evidence list:
 
@@ -86,7 +86,7 @@ This proves:
 - The CPU is running in a Trusted Execution Environment (AMD SEV-SNP or Intel TDX)
 - The VM's memory is encrypted and isolated from the host
 
-**Verification:** 
+**Verification:**
 
 Use the proof verifier to verify the CPU attestation quote:
 
@@ -328,3 +328,8 @@ response = client.complete(
 - Request was routed to a different machine
 
 **Solution:** Re-request attestation before inference. Attestation should be refreshed periodically.
+
+## What's Next
+
+- [Quick Start API](./quick-start) - For developers building integrations
+- [Confidential Chat](./confidential-chat) - Use the web interface for private conversations
