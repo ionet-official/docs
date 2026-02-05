@@ -26,24 +26,23 @@
           {
             "group": "Before you Begin",
             "pages": [
-                {
-              "group": "IO Overview",
-              "pages": [
-                "guides/inception",
-                
-                {
-                  "group": "IO Coin",
-                  "pages": [
-                    "guides/coin/io-coin",
-                    "guides/coin/io-tokenomics",
-                    "guides/coin/io-coin-allocation",
-                    "guides/coin/coin-restrictions",
-                    "guides/coin/ionet-monthly-token-emission-schedule"
-                  ]
-                }
-              ]
-            },
-            {
+              {
+                "group": "IO Overview",
+                "pages": [
+                  "guides/inception",
+                  {
+                    "group": "IO Coin",
+                    "pages": [
+                      "guides/coin/io-coin",
+                      "guides/coin/io-tokenomics",
+                      "guides/coin/io-coin-allocation",
+                      "guides/coin/coin-restrictions",
+                      "guides/coin/ionet-monthly-token-emission-schedule"
+                    ]
+                  }
+                ]
+              },
+              {
                 "group": "Get Started",
                 "pages": [
                   "guides/getting-started",
@@ -58,17 +57,16 @@
                   "guides/announcements/supplier-migration-guide-upgrading-to-m4-series-devices"
                 ]
               }
-
-            ]},
+            ]
+          },
           {
-                "group": "Block Rewards",
-                "pages": [
-                  "guides/block-rewards/block-rewards",
-                  "guides/block-rewards/monitor-block-rewards",
-                  "guides/block-rewards/proposed-device-block-reward-multiplier"
-                ]
-              },
-
+            "group": "Block Rewards",
+            "pages": [
+              "guides/block-rewards/block-rewards",
+              "guides/block-rewards/monitor-block-rewards",
+              "guides/block-rewards/proposed-device-block-reward-multiplier"
+            ]
+          },
           {
             "group": "IO Ecosystem",
             "pages": [
@@ -94,106 +92,112 @@
               "guides/architecture/io-network"
             ]
           },
-            "guides/glossary",
-            "guides/faq"
+          "guides/glossary",
+          "guides/faq"
         ]
       },
       {
         "tab": "Cloud",
         "pages": [
-           "guides/clouds/io-cloud",
-            {
-               "group": "Getting Started with IO Cloud",
-               "pages": [
-                    "guides/clouds/start-using-io-cloud",
-                    "guides/clouds/monitor-manage-clusters",
-                    "guides/clouds/deploy-containers",
-                    "guides/clouds/deploy-ray-cluster",
-                    "guides/clouds/deploy-bare-metal-cluster",
-                    {
-                      "group": "VM on Demand",
-                      "tag": "UPDATED",
-                      "pages": [
-                        "guides/clouds/deploy-vm-on-demand",
-                        "guides/clouds/data-science-image-full-specification",
-                        {
-                          "group": "Confidential Compute",
-                          "tag": "NEW",
-                          "hidden": false,
-                          "pages": [
-                            "guides/clouds/confidential-compute-overview",
-                            "guides/clouds/confidential-compute-attestation-overview",
-                            "guides/clouds/confidential-compute-attestation-guide",
-                            {
-                              "group": "Confidential Compute Attestation",
-                              "hidden": true,
-                              "tag": "NEW",
-                              "pages": [
-                                "guides/clouds/confidential-compute-attestation",
-                                "guides/clouds/confidential-compute-attestation-guide"
-                              ]
-                            }
-                                  ]
-                        }
-                      ]
-                    },
-                 
-                    {
-                      "group": "Kubernetes",
-                      "tag": "UPDATED",
-                      "hidden" : true,
-                      "pages": [
-                        "guides/clouds/deploy-kubernetes-cluster",
-                        "guides/clouds/kubernetes-ingress-setup"
-                      ]
-                    },
-                 {
-                      "group": "Kubernetes",
-                      "hidden": false,
-                      "tag": "UPDATED",
-                      "pages": [
-                        "guides/clouds/deploy-kubernetes-cluster",
-                        "guides/clouds/kubernetes/exposing-to-the-internet",
-                        "guides/clouds/kubernetes/externaldns-guide",
-                        "guides/clouds/kubernetes/quick-start",
-                        "guides/clouds/kubernetes/optimizations"
-                      ]
-                    }
-               ]
-            },
+          "guides/clouds/io-cloud",
           {
-               "group": "IO Cloud Payments",
-               "pages": [
-                     "guides/payment/io-cloud-payments",
-                     "guides/payment/deploy-cluster-and-pay",
-                    "guides/payment/extending-your-cluster-and-pay",
-                    "guides/payment/io-credits",
-                    "guides/payment/card-payments-faqs"
-               ]
-            },
-            {
-               "group": "Run Jobs on Clusters",
-               "pages": [
-                     "guides/clouds/run-jobs-on-clusters",
-                     "guides/clouds/jupyter-notebook"
-               ]
-            }
-            
+            "group": "Getting Started with IO Cloud",
+            "pages": [
+              "guides/clouds/start-using-io-cloud",
+              "guides/clouds/monitor-manage-clusters",
+              "guides/clouds/deploy-containers",
+              "guides/clouds/deploy-ray-cluster",
+              "guides/clouds/deploy-bare-metal-cluster",
+              {
+                "group": "VM on Demand",
+                "tag": "UPDATED",
+                "pages": [
+                  "guides/clouds/deploy-vm-on-demand",
+                  "guides/clouds/data-science-image-full-specification",
+                  {
+                    "group": "Confidential Compute",
+                    "hidden": false,
+                    "tag": "NEW",
+                    "pages": [
+                      "guides/clouds/confidential-compute-overview",
+                      "guides/clouds/confidential-compute-attestation-overview",
+                      "guides/clouds/confidential-compute-attestation-guide",
+                      {
+                        "group": "Confidential Compute Attestation",
+                        "hidden": true,
+                        "tag": "NEW",
+                        "pages": [
+                          "guides/clouds/confidential-compute-attestation",
+                          "guides/clouds/confidential-compute-attestation-guide"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "group": "Kubernetes",
+                "hidden": true,
+                "tag": "UPDATED",
+                "pages": [
+                  "guides/clouds/deploy-kubernetes-cluster",
+                  "guides/clouds/kubernetes-ingress-setup"
+                ]
+              },
+              {
+                "group": "Kubernetes",
+                "hidden": false,
+                "tag": "UPDATED",
+                "pages": [
+                  "guides/clouds/deploy-kubernetes-cluster",
+                  "guides/clouds/kubernetes/exposing-to-the-internet",
+                  "guides/clouds/kubernetes/externaldns-guide",
+                  "guides/clouds/kubernetes/quick-start",
+                  "guides/clouds/kubernetes/optimizations"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "IO Cloud Payments",
+            "pages": [
+              "guides/payment/io-cloud-payments",
+              "guides/payment/deploy-cluster-and-pay",
+              "guides/payment/extending-your-cluster-and-pay",
+              "guides/payment/io-credits",
+              "guides/payment/card-payments-faqs"
+            ]
+          },
+          {
+            "group": "Run Jobs on Clusters",
+            "pages": [
+              "guides/clouds/run-jobs-on-clusters",
+              "guides/clouds/jupyter-notebook"
+            ]
+          }
         ]
       },
       {
         "tab": "Intelligence",
-        "pages": [
-          "guides/intelligence/io-intelligence",
+        "groups": [
+          {
+            "group": "Confidential Inference",
+            "pages": [
+              "overview",
+              "quick-start",
+              "quick-start-copied-1",
+              "verification-guide"
+            ]
+          },
           {
             "group": "Getting Started with IO Intelligence",
             "pages": [
-            "guides/intelligence/unified-chat",
-            "guides/intelligence/exploring-ai-models",
-            "guides/intelligence/exploring-ai-agents",
-            "guides/intelligence/agentic-workflow",
-            "guides/intelligence/training-as-a-service",
-            "guides/intelligence/api-keys-and-secrets"
+              "guides/intelligence/unified-chat",
+              "guides/intelligence/exploring-ai-models",
+              "guides/intelligence/exploring-ai-agents",
+              "guides/intelligence/agentic-workflow",
+              "guides/intelligence/training-as-a-service",
+              "guides/intelligence/api-keys-and-secrets"
             ]
           },
           {
@@ -217,7 +221,6 @@
               "guides/intelligence/testing-models-pricing"
             ]
           }
-            
         ]
       },
       {
@@ -404,160 +407,160 @@
                   }
                 ]
               },
-                        {
-            "group": "Getting Started with RAG API",
-            "pages": [
-              "reference/rag/getting-started-with-the-rag-api",
               {
-                "group": "Retrieval",
+                "group": "Getting Started with RAG API",
                 "pages": [
-                  "reference/rag/retrieval",
-                  "reference/rag/retrieval/streaming-retrieval-api",
-                  "reference/rag/retrieval/semantic-search",
-                  "reference/rag/retrieval/retrieve-and-generate-rag",
-                  "reference/rag/retrieval/agent-based-query-resolution",
-                  "reference/rag/retrieval/prompt-based-completion",
-                  "reference/rag/retrieval/generate-embedding"
-                ]
-              },
-              {
-                "group": "Documents",
-                "pages": [
-                  "reference/rag/documents",
-                  "reference/rag/documents/list-all-documents",
-                  "reference/rag/documents/upload-and-ingest-a-document",
-                  "reference/rag/documents/replace-document-metadata",
-                  "reference/rag/documents/update-document-metadata-partial",
-                  "reference/rag/documents/download-documents-as-zip",
-                  "reference/rag/documents/get-document-by-id",
-                  "reference/rag/documents/delete-document-by-id",
-                  "reference/rag/documents/get-document-chunks",
-                  "reference/rag/documents/download-original-file",
-                  "reference/rag/documents/delete-documents-by-filter",
-                  "reference/rag/documents/extract-entities",
-                  "reference/rag/documents/deduplicate-document",
-                  "reference/rag/documents/get-extracted-entities",
-                  "reference/rag/documents/get-relationships",
-                  "reference/rag/documents/search-documents"
-                ]
-              },
-              {
-                "group": "Graphs",
-                "pages": [
-                  "reference/rag/graphs",
-                  "reference/rag/graphs/get-graph-overview",
-                  "reference/rag/graphs/get-graph-data-for-a-collection",
-                  "reference/rag/graphs/pull-and-rebuild-graph",
+                  "reference/rag/getting-started-with-the-rag-api",
                   {
-                    "group": "Entities",
+                    "group": "Retrieval",
                     "pages": [
-                      "reference/rag/graphs/entities",
-                      "reference/rag/graphs/entities/list-graph-entities",
-                      "reference/rag/graphs/entities/add-new-entities",
-                      "reference/rag/graphs/entities/get-single-entity-details"
+                      "reference/rag/retrieval",
+                      "reference/rag/retrieval/streaming-retrieval-api",
+                      "reference/rag/retrieval/semantic-search",
+                      "reference/rag/retrieval/retrieve-and-generate-rag",
+                      "reference/rag/retrieval/agent-based-query-resolution",
+                      "reference/rag/retrieval/prompt-based-completion",
+                      "reference/rag/retrieval/generate-embedding"
                     ]
                   },
                   {
-                    "group": "Relationships",
+                    "group": "Documents",
                     "pages": [
-                      "reference/rag/graphs/relationships",
-                      "reference/rag/graphs/relationships/get-graph-relationships",
-                      "reference/rag/graphs/relationships/get-relationship-details"
+                      "reference/rag/documents",
+                      "reference/rag/documents/list-all-documents",
+                      "reference/rag/documents/upload-and-ingest-a-document",
+                      "reference/rag/documents/replace-document-metadata",
+                      "reference/rag/documents/update-document-metadata-partial",
+                      "reference/rag/documents/download-documents-as-zip",
+                      "reference/rag/documents/get-document-by-id",
+                      "reference/rag/documents/delete-document-by-id",
+                      "reference/rag/documents/get-document-chunks",
+                      "reference/rag/documents/download-original-file",
+                      "reference/rag/documents/delete-documents-by-filter",
+                      "reference/rag/documents/extract-entities",
+                      "reference/rag/documents/deduplicate-document",
+                      "reference/rag/documents/get-extracted-entities",
+                      "reference/rag/documents/get-relationships",
+                      "reference/rag/documents/search-documents"
                     ]
                   },
                   {
-                    "group": "Communities",
+                    "group": "Graphs",
                     "pages": [
-                      "reference/rag/graphs/communities",
-                      "reference/rag/graphs/communities/list-communities",
-                      "reference/rag/graphs/communities/build-graph-communities",
-                      "reference/rag/graphs/communities/get-community-details",
-                      "reference/rag/graphs/communities/update-a-community",
-                      "reference/rag/graphs/communities/delete-a-community"
+                      "reference/rag/graphs",
+                      "reference/rag/graphs/get-graph-overview",
+                      "reference/rag/graphs/get-graph-data-for-a-collection",
+                      "reference/rag/graphs/pull-and-rebuild-graph",
+                      {
+                        "group": "Entities",
+                        "pages": [
+                          "reference/rag/graphs/entities",
+                          "reference/rag/graphs/entities/list-graph-entities",
+                          "reference/rag/graphs/entities/add-new-entities",
+                          "reference/rag/graphs/entities/get-single-entity-details"
+                        ]
+                      },
+                      {
+                        "group": "Relationships",
+                        "pages": [
+                          "reference/rag/graphs/relationships",
+                          "reference/rag/graphs/relationships/get-graph-relationships",
+                          "reference/rag/graphs/relationships/get-relationship-details"
+                        ]
+                      },
+                      {
+                        "group": "Communities",
+                        "pages": [
+                          "reference/rag/graphs/communities",
+                          "reference/rag/graphs/communities/list-communities",
+                          "reference/rag/graphs/communities/build-graph-communities",
+                          "reference/rag/graphs/communities/get-community-details",
+                          "reference/rag/graphs/communities/update-a-community",
+                          "reference/rag/graphs/communities/delete-a-community"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "group": "Indices",
+                    "pages": [
+                      "reference/rag/indices",
+                      "reference/rag/indices/list-all-indices",
+                      "reference/rag/indices/get-specific-index-details",
+                      "reference/rag/indices/delete-an-index"
+                    ]
+                  },
+                  {
+                    "group": "Users",
+                    "pages": [
+                      "reference/rag/users",
+                      "reference/rag/users/get-current-user",
+                      "reference/rag/users/get-user-by-id",
+                      "reference/rag/users/get-user-limits",
+                      "reference/rag/users/list-users-collections",
+                      "reference/rag/users/add-collection-to-user",
+                      "reference/rag/users/delete-user-from-collection"
+                    ]
+                  },
+                  {
+                    "group": "Collections",
+                    "pages": [
+                      "reference/rag/collections",
+                      "reference/rag/collections/list-collections",
+                      "reference/rag/collections/create-a-new-collection",
+                      "reference/rag/collections/get-collection-by-id",
+                      "reference/rag/collections/update-collection",
+                      "reference/rag/collections/delete-collection",
+                      "reference/rag/collections/list-documents-in-collection",
+                      "reference/rag/collections/add-document-to-collection",
+                      "reference/rag/collections/remove-document-from-collection",
+                      "reference/rag/collections/list-users-in-a-collection",
+                      "reference/rag/collections/add-user-to-collection",
+                      "reference/rag/collections/remove-user-from-collection",
+                      "reference/rag/collections/trigger-extraction-for-a-collection",
+                      "reference/rag/collections/get-collection-by-name"
+                    ]
+                  },
+                  {
+                    "group": "Conversations",
+                    "pages": [
+                      "reference/rag/conversations",
+                      "reference/rag/conversations/list-conversations",
+                      "reference/rag/conversations/create-a-new-conversation",
+                      "reference/rag/conversations/get-conversation-details",
+                      "reference/rag/conversations/update-conversation",
+                      "reference/rag/conversations/delete-a-conversation",
+                      "reference/rag/conversations/add-a-message-to-a-conversation",
+                      "reference/rag/conversations/update-a-message"
+                    ]
+                  },
+                  {
+                    "group": "Prompts",
+                    "pages": [
+                      "reference/rag/prompts",
+                      "reference/rag/prompts/list-all-prompts"
+                    ]
+                  },
+                  {
+                    "group": "Chunks",
+                    "pages": [
+                      "reference/rag/chunks",
+                      "reference/rag/chunks/search-chunks",
+                      "reference/rag/chunks/get-chunk-by-id",
+                      "reference/rag/chunks/update-chunk",
+                      "reference/rag/chunks/delete-chunk",
+                      "reference/rag/chunks/list-chunks"
+                    ]
+                  },
+                  {
+                    "group": "System",
+                    "pages": [
+                      "reference/rag/system",
+                      "reference/rag/system/health-check"
                     ]
                   }
                 ]
-              },
-              {
-                "group": "Indices",
-                "pages": [
-                  "reference/rag/indices",
-                  "reference/rag/indices/list-all-indices",
-                  "reference/rag/indices/get-specific-index-details",
-                  "reference/rag/indices/delete-an-index"
-                ]
-              },
-              {
-                "group": "Users",
-                "pages": [
-                  "reference/rag/users",
-                  "reference/rag/users/get-current-user",
-                  "reference/rag/users/get-user-by-id",
-                  "reference/rag/users/get-user-limits",
-                  "reference/rag/users/list-users-collections",
-                  "reference/rag/users/add-collection-to-user",
-                  "reference/rag/users/delete-user-from-collection"
-                ]
-              },
-              {
-                "group": "Collections",
-                "pages": [
-                  "reference/rag/collections",
-                  "reference/rag/collections/list-collections",
-                  "reference/rag/collections/create-a-new-collection",
-                  "reference/rag/collections/get-collection-by-id",
-                  "reference/rag/collections/update-collection",
-                  "reference/rag/collections/delete-collection",
-                  "reference/rag/collections/list-documents-in-collection",
-                  "reference/rag/collections/add-document-to-collection",
-                  "reference/rag/collections/remove-document-from-collection",
-                  "reference/rag/collections/list-users-in-a-collection",
-                  "reference/rag/collections/add-user-to-collection",
-                  "reference/rag/collections/remove-user-from-collection",
-                  "reference/rag/collections/trigger-extraction-for-a-collection",
-                  "reference/rag/collections/get-collection-by-name"
-                ]
-              },
-              {
-                "group": "Conversations",
-                "pages": [
-                  "reference/rag/conversations",
-                  "reference/rag/conversations/list-conversations",
-                  "reference/rag/conversations/create-a-new-conversation",
-                  "reference/rag/conversations/get-conversation-details",
-                  "reference/rag/conversations/update-conversation",
-                  "reference/rag/conversations/delete-a-conversation",
-                  "reference/rag/conversations/add-a-message-to-a-conversation",
-                  "reference/rag/conversations/update-a-message"
-                ]
-              },
-              {
-                "group": "Prompts",
-                "pages": [
-                  "reference/rag/prompts",
-                  "reference/rag/prompts/list-all-prompts"
-                ]
-              },
-              {
-                "group": "Chunks",
-                "pages": [
-                  "reference/rag/chunks",
-                  "reference/rag/chunks/search-chunks",
-                  "reference/rag/chunks/get-chunk-by-id",
-                  "reference/rag/chunks/update-chunk",
-                  "reference/rag/chunks/delete-chunk",
-                  "reference/rag/chunks/list-chunks"
-                ]
-              },
-              {
-                "group": "System",
-                "pages": [
-                  "reference/rag/system",
-                  "reference/rag/system/health-check"
-                ]
               }
-            ]
-          }
             ]
           },
           {
