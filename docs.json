@@ -182,6 +182,7 @@
         "groups": [
           {
             "group": "Confidential Inference",
+            "hidden": true,
             "pages": [
               "overview",
               "quick-start",
