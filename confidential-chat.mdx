@@ -43,7 +43,7 @@ The verification panel displays the full attestation report, proving:
 
 - The response came from a genuine NVIDIA GPU running in TEE mode
 - The specific hardware configuration and firmware version
-- The container image hash running inside the secure enclave
+- The container image hash (`image_digest`) running inside the secure enclave - compare with the expected digest from the [latest official release](https://github.com/ionet-official/attestation-agent/releases) to confirm the container hasn't been tampered with
 
 ### Message Signatures
 

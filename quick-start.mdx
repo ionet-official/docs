@@ -112,6 +112,8 @@ print(f"Signing address: {attestation['signing_address']}")
 
 **`Save the signing_address`** - you'll use it to verify response signatures.
 
+**`Verify the image_digest`** - compare with the expected digest published in the [latest official release](https://github.com/ionet-official/attestation-agent/releases) to confirm the running container hasn't been tampered with.
+
 ## Step 3: Run Confidential Inference
 
 Now run inference using the confidential completions endpoint. The request format is OpenAI-compatible.

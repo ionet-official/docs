@@ -57,6 +57,7 @@ When you request attestation, you receive:
 | ----------------- | -------------------------------------------------------------------- |
 | `gpu`             | NVIDIA GPU attestation report proving the GPU identity and TEE state |
 | `cpu`             | CPU attestation report (when available) for additional verification  |
+| `image_digest`    | SHA256 hash of the container image running in the TEE                |
 | `signing_address` | Public key the machine will use to sign inference responses          |
 | `nonce`           | Your nonce echoed back, proving freshness                            |
 
@@ -76,6 +77,7 @@ Every inference response includes cryptographic signatures in the response heade
 | Check                                 | What It Proves                                                           |
 | ------------------------------------- | ------------------------------------------------------------------------ |
 | GPU attestation report is valid       | Response came from genuine NVIDIA GPU in TEE mode                        |
+| `image_digest` matches release        | Running container hasn't been tampered with                            |
 | `signing_address` matches attestation | Responses are signed by the attested machine                             |
 | Signature verifies                    | Response was not tampered with in transit and signed on attested machine |
 | Nonce matches your request            | Attestation is fresh, not replayed                                       |

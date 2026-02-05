@@ -10,6 +10,7 @@ description: "This guide explains how to verify that your AI inference ran on ge
 | Nonce matches             | Attestation is fresh, not replayed            | Compare returned nonce with your generated nonce     |
 | GPU report is valid       | Machine has genuine NVIDIA GPU in TEE mode    | Verify report against NVIDIA's root certificates     |
 | CPU report is valid       | Machine's CPU is in confidential compute mode | Verify report against AMD/Intel attestation services |
+| `image_digest` matches    | Running container hasn't been tampered with   | Compare with expected digest from official release   |
 | `signing_address` matches | Responses come from attested machine          | Compare header with attestation report               |
 | Signature verifies        | Response wasn't modified in transit           | Cryptographic signature verification                 |
 
@@ -105,6 +106,8 @@ The `image_digest` field contains the SHA256 hash of the container image running
 ```
 
 This allows you to verify that the expected code is running inside the TEE.
+
+**Verification:** Compare the `image_digest` with the expected digest published in the [latest official release](https://github.com/ionet-official/attestation-agent/releases). If the digests match, you can be confident the running container hasn't been tampered with.
 
 ### Signing Address
 
@@ -287,6 +290,7 @@ response = client.complete(
 | Nonce verification     | Replay attacks - attacker cannot reuse old attestation reports      |
 | GPU attestation        | Fake hardware - proves response came from genuine NVIDIA GPU in TEE |
 | CPU attestation        | Host compromise - proves VM memory is encrypted and isolated        |
+| Image digest match     | Code tampering - proves container hasn't been modified              |
 | Signing address match  | Man-in-the-middle - proves response came from attested machine      |
 | Signature verification | Tampering - proves response wasn't modified in transit              |
 
