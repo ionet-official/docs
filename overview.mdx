@@ -13,12 +13,7 @@ Traditional AI APIs require you to trust that the provider handles your data sec
 
 ## How It Works
 
-<img
-  src="/images/image-4.png"
-  alt="Image"
-  title="Image"
-  className="mx-auto"
-/>
+![Download (1) (1)](/images/download\(1\)\(1\).png)
 
 1. **Request attestation** with a unique nonce you generate
 2. **io.net routes** your request to a confidential compute-enabled GPU machine
@@ -77,7 +72,7 @@ Every inference response includes cryptographic signatures in the response heade
 | Check                                 | What It Proves                                                           |
 | ------------------------------------- | ------------------------------------------------------------------------ |
 | GPU attestation report is valid       | Response came from genuine NVIDIA GPU in TEE mode                        |
-| `image_digest` matches release        | Running container hasn't been tampered with                            |
+| `image_digest` matches release        | Running container hasn't been tampered with                              |
 | `signing_address` matches attestation | Responses are signed by the attested machine                             |
 | Signature verifies                    | Response was not tampered with in transit and signed on attested machine |
 | Nonce matches your request            | Attestation is fresh, not replayed                                       |

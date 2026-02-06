@@ -133,7 +133,8 @@ Every confidential inference response includes signature headers:
 | `text`            | The content that was signed (typically the response body) |
 | `signature`       | Cryptographic signature over `text`                       |
 | `signing_address` | Public key that created the signature                     |
-| `signing_algo`    | Signing algorithm (e.g., `secp256k1`)                     |
+| `signing_algo`    | Signing algorithm (e.g., ecdsa)                           |
+| `image_digest`    | SHA256 hash of the container image running in the TEE     |
 
 ### Verification Steps
 
@@ -147,20 +148,20 @@ assert response_headers["signing_address"].lower() == \
 
 2. **Verify the cryptographic signature**
 
-For `secp256k1` signatures (Ethereum-style):
+For `ecdsa` signatures (Ethereum-style):
 
 ```python
 from eth_account.messages import encode_defunct
 from eth_account import Account
 
-def verify_secp256k1_signature(text: str, signature: str, expected_address: str) -> bool:
+def verify_ecdsa_signature(text: str, signature: str, expected_address: str) -> bool:
     """Verify an Ethereum-style signature."""
     message = encode_defunct(text=text)
     recovered_address = Account.recover_message(message, signature=signature)
     return recovered_address.lower() == expected_address.lower()
 
 # Verify
-is_valid = verify_secp256k1_signature(
+is_valid = verify_ecdsa_signature(
     text=response_headers["text"],
     signature=response_headers["signature"],
     expected_address=attestation["signing_address"]
@@ -261,7 +262,7 @@ class ConfidentialClient:
 
     def _verify_signature(self, headers: dict) -> bool:
         """Verify response signature."""
-        if headers["signing_algo"] == "secp256k1":
+        if headers["signing_algo"] == "ecdsa":
             message = encode_defunct(text=headers["text"])
             recovered = Account.recover_message(
                 message,

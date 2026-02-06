@@ -49,12 +49,13 @@ The verification panel displays the full attestation report, proving:
 
 For each AI response, you can view:
 
-| Field               | Description                                      |
-| ------------------- | ------------------------------------------------ |
-| **Signed Text**     | The exact content that was signed                |
-| **Signature**       | The cryptographic signature proving authenticity |
-| **Signing Address** | The public key that signed (matches attestation) |
-| **Algorithm**       | The signing algorithm used (e.g., secp256k1)     |
+| Field               | Description                                           |
+| ------------------- | ----------------------------------------------------- |
+| **Signed Text**     | The exact content that was signed                     |
+| **Signature**       | The cryptographic signature proving authenticity      |
+| **Signing Address** | The public key that signed (matches attestation)      |
+| **Algorithm**       | The signing algorithm used (e.g., ecdsa)              |
+| **Image digest**    | SHA256 hash of the container image running in the TEE |
 
 This allows you to independently verify that:
 

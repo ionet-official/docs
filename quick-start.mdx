@@ -161,7 +161,8 @@ signature_headers = {
     "text": response.headers.get("text"),
     "signature": response.headers.get("signature"),
     "signing_address": response.headers.get("signing_address"),
-    "signing_algo": response.headers.get("signing_algo")
+    "signing_algo": response.headers.get("signing_algo"),
+    "image_digest": response.headers.get("image_digest"),
 }
 ```
 
@@ -173,7 +174,8 @@ The response includes signature headers for verification:
 text: <signed content>
 signature: <cryptographic signature>
 signing_address: 0x1234...abcd
-signing_algo: secp256k1
+signing_algo: ecdsa
+image_digest: sha256:...c00
 ```
 
 ## Step 4: Verify the Response Signature
@@ -266,7 +268,8 @@ def confidential_completion(model: str, messages: list):
             "text": response.headers.get("text"),
             "signature": response.headers.get("signature"),
             "signing_address": response.headers.get("signing_address"),
-            "signing_algo": response.headers.get("signing_algo")
+            "signing_algo": response.headers.get("signing_algo"),
+			"image_digest": response.headers.get("image_digest"),
         }
     }
 
