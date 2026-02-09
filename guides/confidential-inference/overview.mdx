@@ -16,8 +16,8 @@ Traditional AI APIs require you to trust that the provider handles your data sec
 1. **Request attestation** with a unique nonce you generate
 2. **io.net routes** your request to a confidential compute-enabled GPU machine
 3. **GPU TEE** generates a hardware attestation report with a signing key
-4. **Verify** the attestation report proves the machine is genuine and secure
-5. **Run inference** - responses are signed with the attested key
+4. [**Verify**](./guides/confidential-inference/verification-guide) the attestation report proves the machine is genuine and secure
+5. [**Run inference**](./guides/confidential-inference/quick-start) - responses are signed with the attested key
 6. **Verify signatures** to prove responses came from the attested machine
 
 ## Key Components
