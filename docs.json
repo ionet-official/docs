@@ -194,10 +194,10 @@
           {
             "group": "Confidential Inference",
             "pages": [
-              "overview",
-              "quick-start",
-              "confidential-chat",
-              "verification-guide"
+              "guides/confidential-inference/overview",
+              "guides/confidential-inference/quick-start",
+              "guides/confidential-inference/confidential-chat",
+              "guides/confidential-inference/verification-guide"
             ]
           },
           {
