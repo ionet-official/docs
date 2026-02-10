@@ -181,15 +181,6 @@
         "tab": "Intelligence",
         "groups": [
           {
-            "group": "Confidential Inference",
-            "pages": [
-              "guides/confidential-inference/overview",
-              "guides/confidential-inference/quick-start",
-              "guides/confidential-inference/confidential-chat",
-              "guides/confidential-inference/verification-guide"
-            ]
-          },
-          {
             "group": "Getting Started with IO Intelligence",
             "pages": [
               "guides/intelligence/unified-chat",
@@ -205,6 +196,15 @@
             "hidden": false,
             "pages": [
               "guides/payment/io-intelligence-payments"
+            ]
+          },
+          {
+            "group": "Confidential Inference",
+            "pages": [
+              "guides/confidential-inference/overview",
+              "guides/confidential-inference/quick-start",
+              "guides/confidential-inference/confidential-chat",
+              "guides/confidential-inference/verification-guide"
             ]
           },
           {
