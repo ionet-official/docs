@@ -1,0 +1,90 @@
+---
+title: "Overview"
+description: "io.net's Confidential Inference enables verifiable AI inference where you can cryptographically prove that your prompts were processed securely on trusted hardware, without storing any of your data."
+---
+
+## Don't Trust, Verify
+
+Traditional AI APIs require you to trust that the provider handles your data securely. With confidential compute, you can **verify** these guarantees cryptographically:
+
+- **Hardware attestation** proves your request ran on genuine, secure GPU hardware
+- **Response signatures** prove the output came from the attested machine
+- **Nonce verification** proves the attestation is fresh, not replayed
+
+## How It Works
+
+1. **Request attestation** with a unique nonce you generate
+2. **io.net routes** your request to a confidential compute-enabled GPU machine
+3. **GPU TEE** generates a hardware attestation report with a signing key
+4. [**Verify**](./guides/confidential-inference/verification-guide) the attestation report proves the machine is genuine and secure
+5. [**Run inference**](./guides/confidential-inference/quick-start) - responses are signed with the attested key
+6. **Verify signatures** to prove responses came from the attested machine
+
+## Key Components
+
+### Trusted Execution Environment (TEE)
+
+The GPU runs inside a Trusted Execution Environment that provides:
+
+- **Memory isolation** - your data is encrypted in memory and inaccessible to the host
+- **Code integrity** - only authorized code can run inside the TEE
+- **Hardware attestation** - the GPU can prove its identity and configuration
+
+### Attestation Agent (Open Source)
+
+The attestation agent running on GPU machines is fully open source. You can audit the code that generates attestation reports and signs responses:
+
+**Repository:** https://github.com/ionet-official/cc-attestation-agent-api
+
+This transparency allows you to:
+
+- Verify what code is running inside the TEE
+- Understand exactly what is being attested
+- Build confidence in the verification process
+
+### Attestation Reports
+
+When you request attestation, you receive:
+
+| Field             | Description                                                          |
+| ----------------- | -------------------------------------------------------------------- |
+| `gpu`             | NVIDIA GPU attestation report proving the GPU identity and TEE state |
+| `cpu`             | CPU attestation report (when available) for additional verification  |
+| `image_digest`    | SHA256 hash of the container image running in the TEE                |
+| `signing_address` | Public key the machine will use to sign inference responses          |
+| `nonce`           | Your nonce echoed back, proving freshness                            |
+
+### Response Signatures
+
+Every inference response includes cryptographic signatures in the response headers:
+
+| Header            | Description                                         |
+| ----------------- | --------------------------------------------------- |
+| `text`            | The content that was signed                         |
+| `signature`       | Cryptographic signature of the text                 |
+| `signing_address` | Public key that signed (matches attestation report) |
+| `signing_algo`    | Algorithm used for signing                          |
+
+## What You Can Prove
+
+| Check                                 | What It Proves                                                           |
+| ------------------------------------- | ------------------------------------------------------------------------ |
+| GPU attestation report is valid       | Response came from genuine NVIDIA GPU in TEE mode                        |
+| `image_digest` matches release        | Running container hasn't been tampered with                              |
+| `signing_address` matches attestation | Responses are signed by the attested machine                             |
+| Signature verifies                    | Response was not tampered with in transit and signed on attested machine |
+| Nonce matches your request            | Attestation is fresh, not replayed                                       |
+
+## Privacy Guarantees
+
+Confidential compute operates in **Zero Data Retention (ZDR) mode**:
+
+- Your prompts and responses are **never stored**
+- Only token counts are recorded for billing
+- No logs of conversation content exist
+
+## What's Next
+
+- [Quick Start API](./guides/confidential-inference/quick-start) - For developers building integrations
+- [Confidential Chat](./guides/confidential-inference/confidential-chat) - Use the web interface for private conversations
+- [Verification Guide](./guides/confidential-inference/verification-guide) - Deep dive into verifying attestation and signatures

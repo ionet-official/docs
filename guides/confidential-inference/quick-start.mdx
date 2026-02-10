@@ -1,0 +1,322 @@
+---
+title: "Quick Start API"
+description: "This guide walks you through running your first verifiable AI inference with io.net's Confidential Compute."
+---
+
+## Prerequisites
+
+- io.net API key ([get one here](https://cloud.io.net))
+- `curl` or Python 3.7+
+
+## Step 1: Find Models with Attestation Support
+
+First, list available models and filter for those supporting attestation:
+
+### curl
+
+```bash
+curl -s https://api.intelligence.io.net/v1/models \
+  -H "Authorization: Bearer $IO_API_KEY" | \
+  jq '.data[] | select(.supports_attestation == true) | {name, model_id}'
+```
+
+### Python
+
+```python
+import requests
+
+response = requests.get(
+    "https://api.intelligence.io.net/v1/models",
+    headers={"Authorization": f"Bearer {IO_API_KEY}"}
+)
+
+models = response.json()["data"]
+attestation_models = [m for m in models if m.get("supports_attestation")]
+
+for model in attestation_models:
+    print(f"{model['name']}: {model['model_id']}")
+```
+
+Note the `model_id` (UUID) for a model you want to use.
+
+## Step 2: Get Attestation Report
+
+Before running inference, request an attestation report to verify the GPU machine. Generate a unique nonce (random string) for freshness verification.
+
+### curl
+
+```bash
+# Generate a random nonce
+NONCE=$(openssl rand -hex 16)
+
+# Request attestation report
+curl -X POST https://api.intelligence.io.net/v1/private/attestation \
+  -H "Authorization: Bearer $IO_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model_id": "YOUR_MODEL_UUID_HERE",
+    "nonce": "'$NONCE'"
+  }'
+```
+
+### Python
+
+```python
+import secrets
+import requests
+
+# Generate a random nonce
+nonce = secrets.token_hex(16)
+
+response = requests.post(
+    "https://api.intelligence.io.net/v1/private/attestation",
+    headers={
+        "Authorization": f"Bearer {IO_API_KEY}",
+        "Content-Type": "application/json"
+    },
+    json={
+        "model_id": "YOUR_MODEL_UUID_HERE",
+        "nonce": nonce
+    }
+)
+
+attestation = response.json()
+# Nonce is padded to 64 hex characters - verify prefix matches
+print(f"Nonce verified: {attestation['nonce'].startswith(nonce)}")
+print(f"Signing address: {attestation['signing_address']}")
+```
+
+### Example Response
+
+```json
+{
+  "nonce": "87ebbef3ceb69d2d6d7edc1b05c42ad900000000000000000000000000000000",
+  "gpu": {
+    "nonce": "87ebbef3ceb69d2d6d7edc1b05c42ad900000000000000000000000000000000",
+    "arch": "HOPPER",
+    "evidence_list": [
+      {
+        "evidence": "<base64-encoded attestation evidence>",
+        "certificate": "<base64-encoded certificate chain>"
+      }
+    ],
+    "claims_version": "3.0"
+  },
+  "cpu": {
+    "quote": "<hex-encoded CPU attestation quote>"
+  },
+  "signing_address": "0xf52373547CAa0EeCB0fcD34042D7518E79aA80cC",
+  "image_digest": "sha256:cf47db862b96b243e077a80ee51afa2c007604bf3c648232d42144947e56c339"
+}
+```
+
+**`Save the signing_address`** - you'll use it to verify response signatures.
+
+**`Verify the image_digest`** - compare with the expected digest published in the [latest official release](https://github.com/ionet-official/cc-attestation-agent-api/releases) to confirm the running container hasn't been tampered with.
+
+## Step 3: Run Confidential Inference
+
+Now run inference using the confidential completions endpoint. The request format is OpenAI-compatible.
+
+### curl
+
+```bash
+curl -X POST https://api.intelligence.io.net/v1/private/completions \
+  -H "Authorization: Bearer $IO_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "meta-llama/Llama-3.3-70B-Instruct",
+    "messages": [
+      {"role": "user", "content": "What is confidential computing?"}
+    ],
+    "max_tokens": 5000
+  }' \
+  -i  # Include response headers
+```
+
+### Python
+
+```python
+response = requests.post(
+    "https://api.intelligence.io.net/v1/private/completions",
+    headers={
+        "Authorization": f"Bearer {IO_API_KEY}",
+        "Content-Type": "application/json"
+    },
+    json={
+        "model": "meta-llama/Llama-3.3-70B-Instruct",
+        "messages": [
+            {"role": "user", "content": "What is confidential computing?"}
+        ],
+        "max_tokens": 5000
+    }
+)
+
+# Get the response body
+completion = response.json()
+print(completion["choices"][0]["message"]["content"])
+
+# Get signature headers for verification
+signature_headers = {
+    "text": response.headers.get("text"),
+    "signature": response.headers.get("signature"),
+    "signing_address": response.headers.get("signing_address"),
+    "signing_algo": response.headers.get("signing_algo"),
+    "image_digest": response.headers.get("image_digest"),
+}
+```
+
+### Response Headers
+
+The response includes signature headers for verification:
+
+```
+text: <signed content>
+signature: <cryptographic signature>
+signing_address: 0x1234...abcd
+signing_algo: ecdsa
+image_digest: sha256:...c00
+```
+
+## Step 4: Verify the Response Signature
+
+Verify that the response came from the attested machine by checking the signature.
+
+### Python (with eth_account)
+
+```python
+from eth_account.messages import encode_defunct
+from eth_account import Account
+
+def verify_response(signature_headers, expected_signing_address):
+    """Verify the response signature matches the attested machine."""
+
+    text = signature_headers["text"]
+    signature = signature_headers["signature"]
+    signing_address = signature_headers["signing_address"]
+
+    # Verify signing address matches attestation
+    if signing_address.lower() != expected_signing_address.lower():
+        raise ValueError("Signing address does not match attestation!")
+
+    # Verify signature
+    message = encode_defunct(text=text)
+    recovered_address = Account.recover_message(message, signature=signature)
+
+    if recovered_address.lower() != signing_address.lower():
+        raise ValueError("Signature verification failed!")
+
+    return True
+
+# Verify using the signing_address from Step 2
+signing_address_from_attestation = attestation["signing_address"]
+verify_response(signature_headers, signing_address_from_attestation)
+print("Response verified!")
+```
+
+## Complete Example
+
+Here's a complete Python script that performs verified confidential inference:
+
+```python
+import secrets
+import requests
+from eth_account.messages import encode_defunct
+from eth_account import Account
+
+IO_API_KEY = "your-api-key"
+BASE_URL = "https://api.intelligence.io.net/v1"
+PRIVATE_URL = "https://api.intelligence.io.net/v1/private"
+
+def get_attestation_models():
+    """Get models that support attestation."""
+    response = requests.get(
+        f"{BASE_URL}/models",
+        headers={"Authorization": f"Bearer {IO_API_KEY}"}
+    )
+    models = response.json()["data"]
+    return [m for m in models if m.get("supports_attestation")]
+
+def get_attestation(model_id: str, nonce: str):
+    """Get attestation report for a model."""
+    response = requests.post(
+        f"{PRIVATE_URL}/attestation",
+        headers={
+            "Authorization": f"Bearer {IO_API_KEY}",
+            "Content-Type": "application/json"
+        },
+        json={"model_id": model_id, "nonce": nonce}
+    )
+    response.raise_for_status()
+    return response.json()
+
+def confidential_completion(model: str, messages: list):
+    """Run confidential inference and return response with headers."""
+    response = requests.post(
+        f"{PRIVATE_URL}/completions",
+        headers={
+            "Authorization": f"Bearer {IO_API_KEY}",
+            "Content-Type": "application/json"
+        },
+        json={"model": model, "messages": messages}
+    )
+    response.raise_for_status()
+
+    return {
+        "body": response.json(),
+        "signature_headers": {
+            "text": response.headers.get("text"),
+            "signature": response.headers.get("signature"),
+            "signing_address": response.headers.get("signing_address"),
+            "signing_algo": response.headers.get("signing_algo"),
+			"image_digest": response.headers.get("image_digest"),
+        }
+    }
+
+def verify_signature(text: str, signature: str, expected_address: str):
+    """Verify response signature."""
+    message = encode_defunct(text=text)
+    recovered = Account.recover_message(message, signature=signature)
+    return recovered.lower() == expected_address.lower()
+
+# Main flow
+if __name__ == "__main__":
+    # 1. Find an attestation-enabled model
+    models = get_attestation_models()
+    model = models[0]
+    print(f"Using model: {model['name']}")
+
+    # 2. Get attestation with fresh nonce
+    nonce = secrets.token_hex(16)
+    attestation = get_attestation(model["model_id"], nonce)
+
+    # Verify nonce freshness (nonce is padded to 64 hex chars)
+    assert attestation["nonce"].startswith(nonce), "Nonce mismatch!"
+    signing_address = attestation["signing_address"]
+    print(f"Attestation verified, signing address: {signing_address}")
+
+    # 3. Run confidential inference
+    result = confidential_completion(
+        model=model["name"],
+        messages=[{"role": "user", "content": "Hello, explain TEE in one sentence."}]
+    )
+
+    # 4. Verify response signature
+    headers = result["signature_headers"]
+    assert headers["signing_address"].lower() == signing_address.lower(), \
+        "Signing address mismatch!"
+
+    assert verify_signature(
+        headers["text"],
+        headers["signature"],
+        signing_address
+    ), "Signature verification failed!"
+
+    print("Response verified!")
+    print(result["body"]["choices"][0]["message"]["content"])
+```
+
+## What's Next
+
+- [Confidential Chat](./guides/confidential-inference/confidential-chat) - Use the web interface for private conversations
+- [Verification Guide](./guides/confidential-inference/verification-guide) - Deep dive into verifying attestation and signatures
