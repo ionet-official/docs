@@ -1,0 +1,330 @@
+---
+title: "Verification Guide"
+description: "This guide explains how to verify that your AI inference ran on genuine trusted hardware and that responses haven't been tampered with."
+---
+
+## Verification Checklist
+
+| Check                     | What It Proves                                | How to Verify                                        |
+| ------------------------- | --------------------------------------------- | ---------------------------------------------------- |
+| Nonce matches             | Attestation is fresh, not replayed            | Compare returned nonce with your generated nonce     |
+| GPU report is valid       | Machine has genuine NVIDIA GPU in TEE mode    | Verify report against NVIDIA's root certificates     |
+| CPU report is valid       | Machine's CPU is in confidential compute mode | Verify report against AMD/Intel attestation services |
+| `signing_address` matches | Responses come from attested machine          | Compare header with attestation report               |
+| Signature verifies        | Response wasn't modified in transit           | Cryptographic signature verification                 |
+
+## Understanding the Attestation Report
+
+### Nonce Verification
+
+The nonce prevents replay attacks. Always:
+
+1. Generate a **unique, random nonce** for each attestation request
+2. Verify the returned nonce **starts with** what you sent (it gets padded to 64 hex characters)
+3. Never reuse nonces
+
+```python
+import secrets
+
+# Generate fresh nonce
+nonce = secrets.token_hex(16)  # 32 character hex string
+
+# After receiving attestation - nonce is padded with zeros to 64 chars
+# e.g., "87ebbef3ceb69d2d6d7edc1b05c42ad900000000000000000000000000000000"
+assert attestation["nonce"].startswith(nonce), "Nonce mismatch - possible replay attack!"
+```
+
+### GPU Attestation Report
+
+The `gpu` field contains NVIDIA's hardware attestation:
+
+```json
+{
+  "gpu": {
+    "nonce": "87ebbef3ceb69d2d6d7edc1b05c42ad900000000000000000000000000000000",
+    "arch": "HOPPER",
+    "evidence_list": [
+      {
+        "evidence": "<base64-encoded attestation evidence>",
+        "certificate": "<base64-encoded certificate chain to NVIDIA root>"
+      }
+    ],
+    "claims_version": "3.0"
+  }
+}
+```
+
+This proves:
+
+- The GPU is a genuine NVIDIA device (architecture identified, e.g., "HOPPER")
+- The GPU is running in Confidential Computing mode
+- The GPU's firmware and configuration are in a known-good state
+- Multiple GPUs may have multiple evidence entries in `evidence_list`
+
+**Verification:** 
+
+Use NVIDIA's attestation API to verify the GPU evidence list:
+
+- [NVIDIA Multi-GPU Attestation API](https://docs.api.nvidia.com/attestation/reference/attestmultigpu)
+- Submit the `evidence_list` from the attestation response
+- The API validates the certificate chain and returns verification status
+
+### CPU Attestation Report
+
+The `cpu` field (when present) contains CPU-level attestation:
+
+```json
+{
+  "cpu": {
+    "quote": "<hex-encoded CPU attestation quote>"
+  }
+}
+```
+
+This proves:
+
+- The CPU is running in a Trusted Execution Environment (AMD SEV-SNP or Intel TDX)
+- The VM's memory is encrypted and isolated from the host
+
+**Verification:** 
+
+Use the proof verifier to verify the CPU attestation quote:
+
+- [t16z Proof Verifier](https://proof.t16z.com/)
+- Submit the `cpu.quote` from the attestation response
+- The verifier validates the quote against Intel TDX attestation
+
+### Image Digest
+
+The `image_digest` field contains the SHA256 hash of the container image running in the TEE:
+
+```json
+{
+  "image_digest": "sha256:cf47db862b96b243e077a80ee51afa2c007604bf3c648232d42144947e56c339"
+}
+```
+
+This allows you to verify that the expected code is running inside the TEE.
+
+### Signing Address
+
+The `signing_address` is the Ethereum-style public address the attested machine will use to sign inference responses:
+
+```json
+{
+  "signing_address": "0xf52373547CAa0EeCB0fcD34042D7518E79aA80cC"
+}
+```
+
+This key is generated inside the TEE and its binding to the attestation report proves that:
+
+- Only the attested machine holds the private key
+- Responses signed with this key came from the attested hardware
+
+## Verifying Response Signatures
+
+Every confidential inference response includes signature headers:
+
+| Header            | Description                                               |
+| ----------------- | --------------------------------------------------------- |
+| `text`            | The content that was signed (typically the response body) |
+| `signature`       | Cryptographic signature over `text`                       |
+| `signing_address` | Public key that created the signature                     |
+| `signing_algo`    | Signing algorithm (e.g., `secp256k1`)                     |
+
+### Verification Steps
+
+1. **Verify signing address matches attestation**
+
+```python
+assert response_headers["signing_address"].lower() == \
+       attestation["signing_address"].lower(), \
+       "Signing address mismatch!"
+```
+
+2. **Verify the cryptographic signature**
+
+For `secp256k1` signatures (Ethereum-style):
+
+```python
+from eth_account.messages import encode_defunct
+from eth_account import Account
+
+def verify_secp256k1_signature(text: str, signature: str, expected_address: str) -> bool:
+    """Verify an Ethereum-style signature."""
+    message = encode_defunct(text=text)
+    recovered_address = Account.recover_message(message, signature=signature)
+    return recovered_address.lower() == expected_address.lower()
+
+# Verify
+is_valid = verify_secp256k1_signature(
+    text=response_headers["text"],
+    signature=response_headers["signature"],
+    expected_address=attestation["signing_address"]
+)
+
+if not is_valid:
+    raise SecurityError("Response signature verification failed!")
+```
+
+3. **Verify content integrity**
+
+Ensure the signed `text` matches the response you received:
+
+```python
+import json
+
+# For non-streaming responses, verify the signed text matches the response
+response_body = response.json()
+signed_text = response_headers["text"]
+
+# The exact format of signed_text depends on implementation
+# Typically it's the JSON response body or a hash of it
+```
+
+## Complete Verification Flow
+
+```python
+import secrets
+import requests
+from eth_account.messages import encode_defunct
+from eth_account import Account
+
+class ConfidentialClient:
+    def __init__(self, api_key: str, base_url: str = "https://api.intelligence.io.net/v1/private"):
+        self.api_key = api_key
+        self.base_url = base_url
+        self.attestation = None
+        self.nonce = None
+
+    def _headers(self):
+        return {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json"
+        }
+
+    def attest(self, model_id: str) -> dict:
+        """Get and verify attestation for a model."""
+        # Generate fresh nonce
+        self.nonce = secrets.token_hex(16)
+
+        response = requests.post(
+            f"{self.base_url}/attestation",
+            headers=self._headers(),
+            json={"model_id": model_id, "nonce": self.nonce}
+        )
+        response.raise_for_status()
+        self.attestation = response.json()
+
+        # Verify nonce freshness (nonce is padded to 64 hex chars)
+        if not self.attestation["nonce"].startswith(self.nonce):
+            raise SecurityError("Nonce mismatch - possible replay attack!")
+
+        # TODO: Verify GPU/CPU attestation reports against root certificates
+        # This requires NVIDIA/AMD attestation verification libraries
+
+        return self.attestation
+
+    def complete(self, model: str, messages: list, **kwargs) -> dict:
+        """Run verified confidential inference."""
+        if not self.attestation:
+            raise ValueError("Must call attest() before complete()")
+
+        response = requests.post(
+            f"{self.base_url}/completions",
+            headers=self._headers(),
+            json={"model": model, "messages": messages, **kwargs}
+        )
+        response.raise_for_status()
+
+        # Extract signature headers
+        sig_headers = {
+            "text": response.headers.get("text"),
+            "signature": response.headers.get("signature"),
+            "signing_address": response.headers.get("signing_address"),
+            "signing_algo": response.headers.get("signing_algo")
+        }
+
+        # Verify signing address matches attestation
+        if sig_headers["signing_address"].lower() != \
+           self.attestation["signing_address"].lower():
+            raise SecurityError("Signing address doesn't match attestation!")
+
+        # Verify signature
+        if not self._verify_signature(sig_headers):
+            raise SecurityError("Response signature verification failed!")
+
+        return response.json()
+
+    def _verify_signature(self, headers: dict) -> bool:
+        """Verify response signature."""
+        if headers["signing_algo"] == "secp256k1":
+            message = encode_defunct(text=headers["text"])
+            recovered = Account.recover_message(
+                message,
+                signature=headers["signature"]
+            )
+            return recovered.lower() == headers["signing_address"].lower()
+        else:
+            raise ValueError(f"Unknown signing algorithm: {headers['signing_algo']}")
+
+class SecurityError(Exception):
+    pass
+
+# Usage
+client = ConfidentialClient(api_key="your-key")
+client.attest(model_id="model-uuid-here")
+response = client.complete(
+    model="meta-llama/Llama-3.3-70B-Instruct",
+    messages=[{"role": "user", "content": "Hello"}]
+)
+```
+
+## Security Guarantees Summary
+
+| Verification           | Threat Mitigated                                                    |
+| ---------------------- | ------------------------------------------------------------------- |
+| Nonce verification     | Replay attacks - attacker cannot reuse old attestation reports      |
+| GPU attestation        | Fake hardware - proves response came from genuine NVIDIA GPU in TEE |
+| CPU attestation        | Host compromise - proves VM memory is encrypted and isolated        |
+| Signing address match  | Man-in-the-middle - proves response came from attested machine      |
+| Signature verification | Tampering - proves response wasn't modified in transit              |
+
+## Troubleshooting
+
+### Nonce Mismatch
+
+**Symptom:** Returned nonce doesn't start with the one you sent.
+
+**Cause:** Possible replay attack, caching issue, or request routing error.
+
+**Note:** The returned nonce is padded with zeros to 64 hex characters. For example, if you send `87ebbef3ceb69d2d6d7edc1b05c42ad9`, you'll receive `87ebbef3ceb69d2d6d7edc1b05c42ad900000000000000000000000000000000`.
+
+**Solution:** Use `startswith()` for comparison instead of exact match. Generate a new nonce and retry if verification fails. If persistent, contact support.
+
+### Signature Verification Fails
+
+**Symptom:** Cryptographic signature doesn't verify.
+
+**Possible Causes:**
+
+- Response was modified in transit
+- Encoding mismatch in signed text
+- Wrong signing algorithm used for verification
+
+**Solution:**
+
+1. Ensure you're using the correct signing algorithm from the header
+2. Verify the `text` header encoding matches what you're verifying
+3. Check for any proxy or middleware that might modify responses
+
+### Signing Address Mismatch
+
+**Symptom:** Response `signing_address` doesn't match attestation.
+
+**Possible Causes:**
+
+- Attestation expired and machine rotated keys
+- Request was routed to a different machine
+
+**Solution:** Re-request attestation before inference. Attestation should be refreshed periodically.
