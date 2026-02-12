@@ -193,7 +193,6 @@
           },
           {
             "group": "IO Intelligence Payments",
-            "hidden": true,
             "pages": [
               "guides/payment/io-intelligence-payments"
             ]
