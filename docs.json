@@ -68,23 +68,6 @@
             ]
           },
           {
-            "group": "IO Ecosystem",
-            "pages": [
-              {
-                "group": "BC8: Your Gateway to Immersive AI Media",
-                "pages": [
-                  "guides/bc8/bc8",
-                  "guides/bc8/getting-started-with-bc8",
-                  "guides/bc8/generating-your-first-ai-image",
-                  "guides/bc8/generating-a-video",
-                  "guides/bc8/explore-generated-ideas",
-                  "guides/bc8/settings-privacy",
-                  "guides/bc8/frequently-asked-questions"
-                ]
-              }
-            ]
-          },
-          {
             "group": "IO Architecture",
             "pages": [
               "guides/architecture/io-architecture",
