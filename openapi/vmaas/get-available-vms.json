@@ -1385,12 +1385,6 @@
         ],
         "title": "WorkerData"
       }
-    },
-    "securitySchemes": {
-      "HTTPBasic": {
-        "type": "http",
-        "scheme": "basic"
-      }
     }
   }
 }
