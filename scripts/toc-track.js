@@ -28,6 +28,51 @@
 
     toc.dataset.tocTrack = 'done';
 
+    var ignoreScrollUntil = 0;
+
+    function setActiveLink(link) {
+      var links = toc.querySelectorAll('.toc-item a[href^="#"]');
+      var activeList = ['font-medium', 'text-primary', 'dark:text-primary-light', 'border-primary', 'dark:border-primary-light', 'hover:border-primary', 'dark:hover:border-primary-light'];
+      var inactiveList = ['text-gray-500', 'hover:text-gray-900', 'dark:text-gray-400', 'dark:hover:text-gray-300'];
+      for (var i = 0; i < links.length; i++) {
+        var a = links[i];
+        if (a === link) {
+          inactiveList.forEach(function (c) { a.classList.remove(c); });
+          activeList.forEach(function (c) { a.classList.add(c); });
+        } else {
+          activeList.forEach(function (c) { a.classList.remove(c); });
+          inactiveList.forEach(function (c) { a.classList.add(c); });
+        }
+      }
+    }
+
+    function getIdFromHref(a) {
+      var href = a.getAttribute('href') || '';
+      var i = href.indexOf('#');
+      return i >= 0 ? href.slice(i + 1) : '';
+    }
+
+    function getActiveFromScroll() {
+      var links = toc.querySelectorAll('.toc-item a[href*="#"]');
+      if (!links.length) return null;
+      var threshold = 180;
+      var activeLink = null;
+      var bestTop = -Infinity;
+      for (var i = 0; i < links.length; i++) {
+        var id = getIdFromHref(links[i]);
+        if (!id) continue;
+        var el = document.getElementById(id);
+        if (!el) continue;
+        var top = el.getBoundingClientRect().top;
+        if (top <= threshold && top > bestTop) {
+          bestTop = top;
+          activeLink = links[i];
+        }
+      }
+      if (activeLink) return activeLink;
+      return links[0];
+    }
+
     function updateThumb() {
       var active = toc.querySelector('.toc-item a.border-primary, .toc-item a.text-primary');
       if (!active) {
@@ -45,17 +90,49 @@
       thumb.style.height = li.offsetHeight + 'px';
     }
 
-    updateThumb();
-
-    var observer = new MutationObserver(function () {
+    function onScroll(fromClick) {
+      if (!fromClick && Date.now() < ignoreScrollUntil) return;
+      var activeLink = fromClick ? null : getActiveFromScroll();
+      if (activeLink) setActiveLink(activeLink);
       updateThumb();
+    }
+
+    onScroll(false);
+
+    /* Update active state when a TOC link is clicked (capture so we run first) */
+    function onTocClick(e) {
+      var a = e.target.closest('a[href*="#"]');
+      if (!a || !toc.contains(a)) return;
+      var href = a.getAttribute('href') || '';
+      var hashIdx = href.indexOf('#');
+      if (hashIdx === -1 || !href.slice(hashIdx + 1)) return;
+      ignoreScrollUntil = Date.now() + 400;
+      setActiveLink(a);
+      updateThumb();
+      setTimeout(function () { ignoreScrollUntil = 0; }, 400);
+    }
+    toc.addEventListener('click', onTocClick, true);
+
+    /* When hash changes (click or back/forward), highlight the matching TOC link */
+    window.addEventListener('hashchange', function () {
+      var id = (window.location.hash || '').slice(1);
+      if (!id) return;
+      var links = toc.querySelectorAll('.toc-item a[href*="#"]');
+      for (var i = 0; i < links.length; i++) {
+        if (getIdFromHref(links[i]) === id) {
+          ignoreScrollUntil = Date.now() + 400;
+          setActiveLink(links[i]);
+          updateThumb();
+          setTimeout(function () { ignoreScrollUntil = 0; }, 400);
+          break;
+        }
+      }
     });
-    observer.observe(toc, { attributes: true, attributeFilter: ['class'], subtree: true });
 
     window.addEventListener('scroll', function () {
-      requestAnimationFrame(updateThumb);
+      requestAnimationFrame(function () { onScroll(false); });
     }, { passive: true });
-    window.addEventListener('resize', updateThumb);
+    window.addEventListener('resize', onScroll);
   }
 
   function tryInit() {

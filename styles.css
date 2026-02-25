@@ -22,6 +22,10 @@
 /* Track bar: vertical rail (when toc-track.js runs, wrapper gets .toc-track-wrapper) */
 .toc-track-wrapper {
     position: relative;
+    padding-left: 0rem;
+}
+
+.toc {
     padding-left: 0.75rem;
 }
 
