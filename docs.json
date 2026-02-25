@@ -8,11 +8,11 @@
     "dark": "#6b6b6b"
   },
   "redirects": [
-  {
-    "source": "/index",
-    "destination": "/guides/inception"
-  }
-],
+    {
+      "source": "/index",
+      "destination": "/guides/inception"
+    }
+  ],
   "appearance": {
     "default": "light",
     "strict": true

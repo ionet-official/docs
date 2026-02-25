@@ -1,9 +1,15 @@
+:root {
+    --gray-700: 10, 10, 10;
+    /* --gray-500: 10, 10, 10; */
+    --primary: 10, 10, 10;
+}
+
 #search-bar-entry {
     border-radius: 9999px !important;
 }
 
 #content-area {
-    background: #F9F9F9;
+    /* background: #F9F9F9; */
 }
 
 #sidebar {
