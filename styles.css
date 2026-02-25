@@ -29,20 +29,19 @@ body,
 
 #content-area::before {
     content: "";
-    display: block;
-    position: absolute;
-    top: -10rem; /* offset so top lines up with container top (matches .pt-40) */
-    left: 0;
-    width: 100%;
-    height: calc(100% + 10rem);
-    background: #f9f9f9;
-    z-index: -1;
+    display: none;
 }
 
 @media (min-width: 1024px) {
     #content-area::before {
+        display: block;
+        position: absolute;
         top: -2.5rem; /* match .lg\:pt-10 */
+        left: 0;
+        width: 100%;
         height: calc(100% + 2.5rem);
+        background: #f9f9f9;
+        z-index: -1;
     }
 }
 
