@@ -1,7 +1,22 @@
+@font-face {
+    font-family: "Geist";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("https://cdn.jsdelivr.net/fontsource/fonts/geist@latest/latin-400-normal.woff2") format("woff2");
+}
+
 :root {
     --gray-700: 10, 10, 10;
     /* --gray-500: 10, 10, 10; */
     --primary: 10, 10, 10;
+}
+
+body,
+#sidebar,
+#content-area,
+#content-container {
+    font-family: "Geist", ui-sans-serif, system-ui, sans-serif;
 }
 
 #search-bar-entry {
