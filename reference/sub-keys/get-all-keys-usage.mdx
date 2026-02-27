@@ -1,0 +1,18 @@
+---
+openapi: "/openapi/sub-keys/get-all-keys-usage.json GET /v1/api-keys/sub-keys/usage"
+title: "Get All Sub-Keys Usage"
+description: "Returns aggregated token usage and credit cost for every sub-key owned by the admin, broken down by model for today and all time."
+sidebarTitle: "All Keys Usage"
+---
+
+This endpoint is designed for admin-level billing dashboards. It returns a breakdown per sub-key, with each entry showing:
+
+- **`today`** — token consumption and credit cost since midnight UTC.
+- **`all_time`** — cumulative consumption since the sub-key was created.
+- **`totals`** — aggregate `today_credit_cost` and `all_time_credit_cost` across all sub-keys.
+
+Each entry's `models` array shows which models were used and their individual costs, allowing you to see exactly where credits are being spent.
+
+<Note>
+  This endpoint requires the Intelligence database to be reachable. It returns **503 Service Unavailable** if the intelligence database is temporarily unavailable.
+</Note>

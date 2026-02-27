@@ -1,0 +1,28 @@
+---
+openapi: "/openapi/sub-keys/create-sub-key.json POST /v1/api-keys/sub-keys"
+title: "Create Sub-API Key"
+description: "Creates a new sub-API key scoped under an admin key, with optional model restrictions and per-key credit limits."
+sidebarTitle: "Create Sub-Key"
+---
+
+<Note>
+  The full key `value` is returned **only once** at creation time. Store it securely — it cannot be retrieved again. Only the truncated `display` string is stored and returned in subsequent list or usage calls.
+</Note>
+
+<Note>
+  Only admin API keys can create sub-keys. A sub-key cannot create further sub-keys. If you authenticate with a sub-key, the endpoint returns **403 Forbidden**.
+</Note>
+
+### Key fields
+
+`description` – A human-readable label to identify the key's purpose or owner.
+
+`allowed_models` – An optional list of model identifiers (e.g. `"meta-llama/Llama-3.3-70B-Instruct"`) that this sub-key is permitted to call. If omitted, all models available to the admin are accessible. Requests to unlisted models are rejected with **403 Forbidden**.
+
+`credit_limit` – Maximum IO Intelligence credits the sub-key may consume per refresh cycle. Once the limit is reached the key is automatically blocked until the cycle resets or the admin raises the limit via `PATCH`. Set to `null` to impose no per-key cap.
+
+`credit_refresh_cycle` – How often the usage counter resets: `"8h"`, `"daily"`, `"weekly"`, or `"monthly"` (default).
+
+`expires_at` – ISO 8601 date-time for key expiry, or the literal string `"never"` for a non-expiring key. Defaults to 180 days from creation when omitted.
+
+`key_prefix` – An optional lowercase slug (2–8 chars) prepended to the generated key value (e.g. `"acme"` produces `acme-v2-eyJ...`). Defaults to the standard `io-v2` prefix when omitted. Cannot start with `"io"` or contain version markers like `"-v2"`.

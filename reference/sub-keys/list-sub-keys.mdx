@@ -1,0 +1,15 @@
+---
+openapi: "/openapi/sub-keys/list-sub-keys.json GET /v1/api-keys/sub-keys"
+title: "List Sub-API Keys"
+description: "Returns all active sub-API keys owned by the authenticated admin key, including current-period credit usage for each key."
+sidebarTitle: "List Sub-Keys"
+---
+
+The response includes one entry per active sub-key with the following credit fields:
+
+- `credit_limit` — the per-cycle cap configured for the key (`null` means no per-key cap).
+- `credit_used` — credits consumed so far in the **current** billing period (resets according to `credit_refresh_cycle`).
+
+<Note>
+  Expired or revoked keys are not included in this list.
+</Note>
