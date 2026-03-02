@@ -6,7 +6,7 @@
   },
   "servers": [
     {
-      "url": "https://api.intelligence.io.solutions"
+      "url": "https://api.io.solutions"
     }
   ],
   "security": [
@@ -21,7 +21,7 @@
           "Sub-API Keys"
         ],
         "summary": "Update Sub-API Key",
-        "description": "Updates one or more attributes of an existing sub-API key. Only the fields included in the request body are modified — omitted fields retain their current values. Pass an empty array for `allowed_models` to remove all model restrictions.",
+        "description": "Updates one or more attributes of an existing sub-API key. Only the fields included in the request body are modified \u2014 omitted fields retain their current values. Pass an empty array for `allowed_models` to remove all model restrictions.",
         "operationId": "update_sub_key",
         "parameters": [
           {
@@ -72,7 +72,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized — invalid or missing API key"
+            "description": "Unauthorized \u2014 invalid or missing API key"
           },
           "404": {
             "description": "Sub-API key not found or not owned by this admin"
@@ -94,9 +94,8 @@
   "components": {
     "securitySchemes": {
       "sec0": {
-        "type": "apiKey",
-        "in": "header",
-        "name": "x-api-key"
+        "type": "oauth2",
+        "flows": {}
       }
     },
     "schemas": {
@@ -106,7 +105,14 @@
         "description": "All fields are optional. Only provided fields are updated.",
         "properties": {
           "description": {
-            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "Description",
             "default": null
           },
@@ -114,18 +120,27 @@
             "anyOf": [
               {
                 "type": "array",
-                "items": { "type": "string" },
+                "items": {
+                  "type": "string"
+                },
                 "description": "New model allow-list. Pass an empty array [] to remove all restrictions."
               },
-              { "type": "null" }
+              {
+                "type": "null"
+              }
             ],
             "title": "Allowed Models",
             "default": null
           },
           "credit_limit": {
             "anyOf": [
-              { "type": "number", "minimum": 0 },
-              { "type": "null" }
+              {
+                "type": "number",
+                "minimum": 0
+              },
+              {
+                "type": "null"
+              }
             ],
             "title": "Credit Limit",
             "description": "New per-cycle credit cap. Set to a higher value to unblock a key that has exceeded its limit.",
@@ -135,18 +150,35 @@
             "anyOf": [
               {
                 "type": "string",
-                "enum": ["8h", "daily", "weekly", "monthly"]
+                "enum": [
+                  "8h",
+                  "daily",
+                  "weekly",
+                  "monthly"
+                ]
               },
-              { "type": "null" }
+              {
+                "type": "null"
+              }
             ],
             "title": "Credit Refresh Cycle",
             "default": null
           },
           "expires_at": {
             "anyOf": [
-              { "type": "string", "format": "date-time" },
-              { "type": "string", "enum": ["never"] },
-              { "type": "null" }
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "never"
+                ]
+              },
+              {
+                "type": "null"
+              }
             ],
             "title": "Expires At",
             "default": null
@@ -166,21 +198,42 @@
       "ValidationError": {
         "properties": {
           "loc": {
-            "items": { "anyOf": [{ "type": "string" }, { "type": "integer" }] },
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
             "type": "array",
             "title": "Location"
           },
-          "msg": { "type": "string", "title": "Message" },
-          "type": { "type": "string", "title": "Error Type" }
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
         },
         "type": "object",
-        "required": ["loc", "msg", "type"],
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
         "title": "ValidationError"
       },
       "HTTPValidationError": {
         "properties": {
           "detail": {
-            "items": { "$ref": "#/components/schemas/ValidationError" },
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
             "type": "array",
             "title": "Detail"
           }

@@ -6,7 +6,7 @@
   },
   "servers": [
     {
-      "url": "https://api.intelligence.io.solutions"
+      "url": "https://api.io.solutions"
     }
   ],
   "security": [
@@ -62,7 +62,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized — invalid or missing API key"
+            "description": "Unauthorized \u2014 invalid or missing API key"
           },
           "404": {
             "description": "Sub-API key not found or not owned by this admin"
@@ -84,9 +84,8 @@
   "components": {
     "securitySchemes": {
       "sec0": {
-        "type": "apiKey",
-        "in": "header",
-        "name": "x-api-key"
+        "type": "oauth2",
+        "flows": {}
       }
     },
     "schemas": {
@@ -103,21 +102,42 @@
       "ValidationError": {
         "properties": {
           "loc": {
-            "items": { "anyOf": [{ "type": "string" }, { "type": "integer" }] },
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
             "type": "array",
             "title": "Location"
           },
-          "msg": { "type": "string", "title": "Message" },
-          "type": { "type": "string", "title": "Error Type" }
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
         },
         "type": "object",
-        "required": ["loc", "msg", "type"],
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
         "title": "ValidationError"
       },
       "HTTPValidationError": {
         "properties": {
           "detail": {
-            "items": { "$ref": "#/components/schemas/ValidationError" },
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
             "type": "array",
             "title": "Detail"
           }

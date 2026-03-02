@@ -6,7 +6,7 @@
   },
   "servers": [
     {
-      "url": "https://api.intelligence.io.solutions"
+      "url": "https://api.io.solutions"
     }
   ],
   "security": [
@@ -69,7 +69,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized — invalid or missing API key"
+            "description": "Unauthorized \u2014 invalid or missing API key"
           },
           "404": {
             "description": "Sub-API key not found or not owned by this admin"
@@ -91,9 +91,8 @@
   "components": {
     "securitySchemes": {
       "sec0": {
-        "type": "apiKey",
-        "in": "header",
-        "name": "x-api-key"
+        "type": "oauth2",
+        "flows": {}
       }
     },
     "schemas": {
@@ -112,18 +111,37 @@
             "description": "Credits consumed in the current billing period."
           },
           "credit_limit": {
-            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "Credit Limit",
             "description": "Maximum credits allowed per cycle. Null if no per-key limit is set."
           },
           "remaining_credit": {
-            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "Remaining Credit",
             "description": "Credits remaining before the key is blocked. Null if no limit is configured."
           },
           "credit_refresh_cycle": {
             "type": "string",
-            "enum": ["8h", "daily", "weekly", "monthly"],
+            "enum": [
+              "8h",
+              "daily",
+              "weekly",
+              "monthly"
+            ],
             "title": "Credit Refresh Cycle"
           }
         }
@@ -144,21 +162,42 @@
       "ValidationError": {
         "properties": {
           "loc": {
-            "items": { "anyOf": [{ "type": "string" }, { "type": "integer" }] },
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
             "type": "array",
             "title": "Location"
           },
-          "msg": { "type": "string", "title": "Message" },
-          "type": { "type": "string", "title": "Error Type" }
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
         },
         "type": "object",
-        "required": ["loc", "msg", "type"],
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
         "title": "ValidationError"
       },
       "HTTPValidationError": {
         "properties": {
           "detail": {
-            "items": { "$ref": "#/components/schemas/ValidationError" },
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
             "type": "array",
             "title": "Detail"
           }

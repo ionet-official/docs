@@ -6,7 +6,7 @@
   },
   "servers": [
     {
-      "url": "https://api.intelligence.io.solutions"
+      "url": "https://api.io.solutions"
     }
   ],
   "security": [
@@ -58,12 +58,12 @@
                               "model_name": "meta-llama/Llama-3.3-70B-Instruct",
                               "input_tokens": 1500,
                               "output_tokens": 320,
-                              "credit_cost": 0.000024
+                              "credit_cost": 2.4e-05
                             }
                           ],
                           "total_input_tokens": 1500,
                           "total_output_tokens": 320,
-                          "total_credit_cost": 0.000024
+                          "total_credit_cost": 2.4e-05
                         },
                         "all_time": {
                           "models": [
@@ -81,7 +81,7 @@
                       }
                     ],
                     "totals": {
-                      "today_credit_cost": 0.000024,
+                      "today_credit_cost": 2.4e-05,
                       "all_time_credit_cost": 0.000834
                     }
                   }
@@ -90,7 +90,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized — invalid or missing API key"
+            "description": "Unauthorized \u2014 invalid or missing API key"
           },
           "503": {
             "description": "Intelligence database unavailable"
@@ -102,9 +102,8 @@
   "components": {
     "securitySchemes": {
       "sec0": {
-        "type": "apiKey",
-        "in": "header",
-        "name": "x-api-key"
+        "type": "oauth2",
+        "flows": {}
       }
     },
     "schemas": {
@@ -136,7 +135,9 @@
         "properties": {
           "models": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/ModelUsageBreakdown" },
+            "items": {
+              "$ref": "#/components/schemas/ModelUsageBreakdown"
+            },
             "title": "Models"
           },
           "total_input_tokens": {
@@ -200,7 +201,9 @@
         "properties": {
           "keys": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/KeyUsageEntry" },
+            "items": {
+              "$ref": "#/components/schemas/KeyUsageEntry"
+            },
             "title": "Keys"
           },
           "totals": {
