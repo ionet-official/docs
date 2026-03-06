@@ -1,0 +1,12 @@
+---
+openapi: "/openapi/sub-keys/revoke-sub-key.json DELETE /v1/api-keys/sub-keys/{key_id}"
+title: "Revoke Sub-API Key"
+description: "Immediately revokes a sub-API key. All subsequent requests using the revoked key receive 401 Unauthorized."
+sidebarTitle: "Revoke Sub-Key"
+---
+
+<Warning>
+  Revocation is **permanent and immediate**. Once revoked, the key cannot be restored. Issue a new sub-key if access needs to be reinstated.
+</Warning>
+
+Any in-flight request that was authenticated before revocation may still complete. Revocation takes effect for all new authentication attempts.

@@ -1,0 +1,258 @@
+---
+title: "Sub-API Keys"
+description: "Issue scoped API keys to teams, services, or partners — each with independent model restrictions and credit limits that roll up to your account balance."
+sidebarTitle: "Sub-API Keys"
+---
+
+Sub-API keys allow an account holder (the _admin_) to issue multiple child API keys, each independently controlled. Each sub-key can be restricted to specific models, given a spending cap per billing cycle, and revoked at any time — without touching the admin key or other sub-keys.
+
+## Overview
+
+When you create a sub-key:
+
+- It inherits your account's credit pool — there is no separate balance to fund.
+- You optionally cap how much of that pool any single sub-key can consume per billing period.
+- You optionally restrict which models the sub-key can call.
+- The sub-key's usage feeds back into your account's overall billing.
+
+This is useful for:
+
+- **Teams** — give each team or project its own key with a monthly budget.
+- **Partners / customers** — provide programmatic API access with hard credit limits so a single integration can never exhaust your entire balance.
+- **Services** — isolate microservices with model allow-lists so they can only call the models they need.
+
+## Authentication
+
+All sub-key management endpoints use your **admin API key** in the `x-api-key` header. Sub-keys themselves authenticate inference calls (chat completions, embeddings, etc.) using the same header — they are recognized automatically by the API.
+
+```bash
+# Admin operations (create, list, update, revoke)
+-H "x-api-key: $ADMIN_API_KEY"
+
+# Inference calls using a sub-key
+-H "x-api-key: $SUB_API_KEY"
+```
+
+<Note>
+  Sub-keys cannot create further sub-keys. Only an admin key can manage the key hierarchy.
+</Note>
+
+## Creating a Sub-API Key
+
+<Steps>
+  <Step title="Call the create endpoint with your admin key">
+    ```bash
+    curl -X POST "https://api.intelligence.io.solutions/v1/api-keys/sub-keys" \
+      -H "x-api-key: $ADMIN_API_KEY" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "description": "Partner integration – Acme Corp",
+        "allowed_models": ["meta-llama/Llama-3.3-70B-Instruct"],
+        "credit_limit": 10.0,
+        "credit_refresh_cycle": "monthly",
+        "key_prefix": "acme"
+      }'
+    ```
+  </Step>
+  <Step title="Store the returned key value securely">
+    The response includes a `value` field with the full key string (e.g. `acme-v2-eyJhbGci...`). This is shown **only once**. Copy it to a secret manager immediately — it cannot be retrieved again.
+
+    ```json
+    {
+      "status": "succeeded",
+      "data": {
+        "key_id": "71775d2e-fbcc-4ef4-aa30-8aaeb82062c0",
+        "value": "acme-v2-eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...",
+        "display": "acme-v2-eyJh...c0eQ",
+        "description": "Partner integration – Acme Corp",
+        "allowed_models": ["meta-llama/Llama-3.3-70B-Instruct"],
+        "credit_limit": 10.0,
+        "credit_refresh_cycle": "monthly",
+        "expires_at": "2026-08-20T00:00:00"
+      }
+    }
+    ```
+  </Step>
+  <Step title="Distribute the sub-key to its intended user or service">
+    The recipient uses the sub-key exactly like a regular API key — just pass it in the `x-api-key` header for inference calls.
+  </Step>
+</Steps>
+
+## Request Parameters
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `description` | string | Yes | Human-readable label for the key. |
+| `allowed_models` | string[] | No | List of model IDs this key may call. Omit to allow all models. |
+| `credit_limit` | number | No | Maximum credits per refresh cycle. Omit for no per-key cap. |
+| `credit_refresh_cycle` | string | No | When the usage counter resets: `"8h"`, `"daily"`, `"weekly"`, `"monthly"` (default). |
+| `expires_at` | datetime / `"never"` | No | Key expiry. Defaults to 180 days from creation. |
+| `key_prefix` | string | No | 2–8 char lowercase slug prepended to the key (e.g. `"acme"` → `acme-v2-...`). Defaults to the standard `io-v2` prefix. |
+
+## Model Restrictions
+
+When `allowed_models` is set, any request to a model not in the list is rejected with **403 Forbidden**, even if the admin key has access to that model.
+
+The `GET /v1/models` endpoint, when called with a sub-key, returns only the models in the sub-key's allow-list — so integrations can discover their permitted set without any extra configuration.
+
+To remove all restrictions on an existing sub-key, pass an empty array:
+
+```bash
+curl -X PATCH "https://api.intelligence.io.solutions/v1/api-keys/sub-keys/{key_id}" \
+  -H "x-api-key: $ADMIN_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"allowed_models": []}'
+```
+
+## Credit Limits
+
+### How limits are enforced
+
+Credit limits are evaluated once per billing cycle by the settlement pipeline (which runs every ~60 seconds). When a sub-key's accumulated spend in the current period exceeds its `credit_limit`, the key is automatically blocked and inference calls return **429 Too Many Requests**.
+
+The block clears automatically when the cycle resets (`credit_refresh_cycle`), or immediately when you raise the limit via `PATCH`.
+
+### Blocking and unblocking
+
+<AccordionGroup>
+  <Accordion title="A sub-key is returning 429 — how do I unblock it?">
+    The key has exceeded its `credit_limit` for the current period. You have two options:
+
+    **Raise the limit immediately:**
+    ```bash
+    curl -X PATCH "https://api.intelligence.io.solutions/v1/api-keys/sub-keys/{key_id}" \
+      -H "x-api-key: $ADMIN_API_KEY" \
+      -H "Content-Type: application/json" \
+      -d '{"credit_limit": 50.0}'
+    ```
+
+    **Wait for the next cycle reset** — the key unblocks automatically when `credit_refresh_cycle` rolls over.
+  </Accordion>
+  <Accordion title="How do I check how much a sub-key has spent?">
+    Use the admin endpoint to inspect a specific key:
+    ```bash
+    curl "https://api.intelligence.io.solutions/v1/api-keys/sub-keys/{key_id}/usage" \
+      -H "x-api-key: $ADMIN_API_KEY"
+    ```
+
+    Or let the sub-key check itself:
+    ```bash
+    curl "https://api.intelligence.io.solutions/v1/api-keys/sub-keys/me/usage" \
+      -H "x-api-key: $SUB_API_KEY"
+    ```
+  </Accordion>
+  <Accordion title="What happens to my account balance when a sub-key is blocked?">
+    The block applies only to that specific sub-key. Your admin key and all other sub-keys continue operating normally. The admin's overall account balance is not affected by per-key limits.
+  </Accordion>
+</AccordionGroup>
+
+## Credit Refresh Cycles
+
+The `credit_refresh_cycle` determines when a sub-key's `credit_used` counter resets to zero, allowing spending up to `credit_limit` again.
+
+| Cycle | Resets at |
+|---|---|
+| `8h` | Every 8 hours aligned to midnight UTC (00:00, 08:00, 16:00). |
+| `daily` | Midnight UTC each day. |
+| `weekly` | Monday 00:00 UTC. |
+| `monthly` | The 1st of each month at 00:00 UTC. |
+
+## Custom Key Prefix
+
+By default, sub-keys follow the standard `io-v2-` format. You can supply a custom `key_prefix` to make keys visually identifiable:
+
+```json
+{ "key_prefix": "acme" }
+```
+
+Produces: `acme-v2-eyJhbGci...`
+
+**Prefix rules:**
+- 2–8 characters, lowercase letters, digits, and internal hyphens only.
+- Cannot start with `io` (reserved for platform keys).
+- Cannot contain version markers like `-v2`.
+
+The prefix does not change any functionality — it is purely cosmetic for organizational clarity.
+
+## Managing Sub-Keys
+
+### Listing keys
+
+```bash
+curl "https://api.intelligence.io.solutions/v1/api-keys/sub-keys" \
+  -H "x-api-key: $ADMIN_API_KEY"
+```
+
+Returns all active sub-keys with their current `credit_used` for the active billing period.
+
+### Updating a key
+
+All fields on a sub-key can be updated at any time. Only the fields you include in the `PATCH` body are changed:
+
+```bash
+curl -X PATCH "https://api.intelligence.io.solutions/v1/api-keys/sub-keys/{key_id}" \
+  -H "x-api-key: $ADMIN_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "description": "Updated label",
+    "credit_limit": 25.0,
+    "credit_refresh_cycle": "weekly"
+  }'
+```
+
+### Revoking a key
+
+```bash
+curl -X DELETE "https://api.intelligence.io.solutions/v1/api-keys/sub-keys/{key_id}" \
+  -H "x-api-key: $ADMIN_API_KEY"
+```
+
+Revocation is immediate and permanent. Any subsequent inference call with the revoked key returns **401 Unauthorized**.
+
+## Viewing Usage
+
+### All sub-keys (admin)
+
+```bash
+curl "https://api.intelligence.io.solutions/v1/api-keys/sub-keys/usage" \
+  -H "x-api-key: $ADMIN_API_KEY"
+```
+
+Returns a per-key breakdown of token consumption and credit cost, grouped by model, for today and all time — plus aggregate totals across all sub-keys.
+
+### Single sub-key (admin)
+
+```bash
+curl "https://api.intelligence.io.solutions/v1/api-keys/sub-keys/{key_id}/usage" \
+  -H "x-api-key: $ADMIN_API_KEY"
+```
+
+### Self-service (sub-key holder)
+
+```bash
+curl "https://api.intelligence.io.solutions/v1/api-keys/sub-keys/me/usage" \
+  -H "x-api-key: $SUB_API_KEY"
+```
+
+## FAQs
+
+<AccordionGroup>
+  <Accordion title="Do sub-keys have their own credit balance?" icon="comment-question">
+    No. Sub-keys draw from the admin's account balance. The `credit_limit` is a spending cap per cycle, not a separate balance. All usage by sub-keys is deducted from the same pool as the admin's own usage.
+  </Accordion>
+  <Accordion title="Can a sub-key call any model endpoint?" icon="comment-question">
+    Only the models listed in `allowed_models`. If no list is configured, the sub-key can call any model available to the admin account. The `/v1/models` endpoint filters its response to only show the permitted models when called with a sub-key.
+  </Accordion>
+  <Accordion title="What happens when the cycle resets?" icon="comment-question">
+    The sub-key's `credit_used` counter is reset to zero at the start of each new period. If the key was blocked due to exceeding its limit, it is automatically unblocked.
+  </Accordion>
+  <Accordion title="How quickly does blocking take effect after the limit is exceeded?" icon="comment-question">
+    The billing settlement pipeline runs approximately every 60 seconds. Once a sub-key's accumulated spend exceeds its `credit_limit`, the block is applied within the next pipeline run.
+  </Accordion>
+  <Accordion title="Can I have sub-keys without a credit limit?" icon="comment-question">
+    Yes. Omit `credit_limit` (or set it to `null`) when creating or updating a sub-key. The key will only be limited by the admin's overall account balance.
+  </Accordion>
+  <Accordion title="Is the key prefix stored anywhere?" icon="comment-question">
+    No. The prefix is encoded in the key string itself. The display value (e.g. `acme-v2-eyJh...c0eQ`) shows the prefix so you can identify it, but it is not stored separately in the database.
+  </Accordion>
+</AccordionGroup>

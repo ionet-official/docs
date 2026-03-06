@@ -171,7 +171,8 @@
               "guides/intelligence/exploring-ai-agents",
               "guides/intelligence/agentic-workflow",
               "guides/intelligence/training-as-a-service",
-              "guides/intelligence/api-keys-and-secrets"
+              "guides/intelligence/api-keys-and-secrets",
+              "guides/intelligence/sub-api-keys"
             ]
           },
           {
@@ -368,6 +369,18 @@
                   "reference/ai-models/create-chat-completion",
                   "reference/ai-models/get-embedding-models-list",
                   "reference/ai-models/create-embedding"
+                ]
+              },
+              {
+                "group": "Sub-API Keys",
+                "pages": [
+                  "reference/sub-keys/create-sub-key",
+                  "reference/sub-keys/list-sub-keys",
+                  "reference/sub-keys/update-sub-key",
+                  "reference/sub-keys/revoke-sub-key",
+                  "reference/sub-keys/get-all-keys-usage",
+                  "reference/sub-keys/get-key-usage",
+                  "reference/sub-keys/get-own-usage"
                 ]
               },
               {

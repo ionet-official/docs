@@ -1,0 +1,14 @@
+---
+openapi: "/openapi/sub-keys/get-key-usage.json GET /v1/api-keys/sub-keys/{key_id}/usage"
+title: "Get Sub-Key Usage"
+description: "Returns credit status for a specific sub-key: credits used in the current billing period, the configured limit, and remaining allowance."
+sidebarTitle: "Single Key Usage"
+---
+
+Use this endpoint to monitor whether a specific sub-key is approaching or has exceeded its credit limit.
+
+The `remaining_credit` field is `null` when no `credit_limit` has been configured for the key — in that case, the key is only bounded by the admin's overall account balance.
+
+<Note>
+  Credit usage reflects **settled** payments processed by the billing pipeline. There may be a short lag (typically under a minute) between a completed inference call and the usage appearing here.
+</Note>

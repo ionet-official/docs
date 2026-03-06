@@ -1,0 +1,146 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IO Intelligence",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.io.solutions"
+    }
+  ],
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/v1/api-keys/sub-keys/me/usage": {
+      "get": {
+        "tags": [
+          "Sub-API Keys"
+        ],
+        "summary": "Get Own Usage (Sub-Key Self-Service)",
+        "description": "Allows a sub-key to check its own credit status without requiring the admin key. This endpoint is intended for sub-key holders who need to monitor their own consumption. Admin keys are not accepted here \u2014 use `GET /v1/api-keys/sub-keys/{key_id}/usage` instead.",
+        "operationId": "get_own_usage",
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Sub-API key",
+              "title": "X-Api-Key"
+            },
+            "description": "The sub-API key itself (not the admin key)."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KeyUsageResponse"
+                },
+                "example": {
+                  "status": "succeeded",
+                  "data": {
+                    "key_id": "71775d2e-fbcc-4ef4-aa30-8aaeb82062c0",
+                    "credit_used": 1.234,
+                    "credit_limit": 10.0,
+                    "remaining_credit": 8.766,
+                    "credit_refresh_cycle": "monthly"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized \u2014 invalid or missing API key"
+          },
+          "403": {
+            "description": "Forbidden \u2014 admin keys must use GET /{key_id}/usage instead"
+          },
+          "404": {
+            "description": "Sub-API key not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "oauth2",
+        "flows": {}
+      }
+    },
+    "schemas": {
+      "KeyUsageData": {
+        "type": "object",
+        "title": "KeyUsageData",
+        "properties": {
+          "key_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Key ID"
+          },
+          "credit_used": {
+            "type": "number",
+            "title": "Credit Used",
+            "description": "Credits consumed in the current billing period."
+          },
+          "credit_limit": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Credit Limit",
+            "description": "Maximum credits allowed per cycle. Null if no per-key limit is set."
+          },
+          "remaining_credit": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Remaining Credit",
+            "description": "Credits remaining before the key is blocked. Null if no limit is configured."
+          },
+          "credit_refresh_cycle": {
+            "type": "string",
+            "enum": [
+              "8h",
+              "daily",
+              "weekly",
+              "monthly"
+            ],
+            "title": "Credit Refresh Cycle"
+          }
+        }
+      },
+      "KeyUsageResponse": {
+        "type": "object",
+        "title": "KeyUsageResponse",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "succeeded"
+          },
+          "data": {
+            "$ref": "#/components/schemas/KeyUsageData"
+          }
+        }
+      }
+    }
+  }
+}
