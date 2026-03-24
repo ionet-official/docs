@@ -1,0 +1,124 @@
+---
+title: "Agent Cloud"
+---
+
+Empower your AI agents to provision, manage, and scale GPU infrastructure via the [io.net](http://io.net) network.
+
+## What is Agent Cloud?
+
+The **Agent Cloud **is a** Model Context Protocol (MCP)** server which allows any MCP-compatible AI agent (Claude Code, Cursor, Windsurf, etc.) to interact directly with [**<u>io.net</u>**](http://io.net) APIs. Instead of manual dashboard management, you can now manage your decentralized infrastructure through natural language.
+
+## Why Connect to Agent Cloud?
+
+- **Agentic DevOps:** Ask your agent to "Find the cheapest 4x H100 cluster and deploy my PyTorch image," and let it handle the API calls.
+- **Plug-and-Play:** No custom SDKs to install. Use the universal MCP standard to bridge your AI tools to the large GPU cloud.
+- **Enterprise Ready:** Supports both simple API key headers for individuals and dynamic key forwarding for multi-tenant applications.
+
+## Quickstart: Connect to the IO Cloud
+
+You can link your AI agent to our hosted MCP server in seconds.
+
+### 1. Link Your Agent (Claude Code Example)
+
+Replace `<YOUR_IO_NET_API_KEY>` with your personal key from the io.net dashboard with `io-cloud` project scopes:
+
+```shellscript
+claude mcp add io-cloud https://mcp.io.solutions/mcp \
+  --transport http \
+  --header "x-api-key: <YOUR_IO_NET_API_KEY>" \
+  --scope project
+```
+
+### 2. Verify Connection
+
+Once added, restart your agent and try these prompts:
+
+- _"What io-cloud tools are available to me?"_
+- _"List all active container deployments in my account."_
+- _"Find available NVIDIA H100 hardware specs."_
+
+## Desktop Agent Configuration
+
+If you prefer using GUI-based agents, copy and paste the configurations below. Replace `<YOUR_IO_NET_API_KEY>` with your actual key with `io-cloud` project scopes.
+
+### Claude Desktop
+
+Add this to your `claude_desktop_config.json` (found in `%AppData%\Claude` on Windows or `~/Library/Application Support/Claude` on macOS):
+
+```javascript
+{
+  "mcpServers": {
+    "io-cloud": {
+      "type": "http",
+      "url": "https://mcp.io.solutions/mcp",
+      "headers": {
+        "x-api-key": "<YOUR_IO_NET_API_KEY>"
+      }
+    }
+  }
+}
+```
+
+### Cursor & Windsurf
+
+1. Open **Settings** \> **Features** \> **MCP**.
+2. Click **\+ Add New MCP Server**.
+3. **Name:** `io-cloud`
+4. **Type:** `command` (or `http` if supported).
+5. **URL:** `https://mcp.io.solutions/mcp`
+6. **Header:** `x-api-key: <YOUR_IO_NET_API_KEY>`
+
+## Capabilities & Documentation
+
+### Available MCP Tools
+
+| **Tool Group** | **Capability** | **Purpose** |
+| :-- | :-- | :-- |
+| **CaaS** | `caas_list_deployments` | Real-time status of your container clusters. |
+| **VMaaS** | `vmaas_get_hardware_list` | Browsing available GPU/CPU configurations. |
+| **Provisioning** | `caas_deploy_container` | Instant provisioning of new compute resources. |
+
+### Authentication Methods
+
+1. **Static Header (Recommended for Individuals):** Include your API key with `io-cloud` project scopes in the `x-api-key` HTTP header during setup.
+2. **Dynamic Forwarding (For Multi-User Apps):** Pass the key dynamically within the `auth.api_key` argument of any specific tool call.
+
+## Programmatic Usage (Python Example)
+
+If you are building a custom integration, you can use the `mcp` Python SDK to interact with the IO Cloud server.
+
+```python
+import asyncio
+from mcp import ClientSession
+from mcp.client.http import http_client
+
+async def io_cloud_demo():
+    # 1. Initialize the HTTP Client
+    async with http_client("https://mcp.io.solutions/mcp") as (read_stream, write_stream):
+        async with ClientSession(read_stream, write_stream) as session:
+            await session.initialize()
+
+            # 2. List available hardware via tool call
+            # Note: We pass the API key dynamically here (Mode A)
+            result = await session.call_tool(
+                "vmaas_get_hardware_list", 
+                arguments={
+                    "auth": {"api_key": "YOUR_IO_NET_API_KEY"},
+                    "gpu": "NVIDIA H100"
+                }
+            )
+            print(f"Available H100s: {result}")
+
+if __name__ == "__main__":
+    asyncio.run(io_cloud_demo())
+```
+
+## Troubleshooting
+
+- **Authentication Failure (401/403):** Verify your API key in the io.net dashboard.
+- **"No API key provided":** Ensure the header is correctly set in your JSON config or passed in the tool arguments.
+- **Connection Timeout:** Verify your network allows outbound traffic to `https://mcp.io.solutions`.
+
+<Info>
+  **Ready to scale your infrastructure?** For high-volume requirements or custom integration support, contact us at [support@io.net](mailto:support@io.net)
+</Info>

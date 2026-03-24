@@ -138,7 +138,8 @@
                   "guides/clouds/kubernetes/quick-start",
                   "guides/clouds/kubernetes/optimizations"
                 ]
-              }
+              },
+              "guides/clouds/agent-cloud"
             ]
           },
           {
