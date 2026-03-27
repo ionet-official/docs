@@ -23,7 +23,7 @@ body,
     border-radius: 9999px !important;
 }
 
-#content-area {
+/* #content-area {
     position: relative;
 }
 
@@ -43,7 +43,7 @@ body,
         background: #f9f9f9;
         z-index: -1;
     }
-}
+} */
 
 .nav-logo {
     height: 20px;
@@ -93,9 +93,9 @@ body,
     transition: top 0.2s ease-out, height 0.2s ease-out;
 }
 
-@media (min-width: 1024px) {
+/* @media (min-width: 1024px) {
     #content-area {
         margin-left: 20.7rem;
         padding-left: 0;
     }
-}
+} */
