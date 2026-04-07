@@ -8,16 +8,28 @@
     "dark": "#6b6b6b"
   },
   "redirects": [
-  {
-    "source": "/index",
-    "destination": "/guides/inception"
-  }
-],
+    {
+      "source": "/index",
+      "destination": "/guides/inception"
+    }
+  ],
   "appearance": {
-    "default": "dark",
+    "default": "light",
     "strict": true
   },
   "favicon": "logo-small-favicon.png",
+  "fonts": {
+    "heading": {
+      "family": "Geist",
+      "source": "https://cdn.jsdelivr.net/fontsource/fonts/geist@latest/latin-400-normal.woff2",
+      "format": "woff2"
+    },
+    "body": {
+      "family": "Geist",
+      "source": "https://cdn.jsdelivr.net/fontsource/fonts/geist@latest/latin-400-normal.woff2",
+      "format": "woff2"
+    }
+  },
   "navigation": {
     "tabs": [
       {
