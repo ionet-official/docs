@@ -1,0 +1,185 @@
+---
+title: "Reasoning for Chat Completions"
+tag: "New"
+---
+
+IO Intelligence supports models that can "think" before answering — exposing their step-by-step reasoning alongside the final response. You control this behavior with a single, OpenAI-compatible `reasoning` field on every chat completion request.
+
+## Enable or disable reasoning
+
+Add a `reasoning` object to your `/v1/chat/completions` payload:
+
+```json
+{
+  "model": "moonshotai/Kimi-K2.6",
+  "messages": [{ "role": "user", "content": "..." }],
+  "reasoning": { "effort": "medium" }
+}
+```
+
+| `effort` value | Behavior |
+| :-- | :-- |
+| `"none"` | **Disable** reasoning |
+| `"low"` | Enable reasoning, lighter thinking |
+| `"medium"` | Enable reasoning, balanced thinking |
+| `"high"` | Enable reasoning, deeper thinking |
+| _(field omitted)_ | Use the model's default behavior |
+
+The same field works for every model that supports reasoning — no per-model configuration required.
+
+## Quickstart
+
+### Enable reasoning (curl)
+
+```shellscript
+curl https://api.intelligence.io.solutions/api/v1/chat/completions \
+  -H "Authorization: Bearer $IO_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "deepseek-ai/DeepSeek-V4-Pro",
+    "messages": [
+      { "role": "user", "content": "A farmer has 30 heads and 74 legs across his chickens and cows. How many of each?" }
+    ],
+    "reasoning": { "effort": "medium" }
+  }'
+```
+
+### Disable reasoning (curl)
+
+```shellscript
+curl https://api.intelligence.io.solutions/api/v1/chat/completions \
+  -H "Authorization: Bearer $IO_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "moonshotai/Kimi-K2.6",
+    "messages": [
+      { "role": "user", "content": "Just give me the number: what is 7 + 9?" }
+    ],
+    "reasoning": { "effort": "none" }
+  }'
+```
+
+### Python (OpenAI SDK)
+
+```python
+from openai import OpenAI
+client = OpenAI(
+    base_url="https://api.intelligence.io.solutions/api/v1",
+    api_key="YOUR_IO_API_KEY",
+)
+# Enable reasoning
+response = client.chat.completions.create(
+    model="moonshotai/Kimi-K2.6",
+    messages=[{"role": "user", "content": "Plan a 3-day Lisbon itinerary."}],
+    extra_body={"reasoning": {"effort": "medium"}},
+)
+# Disable reasoning
+response = client.chat.completions.create(
+    model="moonshotai/Kimi-K2.6",
+    messages=[{"role": "user", "content": "What is 7 + 9? Just the number."}],
+    extra_body={"reasoning": {"effort": "none"}},
+)
+```
+
+### Node.js (OpenAI SDK)
+
+```javascript
+import OpenAI from "openai";
+const client = new OpenAI({
+  baseURL: "https://api.intelligence.io.solutions/api/v1",
+  apiKey: process.env.IO_API_KEY,
+});
+const response = await client.chat.completions.create({
+  model: "moonshotai/Kimi-K2.6",
+  messages: [{ role: "user", content: "Plan a 3-day Lisbon itinerary." }],
+  // @ts-expect-error — reasoning is an IO Intelligence extension
+  reasoning: { effort: "medium" },
+});
+```
+
+## Reading the response
+
+When reasoning is **enabled**, the model's chain of thought is returned in `choices[0].message.reasoning_content`, and reasoning tokens are reported in `usage.completion_tokens_details.reasoning_tokens`:
+
+```json
+{
+  "choices": [
+    {
+      "message": {
+        "role": "assistant",
+        "reasoning_content": "Let me set up two equations: c + w = 30 and 2c + 4w = 74...",
+        "content": "23 chickens and 7 cows."
+      }
+    }
+  ],
+  "usage": {
+    "completion_tokens": 65,
+    "completion_tokens_details": { "reasoning_tokens": 48 }
+  }
+}
+```
+
+When reasoning is **disabled** (`"effort": "none"`):
+
+- `reasoning_content` is `null` or omitted
+- `reasoning_tokens` is `0` (or near-zero for models that always think internally)
+- The visible answer is in `content` only
+
+## Streaming
+
+Reasoning works with `"stream": true` as well. While the model is thinking, you'll receive delta events with a `reasoning_content` field; once thinking finishes, regular `content` deltas follow.
+
+```json
+{ "choices": [{ "delta": { "reasoning_content": "Let me set up..." } }] }
+{ "choices": [{ "delta": { "reasoning_content": " two equations..." } }] }
+{ "choices": [{ "delta": { "content": "23 chickens" } }] }
+{ "choices": [{ "delta": { "content": " and 7 cows." } }] }
+```
+
+## Backwards compatibility
+
+- Requests **without** the `reasoning` field continue to behave exactly as before.
+- The legacy `reasoning_effort: "low" | "medium" | "high"` top-level string is still accepted.\
+  You can safely roll out the new field at your own pace.
+
+## Errors
+
+| Status | Meaning |
+| :-- | :-- |
+| 400 | A small number of always-reasoning models reject `effort: "none"`. Use a different effort or omit the field. |
+| 402 | The selected model requires a higher IO Intelligence tier. |
+| 429 | You've been rate-limited. Back off and retry. |
+
+## Models Enabled 
+
+The capability of reason enabling/disabling has been enabled for the following models:
+
+| Model | Enable | Disable | Notes |
+| :-- | :-- | :-- | :-- |
+| `moonshotai/Kimi-K2.6` | ✓ | ✓ | Clean toggle |
+| `openai/gpt-oss-120b` | ✓ | ✓ | Always reasons internally; `effort:"none"` suppresses `reasoning_content` only |
+| `deepseek-ai/DeepSeek-V4-Pro` | ✓ | ✓ | Clean toggle |
+| `deepseek-ai/DeepSeek-V4-Flash` | ✓ | ✓ |  |
+| `deepseek-ai/DeepSeek-V3.2` | ✓ | ✓ | Doesn't always engage reasoning for trivial prompts |
+| `MiniMaxAI/MiniMax-M2.7` | ✓ | N/A | Always-on reasoning by design, `effort:"none"` is a no-op for this model |
+| `google/gemma-4-26b-a4b-it` | — | — | Reasoning routing in progress; check release notes before relying on it |
+
+## FAQs
+
+<AccordionGroup>
+  <Accordion title="Do I need different code for different models?" icon="comment-question">
+    No. Use `reasoning.effort` everywhere, IO Intelligence handles the rest.
+  </Accordion>
+
+  <Accordion title="What does each effort level cost me in tokens?" icon="comment-question">
+    Reasoning tokens are billed as completion tokens. none skips them entirely; low/medium/high each produce progressively more reasoning tokens. Exact budgets vary by model.
+  </Accordion>
+
+  <Accordion title="Can I hide the chain of thought from end users while still using it internally?" icon="comment-question">
+    Yes, just don't render `reasoning_content` in your UI. It's returned as a separate field so you can choose whether to show it.
+  </Accordion>
+
+  <Accordion title="Does this work with tool calls / function calling?" icon="comment-question">
+    Yes. Reasoning happens before tool selection; the chain of thought explains _why_ the model chose a particular tool call.
+  </Accordion>
+</AccordionGroup>
