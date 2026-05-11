@@ -185,7 +185,8 @@
               "guides/intelligence/agentic-workflow",
               "guides/intelligence/training-as-a-service",
               "guides/intelligence/api-keys-and-secrets",
-              "guides/intelligence/sub-api-keys"
+              "guides/intelligence/sub-api-keys",
+              "guides/intelligence/reasoning-for-chat-completions"
             ]
           },
           {
