@@ -7,8 +7,6 @@
   "reference/block-rewards-summary",
   "reference/get-models-list",
   "reference/create-chat-completion",
-  "reference/get-embedding-models-list",
-  "reference/create-embedding",
   "reference/get-agents-list",
   "reference/workflows-schema",
   "reference/workflows-run",

@@ -380,9 +380,7 @@
                   "reference/ai-models/get-started-with-io-intelligence-api",
                   "reference/ai-models/uploading-images",
                   "reference/ai-models/get-models-list",
-                  "reference/ai-models/create-chat-completion",
-                  "reference/ai-models/get-embedding-models-list",
-                  "reference/ai-models/create-embedding"
+                  "reference/ai-models/create-chat-completion"
                 ]
               },
               {

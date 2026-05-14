@@ -16,7 +16,6 @@ With this setup, you can switch between providers without changing client-side c
 The main capabilities of this integration include:
 
 - Chat Completions
-- Embeddings
 - Model Response API (`createModelResponse`)
 - OpenAI-compatible request/response format
 - Bearer token authentication
@@ -69,7 +68,6 @@ IO_INTELLIGENCE_API_KEY=your_api_key_here
 Your API key must allow access to the following APIs:
 
 - `/chat/completions`
-- `/embeddings`
 
 ## Quick Start
 
@@ -119,7 +117,7 @@ You can add IO Intelligence as a provider in Portkey from the Portkey Dashboard 
 
     - Base URL resolution (https://api.intelligence.io.solutions/api/v1)
     - Bearer authentication headers
-    - Endpoint mapping for chat and embeddings
+    - Endpoint mapping for chat completions
   </Tab>
 </Tabs>
 
@@ -160,16 +158,6 @@ Test your integration using the following examples.
   All responses follow the **OpenAI response schema**, enabling drop-in compatibility with existing tooling.
 </Note>
 
-**_Embeddings Example:_**
-
-```json
-{
-  "provider": "iointelligence",
-  "model": "text-embedding-3-small",
-  "input": "Generate vector"
-}
-```
-
 ## Advanced Configuration
 
 ### Using IO Intelligence as Primary with Fallback
@@ -186,7 +174,6 @@ Portkey can route requests to your chosen fallback provider if the following err
 | Endpoint              | Function Name         | Endpoint Path       |
 | :-------------------- | :-------------------- | :------------------ |
 | Chat Completions      | `chatComplete`        | `/chat/completions` |
-| Embeddings            | `embed`               | `/embeddings`       |
 | Create Model Response | `createModelResponse` | `/chat/completions` |
 
 <Note>
