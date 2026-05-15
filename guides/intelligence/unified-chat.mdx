@@ -1,26 +1,18 @@
 ---
 title: "Chat"
-description: "One Chat. Every Tool — Powered by IO Cloud"
+description: "Chat with IO Intelligence models, optionally enhanced by real-time web search."
 tag: "NEW"
 ---
 
-**Unified Chat** enables your AI to **read**, **watch**, **listen**, and **create** across multiple content types in real time. After you upload files or connect data sources, the system extracts key information, integrates it with contextual knowledge, and generates **accurate**, **well-supported responses** to your queries. It can also **generate** images and videos, and perform live web searches to enhance the quality and relevance of its answers.
-
-Unlike a standard chatbot, **Unified Chat** is built on **Retrieval-Augmented Generation (RAG)**. This approach connects answers directly to your own data, ensuring responses are **relevant, verifiable, and transparent**.
+**Chat** lets you interact with IO Intelligence's open-source language models directly from the io.net Dashboard. You can ask questions, get explanations, draft content, and — when you need fresh information — enable **web search** so the model can incorporate live results into its answers.
 
 ## How it works
 
-**Unified Chat** uses **Retrieval-Augmented Generation (RAG)** — a method that pairs a language model with a retrieval system. Instead of relying only on pre-trained knowledge, the model retrieves and incorporates **the most relevant information** from your files and connected sources in real time.
-
-This design is particularly useful in **enterprise, research, and developer workflows**, where **accuracy, explainability, and traceability** are essential.
-
-<Note>
-  Unified Chat replaces the previous **Retrieval Engine**. All existing features are preserved, with additional capabilities such as **multimedia support** and improved contextual understanding.
-</Note>
+When web search is enabled, the model issues queries to the web in real time and uses the retrieved snippets as additional context for its response. When web search is disabled, the model answers from its pretrained knowledge alone.
 
 ## Getting Started
 
-To begin using **Unified Chat**:
+To begin using **Chat**:
 
 1. Go to your **io.net Dashboard**.
 2. Navigate to [**Chat**](https://ai.io.net/ai/re) within **IO Intelligence**.
@@ -28,32 +20,11 @@ To begin using **Unified Chat**:
    <Frame>
      ![Unified Chat1 Jp](/images/docs/unified_chat/UnifiedChat1.jpg)
    </Frame>
-3. Upload your content and start chatting.
+3. Type your question or command in the chat box and start chatting.
 
 ## Key Features
 
-1. **Upload & Manage Files**
-   - Click **Upload Files** or drag and drop files into the left-hand panel.
-   - Supported formats include **.pdf, .docx, .png, .jpg, .mp4, .html**, and more.
-   - Maximum file size per upload: **100MB**.
-
-     <Frame>
-       ![Unified Chat](/images/docs/unified_chat/UnifiedChat4.jpg)
-     </Frame>
-
-   **Best practices:**
-   - Use clear, descriptive file names and structured content for better results.
-   - Avoid scanned or low-quality documents whenever possible.
-
-   **To delete a file:**
-   1. Hover over the file name.
-   2. Click the **three-dot menu (⋮)**.
-   3. Select **Delete**.
-
-      <Frame>
-        ![Unified Chat5 Jp](/images/docs/unified_chat/UnifiedChat5.jpg)
-      </Frame>
-1. **Chat with Unified Chat**
+1. **Chat with the model**
    - Type your question or command in the chat box at the bottom of the page.
    - Use the microphone icon to record voice input (if preferred).
 
@@ -64,55 +35,28 @@ To begin using **Unified Chat**:
        ![Unified Chat Audio Recording Pn](/images/docs/unified_chat/UnifiedChat_AudioRecording.png)
      </Frame>
    - Each interaction **consumes tokens**.
-   - You can also **attach additional files or images** and enable **web search** to provide more context for better answers.
+
+2. **Enable web search**
+   - Toggle **web search** on to let the model fetch live results from the web before answering.
+   - This is useful when you need current information that may not be in the model's training data.
 
      <Frame>
        ![Unified Chat Attach Images Enable Web Search Pn](/images/docs/unified_chat/UnifiedChat_AttachImages_EnableWebSearch.png)
      </Frame>
-2. **Generate Creative Outputs**
 
-- Unified Chat can generate **creative outputs** such as **images, short videos, or anime clips** directly from your prompt.
-
-  <Frame>
-    ![Unified Chat Creative Outputs Pn](/images/docs/unified_chat/UnifiedChat_CreativeOutputs.png)
-  </Frame>
-- Choose the desired output type before sending your prompt, or simply describe what you want in the chat.
-
-**Short video example:**
-
-<img
-  src="/images/docs/unified_chat/UnifiedChatvideo.gif"
-  alt="Unified Chatvideo Gi"
-  title="Unified Chatvideo Gi"
-  className="mx-auto"
-  style={{ width:"77%" }}
-/>
-
-**Anime clip example:**
-
-<img
-  src="/images/docs/unified_chat/UnifiedChatanime.gif"
-  alt="Unified Chatanime Gi"
-  title="Unified Chatanime Gi"
-  className="mx-auto"
-  style={{ width:"77%" }}
-/>
-
-## Communicating with Unified Chat
-
-After uploading your documents, you can interact with **Unified Chat** to explore, analyze, and retrieve information.
+## Communicating with Chat
 
 ### How to Ask Questions
 
 1. Enter your question or prompt in the **chat field**.
-2. **Unified Chat** will search your content and generate an **accurate, well-grounded response**.
+2. The model will generate a response, optionally enriched with web search results when that option is enabled.
 
 ### What Each Response Includes
 
 - **Clear, concise answer** — directly addressing your query.
-- **Reasoning breakdown** — explaining how the system reached the conclusion.
+- **Reasoning breakdown** — explaining how the model reached the conclusion.
 - **Tools or agents used** — showing any additional AI functions applied.
-- **References to source files** — linking to your uploaded or connected content for traceability.
+- **Web sources** — when web search is enabled, links to the pages used to inform the response.
 
   <Frame>
     ![Unified Chat Example Pi Pn](/images/docs/unified_chat/UnifiedChat_Example_Pi.png)
@@ -120,11 +64,10 @@ After uploading your documents, you can interact with **Unified Chat** to explor
 
 ### Example Use Cases
 
-- Research paper analysis
-- Enterprise document summarization
-- Legal document Q&A
-- Media file transcription and interpretation
-- Knowledge management for teams
+- General Q\&A and brainstorming
+- Code explanations and snippets
+- Quick lookups with up-to-date web context
+- Drafting emails, summaries, and outlines
 
 ## IO Credits and Token Management
 
