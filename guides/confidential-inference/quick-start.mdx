@@ -6,7 +6,7 @@ description: "This guide walks you through running your first verifiable AI infe
 ## Prerequisites
 
 - io.net API key ([get one here](https://cloud.io.net))
-- `curl` or Python 3.7+
+- `curl` or Python 3.7\+
 
 ## Step 1: Find Models with Attestation Support
 
@@ -15,7 +15,7 @@ First, list available models and filter for those supporting attestation:
 ### curl
 
 ```bash
-curl -s https://api.intelligence.io.net/v1/models \
+curl -s https://api.intelligence.io.solutions/v1/models \
   -H "Authorization: Bearer $IO_API_KEY" | \
   jq '.data[] | select(.supports_attestation == true) | {name, model_id}'
 ```
@@ -26,7 +26,7 @@ curl -s https://api.intelligence.io.net/v1/models \
 import requests
 
 response = requests.get(
-    "https://api.intelligence.io.net/v1/models",
+    "https://api.intelligence.io.solutions/v1/models",
     headers={"Authorization": f"Bearer {IO_API_KEY}"}
 )
 
@@ -170,7 +170,7 @@ signature_headers = {
 
 The response includes signature headers for verification:
 
-```
+```text
 text: <signed content>
 signature: <cryptographic signature>
 signing_address: 0x1234...abcd
@@ -182,7 +182,7 @@ image_digest: sha256:...c00
 
 Verify that the response came from the attested machine by checking the signature.
 
-### Python (with eth_account)
+### Python (with eth\_account)
 
 ```python
 from eth_account.messages import encode_defunct
