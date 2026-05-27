@@ -101,7 +101,6 @@
               "guides/clouds/start-using-io-cloud",
               "guides/clouds/monitor-manage-clusters",
               "guides/clouds/deploy-containers",
-              "guides/clouds/deploy-ray-cluster",
               "guides/clouds/deploy-bare-metal-cluster",
               {
                 "group": "VM on Demand",
