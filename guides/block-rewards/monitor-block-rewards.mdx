@@ -16,118 +16,30 @@ The Block Rewards tab provides a transparent view of io.net's Block Rewards and 
 The example below shows the **Block Rewards** tab, with each section explained in detail afterward.
 
 <Frame>
-  ![](/images/docs/a4a3f9b-block_rewards.png)
+  ![](/images/Screenshot-2026-06-11-at-1.05.21-PM-1.png)
 </Frame>
 
 The top section of the **Block Rewards** tab provides real-time data about IO Coin emissions and blocks.
 
-<Frame>
-  ![](/images/docs/1fbaaa2-bwtop.png)
-</Frame>
+| Block | Description |
+| --- | --- |
+| _Total Coins Distributed_ | The cumulative number of IO Coins distributed since inception. |
+| _Today’s Distributed Coins_ | Total number of IO Coins distributed for the current calendar day. |
+| _Total Epochs Computed_ | The cumulative number of epochs successfully added to the blockchain since inception. |
+| _Next Epoch Start_ | The estimated time when the next epoch will be initiated. Blocks are added to the chain at hourly intervals. |
+| _Total Unique Suppliers Paid_ | The number of unique workers that earned a block reward since inception. |
+| _Today’s Unique Suppliers Paid_ | The number of unique workers that earned a block reward for the current calendar day. Each day ends at UTC\+0. |
 
-| Block                         | Description                                                                                                   |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| _Total Coins Distributed_     | The cumulative number of IO Coins distributed since inception.                                                |
-| _Today’s Distributed Coins_   | Total number of IO Coins distributed for the current calendar day.                                            |
-| _Total Blocks Computed_       | The cumulative number of blocks successfully added to the blockchain since inception.                         |
-| _Next Block Start Time_       | The estimated time when the next block will be initiated. Blocks are added to the chain at hourly intervals.  |
-| _Total Unique Workers Paid_   | The number of unique workers that earned a block reward since inception.                                      |
-| _Today’s Unique Workers Paid_ | The number of unique workers that earned a block reward for the current calendar day. Each day ends at UTC+0. |
+### Epoch Details Table
 
-### Block Details Table
-
-The **Block Details **table provides a detailed overview of the blocks processed in the blockchain. The list provides a transparent and verifiable record of all blocks in the IO Coin blockchain. Users can search for specific blocks and view details, verify transactions, and trace the history and integrity of the blockchain.
+The table provides a detailed overview of the epochs processed in the blockchain. The list provides a transparent and verifiable record of all epochs running in our network. Users can search for specific epochs and view details, verify transactions, and trace the history and integrity of the blockchain.
 
 The table is an important tool to monitor the blockchain's performance, transparency, and efficiency, and provides users with insight into the block creation process and the distribution of rewards.
 
-You can download a _CSV file_ for each **_Block ID_** by going to [Block Rewards](https://block-rewards.io.solutions/).
-
 <Frame>
-  ![](/images/docs/9eda851-brbottom.png)
+  ![Screenshot 2026 06 11 At 1 09 48 PM 1](/images/Screenshot-2026-06-11-at-1.09.48-PM-1.png)
 </Frame>
-
-| Column                   | Description                                                                                                                                                                                                                                                                                                                                                                                            |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| _Search Block ID_        | Allows you to search for specific Block IDs.                                                                                                                                                                                                                                                                                                                                                           |
-| _Status_                 | The current state of each block within the io.net blockchain network.                                                                                                                                                                                                                                                                                                                                  |
-| _In Progress_            | The worker has been nominated for a block reward. The block is not complete nor added to the blockchain. When the block closes, the worker is notified.                                                                                                                                                                                                                                                |
-| _Completed_              | The block has been successfully validated and added to the blockchain.                                                                                                                                                                                                                                                                                                                                 |
-| _Failed_                 | The attempt to create a block has failed.                                                                                                                                                                                                                                                                                                                                                              |
-| _Block ID_               | A unique identifier assigned to each block within a blockchain. This assists in maintaining the chronological order and integrity of the blockchain.                                                                                                                                                                                                                                                   |
-| _Processed Time_         | The exact time the block was completed in UTC.                                                                                                                                                                                                                                                                                                                                                         |
-| _Total Rewards Emission_ | The total distribution of rewards for a specific block.                                                                                                                                                                                                                                                                                                                                                |
-| _Nominated Workers_      | Workers nominated for the hourly block reward. To be nominated, the worker must satisfy the requirements of recent _Uptime_ (connection status) and _Proof of Work_. The worker is evaluated again when the block closes. If it satisfies the _Proof of TimeLock_ (based on Uptime) and _Proof of Work_ (PoW) requirements for the one hour period, the worker is rewarded based on their final score. |
-| _Succeeded_              | The total number of workers that succeeded in meeting the criteria for a block reward of the total workers that were nominated.                                                                                                                                                                                                                                                                        |
-| _Failed_                 | Number of workers that failed to earn a block reward of the total workers that were nominated.                                                                                                                                                                                                                                                                                                         |
-
-### Block Reward Details
-
-If you click on a specific block, you can view the details for each _IO Worker Block Reward_. This page provides a complete list of all the nominated workers for the specific block. You can filter to view by **_Completed_** (Successful) and **_Failed_** workers. You can search for your _Device ID_ to check the status of your Block Reward.
 
 <Info>
-  If a block reward is in progress, you are unable to click on it until it is complete.
+  If a epoch reward is in progress, you are unable to click on it until it is complete.
 </Info>
-
-<Frame>
-  ![](/images/docs/03091d7-br2.png)
-</Frame>
-
-The example below shows an IO Worker Block Reward. It provides details on the individual worker. You can click on the **_Device ID_** to view the info related to the worker in the **Workers** tab.
-
-<Frame>
-  <img
-    src="/images/docs/61906ca-br1.png"
-    alt=""
-    className="mx-auto"
-    style={{ width:"52%" }}
-  />
-</Frame>
-
-Below is the Block Reward calculation formula.
-
-```
-+(0.02 x (connectivity_tier_number" / 4.0))  
-   + (2.0 x "hardware_multiplier" x "processor_quantity") ) x 100 + (0.05 x "was_hired"))x 10
-```
-
-| Block                    | Description                                                                                                                                                                       |
-| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| _IO Worker Block Reward_ | To the right of this, you can view the **Completed** or **Failed** status. The green **Completed** status indicates success.                                                      |
-| _Device ID_              | You can copy the _Device ID_ or click it to view the info related to the worker in the **Workers** tab.                                                                           |
-| _Connectivity Tier_      | The _Connectivity Tier_ that the worker qualifies for. This is an option when a customer reserves a GPU/CPU when they deploy a cluster.                                           |
-| _Processor_              | The processor type, GPU/CPU. In this example, it is a **Nvidia L4** GPU.                                                                                                          |
-| _Processor Quantity_     | Number of processors available for the worker.                                                                                                                                    |
-| _POTL_                   | Proof of Timelock, verifies the uptime for the worker. This can be executed against a hired worker.                                                                               |
-| _POW_                    | TFLOPs Proof, tasks the worker must solve to verify the worker. To learn more about PoW, see [Proof of Work](/docs/proof-of-work). This is never executed against a hired worker. |
-| _Total Score_            | The score your worker receives based on its performance as measured by **POW** and **POTL**.                                                                                      |
-| _Rewarded_               | The amount of IO Coin the worker earned based on **Total Score**.                                                                                                                 |
-
-### Exceptions
-
-**Exempt-Hired**
-
-If a worker was nominated for a Block Reward, but was hired by a customer during the evaluation hour, io.net exempts the worker from the _Proof of Work_. The exemption occurs so the worker can successfully complete the job for the customer.
-
-In the example below, the **IO Worker Block Reward** is marked as **Completed**. The worker was hired by a customer so no PoW tasks were assigned. _Uptime_ was tested during the hour and the worker satisfied the requirement. Since it was successful, a reward was granted.
-
-<Frame>
-  <img
-    src="/images/docs/7f01b1e-exempt-hired.png"
-    alt=""
-    className="mx-auto"
-    style={{ width:"50%" }}
-  />
-</Frame>
-
-**Exempt-Headnode**
-
-Headnodes must always be available for jobs. For this reason, PoW is not executed against headnodes when nominated for Block Rewards. _Uptime_ (POTL) is tested during the evaluation. In the example below, the headnode satisfied the requirement. Since it was successful, a reward was granted.
-
-<Frame>
-  <img
-    src="/images/docs/b33bbd7-ex_headnode.png"
-    alt=""
-    className="mx-auto"
-    style={{ width:"51%" }}
-  />
-</Frame>
