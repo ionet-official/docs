@@ -204,6 +204,12 @@
             ]
           },
           {
+            "group": "Integrations",
+            "pages": [
+              "guides/intelligence/integrations/openrouter-byok"
+            ]
+          },
+          {
             "group": "IO Intelligence Integrations",
             "hidden": true,
             "pages": [
