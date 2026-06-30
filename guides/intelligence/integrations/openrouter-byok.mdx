@@ -9,14 +9,15 @@ sidebarTitle: "OpenRouter (BYOK)"
 OpenRouter's **Bring Your Own Key (BYOK)** lets you route OpenRouter requests for
 io.net models through **your own io.net account**. You keep OpenRouter's unified API,
 SDKs, and routing, while inference is served and billed by io.net against your io.net
-credits — at io.net's direct rates instead of a resale markup.
+credits.
 
 ### Why use it
 
-- **Pay io.net's rate** on your io.net balance, not OpenRouter's resale price.
-- **Low OpenRouter fee** — BYOK is **0% for your first 1,000,000 requests each month**
-  (5% thereafter), charged to your OpenRouter credits.
-- **No code changes** — keep the OpenRouter SDKs and tooling you already use.
+- **Use your own io.net account** — inference is served and billed by io.net on your
+  io.net balance, at your io.net rate, with your own quotas and rate limits.
+- **No code changes** — keep the OpenRouter unified API, SDKs, and routing you already use.
+- **Isolated, transparent billing** — your usage sits on your io.net account, separate
+  from OpenRouter's shared capacity.
 - **Pin io.net** for the latency or throughput you want, with fallback control.
 
 ## How it works
@@ -137,9 +138,13 @@ The response `usage` block tells you whether your key served the request:
 ## Pricing
 
 <Info>
+  - **No markup on model prices.** OpenRouter passes provider rates through without a
+    markup, so BYOK changes *who serves and bills* the request — not the per-token price.
   - **Inference** is billed by io.net to **your io.net credits**, at io.net's rates.
-  - **OpenRouter** charges a **BYOK fee** from your OpenRouter credits: **0% for the
-    first 1M BYOK requests per month, 5% thereafter**.
+  - **OpenRouter BYOK fee** — **5%** of what the same model and provider would normally
+    cost, charged to your OpenRouter credits, after a monthly free-request allowance.
+    See [OpenRouter's BYOK pricing](https://openrouter.ai/docs/guides/overview/auth/byok)
+    for the current fee and free allowance.
 </Info>
 
 ## Troubleshooting
