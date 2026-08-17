@@ -369,9 +369,7 @@
                   "reference/io-explorer/objects",
                   "reference/io-explorer/get-device-details",
                   "reference/io-explorer/device-summary",
-                  "reference/io-explorer/device-details-for-a-block",
-                  "reference/io-explorer/pow-summary",
-                  "reference/io-explorer/block-rewards-summary"
+                  "reference/io-explorer/pow-summary"
                 ]
               }
             ]

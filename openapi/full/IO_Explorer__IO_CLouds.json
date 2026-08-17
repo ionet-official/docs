@@ -4000,62 +4000,6 @@
         }
       }
     },
-    "/v1/io-blocks/blocks/{block_id}/workers/{device_id}": {
-      "get": {
-        "tags": [
-          "io-blocks"
-        ],
-        "summary": "Get Blocks Block Id Workers Device Id",
-        "description": "This endpoint returns granular information about a device in the context of a specific block reward. It offers details about Block Reward challenges, the outcome, and details about the device.",
-        "operationId": "get_blocks_block_id_workers_device_id_v1_io_blocks_blocks__block_id__workers__device_id__get",
-        "parameters": [
-          {
-            "name": "device_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Device Id"
-            }
-          },
-          {
-            "name": "block_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Block Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IOWorkerBlockRecord"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found"
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/v1/io-blocks/blocks/{block_id}/workers/{status}/{page}": {
       "get": {
         "tags": [
@@ -4541,70 +4485,6 @@
                     "$ref": "#/components/schemas/DeviceProofOfTimeLock"
                   },
                   "title": "Response Route Device Potl Block Id V1 Io Blocks Devices  Device Id  Potl  Block Id  Get"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found"
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/io-blocks/devices/{device_id}/block-rewards-summary/{from_date}/{to_date}": {
-      "get": {
-        "tags": [
-          "io-blocks-devices"
-        ],
-        "summary": "Route Block Rewards Summary",
-        "operationId": "route_block_rewards_summary_v1_io_blocks_devices__device_id__block_rewards_summary__from_date___to_date__get",
-        "parameters": [
-          {
-            "name": "device_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Device Id"
-            }
-          },
-          {
-            "name": "from_date",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "From Date"
-            }
-          },
-          {
-            "name": "to_date",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "To Date"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DeviceBlockRewardsSummary"
                 }
               }
             }
