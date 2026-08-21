@@ -13,6 +13,7 @@ The **Agent Cloud is a Model Context Protocol (MCP)** server which allows any MC
 - **Agentic DevOps:** Ask your agent to "Find the cheapest 4x H100 cluster and deploy my PyTorch image," and let it handle the API calls.
 - **Plug-and-Play:** No custom SDKs to install. Use the universal MCP standard to bridge your AI tools to the large GPU cloud.
 - **Enterprise Ready:** Supports both simple API key headers for individuals and dynamic key forwarding for multi-tenant applications.
+- **x402 Payments:** When credits run short, a deploy returns an x402 payment request your agent can settle in USDC and retry, with no trip back to the dashboard.
 
 ## Quickstart: Connect to the IO Cloud
 
@@ -74,9 +75,53 @@ Add this to your `claude_desktop_config.json` (found in `%AppData%\Claude` on Wi
 
 | **Tool Group** | **Capability** | **Purpose** |
 | :-- | :-- | :-- |
+| **CaaS** | `caas_get_hardware_ids` | Browse the deployable container hardware catalog. |
+| **CaaS** | `caas_get_max_gpus_per_container` | Max GPU count allowed in a single container. |
+| **CaaS** | `caas_get_available_replicas` | Replicas available for a hardware ID and quantity. |
+| **CaaS** | `caas_get_price_estimate` | Cost of a configuration before you deploy it. |
+| **CaaS** | `caas_deploy_container` | Instant provisioning of new compute resources. |
 | **CaaS** | `caas_list_deployments` | Real-time status of your container clusters. |
+| **CaaS** | `caas_get_deployment` | Details of a single deployment. |
+| **CaaS** | `caas_get_deployment_containers` | Containers running inside a deployment. |
+| **CaaS** | `caas_update_deployment` | Change an existing deployment. |
+| **CaaS** | `caas_extend_deployment_duration` | Add runtime to a deployment. |
+| **CaaS** | `caas_destroy_deployment` | Terminate a deployment and stop billing. |
 | **VMaaS** | `vmaas_get_hardware_list` | Browsing available GPU/CPU configurations. |
-| **Provisioning** | `caas_deploy_container` | Instant provisioning of new compute resources. |
+| **VMaaS** | `vmaas_deploy_vm` | Provision a VM cluster. |
+| **VMaaS** | `vmaas_list_deployments` | Real-time status of your VM clusters. |
+| **VMaaS** | `vmaas_get_deployment` | Details of a single VM deployment. |
+| **VMaaS** | `vmaas_get_deployment_vms` | VMs running inside a deployment. |
+| **VMaaS** | `vmaas_extend_cluster_duration` | Add runtime to a VM cluster. |
+| **VMaaS** | `vmaas_destroy_deployment` | Terminate a VM cluster and stop billing. |
+
+The recommended flow is: pick hardware from the catalog, estimate the price, deploy, then manage.
+
+### Working with Hardware IDs
+
+The catalog returns two kinds of hardware. Regional hardware uses string IDs and reports a `location` (for example `gpu_1x_a6000` in `US`, or `H100_sxm5x8` in `CA`); network hardware uses integer IDs with a null location.
+
+What you can pass back depends on the service. `vmaas_deploy_vm` and `caas_get_price_estimate` accept either form, so pass the ID exactly as the catalog returned it and do not coerce a string ID to an integer. `caas_deploy_container` and `caas_get_available_replicas` currently accept integer IDs only, so pick a network hardware entry for those calls.
+
+Every deploy needs a placement, so `location_ids` is not optional in practice: pass exactly one location, **or** a `node_pool_id` for a private node pool. Passing both is rejected, and so is passing neither. Only one location per deployment is supported today. `caas_get_price_estimate` requires `location_ids` as well. VMaaS accepts country codes such as `["US"]`; `caas_deploy_container` currently takes integer location IDs through this server.
+
+<Warning>
+  `duration_hours` on `caas_extend_deployment_duration` and `vmaas_extend_cluster_duration` is **additive**: it adds N hours to the time remaining, it does not set the new total. To reach a target total, subtract the current remaining hours yourself.
+</Warning>
+
+### Topping Up Credits with x402
+
+When a deploy or extend is short on credits, IO Cloud answers with **x402**, the HTTP 402 payment protocol, so your agent can settle the bill and continue without a human opening the dashboard.
+
+The four tools that spend credits (`caas_deploy_container`, `caas_extend_deployment_duration`, `vmaas_deploy_vm`, `vmaas_extend_cluster_duration`) return `status: "payment_required"` instead of an error. This is a bill to pay and then retry, not a failure.
+
+Under `payment` you get a standard x402 envelope: `x402Version: 2`, an `accepts` array whose first entry uses the `exact` scheme, and an `io_net` object with the amounts in USD. Any x402-capable client can read it. Today the quote is payable in USDC on Solana, but take the chain and token from `accepts[0].network` and `accepts[0].asset` rather than assuming:
+
+- Pay the exact `maxAmountRequired` of the given `asset`, to the exact `payTo` address, on the stated `network`. `maxAmountRequired` is in the asset's atomic units, so `"3820000"` means 3.82 USDC.
+- Always take `payTo` from the response you are acting on. Never send to an address cached from an earlier call. A plain transfer with no memo matches correctly.
+- Send the full amount in a single transfer. An underfunded intent is held without applying any credits until the full amount arrives.
+- Top-ups have a \$1.00 minimum, so a shortfall under a dollar still requires a \$1 payment.
+
+`io_net.shortfall_usd` is the gap between the request's cost and your balance. `io_net.quote_usd` is what the top-up actually costs, which is the shortfall grossed up for the payment provider's fee and floored at the minimum. Pay `quote_usd`, not `shortfall_usd`. Anything the top-up leaves over stays on your account as [IO Credits](/guides/payment/io-credits).
 
 ### Authentication Methods
 
@@ -90,11 +135,11 @@ If you are building a custom integration, you can use the `mcp` Python SDK to in
 ```python
 import asyncio
 from mcp import ClientSession
-from mcp.client.http import http_client
+from mcp.client.streamable_http import streamablehttp_client
 
 async def io_cloud_demo():
     # 1. Initialize the HTTP Client
-    async with http_client("https://mcp.io.solutions/mcp") as (read_stream, write_stream):
+    async with streamablehttp_client("https://mcp.io.solutions/mcp") as (read_stream, write_stream, _):
         async with ClientSession(read_stream, write_stream) as session:
             await session.initialize()
 
@@ -104,7 +149,7 @@ async def io_cloud_demo():
                 "vmaas_get_hardware_list", 
                 arguments={
                     "auth": {"api_key": "YOUR_IO_NET_API_KEY"},
-                    "gpu": "NVIDIA H100"
+                    "gpu": "H100"
                 }
             )
             print(f"Available H100s: {result}")
@@ -118,6 +163,8 @@ if __name__ == "__main__":
 - **Authentication Failure (401/403):** Verify your API key in the io.net dashboard.
 - **"No API key provided":** Ensure the header is correctly set in your JSON config or passed in the tool arguments.
 - **Connection Timeout:** Verify your network allows outbound traffic to `https://mcp.io.solutions`.
+- **`status: "payment_required"`:** Your account is short on credits. Settle the x402 quote in the response, then retry the call.
+- **Empty hardware list:** Filters match the catalog's own values. Use `gpu: "H100"`, not `gpu: "NVIDIA H100"`.
 
 <Info>
   **Ready to scale your infrastructure?** For high-volume requirements or custom integration support, contact us at [support@io.net](mailto:support@io.net)
