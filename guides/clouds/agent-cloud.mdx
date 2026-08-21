@@ -114,7 +114,7 @@ A deploy or extend call can return `status: "payment_required"` instead of an er
 - Pay the exact `maxAmountRequired` of the given `asset`, to the exact `payTo` address, on the stated `network`. `maxAmountRequired` is in the asset's atomic units, so `"3820000"` means 3.82 USDC.
 - Always take `payTo` from the response you are acting on. Never send to an address cached from an earlier call. A plain transfer with no memo matches correctly.
 - Send the full amount in a single transfer. An underfunded intent is held without applying any credits until the full amount arrives.
-- Top-ups have a $1.00 minimum, so a shortfall under a dollar still requires a $1 payment.
+- Top-ups have a \$1.00 minimum, so a shortfall under a dollar still requires a \$1 payment.
 
 `io_net.shortfall_usd` is the gap between the request's cost and your balance. `io_net.quote_usd` is what the top-up actually costs, which is the shortfall grossed up for the payment provider's fee and floored at the minimum. Pay `quote_usd`, not `shortfall_usd`. Anything the top-up leaves over stays on your account as [IO Credits](/guides/payment/io-credits).
 
