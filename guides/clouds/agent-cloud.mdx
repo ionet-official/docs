@@ -102,7 +102,7 @@ The catalog returns two kinds of hardware. Regional hardware uses string IDs and
 
 What you can pass back depends on the service. `vmaas_deploy_vm` and `caas_get_price_estimate` accept either form, so pass the ID exactly as the catalog returned it and do not coerce a string ID to an integer. `caas_deploy_container` and `caas_get_available_replicas` currently accept integer IDs only, so pick a network hardware entry for those calls.
 
-`location_ids` accepts country codes such as `["US"]` on VMaaS deploys and on price estimates. `caas_deploy_container` takes integer location IDs. Omit the field to let the platform place the workload.
+Every deploy needs a placement, so `location_ids` is not optional in practice: pass exactly one location, **or** a `node_pool_id` for a private node pool. Passing both is rejected, and so is passing neither. Only one location per deployment is supported today. `caas_get_price_estimate` requires `location_ids` as well. VMaaS accepts country codes such as `["US"]`; `caas_deploy_container` currently takes integer location IDs through this server.
 
 <Warning>
   `duration_hours` on `caas_extend_deployment_duration` and `vmaas_extend_cluster_duration` is **additive**: it adds N hours to the time remaining, it does not set the new total. To reach a target total, subtract the current remaining hours yourself.
