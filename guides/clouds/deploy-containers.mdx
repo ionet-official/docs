@@ -48,6 +48,11 @@ Configure your container:
 
   </CodeGroup>
 - **Traffic Port** _(required)_ Default: `8000`
+- **Health Check** _(optional)_ An HTTP `GET` endpoint on your container that
+  returns a successful (`2xx`) response when your application is ready.
+  Recipes prefill the recommended path (for example `/health`); expand the
+  **Health Check** box to change it, or leave it empty to disable health
+  monitoring.
 - **Environment Variables** Click **Add Variable** to define key-value pairs. Options:
   - Normal Variable
   - Private Variable You can add or remove variables as needed.
@@ -88,6 +93,22 @@ Once all required fields are completed, click **Next Step**.
   <Note>
     For advanced users: There is a known issue where Terraform variable interpolation (`$`) may conflict with service-layer substitution. Escaping with `$$` resolves this issue.
   </Note>
+</Accordion>
+
+<Accordion title="How health checks work" icon="heart-pulse" iconType="duotone">
+  - We request your endpoint every **10 seconds** through the same route as
+    your public traffic. Only a `2xx` response counts as healthy; redirects
+    are not followed.
+  - The endpoint must respond **without authentication**.
+  - Your deployment's **public URL is published once the health check
+    passes**. If no health check is set, the URL is published once the
+    container is reachable.
+  - Applications with long startups — for example, large models loading —
+    may show as unhealthy until they begin responding. This is expected.
+  - Health checks are **monitoring only**: a failing check never stops your
+    container or blocks traffic that is already being served.
+  - You can add, change, or remove the health check later via
+    **Adjust Deployment**.
 </Accordion>
 
 ### Step 2: Select Your Cluster Processor + Location
@@ -143,6 +164,22 @@ Click **Return to Clusters** after your cluster is successfully deployed. The sc
 <Frame>
   ![](/images/docs/81a933f12f6aceaf4230ec194f9c0eeb9b268d910ba86d03801bfb4c4fceefc7-Bitmap.jpg)
 </Frame>
+
+### Container Health Status
+
+If a health check is configured, each container on the deployment page shows
+a heart icon reflecting the latest health check result:
+
+| Icon | Status | Meaning |
+| --- | --- | --- |
+| 🟢 Green heart | Healthy | Your application is responding with `2xx` on the configured path. |
+| 🟠 Orange heart | Unhealthy | Recent health checks failed. Traffic is still served — check your container logs. |
+| ⚪ White heart | No data | No health check is configured for this deployment, or no result is available yet. |
+
+The health status updates within a couple of minutes of a change. A newly
+deployed container may briefly show as unhealthy while your application
+starts up — once it responds successfully, the status turns green and the
+public URL is published.
 
 > 🚧 Troubleshooting Container Issues
 >
